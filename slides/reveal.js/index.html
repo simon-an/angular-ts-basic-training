@@ -218,6 +218,40 @@
 				<section>
 					<h2>Variable Declarations</h2>
 					<p>var, let, const</p>
+					<pre><code>var a = 10;</code></pre>
+					<p>var scoping</p>
+					<pre><code data-trim data-noescape>
+						function f(shouldInitialize: boolean) {
+							if (shouldInitialize) {
+								var x = 10;
+							}
+							return x;
+						}</code></pre>
+					<pre><code>f(true);  // returns '10'</code></pre>
+					<pre><code>f(false); // returns 'undefined'</code></pre>
+				</section>
+				<section>
+					<p>Wo ist der Fehler?</p>
+					<pre><code data-trim data-noescape>
+							function sumMatrix(matrix: number[][]) {
+								var sum = 0;
+								for (var i = 0; i < matrix.length; i++) {
+									var currentRow = matrix[i];
+									for (var i = 0; i < currentRow.length; i++) {
+										sum += currentRow[i];
+									}
+								}
+								return sum;
+							}
+					</code></pre>
+				</section>
+				<section>
+					<p>Was ist das Ergebnis auf der Console?</p>
+					<pre><code data-trim data-noescape>
+						for (var i = 0; i < 10; i++) {
+							setTimeout(function() { console.log(i); }, 100 * i);
+						}
+					</code></pre>
 				</section>
 				<section>
 					<h2>Interfaces</h2>
