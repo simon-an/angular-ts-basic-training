@@ -7,197 +7,309 @@
     <p>TODO Antwort</p>
 </section>
 <section>
-    <section>
-        <h2>Typescript Hands On</h2>
-        <p>Wir testen den Typescript Compiler.</p>
-        <pre><code>echo console.log('hello world') >> helloworld.ts</code></pre>
-        <pre><code>tsc helloworld.ts</code></pre>
-        <pre><code data-trim data-noescape>node helloworld.js</code></pre>
-    </section>
-    <section>
-        <p>Wir initialiseieren ein Typescript Projekt mit Typescript Compiler.</p>
-        <pre><code>tsc --init</code></pre>
-        <p>Verzeichnis 'src' erstellen und helloword.ts hinein verschieben.</p>
-        <pre><code>"rootDir": "./src",</code></pre>
-        <pre><code>"outDir": "./out",</code></pre>
-        <pre><code>tsc</code></pre>
-    </section>
-    <section>
-        <h2>Basic Types</h2>
-        <h4>Boolean</h4>
-        <pre><code>let isDone: boolean = false;</code></pre>
-        <h4>Number</h4>
-        <pre><code data-trim data-noescape>
+    <h2>Typescript Hands On</h2>
+    <p>Wir testen den Typescript Compiler.</p>
+    <pre><code>echo console.log('hello world') >> helloworld.ts</code></pre>
+    <pre><code>tsc helloworld.ts</code></pre>
+    <pre><code data-trim data-noescape>node helloworld.js</code></pre>
+</section>
+<section>
+    <p>Wir initialiseieren ein Typescript Projekt mit Typescript Compiler.</p>
+    <pre><code>tsc --init</code></pre>
+    <p>Verzeichnis 'src' erstellen und helloword.ts hinein verschieben.</p>
+    <pre><code>"rootDir": "./src",</code></pre>
+    <pre><code>"outDir": "./out",</code></pre>
+    <pre><code>tsc</code></pre>
+</section>
+<section>
+    <h2>Basic Types</h2>
+    <h4>Boolean</h4>
+    <pre><code>let isDone: boolean = false;</code></pre>
+    <h4>Number</h4>
+    <pre><code data-trim data-noescape>
                 let decimal: number = 6; 
                 let hex: number = 0xf00d; 
                 let binary: number = 0b1010; 
                 let octal: number = 0o744;
             </code></pre>
-        <h4>String</h4>
-        <pre><code data-trim data-noescape>
+    <h4>String</h4>
+    <pre><code data-trim data-noescape>
                 let color: string = "blue";
                 color = 'red';
                 let age: number = 37;
                 let sentence: string = `Hello, my name is ${ fullName }.
                 I'll be ${ age + 1 } years old next month.`;
             </code></pre>
-    </section>
-    <section>
-        <h4>Array</h4>
-        <pre><code>let list: number[] = [1, 2, 3];</code></pre>
-        <pre><code>let list: Array&lt;number> = [1, 2, 3];</code></pre>
-        <h4>Tuple</h4>
-        <pre><code data-trim data-noescape>
+</section>
+<section>
+    <h4>Array</h4>
+    <pre><code>let list: number[] = [1, 2, 3];</code></pre>
+    <pre><code>let list: Array&lt;number> = [1, 2, 3];</code></pre>
+    <h4>Tuple</h4>
+    <pre><code data-trim data-noescape>
             let x: [string, number];
             // Initialize it
             x = ["hello", 10]; // OK
             // Initialize it incorrectly
             x = [10, "hello"]; // Error
             </code></pre>
-        <h4>Enum</h4>
-        <pre><code data-trim data-noescape>
+    <h4>Enum</h4>
+    <pre><code data-trim data-noescape>
                     enum Color {Red, Green, Blue}
                     let c: Color = Color.Green;
             </code></pre>
-    </section>
-    <section>
-        <h5>Any</p>
-            <pre><code>let list: any[] = [1, true, "free"];</code></pre>
-            <h5>Unkown</h5>
-            <pre><code data-trim data-noescape>
+</section>
+<section>
+    <h5>Any</p>
+        <pre><code>let list: any[] = [1, true, "free"];</code></pre>
+        <h5>Unkown</h5>
+        <pre><code data-trim data-noescape>
                     let someValue: unknown = "this is a string";
                     if (typeof someValue === 'string') {
                         let strLength: number = (&lt;string>someValue).length;
                     }
             </code></pre>
-            <h5>Void</h5>
-            <pre><code data-trim data-noescape>
+        <h5>Void</h5>
+        <pre><code data-trim data-noescape>
                 function warnUser(): void {
                     console.log("This is my warning message");
                 }</code></pre>
-            <h5>Never</h5>
-            <pre><code data-trim data-noescape>
+        <h5>Never</h5>
+        <pre><code data-trim data-noescape>
                 function error(message: string): never {
                     throw new Error(message);
                 }
                 </code></pre>
-    </section>
-    <section>
-        <h5>Undefined, Null</h5>
-        <pre><code>function doSomething(param: string | null | undefined): void</code></pre>
-        <h5>Object</h5>
-        <p>object is a type that represents the non-primitive type, i.e. any thing that is not number, string, boolean,
-            symbol, null, or undefined.</p>
-        <pre><code>declare function create(o: object | null): void;
+</section>
+<section>
+    <h5>Undefined, Null</h5>
+    <pre><code>function doSomething(param: string | null | undefined): void</code></pre>
+    <h5>Object</h5>
+    <p>object is a type that represents the non-primitive type, i.e. any thing that is not number, string, boolean,
+        symbol, null, or undefined.</p>
+    <pre><code>declare function create(o: object | null): void;
                 </code></pre>
-        <pre><code>declare function create(o: {} | null): void;
+    <pre><code>declare function create(o: {} | null): void;
                     </code></pre>
-    </section>
-    <section>
-        <h2>Type Assertions</h2>
-        <pre><code>let strLength: number = (&lt;string>someValue).length;</code></pre>
-        <pre><code>let strLength: number = (someValue as string).length;</code></pre>
-    </section>
-    <section>
-        <h2>Undefined & null Prüfung</h2>
-    </section>
-    <section>
-        <h2>Variable Declarations</h2>
-        <p>var, let, const</p>
-        <pre><code>var a = 10;</code></pre>
-        <p>var scoping</p>
-        <pre><code data-trim data-noescape>
-                function f(shouldInitialize: boolean) {
-                    if (shouldInitialize) {
-                        var x = 10;
-                    }
-                    return x;
-                }</code></pre>
-        <pre><code>f(true);  // returns '10'</code></pre>
-        <pre><code>f(false); // returns 'undefined'</code></pre>
-    </section>
-    <section>
-        <p>Wo ist der Fehler?</p>
-        <pre><code data-trim data-noescape>
-                    function sumMatrix(matrix: number[][]) {
-                        var sum = 0;
-                        for (var i = 0; i < matrix.length; i++) {
-                            var currentRow = matrix[i];
-                            for (var i = 0; i < currentRow.length; i++) {
-                                sum += currentRow[i];
-                            }
-                        }
-                        return sum;
-                    }
-            </code></pre>
-    </section>
-    <section>
-        <p>Was ist das Ergebnis auf der Console?</p>
-        <pre><code data-trim data-noescape>
-                for (var i = 0; i < 10; i++) {
-                    setTimeout(function() { console.log(i); }, 100 * i);
+</section>
+<section>
+    <h2>Type Assertions</h2>
+    <pre><code>let strLength: number = (&lt;string>someValue).length;</code></pre>
+    <pre><code>let strLength: number = (someValue as string).length;</code></pre>
+</section>
+<section>
+    <h2>Undefined & null Prüfung</h2>
+    <pre><code data-trim data-noescape>
+        function nullcheck(param: { property: string }) {
+            if(param !== null && param !== undefined){
+                if(param.property !== null && 
+                param.property !== undefined){
+                    // NOOOOO
                 }
-            </code></pre>
-    </section>
-    <section>
-        <h2>Interfaces</h2>
-        <p>Was macht der Compiler mit Interfaces?</p>
-    </section>
-    <section>
-        <h2>Classes</h2>
-    </section>
-    <section>
-        <h2>Functions</h2>
-    </section>
-    <section>
-        <h2>Generics</h2>
-    </section>
-    <section>
-        <h2>Enums</h2>
-    </section>
-    <section>
-        <h2>Type Inference</h2>
-    </section>
-    <section>
-        <h2>Type Compatibility</h2>
-    </section>
-    <section>
-        <h2>Advanced Types</h2>
-    </section>
-    <section>
-        <h2>Symbols</h2>
-    </section>
-    <section>
-        <h2>Iterators and Generators</h2>
-    </section>
-    <section>
-        <h2>Modules</h2>
-    </section>
-    <section>
-        <h2>Namespaces</h2>
-    </section>
-    <section>
-        <h2>Namespaces and Modules</h2>
-    </section>
-    <section>
-        <h2>Module Resolution</h2>
-    </section>
-    <section>
-        <h2>Declaration Merging</h2>
-    </section>
-    <section>
-        <h2>JSX</h2>
-    </section>
-    <section>
-        <h2>Decorators</h2>
-    </section>
-    <section>
-        <h2>Mixins</h2>
-    </section>
-    <section>
-        <h2>Triple-Slash Directives</h2>
-    </section>
-    <section>
-        <h2>Type Checking JavaScript Files</h2>
-    </section>
+            }
+            if(param && param.property){
+                // string
+            }
+            if(!!(param && param.property)){
+                // boolean
+            }
+        }
+    </code></pre>
+    <p>!! Operator: "bang, bang you're boolean" </p>
+</section>
+<section>
+    <h2>Variable Declarations</h2>
+    <pre><code>var a = 10;</code></pre>
+    <pre><code data-trim data-noescape>
+        const b = 'hello';
+        b += 'world'; // error
+    </code></pre>
+    <p>var scoping</p>
+    <pre><code data-trim data-noescape>
+        function f(shouldInitialize: boolean) {
+            var x;
+            if (shouldInitialize) {
+                x = 10;
+            }
+            return x;
+        }
+        console.log(f(true)); // returns '10'
+        console.log(f(false)); // returns 'undefined'                          
+    </code></pre>
+    <pre><code>f(true);  // returns '10'</code></pre>
+    <pre><code>f(false); // returns 'undefined'</code></pre>
+</section>
+<section>
+    <h4>const</h4>
+    <p>const sorgt <b>nicht</b> für Immutablitity</p>
+    <pre><code data-trim data-noescape>
+        const numLivesForCat = 9;
+        const kitty = {
+            name: "Aurora",
+            numLives: numLivesForCat,
+        }
+        kitty = {// Error
+            name: "Danielle",
+            numLives: numLivesForCat
+        };
+        // all "okay"
+        kitty.name = "Rory";
+        kitty.name = "Kitty";
+        kitty.name = "Cat";
+        kitty.numLives--;
+    </code></pre>
+</section>
+<section>
+    <p>Wo ist der Fehler?</p>
+    <pre><code data-trim data-noescape>
+        function sumMatrix(matrix: number[][]) {
+            var sum = 0;
+            for (var i = 0; i < matrix.length; i++) {
+                var currentRow = matrix[i];
+                for (var i = 0; i < currentRow.length; i++) {
+                    sum += currentRow[i];
+                }
+            }
+            return sum;
+        }
+    </code></pre>
+</section>
+<section>
+    <p>Was ist das Ergebnis auf der Console?</p>
+    <pre><code data-trim data-noescape>
+        for (var i = 0; i < 10; i++) {
+            setTimeout(function() { console.log(i); }, 100 * i);
+        }
+    </code></pre>
+</section>
+<section>
+    <h2>Destructing Arrays</h2>
+    <pre><code data-trim data-noescape>
+            let [first, ...rest] = [1, 2, 3, 4];
+            console.log(first); // outputs 1
+            console.log(rest); // outputs [ 2, 3, 4 ]
+    </code></pre>
+    <h2>Destructing Objects</h2>
+    <pre><code data-trim data-noescape>
+            let o = {
+                a: "foo",
+                b: 12,
+                c: "bar"
+            };
+            let { a, b } = o;
+    </code></pre>
+</section>
+<section>
+    <h2>Spread Operator</h2>
+    <pre><code data-trim data-noescape>
+        let first = [1, 2];
+        let second = [3, 4];
+        let bothPlus = [0, ...first, ...second, 5];
+    </code></pre>
+</section>
+<section>
+    <h2>Interfaces</h2>
+    <p>Explizit definierte Typen</p>
+    <pre><code data-trim data-noescape>
+            function printLabel(labelledObj: { label: string }) {
+                console.log(labelledObj.label);
+            }
+            
+            let myObj = {size: 10, label: "Size 10 Object"};
+            printLabel(myObj);
+    </code></pre>
+    <pre><code data-trim data-noescape>
+            interface LabelledValue {
+                label: string;
+                readonly optional?: boolean;
+            }
+            
+            function printLabel(labelledObj: LabelledValue) {
+                console.log(labelledObj.label);
+            }
+            
+            let myObj = {size: 10, label: "Size 10 Object"};
+            printLabel(myObj);
+    </code></pre>
+    <p>Was macht der Compiler mit Interfaces?</p>
+</section>
+<section>
+    <h2>Readonly</h2>
+    <p>Variables: const</p>
+    <p>Properties: readonly</p>
+    <p>ReadonlyArray:</p>
+    <pre><code data-trim data-noescape>
+            let a: number[] = [1, 2, 3, 4];
+            let ro: ReadonlyArray&lt;number> = a;
+            ro[0] = 12; // error!
+            ro.push(5); // error!
+            ro.length = 100; // error!
+            a = ro; // error!
+    </code></pre>
+</section>
+
+<section>
+    <h2>Classes</h2>
+    <pre><code data-trim data-noescape>
+        class DigitalClock implements ClockInterface {
+            constructor(public h: number, public m: number) {}
+            tick() {
+                console.log('beep beep');
+            }
+        }
+    </code></pre>
+</section>
+<section>
+    <h2>Functions</h2>
+</section>
+<section>
+    <h2>Generics</h2>
+</section>
+<section>
+    <h2>Enums</h2>
+</section>
+<section>
+    <h2>Type Inference</h2>
+</section>
+<section>
+    <h2>Type Compatibility</h2>
+</section>
+<section>
+    <h2>Advanced Types</h2>
+</section>
+<section>
+    <h2>Symbols</h2>
+</section>
+<section>
+    <h2>Iterators and Generators</h2>
+</section>
+<section>
+    <h2>Modules</h2>
+</section>
+<section>
+    <h2>Namespaces</h2>
+</section>
+<section>
+    <h2>Namespaces and Modules</h2>
+</section>
+<section>
+    <h2>Module Resolution</h2>
+</section>
+<section>
+    <h2>Declaration Merging</h2>
+</section>
+<section>
+    <h2>JSX</h2>
+</section>
+<section>
+    <h2>Decorators</h2>
+</section>
+<section>
+    <h2>Mixins</h2>
+</section>
+<section>
+    <h2>Triple-Slash Directives</h2>
+</section>
+<section>
+    <h2>Type Checking JavaScript Files</h2>
 </section>
