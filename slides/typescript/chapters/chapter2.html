@@ -385,28 +385,108 @@
         function isFish(pet: Fish | Bird): pet is Fish {
             return (&lt;Fish>pet).swim !== undefined;
         }</code></pre>
+</section>
+<section>
     <p>typeof type guards: primitive Types</p>
     <p>instanceof type guards: Objects</p>
     <p>Nullable types: Union with null</p>
 </section>
 <section>
     <h2>Symbols</h2>
+    Symbols are immutable, and unique.
+    <pre><code data-trim data-noescape>
+    let sym2 = Symbol("key");
+    let sym3 = Symbol("key");
+    sym2 === sym3; // false, symbols are unique
+</code></pre>
+    <p>Just like strings, symbols can be used as keys for object properties.</p>
 </section>
 <section>
     <h2>Iterators and Generators</h2>
+    <p>values: for..of (Iterator Types. Will be different in ES3 and ES5)</p>
+    <p>keys: for..in Objects and Iterator Types</p>
 </section>
 <section>
     <h2>Modules</h2>
+    <p>In TypeScript, just as in ECMAScript 2015, any file containing a top-level import or export is considered a
+        module. Conversely, a file without any top-level import or export declarations is treated as a script whose
+        contents are available in the global scope (and therefore to modules as well).</p>
+    <p>Any declaration (such as a variable, function, class, type alias, or interface) can be exported by adding the
+        export keyword.</p>
+</section>
+<section>
+    <pre><code>
+        class ZipCodeValidator implements StringValidator {
+            isAcceptable(s: string) {
+                return s.length === 5 && numberRegexp.test(s);
+            }
+        }
+        export { ZipCodeValidator };
+        export { ZipCodeValidator as mainValidator };
+    </code></pre>
+    <pre><code>import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";</code></pre>
+    <pre><code>import * as validator from "./ZipCodeValidator";
+        let myValidator = new validator.ZipCodeValidator();
+        Import a module for side-effects only</code></pre>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+        //ZipCodeValidator.ts
+        export default class ZipCodeValidator {
+            static numberRegexp = /^[0-9]+$/;
+            isAcceptable(s: string) {
+                return s.length === 5 && 
+                    ZipCodeValidator.numberRegexp.test(s);
+            }
+        }
+        //Test.ts
+        import validator from "./ZipCodeValidator";
+        let myValidator = new validator();
+    </code></pre>
+</section>
+<section>
+    <h2>export = and import = require()</h2>
+    <p>oth CommonJS and AMD generally have the concept of an exports object which contains all exports from a module.
+
+        They also support replacing the exports object with a custom single object. Default exports are meant to act as
+        a replacement for this behavior; however, the two are incompatible. TypeScript supports export = to model the
+        traditional CommonJS and AMD workflow.
+
+        The export = syntax specifies a single object that is exported from the module. This can be a class, interface,
+        namespace, function, or enum.
+
+        When exporting a module using export =, TypeScript-specific import module = require("module") must be used to
+        import the module.</p>
+</section>
+<section>
+    <h2>Working with Other JavaScript Libraries></h2>
+    <p> To describe the shape of libraries not written in TypeScript, we need to declare the API that the library
+        exposes.
+
+        We call declarations that don’t define an implementation “ambient”. Typically, these are defined in .d.ts
+        files. If
+        you’re familiar with C/C++, you can think of these as .h files. Let’s look at a few examples.
+    </p>
 </section>
 <section>
     <h2>Namespaces</h2>
+    <p>Ähnlich zu packages in javascript.</p>
+    <pre><code>
+        namespace Shapes {
+            export namespace Polygons {
+                export class Triangle { }
+                export class Square { }
+            }
+        }
+        import polygons = Shapes.Polygons;
+        let sq = new polygons.Square(); // Same as 'new Shapes.Polygons.Square()'</code></pre>
 </section>
-<section>
+<!-- <section>
     <h2>Namespaces and Modules</h2>
-</section>
-<section>
+</section> -->
+<!-- <section>
     <h2>Module Resolution</h2>
-</section>
+</section> -->
 <section>
     <h2>Declaration Merging</h2>
 </section>
