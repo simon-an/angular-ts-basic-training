@@ -1,10 +1,13 @@
 function doSomeThing(value: number): Promise<number> {
-  return new Promise(resolve =>
+  return new Promise((resolve, reject) => {
+    // throw new Error('Something failed')
     setTimeout(() => {
+      // Dont throw errors here.
       console.log("doSomeThing", value + 1);
-      throw new Error('Something failed');
+      // reject(new Error('Something failed'));
       resolve(value + 1);
     }, 1000)
+  }
   );
 }
 function doSomeThingElse(value: number): Promise<number> {
@@ -23,8 +26,9 @@ function doThirdThing(value: number): Promise<number> {
     }, 1000)
   );
 }
-function failureCallback(error: number): void {
-  console.log("error", error);
+function failureCallback(error: any): any {
+  console.log("errorxyz:", error);
+  return error;
 }
 
 // # Callback hell
