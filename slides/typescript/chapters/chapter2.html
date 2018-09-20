@@ -287,7 +287,13 @@
     let myAdd: (x: number, y: number) => number = (x, y) => {
         return x + y;
     };
+    type functionType =  (x: number, y: number)=> number ;
+    let myAdd: functionType = (x, y) => {
+        return x + y;
+    };
     </code></pre>
+</section>
+<section>
     <p>Optional Parameter: </p>
     <pre><code>function buildName(firstName: string, lastName?: string) {</code></pre>
     <p>Default Parameter: </p>
@@ -387,24 +393,33 @@
         }</code></pre>
 </section>
 <section>
+    <h2>Advanced Types Cont.</h2>
     <p>typeof type guards: primitive Types</p>
-    <p>instanceof type guards: Objects</p>
-    <p>Nullable types: Union with null</p>
+    <p>instanceof type guards: objects</p>
+    <p>Nullable types: Union mit null</p>
 </section>
 <section>
     <h2>Symbols</h2>
-    Symbols are immutable, and unique.
+    Symbols sind immutable, und unique.
     <pre><code data-trim data-noescape>
     let sym2 = Symbol("key");
     let sym3 = Symbol("key");
-    sym2 === sym3; // false, symbols are unique
+    sym2 === sym3; // false
 </code></pre>
-    <p>Just like strings, symbols can be used as keys for object properties.</p>
+    <p>Wie strings, können symbols als Keys für object properties genutzt werden.</p>
 </section>
 <section>
-    <h2>Iterators and Generators</h2>
-    <p>values: for..of (Iterator Types. Will be different in ES3 and ES5)</p>
-    <p>keys: for..in Objects and Iterator Types</p>
+    <h2>Iterators und Generators</h2>
+    <p>values: for..of (Iterator Types. Unterschiedlicher Compiler-Output mit ES3 und ES5)</p>
+    <p>keys: for..in Objects und Iterator Types</p>
+    <pre><code data-trim data-noescape>
+    for (let i in list28) {
+        console.log(i); // "0", "1", "2",
+    }
+    for (let i of list28) {
+        console.log(i); // "4", "5", "6"
+    }
+    </code></pre>
 </section>
 <section>
     <h2>Modules</h2>
@@ -415,7 +430,7 @@
         export keyword.</p>
 </section>
 <section>
-    <pre><code>
+    <pre><code data-trim data-noescape>
         class ZipCodeValidator implements StringValidator {
             isAcceptable(s: string) {
                 return s.length === 5 && numberRegexp.test(s);
@@ -445,33 +460,33 @@
     </code></pre>
 </section>
 <section>
-    <h2>export = and import = require()</h2>
-    <p>oth CommonJS and AMD generally have the concept of an exports object which contains all exports from a module.
-
-        They also support replacing the exports object with a custom single object. Default exports are meant to act as
-        a replacement for this behavior; however, the two are incompatible. TypeScript supports export = to model the
-        traditional CommonJS and AMD workflow.
-
-        The export = syntax specifies a single object that is exported from the module. This can be a class, interface,
-        namespace, function, or enum.
-
-        When exporting a module using export =, TypeScript-specific import module = require("module") must be used to
-        import the module.</p>
+    <h2>export = und import = require()</h2>
+    <ul style="font-size: 30px;">
+        <li>CommonJS und AMD exportieren ein Objekt, das alle exports eines Modules enthält.</li>
+        <li>Das export object kann durch ein beliebiges Objekt ersetzt werden. Default exports sind als Ersatz für
+            dieses
+            Verhalten gedacht. </li>
+        <li>TypeScript unterstützt export = um diesen traditionellen CommonJS and AMD Workflow zu
+            unterstützen.</li>
+        <li>The export = gibt ein ein einzelnes Objeckt an, das exportiert wird. Exportiert werden können: class,
+            interface,
+            namespace, function, oder enum.</li>
+        <li>Wenn der TypeScript-specific export = benutzt wird, muss der Import des Modules mit = require("module")
+            erfolgen.</li>
+    </ul>
 </section>
 <section>
-    <h2>Working with Other JavaScript Libraries></h2>
-    <p> To describe the shape of libraries not written in TypeScript, we need to declare the API that the library
-        exposes.
-
-        We call declarations that don’t define an implementation “ambient”. Typically, these are defined in .d.ts
-        files. If
-        you’re familiar with C/C++, you can think of these as .h files. Let’s look at a few examples.
+    <h2>Arbeiten mit anderen JavaScript Libraries</h2>
+    <p> Um die Struktur der Library zu beschreiben, die nicht in TypeScript geschreiben wurde, müssen wir die API der
+        Library definieren.
+        Deklarationen, die keine Implementierung definieren, sind “ambient”. Diese APIs sind in d.ts files definiert,
+        ähnlich wie .h Dateien in C++.
     </p>
 </section>
 <section>
     <h2>Namespaces</h2>
-    <p>Ähnlich zu packages in javascript.</p>
-    <pre><code>
+    <p>Ähnlich zu packages in Java oder C++.</p>
+    <pre><code data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {
                 export class Triangle { }
@@ -479,7 +494,9 @@
             }
         }
         import polygons = Shapes.Polygons;
-        let sq = new polygons.Square(); // Same as 'new Shapes.Polygons.Square()'</code></pre>
+        let sq = new polygons.Square();
+        // Same as 'new Shapes.Polygons.Square()
+    </code></pre>
 </section>
 <!-- <section>
     <h2>Namespaces and Modules</h2>
@@ -489,19 +506,157 @@
 </section> -->
 <section>
     <h2>Declaration Merging</h2>
+    <style>
+        td {
+            text-align: center !important;
+        }
+    </style>
+    <table>
+        <tr>
+            <th>Declaration Type</th>
+            <th>Namespace</th>
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Namespace</td>
+            <td>X</td>
+            <td></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td></td>
+            <td>X</td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Enum</td>
+            <td></td>
+            <td>X</td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Interface</td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Type Alias</td>
+            <td></td>
+            <td>X</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Function</td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Variable</td>
+            <td></td>
+            <td></td>
+            <td>X</td>
+        </tr>
+    </table>
 </section>
 <section>
-    <h2>JSX</h2>
+    <h2>Declaration Merging</h2>
+    <pre><code data-trim data-noescape>
+    interface Box {
+        height: number;
+        width: number;
+    }
+    
+    interface Box {
+        scale: number;
+    }
+    
+    let box: Box = {height: 5, width: 6, scale: 10};
+</code></pre>
 </section>
 <section>
     <h2>Decorators</h2>
+    <pre><code>tsc --target ES5 --experimentalDecorators</code></pre>
+    <pre><code data-trim data-noescape>
+        @classDecorator 
+        class Greeter {</code></pre>
+    <pre><code data-trim data-noescape>
+            class C {
+                @f()
+                @g()
+                method(param: string) {</code></pre>
 </section>
 <section>
     <h2>Mixins</h2>
+    <p>aka Traits in Skala.</p>
+    <pre><code data-trim data-noescape>
+        // Activatable Mixin
+        class Activatable {
+            isActive: boolean;
+            activate() {
+                this.isActive = true;
+            }
+            deactivate() {
+                this.isActive = false;
+            }
+        } 
+        class SmartObject implements Activatable {
+    </code></pre>
+
 </section>
-<section>
+<!-- <section>
     <h2>Triple-Slash Directives</h2>
-</section>
-<section>
+    <p>Triple-slash directives are single-line comments containing a single XML tag. The contents of the comment are
+        used as compiler directives.</p>
+</section> -->
+<!-- <section>
     <h2>Type Checking JavaScript Files</h2>
+</section> -->
+
+<section>
+    <h2>Map</h2>
+    <pre><code data-trim data-noescape>
+            const resultArray = [];
+            const initialArray = [1, 2, 3, 4];
+            for (let index = 0; index &lt; initialArray.length; index++) {
+                resultArray[index] = initialArray[index] * initialArray[index];
+            }
+    </code></pre>
+    <pre><code data-trim data-noescape>
+            const multiply = (value: number) => value * value;
+            console.log([1, 2, 3, 4].map(multiply));
+    </code></pre>
+</section>
+
+
+<section>
+    <h2>Filter</h2>
+    <pre><code data-trim data-noescape>
+        const initialArray = [1, 2, 3, 4];
+        for (let index = 0; index &lt; initialArray.length; index++) {
+            if (initialArray[index] * 100 > 200) {
+                resultArray.push(initialArray[index] * 100);
+                // resultArray[index] = initialArray[index] * 100;
+            }
+        }
+    </code></pre>
+    <pre><code data-trim data-noescape>
+        console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200));
+    </code></pre>
+</section>
+
+<section>
+    <h2>Reduce</h2>
+    <pre><code data-trim data-noescape>
+            let result = 0;
+            [1, 2, 3, 4].forEach(number => result += number);
+    </code></pre>
+    <pre><code data-trim data-noescape>
+            // Pure Function
+            const reducer = (sum: number, value: number) => sum += value;
+            console.log([1, 2, 3, 4].reduce(reducer, 0));
+    </code></pre>
 </section>

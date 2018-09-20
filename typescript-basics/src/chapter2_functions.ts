@@ -2,7 +2,7 @@ function add(x: number, y: number): number {
   return x + y;
 }
 
-let myAdd = function(x: number, y: number): number {
+let myAdd = function (x: number, y: number): number {
   return x + y;
 };
 
@@ -33,3 +33,8 @@ function buildName3(firstName: string, ...restOfName: string[]) {
 }
 
 let employeeName = buildName3('Joseph', 'Samuel', 'Lucas', 'MacKinzie');
+
+type functionType = (x: number, y: number) => number;
+let myAdd5: functionType = (x, y) => {
+  return x + y;
+};

@@ -21,6 +21,7 @@
 		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
+
 </head>
 
 <body>
@@ -50,10 +51,11 @@
 			minScale: 0.2,
 			maxScale: 1.5,
 			history: true,
-			dependencies: [
-				{
+			dependencies: [{
 					src: 'plugin/external/external.js',
-					condition: function () { return !!document.querySelector('[data-external]'); }
+					condition: function () {
+						return !!document.querySelector('[data-external]');
+					}
 				},
 				{
 					src: 'plugin/markdown/marked.js'
