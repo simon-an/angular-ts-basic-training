@@ -1,3 +1,292 @@
 <section>
-    <section>Async, Rxjs</section>
+    <h1>Promises und Async / Await</h1>
+</section>
+<section>
+    <h2>Szenario</h2>
+    <p class="fragment">
+        Eine Anwendung ruft Daten ab, verarbeitet diese und stellt diese schön formatiert dar.
+    </p>
+    <p class="fragment">
+        Problem: Wann werden die Daten von der API zurückgegeben?
+    </p>
+    <p class="fragment">
+        Antwort: Wenn die API die Daten zurückgibt. Wir wissen es nicht!
+    </p>
+    <p class="fragment">
+        Lösung: Wir warten auf die Rückgabe der Daten -> Promises
+    </p>
+    <aside class="notes">
+        Eine Website lädt Daten von einer API und verarbeitet und formatiert diese Daten um sie dem
+        Nutzer anzuzeigen.
+        Wenn wir versuchen die Daten zu verarbeiten bevor sie von der API zurückgegeben wurden, bekommen wir
+        entweder einen Fehler oder eine leere Website.
+        Wenn wir allerdings ein Promise verwenden, können wir sicherstellen, dass die API Daten erst verarbeitet
+        werden, wenn der API Aufruf erfolgreich Daten zurückgegeben hat.
+    </aside>
+</section>
+<section>
+    <p>
+        Promise<br>
+        =
+        <br>
+        mögliches Ergebnis einer asynchronen Operation
+    </p>
+    <aside class="notes">
+        wie ein Platzhalter = Objekt an das man Callbacks anhängen kann<br>
+        Promises erlauben uns auf die Ausführung eines bestimmten Codesteils zu warten, bevor ein anderer Teil
+        ausgeführt wird.
+    </aside>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+        function success(result) {
+            console.log("Audio file ready at URL: " + result);
+        }
+        
+        function failure(error) {
+            console.log("Error generating audio file: " + error);
+        }
+        
+        // Without promise
+        createAudioFileAsync(audioSettings, success, failure);
+
+        // With promise
+        createAudioFileAsync(audioSettings).then(success, failure);
+    </code></pre>
+    <p class="fragment">
+        <code>then()</code> wird erst ausgeführt, wenn die Funktion <code>createAudioFileAsync</code> fertig ausgeführt ist
+    </p>
+    <aside class="notes">
+        <ul>
+            <li>Callbacks, die per then() an ein Promise gehängt werden, sogar nach dem Erfolgs- oder Fehlerfall werden ausgeführt.</li>
+            <li>mehrere then() können hintereinander gehängt werden -> Sie werden in der Reihenfolge hintereinander ausgeführt</li>
+        </ul>
+    </aside>
+</section>
+<section>
+    <h2>Promise Chaining</h2>
+    <pre><code data-trim data-noescape>
+        promiseFunction()
+            .then(success1, failure1)
+            .then(success2, failure2)
+            .catch(failureCallback);
+    </code></pre>
+    <p>
+        <h3>Wichtig</h3>
+        <ul>
+            <li>Immer ein Ergebnis zurückgeben, sonst bekommt der Callback das Ergebnis des vorherigen Promises nicht</li>
+            <li>Wenn ein <code>then()</code> einen Fehler wirft, stoppt die Promise Chain und schaut, ob es weiter unten ein catch gibt</li>
+        </ul>
+    </p>
+    <aside class="notes">
+        Auführung: 1. promiseFunction 2. success1()/failure1() 3. success2()/failure2()
+    </aside>
+</section>
+<section>
+    <h2>Promise erstellen</h2>
+    <pre><code data-trim data-noescape>
+        new Promise( /* executor */ function(resolve, reject) { ... } );
+    </code></pre>
+    <p>
+        Ein Promise erstellen, z.B. um eine alte API zu wrappen:
+    </p>
+    <pre><code data-trim data-noescape>
+        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+        // alternative: Promise.resolve(setTimeout(resolve, ms));
+        wait(10000)
+            .then(() => saySomething("10 seconds"))
+            .catch(failureCallback);
+    </code></pre>
+    <aside class="notes">
+        Eine Funktion mit den Argumenten resolve und reject wird übergeben. Die Executor-Funktion wird sofort von der Promise Implementierung ausgeführt.
+        Die Executor-Funktion initiiert asynchrone Arbeit und dann, wenn sie fertig ist, ruft sie die resolve oder reject-Funktion auf. Wenn ein Fehler in der Executor-Funktion auftritt, wird der Promise verworfen und der Rückgabewert verworfen.
+    </aside>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+        // callback hell
+        doSomething(function(result) {
+            doSomethingElse(result, function(newResult) {
+                doThirdThing(newResult, function(finalResult) {
+                    console.log('Got the final result: ' + finalResult);
+                }, failureCallback);
+            }, failureCallback);
+        }, failureCallback);
+    </code></pre>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+        // promise chain
+        doSomething()
+        .then(function(result) {
+            return doSomethingElse(result);
+        })
+        .then(function(newResult) {
+            return doThirdThing(newResult);
+        })
+        .then(function(finalResult) {
+            console.log('Got the final result: ' + finalResult);
+        })
+        .catch(failureCallback);
+    </code></pre>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+        // promise chain with arrow functions
+        doSomething()
+            .then(result => doSomethingElse(result))
+            .then(newResult => doThirdThing(newResult))
+            .then(finalResult => {
+                console.log(`Got the final result: ${finalResult}`);
+            })
+            .catch(failureCallback);
+    </code></pre>
+</section>
+<section>
+    <h2>Warte auf uns!</h2>
+    <pre><code data-trim data-noescape>
+        let p1 = Promise.resolve(3);
+        let p2 = 1337;
+        let p3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 100, 'foo');
+        });
+        
+        Promise.all([p1, p2, p3])
+        .then(values => {
+            console.log(values); // [3, 1337, "foo"]
+        });
+    </code></pre>
+    <aside class="notes">
+        <ul>
+            <li>Promises werden parallel verarbeitet.</li>
+            <li>Gibt ein Promise zurück, das aufgelöst wird, wenn alle Argumente aufgelöst oder verworfen wurden oder wenn kein Argument einen Promise enthält. Es wird mit dem ersten verworfenen Grund verworfen.</li>
+        </ul>
+    </aside>
+</section>
+<section>
+    <h2>Erster gewinnt!</h2>
+    <pre><code data-trim data-noescape>
+        let promise1 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 500, 'one');
+        });
+        
+        let promise2 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 100, 'two');
+        });
+        
+        Promise.race([promise1, promise2]).then(function(value) {
+            console.log(value);
+            // Both resolve, but promise2 is faster
+        });
+        // expected output: "two"
+    </code></pre>
+    <aside class="notes">
+        <ul>
+            <li>Promises werden parallel verarbeitet.</li>
+        </ul>
+    </aside>
+</section>
+<section>
+    <h2>Do's</h2>
+    <ul>
+        <li>Funktionen richtig miteinander verketten: Immer das erstellte Promise zurückgeben.</li>
+        <li>Promises nur verketten und nicht verschachteln.</li>
+        <li>Eine Promise Kette immer mit einem catch beenden</li>
+    </ul>
+</section>
+<section>
+    <h2>Timing</h2>
+    <pre><code data-trim data-noescape>
+        Promise.resolve().then(() => console.log(2));
+        console.log(1);
+    </code></pre>
+    <p class="fragment">
+        Ausgabe:  1, 2
+    </p>
+    <p class="fragment">
+        Die übergebene Funktion wird auf die Microtask-Queue gelegt, d.h. die Funktion wird später ausgeführt, weil die Queue erst am Ende des aktuellen Laufs der JavaScript Event Loop abgearbeitet wird.
+    </p>
+</section>
+<section>
+    <h2>Quellen zu Promises</h2>
+    <ul>
+        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise</li>
+        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises</li>
+    </ul>
+</section>
+<section>
+    TODO
+    <h2>Übung Promise</h2>
+    <h3>Lösung: Consolenausgabe</h3>
+    Ausgabe initial wird aus erstelltem Promise ausgegeben
+    Fahlerfall bei dem normalerweise "Do this" ausgegeben worden wäre
+    <pre><code data-trim data-noescape>
+        Initial
+        Do that
+        Do this, no matter what happened before
+    </code></pre>
+    <pre><code data-trim data-noescape>
+        new Promise((resolve, reject) => {
+            console.log('Initial');
+            resolve();
+        })
+        .then(() => {
+            throw new Error('Something failed');
+                
+            console.log('Do this');
+        })
+        .catch(() => {
+            console.log('Do that');
+        })
+        .then(() => {
+            console.log('Do this, no matter what happened before');
+        });
+    </code></pre>
+</section>
+<section>
+    <h3>Async / Await</h3>
+    <ul>
+        <li>Einführung mit ES2017</li>
+        <li>Eine <code>async</code> Funktion Deklaration definiert eine asynchrone Funktion. Sie kann eine <code>await</code> Expression enthalten, die die Ausführung der <code>async</code> Funktion unterbricht und auf die Auflösung des Promise warten und dann erst die <code>async</code> Funktion weiter ausführt.</li>
+        <li>Mit <code>async</code>/<code>await</code> können wir Promises im Programmablauf synchron verwenden.</li>
+    </ul>
+</section>
+<section>
+    <h2>Refactoring der Promise Chain mit einer async Function</h2>
+    <pre><code data-trim data-noescape>
+        async function foo() {
+            try {
+                const result = await doSomething();
+                const newResult = await doSomeThingElse(result);
+                const finalResult = await doThirdThing(newResult);
+                console.log(`Got the final result: ${finalResult}`);
+            } catch(error) {
+                failureCallback(error);
+            }
+        }
+    </code></pre>
+    <aside class="notes">
+        <code>await</code> Schlüsselwort ist nur in einer <code>async</code> Funktion valide.
+    </aside>
+</section>
+<section>
+    <h2>Quellen zu Async / Await</h2>
+    <ul>
+        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function</li>
+    </ul>
+</section>
+<section>
+    <h2>RxJS</h2>
+    <p>
+        5-10 wichtigsten Funktionen von RxJS:
+        <ul>
+            <li>pipe(map, map)</li>
+            <li>map</li>
+            <li>switchMap, mergeMap, concatMap</li>
+            <li>filter</li>
+            <li>from, of, timer, interval</li>
+            <li>combineLatest</li>
+            <li>merge, zip</li>
+        </ul>
+    </p>
 </section>
