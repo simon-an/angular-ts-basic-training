@@ -39,19 +39,19 @@
 </section>
 <section>
     <pre><code data-trim data-noescape>
-        function success(result) {
-            console.log("Audio file ready at URL: " + result);
-        }
-        
-        function failure(error) {
-            console.log("Error generating audio file: " + error);
-        }
-        
-        // Without promise
-        createAudioFileAsync(audioSettings, success, failure);
+    function success(result) {
+        console.log("Audio file ready at URL: " + result);
+    }
+    
+    function failure(error) {
+        console.log("Error generating audio file: " + error);
+    }
+    
+    // Without promise
+    createAudioFileAsync(audioSettings, success, failure);
 
-        // With promise
-        createAudioFileAsync(audioSettings).then(success, failure);
+    // With promise
+    createAudioFileAsync(audioSettings).then(success, failure);
     </code></pre>
     <p class="fragment">
         <code>then()</code> wird erst ausgeführt, wenn die Funktion <code>createAudioFileAsync</code> fertig ausgeführt ist
@@ -66,10 +66,10 @@
 <section>
     <h2>Promise Chaining</h2>
     <pre><code data-trim data-noescape>
-        promiseFunction()
-            .then(success1, failure1)
-            .then(success2, failure2)
-            .catch(failureCallback);
+    promiseFunction()
+        .then(success1, failure1)
+        .then(success2, failure2)
+        .catch(failureCallback);
     </code></pre>
     <p>
         <h3>Wichtig</h3>
@@ -85,17 +85,17 @@
 <section>
     <h2>Promise erstellen</h2>
     <pre><code data-trim data-noescape>
-        new Promise( /* executor */ function(resolve, reject) { ... } );
+    new Promise( /* executor */ function(resolve, reject) { ... } );
     </code></pre>
     <p>
         Ein Promise erstellen, z.B. um eine alte API zu wrappen:
     </p>
     <pre><code data-trim data-noescape>
-        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-        // alternative: Promise.resolve(setTimeout(resolve, ms));
-        wait(10000)
-            .then(() => saySomething("10 seconds"))
-            .catch(failureCallback);
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    // alternative: Promise.resolve(setTimeout(resolve, ms));
+    wait(10000)
+        .then(() => saySomething("10 seconds"))
+        .catch(failureCallback);
     </code></pre>
     <aside class="notes">
         Eine Funktion mit den Argumenten resolve und reject wird übergeben. Die Executor-Funktion wird sofort von der Promise Implementierung ausgeführt.
@@ -104,57 +104,57 @@
 </section>
 <section>
     <pre><code data-trim data-noescape>
-        // callback hell
-        doSomething(function(result) {
-            doSomethingElse(result, function(newResult) {
-                doThirdThing(newResult, function(finalResult) {
-                    console.log('Got the final result: ' + finalResult);
-                }, failureCallback);
+    // callback hell
+    doSomething(function(result) {
+        doSomethingElse(result, function(newResult) {
+            doThirdThing(newResult, function(finalResult) {
+                console.log('Got the final result: ' + finalResult);
             }, failureCallback);
         }, failureCallback);
+    }, failureCallback);
     </code></pre>
 </section>
 <section>
     <pre><code data-trim data-noescape>
-        // promise chain
-        doSomething()
-        .then(function(result) {
-            return doSomethingElse(result);
-        })
-        .then(function(newResult) {
-            return doThirdThing(newResult);
-        })
-        .then(function(finalResult) {
-            console.log('Got the final result: ' + finalResult);
+    // promise chain
+    doSomething()
+    .then(function(result) {
+        return doSomethingElse(result);
+    })
+    .then(function(newResult) {
+        return doThirdThing(newResult);
+    })
+    .then(function(finalResult) {
+        console.log('Got the final result: ' + finalResult);
+    })
+    .catch(failureCallback);
+    </code></pre>
+</section>
+<section>
+    <pre><code data-trim data-noescape>
+    // promise chain with arrow functions
+    doSomething()
+        .then(result => doSomethingElse(result))
+        .then(newResult => doThirdThing(newResult))
+        .then(finalResult => {
+            console.log(`Got the final result: ${finalResult}`);
         })
         .catch(failureCallback);
     </code></pre>
 </section>
 <section>
-    <pre><code data-trim data-noescape>
-        // promise chain with arrow functions
-        doSomething()
-            .then(result => doSomethingElse(result))
-            .then(newResult => doThirdThing(newResult))
-            .then(finalResult => {
-                console.log(`Got the final result: ${finalResult}`);
-            })
-            .catch(failureCallback);
-    </code></pre>
-</section>
-<section>
     <h2>Warte auf uns!</h2>
     <pre><code data-trim data-noescape>
-        let p1 = Promise.resolve(3);
-        let p2 = 1337;
-        let p3 = new Promise((resolve, reject) => {
-            setTimeout(resolve, 100, 'foo');
-        });
-        
-        Promise.all([p1, p2, p3])
-        .then(values => {
-            console.log(values); // [3, 1337, "foo"]
-        });
+    let p1 = Promise.resolve(3);
+    let p2 = 1337;
+    let p3 = new Promise((resolve, reject) => {
+        setTimeout(resolve, 100, 'foo');
+    });
+    
+    Promise.all([p1, p2, p3])
+    .then(values => {
+        console.log(values); // [3, 1337, "foo"]
+    });
     </code></pre>
     <aside class="notes">
         <ul>
@@ -166,19 +166,19 @@
 <section>
     <h2>Erster gewinnt!</h2>
     <pre><code data-trim data-noescape>
-        let promise1 = new Promise((resolve, reject) => {
-            setTimeout(resolve, 500, 'one');
-        });
-        
-        let promise2 = new Promise((resolve, reject) => {
-            setTimeout(resolve, 100, 'two');
-        });
-        
-        Promise.race([promise1, promise2]).then(function(value) {
-            console.log(value);
-            // Both resolve, but promise2 is faster
-        });
-        // expected output: "two"
+    let promise1 = new Promise((resolve, reject) => {
+        setTimeout(resolve, 500, 'one');
+    });
+    
+    let promise2 = new Promise((resolve, reject) => {
+        setTimeout(resolve, 100, 'two');
+    });
+    
+    Promise.race([promise1, promise2]).then(function(value) {
+        console.log(value);
+        // Both resolve, but promise2 is faster
+    });
+    // expected output: "two"
     </code></pre>
     <aside class="notes">
         <ul>
@@ -197,8 +197,8 @@
 <section>
     <h2>Timing</h2>
     <pre><code data-trim data-noescape>
-        Promise.resolve().then(() => console.log(2));
-        console.log(1);
+    Promise.resolve().then(() => console.log(2));
+    console.log(1);
     </code></pre>
     <p class="fragment">
         Ausgabe:  1, 2
@@ -221,26 +221,26 @@
     Ausgabe initial wird aus erstelltem Promise ausgegeben
     Fahlerfall bei dem normalerweise "Do this" ausgegeben worden wäre
     <pre><code data-trim data-noescape>
-        Initial
-        Do that
-        Do this, no matter what happened before
+    Initial
+    Do that
+    Do this, no matter what happened before
     </code></pre>
     <pre><code data-trim data-noescape>
-        new Promise((resolve, reject) => {
-            console.log('Initial');
-            resolve();
-        })
-        .then(() => {
-            throw new Error('Something failed');
-                
-            console.log('Do this');
-        })
-        .catch(() => {
-            console.log('Do that');
-        })
-        .then(() => {
-            console.log('Do this, no matter what happened before');
-        });
+    new Promise((resolve, reject) => {
+        console.log('Initial');
+        resolve();
+    })
+    .then(() => {
+        throw new Error('Something failed');
+            
+        console.log('Do this');
+    })
+    .catch(() => {
+        console.log('Do that');
+    })
+    .then(() => {
+        console.log('Do this, no matter what happened before');
+    });
     </code></pre>
 </section>
 <section>
@@ -254,16 +254,16 @@
 <section>
     <h2>Refactoring der Promise Chain mit einer async Function</h2>
     <pre><code data-trim data-noescape>
-        async function foo() {
-            try {
-                const result = await doSomething();
-                const newResult = await doSomeThingElse(result);
-                const finalResult = await doThirdThing(newResult);
-                console.log(`Got the final result: ${finalResult}`);
-            } catch(error) {
-                failureCallback(error);
-            }
+    async function foo() {
+        try {
+            const result = await doSomething();
+            const newResult = await doSomeThingElse(result);
+            const finalResult = await doThirdThing(newResult);
+            console.log(`Got the final result: ${finalResult}`);
+        } catch(error) {
+            failureCallback(error);
         }
+    }
     </code></pre>
     <aside class="notes">
         <code>await</code> Schlüsselwort ist nur in einer <code>async</code> Funktion valide.
@@ -289,4 +289,176 @@
             <li>merge, zip</li>
         </ul>
     </p>
+</section>
+<section>
+    <h2>Was ist RxJS?</h2>
+    <p>
+        <ul>
+            <li>Reactive Extensions für JavaScript</li>
+            <li>Bibliothek für die Reaktive Programmierung unter Nutzung von Observables, die einem das Komponieren von asynchronem und auf Event basiertem Code erleichtert</li>
+            <li>Verwendete Patterns: Observer Pattern, Iterator Pattern, Functional Programming with collections</li>
+        </ul>
+    </p>
+    <aside class="notes">
+        Wikipedia: 
+    </aside>
+</section>
+<section>
+    <h2>Reaktive Programmierung</h2>
+    <p>
+        Asynchrones Programmierparadigma, das sich um Datenströme und Weitergabe von Änderungen kümmert.
+    </p>
+    <aside class="notes">
+        "Bei der Datenverarbeitung ist Reaktive Programmierung ein Programmierparadigma, das sich an Datenflüssen orientiert. In den zugeordneten Programmiersprachen sind statische oder dynamische Datenflüsse leicht auszudrücken. Das zugrunde liegende Ausführungsmodell propagiert Änderungen in den Datenflüssen automatisch. Ein gutes Beispiel für ein Programm, welches reaktiv arbeitet, ist Excel. Ändert man einen Wert in einer Zelle, dann ändert sich auch der Wert in der Summenzelle. Die Zelle, deren Wert geändert wurde, löst ein Event (eine Meldung) aus, den die Summen-Zelle empfängt und die dann eine Neukalkulation ausführt."
+        Quelle: https://de.wikipedia.org/wiki/Reaktive_Programmierung
+    </aside>
+</section>
+<section>
+    <h2>Observer Pattern</h2>
+    <ul>
+        <li>Ein Objekt (Subject) verwaltet eine Liste abhängiger Strukturen (Observers) und benachrichtigt sie automatisch bei jeder Statusänderung des Objekts (publish-subscribe).</li>
+        <li>Es wird zur Implementierung von verteilten Event Handling Systemen verwendet ("Event Driven" Software).</li>
+    </ul>
+    <aside class="notes">
+            Quellen: https://en.wikipedia.org/wiki/Observer_pattern, https://de.wikipedia.org/wiki/Beobachter_(Entwurfsmuster)
+    </aside>
+</section>
+<section>
+    <h2>Iterator Pattern</h2>
+    <p>
+        Über einen Iterator kann auf die Elemente einer aggregierten Struktur sequenziell zugegriffen werden, ohne die Struktur zu enthüllen.
+    </p>
+    <aside class="notes">
+        Ich kann über ein Array von Zahlen genauso iterieren, wie über ein Array von Objekten oder Strings. Der Iterator ist somit universell einsetzbar<br>
+        Quelle: https://en.wikipedia.org/wiki/Iterator_pattern
+    </aside>
+</section>
+<section>
+    <h2>Was bietet mir RxJS?</h2>
+    <p>
+        <ul>
+            <li>...existierenden Code asynchroner Operationen in Observables zu konvertieren</li>
+            <li>...durch die Werte eines Streams zu iterieren</li>
+            <li>...Werte auf verschiedene Typen zu mappen</li>
+            <li>...Streams zu filtern</li>
+            <li>...mehrere Stream miteinander zu verknüpfen</li>
+        </ul>
+    </p>
+</section>
+<section>
+    <h2>Erstellen und Horchen</h2>
+    <pre><code data-trim data-noescape>
+    import { of } from "rxjs";
+
+    function next(val: number) {
+        console.log(`next: ${val}`);
+    }
+    function error() {
+        console.log("error!");
+    }
+    function completed() {
+        console.log("completed!");
+    }
+    
+    of(1, 2, 3, 4).subscribe(next, error, completed);
+    </code></pre>
+</section>
+<section>
+    <h2>Operatoren</h2>
+    <p>
+        Operatoren nehmen Konfigurationsoptionen entgegen und geben eine Funktion zurück, die ein ursprüngliches Observable entgegennimmt.<br>
+        Wenn diese zurückgegebene Funktion ausgeführt wird, überwacht der Operator die ausgegebenen Werte des ursprünglichen Obervables, transformiert sie und gibt ein neues Observable dieser transformierten Werte zurück.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>map()</code></h2>
+    <pre><code data-trim data-noescape>
+    map(project: Function, thisArg?: any): Observable
+    </code></pre>
+    <p>
+        Führt eine übergegebene Function (project) auf jedem vom ursprünglichen Observable ausgegebenen Wert aus und gibt die Ergebniswerte als neues Observable zurück.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>filter()</code></h2>
+    <pre><code data-trim data-noescape>
+    filter(predicate: Function, thisArg?: any): Observable
+    </code></pre>
+    <p>
+        Filtert die Elemente, die das ursprüngliche Observable ausgibt, und gibt nur die Elemente aus, die das spezifizierte Prädikat (predicate) erfüllen.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>pipe()</code></h2>
+    <pre><code data-trim data-noescape>
+    pipe(functions: ...*): Observable
+    </code></pre>
+    <p>
+        Verknüpfungsmöglichkeit von Operatoren.<br>
+        Die Argumente der pipe-Funktion sind die Funktionen, die man verknüpfen will. Die Funktion gibt eine neue Funktion zurück, die, wenn sie ausgeführt wird, die verknüpften Funktionen als Sequenz zurückgibt.<br>
+        Man könnte es auch Rezept (Set von Instruktionen, die die Werte produzieren, an denen man interessiert ist) nennen. Das Rezept selbst tut nichts, erst wenn man subscribe() darauf aufruft, wird das Rezept ausgeführt.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>concat()</code></h2>
+    <pre><code data-trim data-noescape>
+    concat(observables: ...*): Observable
+    </code></pre>
+    <p>
+        Erstellt ein Observable, das sequenziell alle Werte des ersten übergebenen Observables ausgibt und dann zum nächsten Observable weitergeht.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>flatMap()</code> / <code>mergeMap()</code></h2>
+    <pre><code data-trim data-noescape>
+    flatMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable
+    </code></pre>
+    <p>
+        Jeder Ursprungswert wird auf ein Observable projeziert, das im Ausgabe-Observable zusammengeführt wird.
+    </p>
+</section>
+<section>
+    <h2>Operator <code>catchError()</code></h2>
+    <pre><code data-trim data-noescape>
+    catchError(project: function): Observable
+    </code></pre>
+    <p>
+        Fehler kontrolliert in einer Observable Sequenz behandeln.<br>
+        <br>
+        Achtung: Immer ein Observable zurückgeben, da es vom nächsten Schritt als übernommen wird!
+    </p>
+</section>
+<section>
+    <h2>Operator <code>retry()</code></h2>
+    <pre><code data-trim data-noescape>
+    retry(count: number): Observable
+    </code></pre>
+    <p>
+        Wenn das Ursprungs-Observable einen Fehler wift, der nicht gefangen wird, wird die Observable Sequenz erneut ausgeführt. Dies passiert maximal "count" mal, erst dann wird der Fehler weitergeworfen.<br>
+        <br>
+        Achtung: Keinen Retry bei Requests zur Authentifizierung einsetzen, sonst könnte das eine Aussperrung des Nutzers nach sich ziehen.
+    </p>
+    <aside class="notes">
+        Do not retry authentication requests, since these should only be initiated by user action.
+        We don't want to lock out user accounts with repeated login requests that the user has not initiated.
+    </aside>
+</section>
+<section>
+    <h2>Übung</h2>
+    <p>
+        Eine Schnittstelle gibt natürliche Zahlen in aufsteigender Reihenfolge zurück.<br>
+        Summiere die Potenz der ersten 3 geraden Zahlen und gibt das Ergebnis aus.
+    </p>
+    <aside class="notes">
+        Siehe zusätzliche Operatoren: <code>reduce()</code> und <code>take()</code>
+    </aside>
+</section>
+<section>
+    <h2>Quellen</h2>
+    <ul>
+        <li>https://de.wikipedia.org/wiki/Reaktive_Programmierung</li>
+        <li>https://rxjs-dev.firebaseapp.com/</li>
+        <li>https://angular.io/guide/rx-library</li>
+        <li>https://www.learnrxjs.io/</li>
+    </ul>
 </section>
