@@ -37,14 +37,14 @@
 </section>
 <section>
     <h2>Schematics</h2>
-    <pre><code class="bash" data-trim style="font-size: 14px;">
+    <pre><code class="bash" data-trim style="font-size: 12px;">
     npm install @ngrx/schematics --save-dev
     npm install @ngrx/store @ngrx/effects @ngrx/entity @ngrx/store-devtools --save
     ng config cli.defaultCollection @ngrx/schematics
 
     ng add @angular/material
     ng generate module shared --module app
-    ng g @angular/material:nav header --changeDetection OnPush --export --module shared --selector cool-header
+    ng g @angular/material:nav shared/components/header --changeDetection OnPush --export --module shared --selector cool-header
     </code></pre>
 </section>
 <section>

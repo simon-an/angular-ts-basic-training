@@ -8,8 +8,7 @@
         <li>Shared Module</li>
         <li>Lazy Loading Modules</li>
     </ul>
-    <pre><code data-trim contenteditable
-        >
+    <pre><code data-trim>
         cd angular-ts-basic-training\frontend
         ng generate module core --module app
         ng generate module shared // remove shared module from app module
@@ -21,6 +20,66 @@
 <!-- ng generate module state --module app -->
 <!-- ng generate @ngrx/schematics:store State --root --module state
 ng generate @ngrx/schematics:effect App --root --module state -->
+<section>
+    <h2>Routing</h2>
+    <p>app.component.html</p>
+    <pre><code data-trim>
+            <router-outlet></router-outlet>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <p>header.component.html</p>
+    <pre><code data-trim>
+        ng g c views/home/home --module views/home
+    </code></pre>
+    <pre><code data-trim>
+        <cool-header>
+            <ng-container navlist>
+                <a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin</a>
+                <a mat-list-item routerLink="/user" routerLinkActive="active">Login as User</a>
+            </ng-container>
+            <p body>home works</p>
+        </cool-header>
+
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <p>header.component.html</p>
+    <pre><code data-trim>
+        <ng-content select="[navlist]"></ng-content>
+        <ng-content select="[body]"></ng-content>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <pre><code data-trim>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <pre><code data-trim>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <pre><code data-trim>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <pre><code data-trim>
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <pre><code data-trim>
+    </code></pre>
+</section>
+<section>
+    <h2>Guards</h2>
+</section>
 <section>
     <h2>Modules Basics</h2>
     <ul>
@@ -41,12 +100,7 @@ ng generate @ngrx/schematics:effect App --root --module state -->
     <p>No Module Hierarchy</p>
     <p>Injector Hierarchy</p>
 </section>
-<section>
-    <h2>Routing</h2>
-</section>
-<section>
-    <h2>Guards</h2>
-</section>
+
 <section>
     <h2>More Schematics</h2>
     <pre><code>ng add ng-momentum</code></pre>
