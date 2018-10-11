@@ -16,7 +16,7 @@
     <pre><code>npm i -g @angular/cli</code></pre>
     <ul>
         <li>
-            ng new frontend --routing
+            ng new frontend --routing --sytle scss
         </li>
         <li>
             ng update (--all)
@@ -37,7 +37,7 @@
 </section>
 <section>
     <h2>Schematics</h2>
-    <pre><code>
+    <pre><code class="bash" data-trim style="font-size: 14px;">
     npm install @ngrx/schematics --save-dev
     npm install @ngrx/store @ngrx/effects @ngrx/entity @ngrx/store-devtools --save
     ng config cli.defaultCollection @ngrx/schematics
@@ -45,16 +45,19 @@
     ng add @angular/material
     ng generate module shared --module app
     ng g @angular/material:nav header --changeDetection OnPush --export --module shared --selector cool-header
-    
     </code></pre>
-    <ul>
-        <li>add to app component</li>
-        <li>change suffix from app to *SOMENAME* in tslint.json</li>
-    </ul>
 </section>
 <section>
-    <h2>More Schematics</h2>
-    <pre><code>ng add ng-momentum</code></pre>
+    <ul>
+        <li>add to app.component.html</li>
+        <pre><code class="html" data-trim contenteditable style="font-size: 18px;">
+        
+           <cool-header></cool-header>
+           <router-outlet></router-outlet>
+        </code></pre>
+        <li>change suffix from app to 'cool' in src/tslint.json</li>
+        <li>change suffix from app to 'cool' in angular.json</li>
+    </ul>
 </section>
 <section>
     <h2>VS Code</h2>
