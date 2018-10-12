@@ -5,9 +5,12 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user/user.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatListModule } from '@angular/material';
+import { ItemListComponent } from './components/item-list/item-list.component';
+import { SafeComponent } from './containers/safe/safe.component';
+import { UserHomeComponent } from './components/userhome/userhome.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, UserRoutingModule, MatListModule],
-  declarations: [UserComponent]
+  declarations: [UserComponent, ItemListComponent, SafeComponent, UserHomeComponent]
 })
 export class UserModule { }

@@ -1,3 +1,170 @@
 <section>
     <h1>Components</h1>
+    <a target="_blank" rel="noopener noreferrer" href="https://angular.io/api/core/Component">Docs</a>
+    <p>Component Types</p>
+    <ul>
+        <li>Dump: Layout, Styling Components</li>
+        <li>Smart: Views, Containers Components</li>
+    </ul>
+</section>
+<section>
+    <h2>Components</h2>
+    <ul>
+        <li>Changedetection Strategy</li>
+        <p>When a component is instantiated, Angular creates a change detector, which is responsible for propagating
+            the component's bindings. The strategy is one of.</p>
+        <p>OnPush should be the default, even when not used by angular as default.</p>
+    </ul>
+</section>
+<section>
+    <ul>
+        <li>View Encapsulation / Shadow DOM</li>
+        <p>An encapsulation policy for the template and CSS styles. Native, Emulated, None</p>
+        <p>Library or Dump Components might use Native, because stroner encapulation, when chrome is the only supported
+            browser.</p>
+    </ul>
+</section>
+<section>
+    <h2>Components Lifecycle</h2>
+    <a target="_blank" rel="noopener noreferrer" href="https://angular.io/guide/lifecycle-hooks">Docs</a>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Hook</th>
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngOnChanges()</code>
+                </td>
+                <!-- <td>
+                    <p> Respond when Angular (re)sets data-bound input properties.
+                        Called before <code>ngOnInit()</code> and whenever one or more data-bound input properties
+                        change.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngOnInit()</code>
+                </td>
+                <!-- <td>
+                    <p> Initialize the directive/component after Angular first displays the data-bound properties
+                        and sets the directive/component's input properties.</p>
+                    <p> Called <em>once</em>, after the <em>first</em> <code>ngOnChanges()</code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngDoCheck()</code>
+                </td>
+                <!-- <td>
+                    <p> Detect and act upon changes that Angular can't or won't detect on its own.</p>
+                    <p> Called during every change detection run, immediately after <code>ngOnChanges()</code> and
+                        <code>ngOnInit()</code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngAfterContentInit()</code>
+                </td>
+                <!-- <td>
+                    <p> Respond after Angular projects external content into the component's view / the view that a
+                        directive is in.</p>
+                    <p> Called <em>once</em> after the first <code>ngDoCheck()</code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngAfterContentChecked()</code>
+                </td>
+                <!-- <td>
+                    <p> Respond after Angular checks the content projected into the directive/component.</p>
+                    <p> Called after the <code>ngAfterContentInit()</code> and every subsequent <code>ngDoCheck()</code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngAfterViewInit()</code>
+                </td>
+                <!-- <td>
+                    <p> Respond after Angular initializes the component's views and child views / the view that a
+                        directive is in.</p>
+                    <p> Called <em>once</em> after the first <code><a href="api/core/AfterContentChecked#ngAfterContentChecked"
+                                class="code-anchor">ngAfterContentChecked()</a></code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngAfterViewChecked()</code>
+                </td>
+                <!-- <td>
+                    <p> Respond after Angular checks the component's views and child views / the view that a
+                        directive is in.</p>
+                    <p> Called after the <code>ngAfterViewInit</code> and every subsequent <code><a href="api/core/AfterContentChecked#ngAfterContentChecked"
+                                class="code-anchor">ngAfterContentChecked()</a></code>.</p>
+                </td> -->
+            </tr>
+            <tr style="vertical-align:top">
+                <td>
+                    <code>ngOnDestroy()</code>
+                </td>
+                <!-- <td>
+                    <p> Cleanup just before Angular destroys the directive/component.
+                        Unsubscribe Observables and detach event handlers to avoid memory leaks.</p>
+                    <p> Called <em>just before</em> Angular destroys the directive/component.</p>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+<section>
+    <h2>Components Injector</h2>
+    <ul>
+        <li></li>
+    </ul>
+</section>
+<section>
+    <h3>Secondary Routes</h3>
+    <pre><code data-trim style="font-size: 17px">
+        ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
+        ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
+    </code></pre>
+    <pre><code class="html" data-trim style="font-size: 17px">
+        <!-- user.component.html -->
+        <router-outlet name="secondary"></router-outlet>
+        &lt;a mat-list-item [routerLink]="[{outlets: { secondary: ['safe'] } }]">Safe&lt;/a>
+        <!-- app.component.html -->
+        <router-outlet #routerOutlet="outlet"></router-outlet>
+    </code></pre>
+</section>
+<section>
+    <pre><code data-trim style="font-size: 14px; line-height: 15px">
+        /* user.routing.module.ts */
+            const routes: Routes = [
+            {
+              path: 'home',
+              component: UserComponent,
+              children: [
+                {
+                  path: 'safe',
+                  component: SafeComponent,
+                  outlet: 'secondary'
+                },
+                {
+                  path: '',
+                  component: UserHomeComponent,
+                  outlet: 'secondary'
+                }
+              ],
+            },
+            {
+              path: '',
+              redirectTo: 'home'
+            }
+          ];
+    </code></pre>
+    <p class="fragment" data-code-focus="5,9">
+        router module can use outlet to place components in multiple router-outlets
+    </p>
 </section>
