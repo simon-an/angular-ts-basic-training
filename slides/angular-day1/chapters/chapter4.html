@@ -82,7 +82,50 @@ ng generate @ngrx/schematics:effect App --root --module state -->
         ng-content is a placeholder for the html content, passed from the parent to its child.
     </p>
 </section>
-
+<section>
+    <h2>Transclusion with <code>ng-content</code> (1)</h2>
+    <pre><code class="html" data-trim style="font-size: 12px">
+        <!-- Selector using Attribute -->
+        <!-- header-with-sidenav.component.html -->
+        <ng-content select="[nav-list]"></ng-content>
+        <!-- home.component.html -->
+        <div nav-list>...</div>
+    </code></pre>
+    <pre><code class="html" data-trim style="font-size: 12px">
+        <!-- Selector using Attribute with Value -->
+        <!-- header-with-sidenav.component.html -->
+        <ng-content select="[nav=list]"></ng-content>
+        <!-- home.component.html -->
+        <div nav="list">...</div>
+    </code></pre>
+</section>
+<section>
+    <h2>Transclusion with <code>ng-content</code> (2)</h2>
+    <pre><code class="html" data-trim style="font-size: 12px">
+        <!-- Selector using CSS Class Selector -->
+        <!-- header-with-sidenav.component.html -->
+        <ng-content select=".nav-list"></ng-content>
+        <!-- home.component.html -->
+        <div class="nav-list">...</div>
+    </code></pre>
+    <pre><code class="html" data-trim style="font-size: 12px">
+        <!-- Selector using Multiple Attributes or CSS Classes -->
+        <!-- header-with-sidenav.component.html -->
+        <ng-content select="[nav][list]"></ng-content>
+        <!-- home.component.html -->
+        <div nav list>...</div>
+    </code></pre>
+    <pre><code class="html" data-trim style="font-size: 12px">
+        <!-- Selector using an HTML Tag -->
+        <!-- header-with-sidenav.component.html -->
+        <ng-content select="nav-list"></ng-content>
+        <!-- home.component.html -->
+        <nav-list>...</nav-list>
+    </code></pre>
+    <aside class="notes">
+        Preference: use an attribute because it's readable
+    </aside>
+</section>
 <section>
     <h2>Routing</h2>
     <pre><code class="html" data-trim style="font-size: 17px">
