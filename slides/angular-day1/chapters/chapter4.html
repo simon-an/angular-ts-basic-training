@@ -26,64 +26,82 @@ ng generate @ngrx/schematics:effect App --root --module state -->
     <pre><code data-trim>
             <router-outlet></router-outlet>
     </code></pre>
-</section>
-<section>
-    <h2>Routing</h2>
-    <p>Split sidenav and header in two.</p>
-    <p>sidenav.component.html</p>
-    <pre><code data-trim style="font-size: 17px">
-        ng g c shared/components/header --changeDetection OnPush --export --module shared
-    </code></pre>
-    <pre><code data-trim style="font-size: 15px">
-        <mat-sidenav-container class="sidenav-container">
-            &lt;mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-                [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
-                &lt;mat-toolbar color="primary">Menu&lt;/mat-toolbar>
-                &lt;ng-content select="[navlist]">&lt;/ng-content>
-            &lt;/mat-sidenav>
-            &lt;mat-sidenav-content>
-                &lt;ng-content select="[body]">&lt;/ng-content>
-            &lt;/mat-sidenav-content>
-        </mat-sidenav-container>
-                  
-    </code></pre>
-</section>
-<section>
-    <p>header.component.html</p>
-    <pre><code data-trim style="font-size: 15px">
-        <mat-toolbar color="primary">
-            &lt;button *ngIf="isHandset$ | async" type="button" mat-icon-button (click)="drawer.toggle()" >
-                &lt;mat-icon aria-label="Side nav toggle icon">menu&lt;/mat-icon>
-            &lt;/button>
-            &lt;span>frontend</span>
-        </mat-toolbar>          
-    </code></pre>
+    <p class="fragment" data-code-focus="1">
+        router-outlet is a placeholder for the router in the dom. The router places the active component there.
+    </p>
+    <p class="fragment">
+        it is possible to use multiple router-outlets at the same time.
+    </p>
 </section>
 <section>
     <h2>Routing</h2>
     <p>home.component.html</p>
     <pre><code data-trim style="font-size: 17px">
-        ng g c views/home/home-layout --changeDetection OnPush --module views/home
+        ng g c views/home/home --changeDetection OnPush --module views/home
     </code></pre>
     <pre><code data-trim style="font-size: 17px">
-        <cool-header>
+        <cool-header-with-sidenav>
             &lt;ng-container navlist>
-                &lt;mat-nav-list>
-                &lt;a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin&lt;/a>
-                &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a>
-            &lt;/mat-nav-list>
+              &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a>
+              &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a>
             &lt;/ng-container>
-            &lt;p body>home works&lt;/p>
-        </cool-header>
+            &lt;p body>home works</p>
+        </cool-header-with-sidenav>
     </code></pre>
-    <p>add shared.module to home.module</p>
+    <p class="fragment" data-code-focus="3-4">
+        Router is used with routerLink directive
+    </p>
+    <p class="fragment">add shared.module to home.module</p>
 </section>
 <section>
+    <p>header-with-sidenav.component.html</p>
+    <pre><code data-trim style="font-size: 17px">
+        ng g c shared/components/header-with-sidenav --changeDetection OnPush --export --module shared
+    </code></pre>
+    <pre><code data-trim style="font-size: 12px">
+        <mat-sidenav-container class="sidenav-container">
+            &lt;mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+              [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+              &lt;mat-toolbar color="primary">Menu&lt;/mat-toolbar>
+              &lt;mat-nav-list>
+                &lt;ng-content select="[navlist]">&lt;/ng-content>
+              &lt;/mat-nav-list>
+            &lt;/mat-sidenav>
+            &lt;mat-sidenav-content>
+              &lt;mat-toolbar color="primary">
+                &lt;button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+                  &lt;mat-icon aria-label="Side nav toggle icon">menu&lt;/mat-icon>
+                &lt;/button>
+                &lt;span>frontend&lt;/span>
+              &lt;/mat-toolbar>
+              &lt;ng-content select="[body]">&lt;/ng-content>
+            &lt;/mat-sidenav-content>
+        </mat-sidenav-container>
+    </code></pre>
+    <p class="fragment" data-code-focus="6">
+        ng-content is a placeholder for the html content, passed from the parent to its child.
+    </p>
+</section>
+
+<section>
     <h2>Routing</h2>
-    <p>header.component.html</p>
+    <pre><code class="html" data-trim style="font-size: 17px">
+        &lt;cool-header-with-sidenav&gt;
+            &lt;ng-container navlist>
+                &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a&gt;
+                &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a&gt;
+            &lt;/ng-container&gt;
+            &lt;p body&gt;home works&lt;/p&gt;
+        &lt;/cool-header-with-sidenav&gt;
+    </code></pre>
+    <p class="fragment" data-code-focus="2,6">
+        ng-content used attributes to
+    </p>
+</section>
+<section>
+    <h2>Selectors</h2>
     <pre><code data-trim>
-        <ng-content select="[navlist]"></ng-content>
-        <ng-content select="[body]"></ng-content>
+             
     </code></pre>
 </section>
 <section>
