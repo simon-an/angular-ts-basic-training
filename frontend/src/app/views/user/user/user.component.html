@@ -1,9 +1,12 @@
-<app-header>
+<cool-header-with-sidenav>
   <ng-container navlist>
-    <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
-    <a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin</a>
+    <mat-nav-list>
+      <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
+      <!-- <a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin</a> -->
+    </mat-nav-list>
   </ng-container>
   <div body>
     <p>user works</p>
+    <router-outlet></router-outlet>
   </div>
-</app-header>
+</cool-header-with-sidenav>

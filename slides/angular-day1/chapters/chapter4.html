@@ -29,20 +29,54 @@ ng generate @ngrx/schematics:effect App --root --module state -->
 </section>
 <section>
     <h2>Routing</h2>
+    <p>Split sidenav and header in two.</p>
+    <p>sidenav.component.html</p>
+    <pre><code data-trim style="font-size: 17px">
+        ng g c shared/components/header --changeDetection OnPush --export --module shared
+    </code></pre>
+    <pre><code data-trim style="font-size: 15px">
+        <mat-sidenav-container class="sidenav-container">
+            &lt;mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+                &lt;mat-toolbar color="primary">Menu&lt;/mat-toolbar>
+                &lt;ng-content select="[navlist]">&lt;/ng-content>
+            &lt;/mat-sidenav>
+            &lt;mat-sidenav-content>
+                &lt;ng-content select="[body]">&lt;/ng-content>
+            &lt;/mat-sidenav-content>
+        </mat-sidenav-container>
+                  
+    </code></pre>
+</section>
+<section>
     <p>header.component.html</p>
-    <pre><code data-trim>
-        ng g c views/home/home --module views/home
+    <pre><code data-trim style="font-size: 15px">
+        <mat-toolbar color="primary">
+            &lt;button *ngIf="isHandset$ | async" type="button" mat-icon-button (click)="drawer.toggle()" >
+                &lt;mat-icon aria-label="Side nav toggle icon">menu&lt;/mat-icon>
+            &lt;/button>
+            &lt;span>frontend</span>
+        </mat-toolbar>          
     </code></pre>
-    <pre><code data-trim>
+</section>
+<section>
+    <h2>Routing</h2>
+    <p>home.component.html</p>
+    <pre><code data-trim style="font-size: 17px">
+        ng g c views/home/home-layout --changeDetection OnPush --module views/home
+    </code></pre>
+    <pre><code data-trim style="font-size: 17px">
         <cool-header>
-            <ng-container navlist>
-                <a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin</a>
-                <a mat-list-item routerLink="/user" routerLinkActive="active">Login as User</a>
-            </ng-container>
-            <p body>home works</p>
+            &lt;ng-container navlist>
+                &lt;mat-nav-list>
+                &lt;a mat-list-item routerLink="/admin" routerLinkActive="true">Login as Admin&lt;/a>
+                &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a>
+            &lt;/mat-nav-list>
+            &lt;/ng-container>
+            &lt;p body>home works&lt;/p>
         </cool-header>
-
     </code></pre>
+    <p>add shared.module to home.module</p>
 </section>
 <section>
     <h2>Routing</h2>
@@ -54,7 +88,40 @@ ng generate @ngrx/schematics:effect App --root --module state -->
 </section>
 <section>
     <h2>Routing</h2>
+    <p>home-routing.module.ts</p>
     <pre><code data-trim>
+            const routes: Routes = [
+            {
+              path: '',
+              component: HomeComponent
+            }
+          ];
+    </code></pre>
+</section>
+<section>
+    <h2>Routing</h2>
+    <p>app-routing.module.ts</p>
+    <pre><code data-trim>
+            const routes: Routes = [
+            {
+              path: 'admin',
+              loadChildren: './views/admin/admin.module#AdminModule'
+            },
+            {
+              path: 'user',
+              loadChildren: './views/user/user.module#UserModule'
+            },
+            {
+              path: 'home',
+              loadChildren: './views/home/home.module#HomeModule'
+            },
+            {
+              path: '',
+              redirectTo: 'home',
+              pathMatch: 'full'
+            }
+          ];
+          
     </code></pre>
 </section>
 <section>
