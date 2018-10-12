@@ -1,3 +1,7 @@
-<p>
-  userhome works!
-</p>
+<p>Safe List</p>
+<ul>
+  <li *ngFor="let safe of (safes$ | async)">
+    {{safe?.id}} - {{safe?.value}}€ size: {{safe?.itemSize}}
+    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
+  </li>
+</ul>

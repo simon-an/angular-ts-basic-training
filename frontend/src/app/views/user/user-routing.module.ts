@@ -10,7 +10,7 @@ const routes: Routes = [
     component: UserComponent,
     children: [
       {
-        path: 'safe',
+        path: 'safe/:id',
         component: SafeComponent,
         outlet: 'secondary'
       },

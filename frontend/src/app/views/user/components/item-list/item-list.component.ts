@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { SafeItem, Safe } from 'src/app/core';
 
 @Component({
   selector: 'cool-item-list',
@@ -7,6 +8,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent implements OnInit {
+
+  @Input()
+  items: SafeItem[];
 
   constructor() { }
 
