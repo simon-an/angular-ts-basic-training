@@ -1,1 +1,1 @@
-"# angular-ts-basic-training" 
+# angular-ts-basic-training
