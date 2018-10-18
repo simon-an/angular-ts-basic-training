@@ -9,7 +9,6 @@ export class SafesController {
 
   @Post()
   async create(@Body() createSafeDto: CreateSafeDto) {
-    console.log('createSafeDto', createSafeDto);
     this.safesService.create(createSafeDto);
   }
 
