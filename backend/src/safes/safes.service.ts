@@ -14,6 +14,6 @@ export class SafesService {
   }
 
   findOne(id: string): Safe {
-    return this.safes.filter(safe => safe.id === id)[0];
+    return this.safes.find(safe => safe.id === id);
   }
 }
