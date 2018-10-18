@@ -1,4 +1,108 @@
 <section>
     <h1>Mutability + Redux</h1>
 </section>
-eventuell weiter hinten
+
+<section>
+    <h2>Challenge</h2>
+    <p class="fragement">Observing attribute changes</p>
+    <pre><code data-trim class="json">
+    [{
+        "items": [
+            {
+                "id": 1
+                "name": "Fahrrad",
+                "price": 500,
+                "currency": "Euro"
+            },
+            {
+                "id": 2
+                "name": "Laptop"
+            },
+        ]
+    }, {...}]</code></pre>
+</section>
+<section>
+    <h2>Complexity</h2>
+    <p>This complexity is difficult to handle as we're mixing two concepts that are very hard for the human mind to
+        reason about: mutation and asynchronicity.</p>
+    <table>
+        <tr>
+            <th style="border:none" rowspan="4">
+                <div style="transform: translate(20px, 150px) rotate(270deg)"><span>Shared?</span></div>
+            </th>
+            <th colspan="3" style="text-align: center;">Mutable?</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>no</th>
+            <th>yes</th>
+        </tr>
+        <tr>
+            <td>no</td>
+            <td>OK</td>
+            <td>OK</td>
+        </tr>
+        <tr>
+            <td>yes</td>
+            <td>OK</td>
+            <td>CHAOS</td>
+        </tr>
+    </table>
+</section>
+<section>
+    <h2>Hack: use plain RX-JS</h2>
+    <pre><code data-trim class="typescript">
+            getSafes(): Observable&lt;Safe[]> {
+            getSafe(safeId: string): Observable&lt;Safe> {
+            getItems(safeId: string): Observable&lt;SafeItem[]> {
+            getItem(safeId: string, itemId: string): Observable&lt;SafeItem> {
+    </code></pre>
+    <p class="fragment">services manages state using rxjs.</p>
+    <p class="fragment">services are for behavior, not for state.</p>
+    <p class="fragment">RXJS HELL</p>
+    <p class="fragment">Architecture Pattern to solve this: flux</p>
+</section>
+<section>
+    <h2>Redux</h2>
+    <ul>
+        <li><a src="https://facebook.github.io/flux/">Flux</a></li>
+        <li><a src="https://redux.js.org">Redux</a></li>
+        <li><a src="https://github.com/ngrx">NGRX</a></li>
+        <img style="height: 400px" src="chapters/images/fluxvsredux.jpeg">
+    </ul>
+</section>
+<section>
+    <h2>Single source of truth</h2>
+    <p>The state of your whole application is stored in an object tree within a single store.</p>
+    <p>This state can include server responses and cached data, as well as locally created data that has not yet been
+        persisted to the server.</p>
+    <p>UI state is also increasing in complexity, as we need to manage active routes, selected tabs, spinners,
+        pagination controls, and so on.</p>
+    <pre><code data-trim class="typescript">console.log(store.getState())
+</code></pre>
+</section>
+<section>
+    <h2>State is read-only</h2>
+    <p>Enforcing that every change is described as an action lets us have a clear understanding of what’s going on in
+        the app.</p>
+    <p>The only way to change the state is to emit an action, an object describing what happened.</p>
+    <pre><code data-trim class="typescript">store.dispatch({
+        type: 'REMOVE_ITEM',
+        id: 1
+    })
+</code></pre>
+</section>
+<section>
+    <h2>Changes are made with pure functions</h2>
+    <p>To specify how the state tree is transformed by actions, you write
+        pure reducers.</p>
+    <pre><code data-trim class="typescript">store.dispatch({
+        type: 'REMOVE_ITEM',
+        id: 1
+    })
+</code></pre>
+</section>
+<section>
+    <h2>Redux Training</h2>
+    <p>More details on flux, redux and application architecture on our additional redux training.</p>
+</section>
