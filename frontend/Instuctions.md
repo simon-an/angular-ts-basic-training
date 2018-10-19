@@ -162,7 +162,60 @@ const routes: Routes = [
 ];
 ```
 
-Continue Secondary Routes
+Create secondary routes
+```bash
+ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
+ng g c views/user/components/userhome  --changeDetection OnPush --module views/user
+ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
+```
+
+Add router outlet to user.component.html
+```html
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
+      <a mat-list-item routerLink="/user" routerLinkActive="active">UserHome</a>
+    </mat-nav-list>
+  </ng-container>
+  <div body>
+    <router-outlet name="secondary"></router-outlet>
+    <a [routerLink]="[{outlets: { secondary: ['safe'] } }]">Safe</a>
+  </div>
+</cool-header-with-sidenav>
+```
+Add SharedModule to user.modules.ts
+
+Add router outlet to app.component.html
+```html
+<router-outlet #routerOutlet="outlet"></router-outlet>
+```
+
+Add routes to user.routing.module.ts
+```typescript
+const routes: Routes = [
+  {
+    path: 'home',
+    component: UserComponent,
+    children: [
+      {
+        path: 'safe',
+        component: SafeComponent,
+        outlet: 'secondary'
+      },
+      {
+        path: '',
+        component: UserHomeComponent,
+        outlet: 'secondary'
+      }
+    ],
+  },
+  {
+    path: '',
+    redirectTo: 'home'
+  }
+];
+```
 
 
 
