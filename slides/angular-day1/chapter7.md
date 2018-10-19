@@ -9,7 +9,7 @@ Add button should open a new dialog.
 ng g component shared/container/addSafeItemDialog --export --changeDetection OnPush
 ```
 
-![61](screenshots/71.png)
+![71](screenshots/71.PNG)
 
 <details><summary>Show Solution</summary>
 <p>
@@ -75,7 +75,7 @@ Add Price to SafeItem Model and item-list.component.html
 
 
 ## Exercise: 7.3 Create a template driven form inside a dialog
-![61](screenshots/73.png)
+![73](screenshots/73.PNG)
 
 ```
 ng g component shared/components/SafeItemForm --export --changeDetection OnPush
