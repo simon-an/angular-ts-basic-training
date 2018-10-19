@@ -2,12 +2,12 @@
 <form (ngSubmit)="onSubmit()" #safeitemForm="ngForm">
   <div>
     <mat-form-field>
-      <input autocomplete="section-item name" #name="ngModel" matInput placeholder="name" required aria-required="true" [(ngModel)]="model.name" type="text"
+      <input autocomplete="section-item name" #name="ngModel" matInput placeholder="name" required aria-required="true" (ngModelChange)="OnNameChanged($event)" [ngModel]="store.getState().model.name" type="text"
         name="name" class="form-control" id="name">
       <mat-error *ngIf="(name.invalid || !name.pristine) && name.getError('required')">required</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input autocomplete="section-item price" #price="ngModel" matInput required placeholder="price" pattern="[0-9]*" aria-required="true" [(ngModel)]="model.price"
+      <input autocomplete="section-item price" #price="ngModel" matInput required placeholder="price" pattern="[0-9]*" aria-required="true" [ngModel]="store.getState().model.price" (ngModelChange)="OnPriceChanged($event)"
         type="text" name="price" class="form-control" id="price">
       <span matPrefix>€&nbsp;</span>
       <span matSuffix>.00</span>
@@ -16,5 +16,5 @@
     </mat-form-field>
     <button [disabled]="!safeitemForm.form.valid" mat-raised-button color="primary" type="submit">Submit</button>
   </div>
-  {{ model | json }}
+  {{ diagnostic }}
 </form>
