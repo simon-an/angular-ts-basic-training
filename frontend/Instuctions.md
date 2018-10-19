@@ -161,10 +161,12 @@ const routes: Routes = [
   }
 ];
 ```
+Now you can navigate to the user and the admin page.
 
-Create secondary routes
+# 6. Create secondary routes
+To see the user and admin page included into the header and navigation you need the following
+
 ```bash
-ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
 ng g c views/user/components/userhome  --changeDetection OnPush --module views/user
 ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
 ```
@@ -215,6 +217,11 @@ const routes: Routes = [
     redirectTo: 'home'
   }
 ];
+```
+
+TODO item-list noch nicht eingefügt
+```bash
+ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
 ```
 
 
