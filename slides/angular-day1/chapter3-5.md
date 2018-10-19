@@ -1,30 +1,3 @@
-# Instructions
-
-## 1. Setup
-```bash
-# Install the Angular CLI
-npm i -g @angular/cli
-```
-
-
-## 2. Create and Start your Angular App
-```bash
-ng new frontend --routing --style scss
-
-# Change to the directory containing your Angular App
-cd frontend
-
-# Start your Angular App
-ng serve
-```
-Path to your Angular App: http://localhost:4200/
-
-Adjust app prefixes
-<ul>
-<li>Change prefix from app to 'cool' in src/tslint.json</li>
-<li>Change prefix from app to 'cool' in angular.json</li>
-</ul>
-
 ## 3. Add Angular Material and your first module
 ```bash
 # Add Angular Material
@@ -163,7 +136,7 @@ const routes: Routes = [
 ```
 Now you can navigate to the user and the admin page.
 
-# 6. Create secondary routes
+## 6. Create secondary routes
 To see the user and admin page included into the header and navigation you need the following
 
 ```bash
@@ -218,12 +191,3 @@ const routes: Routes = [
   }
 ];
 ```
-
-TODO item-list noch nicht eingefügt
-```bash
-ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
-```
-
-
-
-

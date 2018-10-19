@@ -2,38 +2,110 @@
     <h1>Tooling and Project Setup</h1>
 </section>
 <section>
-    <h2>Workspace File</h2>
-    <p>angular.json</p>
-    <p>projects: frontend, frontend-e2e</p>
-    <p>Environments: architect.build.configurations</p>
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/angular/angular-cli/wiki/angular-workspace"></a>
+    <h2>Overview</h2>
+    <ul>
+        <li>VS Code</li>
+        <li>Angular CLI</li>
+        <li>TSLint</li>
+        <li>Test Coverage</li>
+        <li>Webpack</li>
+        <li>Schematics</li>
+    </ul>
 </section>
 <section>
-    <h2>Webpack</h2>
+    <h2>VS Code</h2>
+    <p>
+        Code editor redefined and optimized for building and debugging modern web and cloud applications<br><br>
+        <a href="https://code.visualstudio.com/">VS Code</a>
+    </p>
+</section>
+<section>
+    <h2>VS Code: Important Extensions</h2>
+    <ul>
+        <li>Material Icon Theme</li>
+        <li>TODO @Simon add your extensions</li>
+    </ul>
 </section>
 <section>
     <h2>Angular CLI</h2>
-    <pre><code>npm i -g @angular/cli</code></pre>
+    <p>
+        The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular applications.
+        <br><br>
+        <a href="https://cli.angular.io/">Angular CLI</a>
+    </p>
+</section>
+<section>
+    <h2>Angular CLI Commands</h2>
+    <pre><code class="bash">
+    # Install Angular CLI
+    npm i -g @angular/cli
+    </code></pre>
+    <pre><code class="bash">
+    # Create new angular app
+    ng new frontend --routing --style scss
+    </code></pre>
+    <pre><code class="bash">
+    # Updates (all) dependencies to latest versions
+    ng update (--all)
+    </code></pre>
+</section>
+<section>
+    <h2>Angular CLI Commands</h2>
+    <pre><code class="bash">
+    # Start app with automatic browser reload
+    ng serve
+    </code></pre>
+    <pre><code class="bash">
+    # Lint your app code using tslint
+    ng lint
+    </code></pre>
+</section>
+<section>
+    <h2>Angular CLI Commands</h2>    
+    <pre><code class="bash">
+    # Running unit tests
+    ng test
+    </code></pre>
+    <pre><code class="bash">
+    # Running end-to-end tests
+    ng e2e
+    </code></pre>
+    <pre><code class="bash">
+    # Bundling
+    ng build
+    </code></pre>
+</section>
+<section>
+    <h2>Exercise 2.1</h2>
+    <p>Setup, create and start your Angular app</p>
+</section>
+<section>
+    <h2>TSLint</h2>
     <ul>
-        <li>
-            ng new frontend --routing --sytle scss
-        </li>
-        <li>
-            ng update (--all)
-        </li>
-        <li>
-            ng serve
-        </li>
-        <li>
-            ng lint
-        </li>
-        <li>
-            ng test
-        </li>
-        <li>
-            ng e2e
-        </li>
+        <li>extensible static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.</li>
+        <li>configure in tslint.json</li>
+        <li><a href="https://palantir.github.io/tslint/">TSLint</a></li>
     </ul>
+</section>
+<section>
+    <h2>Karma Code Coverage shown in Istanbul</h2>
+    <pre><code class="bash">
+    ng test --watch=false --code-coverage
+    </code></pre>
+    <p>see coverage/index.html for results</p>
+    <img src="chapters/images/istanbul-coverage.png">
+</section>
+<section>
+    <h2>Webpack</h2>
+    <p>
+        Static module bundler for modern JavaScript applications
+    </p>
+    <aside class="notes">
+        it internally builds a dependency graph which maps every module your project needs and generates one or more bundles.<br>
+        all different kind of assets like images, fonts and stylesheets<br>
+        async chunk loading and prefetching to help you deliver the best possible version of your project to the user, always caring about loading times and performance.<br>
+        built in tree shaking to remove not used fragments and so can create smaller bundles
+    </aside>
 </section>
 <section>
     <h2>Schematics</h2>
@@ -48,26 +120,19 @@
     </code></pre>
 </section>
 <section>
+    <h2>Angular CLI Workspace File <code>angular.json</code></h2>
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/angular/angular-cli/wiki/angular-workspace">Angular CLI Workspace File Reference</a>
     <ul>
-        <li>add to app.component.html</li>
-        <pre><code class="html" data-trim contenteditable style="font-size: 18px;">
-            <cool-sidenav></cool-sidenav>
-           <router-outlet></router-outlet>
-        </code></pre>
-        <li>change prefix from app to 'cool' in src/tslint.json</li>
-        <li>change prefix from app to 'cool' in angular.json</li>
+        <li>projects: frontend, frontend-e2e</li>
+        <li>assets</li>
+        <li>styles</li>
+        <li>architect.build.configurations -> environments</li>
     </ul>
+    <br>
 </section>
 <section>
-    <h2>VS Code</h2>
+    <h2>Exercise 2.2</h2>
     <p>
-        <a href="https://code.visualstudio.com/">VS Code</a>
+        Configure your app
     </p>
-    <h3>Important Extensions</h3>
-    <ul>
-        <li>Material Icon Theme</li>
-    </ul>
-</section>
-<section>
-    <h2>TS LINT</h2>
 </section>
