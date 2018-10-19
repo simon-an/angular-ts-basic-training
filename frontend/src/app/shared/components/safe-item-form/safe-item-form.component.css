@@ -1,8 +1,4 @@
-:host {
+div {
   display: flex;
   flex-direction: column;
-}
-
-cool-item-list {
-  flex: 1;
 }

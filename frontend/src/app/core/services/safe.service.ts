@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
 export class SafeService {
 
   // private currentSafe: Subject<Safe> = new Subject<Safe>();
-  private safes: Subject<Safe[]> = new BehaviorSubject<Safe[]>([]);
-  private items: Subject<SafeItem[]> = new BehaviorSubject<SafeItem[]>([]);
+  private safes: BehaviorSubject<Safe[]> = new BehaviorSubject<Safe[]>([]);
+  private items: BehaviorSubject<SafeItem[]> = new BehaviorSubject<SafeItem[]>([]);
 
   getSafe(safeId: string): Observable<Safe> {
     return this.safes.asObservable().pipe(
@@ -22,6 +22,14 @@ export class SafeService {
 
   getSafes(): Observable<Safe[]> {
     return this.safes.asObservable();
+  }
+
+  addItem(item: SafeItem): any {
+    const newItems = [
+      ... this.items.getValue(),
+      item
+    ];
+    this.items.next(newItems);
   }
 
   getItems(safeId: string): Observable<SafeItem[]> {
