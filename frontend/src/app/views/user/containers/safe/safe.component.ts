@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Safe, SafeService, SafeItem } from 'src/app/core';
+import { AddSafeItemDialogComponent } from 'src/app/shared/container/add-safe-item-dialog/add-safe-item-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'cool-safe',
@@ -15,7 +17,11 @@ export class SafeComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
-  constructor(private activatedRoute: ActivatedRoute, private service: SafeService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private service: SafeService,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
     this.safe$ = this.activatedRoute.paramMap.pipe(
@@ -26,6 +32,19 @@ export class SafeComponent implements OnInit {
       switchMap((safe: Safe) =>
         this.service.getItems(safe.id))
     );
+  }
+
+  onAddSafeItem(event) {
+    const dialogRef = this.dialog.open(AddSafeItemDialogComponent, {
+      height: '400px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.service.addItem(result);
+      }
+    });
   }
 
 }

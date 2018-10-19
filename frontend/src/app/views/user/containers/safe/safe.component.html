@@ -1,1 +1,6 @@
 <cool-item-list [items]="items$ | async"></cool-item-list>
+<footer>
+  <button mat-fab color="primary" (click)="onAddSafeItem($event)" >
+     <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+  </button>
+</footer>
