@@ -1,7 +1,8 @@
-#Chapter 6
+# Chapter 6
 
 ## 6.1 Create safe list in user.component.
-![61](61.PNG) 
+
+![61](screenshots/61.PNG)
 
 ## Task 6.1.1 Create models: SafeItem, Safe
 
@@ -18,7 +19,6 @@ export class SafeItem {
   id: string;
   name: string;
 }
-
 ```
 
 ## Task 6.1.2 Create global service: SafeService
@@ -33,20 +33,15 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SafeService {
-
   // private currentSafe: Subject<Safe> = new Subject<Safe>();
   private safes: Subject<Safe[]> = new BehaviorSubject<Safe[]>([]);
   private items: Subject<SafeItem[]> = new BehaviorSubject<SafeItem[]>([]);
 
   getSafe(safeId: string): Observable<Safe> {
-    return this.safes.asObservable().pipe(
-      map(safes1 =>
-        safes1.find(safe => safe.id === safeId)
-      )
-    );
+    return this.safes.asObservable().pipe(map(safes1 => safes1.find(safe => safe.id === safeId)));
   }
 
   getSafes(): Observable<Safe[]> {
@@ -55,38 +50,30 @@ export class SafeService {
 
   getItems(safeId: string): Observable<SafeItem[]> {
     this.items.next(null);
-    setTimeout(
-      () => {
-        if (safeId === '1') {
-          this.items.next([
-            { id: '1', name: 'Fahrrad' },
-            { id: '2', name: 'Laptop' }
-          ] as SafeItem[]);
-        } else
-          if (safeId === '2') {
-            this.items.next([
-              { id: '3', name: 'Taschenrechner' },
-              { id: '4', name: 'Sonnenbrille' },
-              { id: '5', name: 'Brille' }
-            ] as SafeItem[]);
-          }
-      },
-      2000
-    );
+    setTimeout(() => {
+      if (safeId === '1') {
+        this.items.next([{ id: '1', name: 'Fahrrad' }, { id: '2', name: 'Laptop' }] as SafeItem[]);
+      } else if (safeId === '2') {
+        this.items.next([
+          { id: '3', name: 'Taschenrechner' },
+          { id: '4', name: 'Sonnenbrille' },
+          { id: '5', name: 'Brille' },
+        ] as SafeItem[]);
+      }
+    }, 2000);
     return this.items.asObservable();
   }
 
   constructor() {
     this.safes.next([
       { id: '1', value: 999, itemSize: 2, active: true, activeSince: new Date() },
-      { id: '2', value: 123, itemSize: 3, active: true, activeSince: new Date(), }
+      { id: '2', value: 123, itemSize: 3, active: true, activeSince: new Date() },
     ] as Safe[]);
   }
 }
-
 ```
-</details>
 
+</details>
 
 ## Task 6.1.3 Create Barrel files for core module.
 
@@ -98,6 +85,7 @@ export * from './model';
 export * from './services';
 // end:ng42.barrel
 ```
+
 </details>
 <details><summary>src/app/core/model/index.ts</summary>
 
@@ -107,6 +95,7 @@ export * from './safe';
 export * from './safeitem';
 // end:ng42.barrel
 ```
+
 </details>
 <details><summary>src/app/core/services/index.ts</summary>
 
@@ -115,6 +104,7 @@ export * from './safeitem';
 export * from './safe.service';
 // end:ng42.barrel
 ```
+
 </details>
 
 ## Exercise 6.1.4 userhome.component show list of safes
@@ -124,6 +114,7 @@ Hint: call safeservice.getSafes()
 <details><summary>Solution</summary>
 
 userhome.component.html
+
 ```html
 <p>Safe List</p>
 <ul>
@@ -132,7 +123,9 @@ userhome.component.html
   </li>
 </ul>
 ```
+
 userhome.component.ts
+
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Safe, SafeService } from 'src/app/core';
@@ -141,27 +134,24 @@ import { Observable } from 'rxjs';
 @Component({
   templateUrl: './userhome.component.html',
   styleUrls: ['./userhome.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserHomeComponent implements OnInit {
-
   safes$: Observable<Safe[]>;
 
-  constructor(private service: SafeService) { }
+  constructor(private service: SafeService) {}
 
   ngOnInit() {
     this.safes$ = this.service.getSafes();
   }
-
 }
-
 ```
 
 </details>
 
-
 ## Exercise 6.2 Create item list in safe.component.
-![62](62.PNG) 
+
+![62](screenshots/62.PNG)
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
@@ -176,6 +166,7 @@ export class UserHomeComponent implements OnInit {
   </li>
 </ul>
 ```
+
 </details>
 
 <details><summary>user-routing.module.ts</summary>
@@ -195,28 +186,28 @@ const routes: Routes = [
       {
         path: 'safe/:id',
         component: SafeComponent,
-        outlet: 'secondary'
+        outlet: 'secondary',
       },
       {
         path: '',
         component: UserHomeComponent,
-        outlet: 'secondary'
-      }
+        outlet: 'secondary',
+      },
     ],
   },
   {
     path: '',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
-
+export class UserRoutingModule {}
 ```
+
 </details>
 
 ## Exercise 6.2.2 safe.component subscribe to service and routeparam an get safe and its items
@@ -234,31 +225,21 @@ import { Safe, SafeService, SafeItem } from 'src/app/core';
   selector: 'cool-safe',
   templateUrl: './safe.component.html',
   styleUrls: ['./safe.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SafeComponent implements OnInit {
-
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private service: SafeService
-    ) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: SafeService) {}
 
   ngOnInit() {
-    this.safe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.getSafe(params.get('id')))
-    );
-    this.items$ = this.safe$.pipe(
-      switchMap((safe: Safe) =>
-        this.service.getItems(safe.id))
-    );
+    this.safe$ = this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))));
+    this.items$ = this.safe$.pipe(switchMap((safe: Safe) => this.service.getItems(safe.id)));
   }
-
 }
 ```
+
 </details>
 
 ## Exercise 6.2.3 Itemlist Component show list of safe items
@@ -268,6 +249,7 @@ export class SafeComponent implements OnInit {
 ```html
 <cool-item-list [items]="items$ | async"></cool-item-list>
 ```
+
 </details>
 
 <details><summary>item-list.component.html</summary>
@@ -277,6 +259,7 @@ export class SafeComponent implements OnInit {
   <li *ngFor="let item of items">{{item?.name}}</li>
 </ul>
 ```
+
 </details>
 <details><summary>item-list.component.ts</summary>
 
@@ -288,19 +271,16 @@ import { SafeItem, Safe } from 'src/app/core';
   selector: 'cool-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemListComponent implements OnInit {
-
   @Input()
   items: SafeItem[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
 ```
+
 </details>

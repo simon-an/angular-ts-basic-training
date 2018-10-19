@@ -1,19 +1,19 @@
 <section>
     <h2>Lets add some content..</h2>
     <ul>
+        <li>Barrel TS</li>
+        <li>Rxjs @angular</li>
+        <li>Dependency Injection</li>
+        <li>Routing parameters</li>
         <li>Template Binding and Rendering</li>
         <li>Dynamic html content</li>
-        <li>Dependency Injection</li>
         <li>Services</li>
-        <li>Routing parameters</li>
-        <li>Rxjs @angular</li>
-        <li>Barrel TS</li>
     </ul>
 </section>
 <section>
     <h2>Barrel</h2>
     <ul>
-        <li>index.ts</li>
+        <li>index.ts file exports folder content.</li>
         <li>import paths are shorter and easier</li>
         <li>imports from one module appear in one line</li>
         <li>recommended for the core and shared module</li>
@@ -30,7 +30,88 @@
 </section>
 <section>
     <h2>Dependency Injection</h2>
-    ...
+    <p>You can configure injectors with providers at different levels of your app, by setting a metadata value in one
+        of
+        three places: </p>
+    <ul>
+        <li>In the @Injectable() decorator for the service itself.</li>
+        <li>In the @NgModule() decorator for an NgModule.</li>
+        <li>In the @Component() decorator for a component.</li>
+    </ul>
+    <p>
+        Injectors are inherited, which means that if a given injector can't resolve a dependency, it asks the parent
+        injector to resolve it.
+    </p>
+    <pre><code> [{ provide: Logger, useClass: Logger }]</code></pre>
+
+    <pre><code data-trim>
+    import { InjectionToken } from '@angular/core';
+    export const APP_CONFIG = new InjectionToken&lt;AppConfig>('app.config');
+    </code></pre>
+    <p><a target="_blank" href="https://angular.io/guide/dependency-injection-providers">DI Providers</a></p>
+    <p><a target="_blank" href="https://angular.io/guide/hierarchical-dependency-injection">DI Hierarchy</a></p>
+</section>
+
+<section>
+    <h2>DI decorators</h2>
+    <ul>
+        <li>forwardRef</li>
+        <p>Async Injection</p>
+        <li>@Optional</li>
+        <li>@Self</li>
+        <li>@SkipSelf</li>
+        <li>@HostListener('mouseenter')</li>
+        <li>@Host</li>
+        <p>Stop Injector bubbling. Checks viewProviders instead of providers. Element Injectors only.</p>
+    </ul>
+
+</section>
+
+<section>
+    <p>Two Loggers</p>
+    <pre><code data-trim>
+    [ NewLogger,
+    { provide: OldLogger, useClass: NewLogger}]
+    ]</code></pre>
+    <p>One Logger</p>
+    <pre><code data-trim>
+    [ NewLogger,
+    { provide: OldLogger, useExisting: NewLogger}]
+    ]</code></pre>
+</section>
+
+<section>
+    <h2>Value providers</h2>
+    <p> An object in the shape of the logger service</p>
+    <pre><code data-trim class="typescript">
+    export function SilentLoggerFn() {}
+
+    const silentLogger = {
+        logs: ['Silent logger says "Shhhhh!". Provided via "useValue"'],
+        log: SilentLoggerFn
+    };
+
+    [{ provide: Logger, useValue: silentLogger }]
+</code></pre>
+</section>
+
+<section>
+    <h2>Factory providers</h2>
+    <pre><code data-trim class="typescript">
+    constructor(
+        private logger: Logger,
+        private isAuthorized: boolean) { }
+
+    let heroServiceFactory = (logger: Logger, userService: UserService) => {
+        return new HeroService(logger, userService.user.isAuthorized);
+    };
+
+    export let heroServiceProvider =
+    { provide: HeroService,
+        useFactory: heroServiceFactory,
+        deps: [Logger, UserService]
+    };
+    </code></pre>
 </section>
 
 <section>
@@ -61,28 +142,35 @@
     </ul>
 </section>
 <section>
-    <p>Now Exercise 6.1</p>
+    <h2>Services</h2>
+    <a href="https://angular.io/guide/architecture-services" target="_blank">Docs</a>
+    <pre><code data-trim class="typescript" style="font-size: 18px">
+            @Injectable()
+            class UsefulService {
+            }
+            
+            @Injectable()
+            class NeedsService {
+              constructor(public service: UsefulService) {}
+            }
+            
+            const injector = ReflectiveInjector.resolveAndCreate([NeedsService, UsefulService]);
+            expect(injector.get(NeedsService).service instanceof UsefulService).toBe(true);
+    </code></pre>
     <ul>
-        <li class="fragment">Create models: SafeItem, Safe</li>
-        <li class="fragment">Create global service: SafeService</li>
-        <li class="fragment">Create Barrel files for core module</li>
-        <li class="fragment">Routing for safe component to: path: 'safe/:id',</li>
-        <li class="fragment">User Home Component show list of safes</li>
-        <li class="fragment">Safe Component subscribe to service and routeparam an get safe and its items</li>
+        <li></li>
     </ul>
 </section>
 <section>
-    <p>Now Exercise 6.2</p>
-    <ul>
-        <li class="fragment">Itemlist Component show list of safe items</li>
-    </ul>
+    <h2>Now Exercise 6</h2>
 </section>
 <section>
-    <p>Recap</p>
+    <h2>Recap</h2>
     <ul>
         <li class="fragment">How do we tell the browser with angular, that data changes?</li>
         <li class="fragment">What is one way binding?</li>
         <li class="fragment">What is *ngFor used for?</li>
-        ...
+        <li class="fragment">What is DI? How does it work?</li>
+        <li class="fragment">...</li>
     </ul>
 </section>
