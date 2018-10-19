@@ -110,12 +110,13 @@ add-safe-item-dialog.html
 
 ## Create Form Component
 
-safe-item-form.component.html
+### Exercise 7.3.1 Create Form Component
 
+safe-item-form.component.html
 <details><summary>Show Solution</summary>
 <p>
 
-### Exercise 7.3.x Create Form Component
+
 
 ```html
 <h1>Please insert name and price of the item</h1>
@@ -193,7 +194,7 @@ Add addItem to safe-service.ts
   }
 ```
 
-### Exercise 7.3.x Call the add Item Method from the safe.component.ts
+### Exercise 7.3.2 Call the add Item Method from the safe.component.ts
 
 <details><summary>Show Solution</summary>
 <p>
@@ -218,7 +219,7 @@ safe.component.ts
 </p>
 </details>
 
-### Exercise 7.3.x Bind the from result to the dialog component.
+### Exercise 7.3.3 Bind the from result to the dialog component.
 
 <details><summary>Show Solution</summary>
 <p>
@@ -231,3 +232,7 @@ safe.component.ts
 </details>
 
 ## Additional Exercise: add Edit SafeItem
+
+- Implement an EditSafeItem Dialog.
+- Pass a copy of safeitem to the dialog.
+- Modify form to accept optional @Input.
