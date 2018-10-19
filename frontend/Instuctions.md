@@ -46,10 +46,10 @@ Add to app.component.html
 ## 4. Generate all needed modules
 ```bash
 cd frontend
-# Generate Core 
+# Generate core module 
 ng generate module core --module app
 
-# Remove "SharedModule" from app.module.ts
+# Remove "SharedModule" from app.module.ts, we will regenerate it
 rm -rf src/app/shared/
 
 # Generate new shared module
@@ -73,11 +73,11 @@ ng g @angular/material:nav shared/components/header-with-sidenav --changeDetecti
 ```
 
 Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
-Replace mat-nav-list content with
+Replace mat-nav-list with
 ```html
 <ng-content select="[navlist]"></ng-content>
 ```
-Replace "<!-- Add Content Here -->"
+Replace "Add Content Here" comment
 ```html
 <ng-content select="[body]"></ng-content>
 ```
@@ -91,14 +91,15 @@ Add content to src\app\views\home\home\home.component.html
 ```html
 <cool-header-with-sidenav>
   <ng-container navlist>
-    <a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin</a>
-    <a mat-list-item routerLink="/user" routerLinkActive="active">Login as User</a>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin</a>
+      <a mat-list-item routerLink="/user" routerLinkActive="active">Login as User</a>
+    </mat-nav-list>
   </ng-container>
   <p body>home works</p>
 </cool-header-with-sidenav>
 ```
-
-Add SharedModule to HomeModule.
+Add SharedModule and MatListModule to home.module.ts
 
 Add routing configuration to home module.
 ```TypeScript
@@ -109,6 +110,35 @@ const routes: Routes = [
   }
 ];
 ```
+
+```bash
+# Generate admin view
+ng g c views/admin/admin --changeDetection OnPush --module views/admin
+```
+Add routing configuration to admin module.
+```TypeScript
+const routes: Routes = [
+  {
+    path: '',
+    component: AdminComponent
+  }
+];
+```
+
+```bash
+# Generate user view
+ng g c views/user/user --changeDetection OnPush --module views/user
+```
+Add routing configuration to user module.
+```TypeScript
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent
+  }
+];
+```
+
 Configure routing of the whole app
 ```TypeScript
 const routes: Routes = [
@@ -132,7 +162,60 @@ const routes: Routes = [
 ];
 ```
 
-Continue Secondary Routes
+Create secondary routes
+```bash
+ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
+ng g c views/user/components/userhome  --changeDetection OnPush --module views/user
+ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
+```
+
+Add router outlet to user.component.html
+```html
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="" routerLinkActive="active">Home</a>
+      <a mat-list-item routerLink="/user" routerLinkActive="active">UserHome</a>
+    </mat-nav-list>
+  </ng-container>
+  <div body>
+    <router-outlet name="secondary"></router-outlet>
+    <a [routerLink]="[{outlets: { secondary: ['safe'] } }]">Safe</a>
+  </div>
+</cool-header-with-sidenav>
+```
+Add SharedModule to user.modules.ts
+
+Add router outlet to app.component.html
+```html
+<router-outlet #routerOutlet="outlet"></router-outlet>
+```
+
+Add routes to user.routing.module.ts
+```typescript
+const routes: Routes = [
+  {
+    path: 'home',
+    component: UserComponent,
+    children: [
+      {
+        path: 'safe',
+        component: SafeComponent,
+        outlet: 'secondary'
+      },
+      {
+        path: '',
+        component: UserHomeComponent,
+        outlet: 'secondary'
+      }
+    ],
+  },
+  {
+    path: '',
+    redirectTo: 'home'
+  }
+];
+```
 
 
 
