@@ -7,18 +7,74 @@
         <li>Services</li>
         <li>Routing parameters</li>
         <li>Rxjs @angular</li>
+        <li>Barrel TS</li>
     </ul>
 </section>
 <section>
-    <p>Now...</p>
+    <h2>Barrel</h2>
+    <ul>
+        <li>index.ts</li>
+        <li>import paths are shorter and easier</li>
+        <li>imports from one module appear in one line</li>
+        <li>recommended for the core and shared module</li>
+    </ul>
+</section>
+<section>
+    <h2>RXJS</h2>
+    <ul>
+        <li>Subject, BehaviorSubject, AsyncSubject</li>
+        <li>Subjects are Observables and Subcribers.</li>
+        <li>Are useful to handle mock data or local state of a service.</li>
+        <li>subject.asObservable</li>
+    </ul>
+</section>
+<section>
+    <h2>Dependency Injection</h2>
+    ...
+</section>
+
+<section>
+    <h2>Routes with params</h2>
+    <pre><code class="typescript"> [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]</code></pre>
+    <pre><code data-trim class="typescript">  constructor(
+            private activatedRoute: ActivatedRoute,
+            private service: SafeService
+            ) { }
+        ...
+        this.activatedRoute.paramMap
+        </code></pre>
+    <pre><code class="typescript"> params.get('id')</code></pre>
+    <pre><code class="typescript"> 
+        {
+            path: 'safe/:id',
+            component: SafeComponent,
+            outlet: 'secondary'
+        },
+    </code></pre>
+</section>
+<section>
+    <h2>*ngFor, async, {{}}</h2>
+    <ul>
+        <li>let item of items</li>
+        <li>{{ variable }}</li>
+        <li>observable | async</li>
+    </ul>
+</section>
+<section>
+    <p>Now Exercise 6.1</p>
     <ul>
         <li class="fragment">Create models: SafeItem, Safe</li>
         <li class="fragment">Create global service: SafeService</li>
         <li class="fragment">Create Barrel files for core module</li>
         <li class="fragment">Routing for safe component to: path: 'safe/:id',</li>
-        <li class="fragment">Itemlist Component show list of safe items</li>
         <li class="fragment">User Home Component show list of safes</li>
         <li class="fragment">Safe Component subscribe to service and routeparam an get safe and its items</li>
+    </ul>
+</section>
+<section>
+    <p>Now Exercise 6.2</p>
+    <ul>
+        <li class="fragment">Itemlist Component show list of safe items</li>
     </ul>
 </section>
 <section>
