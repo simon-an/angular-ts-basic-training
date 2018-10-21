@@ -1,0 +1,19 @@
+<h2>Please Loging as {{state.role}}</h2>
+<form (ngSubmit)="dialogRef.close(state)" #loginForm="ngForm">
+  <mat-form-field>
+    <mat-select placeholder="Role" #roleInput [(value)]="state.role">
+      <mat-option *ngFor="let role of roles" [value]="role">
+        {{role}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input required name="email" [(ngModel)]=state.email matInput placeholder="Email" #email="ngModel">
+    <mat-error> {{ data.message }} </mat-error>
+  </mat-form-field>
+
+  <button [disabled]="!email.valid" mat-button color="primary">
+    Login
+  </button>
+</form>

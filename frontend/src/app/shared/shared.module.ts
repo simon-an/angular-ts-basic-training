@@ -12,13 +12,16 @@ import {
   MatRadioModule,
   MatCardModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { HeaderWithSidenavComponent } from './components/header-with-sidenav/header-with-sidenav.component';
 import { AddSafeItemDialogComponent } from './container/add-safe-item-dialog/add-safe-item-dialog.component';
 import { SafeItemFormComponent } from './components/safe-item-form/safe-item-form.component';
 import { FormsModule } from '@angular/forms';
+import { LoginDialogComponent } from './container/login-dialog/login-dialog.component';
+import { LoginComponent } from './container/login/login.component';
 
 @NgModule({
   imports: [
@@ -37,9 +40,13 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
-  declarations: [HeaderWithSidenavComponent, AddSafeItemDialogComponent, SafeItemFormComponent],
-  exports: [HeaderWithSidenavComponent, AddSafeItemDialogComponent, SafeItemFormComponent,  
+  declarations: [HeaderWithSidenavComponent, AddSafeItemDialogComponent, SafeItemFormComponent, LoginDialogComponent, LoginComponent],
+  exports: [
+    HeaderWithSidenavComponent,
+    AddSafeItemDialogComponent,
+    SafeItemFormComponent,
     MatFormFieldModule,
     MatDialogModule,
     MatToolbarModule,
@@ -51,7 +58,10 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    LoginDialogComponent,
+    LoginComponent,
+    MatProgressSpinnerModule,
   ],
-  entryComponents: [AddSafeItemDialogComponent]
+  entryComponents: [AddSafeItemDialogComponent, LoginDialogComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

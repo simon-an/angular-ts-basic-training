@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { SafeComponent } from './containers/safe/safe.component';
 import { UserHomeComponent } from './components/userhome/userhome.component';
+import { SafeResolverService } from 'src/app/core';
 
 const routes: Routes = [
   {
@@ -12,23 +13,26 @@ const routes: Routes = [
       {
         path: 'safe/:id',
         component: SafeComponent,
-        outlet: 'secondary'
+        outlet: 'secondary',
+        resolve: {
+          safe: SafeResolverService,
+        },
       },
       {
         path: '',
         component: UserHomeComponent,
-        outlet: 'secondary'
-      }
+        outlet: 'secondary',
+      },
     ],
   },
   {
     path: '',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

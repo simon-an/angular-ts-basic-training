@@ -1,0 +1,4 @@
+<button *ngIf="!loading; else spinner" mat-button color="primary" (click)=openModal()>Login</button>
+<ng-template #spinner>
+  <mat-spinner></mat-spinner>
+</ng-template>
