@@ -4,13 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'cool-login-dialog',
   templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.css'],
+  styleUrls: ['./login-dialog.component.css']
 })
 export class LoginDialogComponent {
   roles = ['user', 'admin'];
   state = {
     role: 'user',
-    email: 'simon',
+    email: 'simon@gmail.com'
   };
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {

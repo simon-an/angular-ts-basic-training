@@ -1,19 +1,39 @@
 <h2>Please Loging as {{state.role}}</h2>
-<form (ngSubmit)="dialogRef.close(state)" #loginForm="ngForm">
+<form (ngSubmit)="dialogRef.close(state)" #loginForm="ngForm" coolSpecialAdminValidator>
   <mat-form-field>
-    <mat-select placeholder="Role" #roleInput [(value)]="state.role">
+    <mat-select placeholder="Role" #roleInput [(value)]="state.role" matInput name="role" [(ngModel)]="state.role">
       <mat-option *ngFor="let role of roles" [value]="role">
         {{role}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-error *ngIf="!!loginForm.errors?.specialAdmin &&  (loginForm.touched || loginForm.dirty)">
+    Email address domain for admins are restricted.
+  </mat-error>
 
   <mat-form-field>
-    <input required name="email" [(ngModel)]=state.email matInput placeholder="Email" #email="ngModel">
+    <input email coolUserExists required name="email" [(ngModel)]=state.email matInput placeholder="Email" #email="ngModel"
+      [ngModelOptions]="{updateOn: 'blur'}">
     <mat-error> {{ data.message }} </mat-error>
+    <mat-error *ngIf="email?.errors?.userExists">
+      user does not exists
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.email">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.required">
+      Email is <strong>required</strong>
+    </mat-error>
   </mat-form-field>
 
-  <button [disabled]="!email.valid" mat-button color="primary">
+
+  <button [disabled]="!loginForm.valid" mat-button color="primary">
     Login
   </button>
+  <!-- {{loginForm.valid}}
+  {{loginForm.touched}}
+  {{loginForm.dirty}}
+  {{loginForm.pristine}}
+  {{loginForm.errors | json }}
+  X:{{email.errors | json }} -->
 </form>

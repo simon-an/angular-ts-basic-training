@@ -1,3 +1,90 @@
 <section>
     <h1>Pipe and Validators</h1>
 </section>
+<section>
+    <h2>Pipes</h2>
+    <pre><code data-trim class="html">
+        "template variable or text" | pipe:arguments
+    </code></pre>
+</section>
+<section>
+    <h2>Pure Pipes</h2>
+    <p>When true, the pipe is pure, meaning that the transform() method is invoked only when its input arguments
+        change.
+        Pipes are pure by default.</p>
+    <p>If the pipe has internal state (that is, the result depends on state other than its arguments), set pure to
+        false.
+        In this case, the pipe is invoked on each change-detection cycle, even if the arguments have not changed.</p>
+</section>
+<section>
+    <h2>Default Pipes</h2>
+    <ul>
+        <li>async</li>
+        <li>json</li>
+        <li>currency </li>
+        <li>date </li>
+        <li>decimal</li>
+        <li>lowercase</li>
+        <li>uppercase</li>
+        <li>titlecase</li>
+        <li>percent</li>
+
+    </ul>
+</section>
+<section>
+    <h2>Default Pipe cont.</h2>
+    <ul>
+        <li>I18n</li>
+        <pre><code data-trim class="typescript" style="font-size: 14px">
+        @Component(
+            {selector: 'i18n-select-pipe', template: `<div>{{gender | i18nSelect: inviteMap}} </div>`})
+        export class I18nSelectPipeComponent {
+        gender: string = 'male';
+        inviteMap: any = {'male': 'Invite him.', 'female': 'Invite her.', 'other': 'Invite them.'};
+        }
+     </code></pre>
+        <li>keyvalue</li>
+        <p>Transforms Object or Map into an array of key value pairs.</p>
+        <pre><code data-trim class="html">
+            <div *ngFor="let item of object | keyvalue">
+                {{item.key}}:{{item.value}}
+            </div>
+            </code></pre>
+        <li>slice</li>
+        <pre><code data-trim class="html">
+            <li *ngFor="let i of collection | slice:1:3">{{i}}</li>
+        </code></pre>
+    </ul>
+</section>
+<section>
+    <h2>Default Validators</h2>
+    <ul>
+        <li> min (numbers)</li>
+        <li> max (numbers)</li>
+        <li> required </li>
+        <li> requiredTrue (checkboxes)</li>
+        <li> email </li>
+        <li> pattern</li>
+        <li> minLength </li>
+        <li> maxLength </li>
+        <li> nullValidator, compose, composeAsync</li>
+    </ul>
+</section>
+<section>
+    <h2>Custom Pipes</h2>
+</section>
+<section>
+    <h2>Custom Pipes</h2>
+</section>
+<section>
+    <h2>Custom Pipes</h2>
+</section>
+<section>
+    <h2>Custom Validators</h2>
+</section>
+<section>
+    <h2>Custom Validators</h2>
+</section>
+<section>
+    <h2>Custom Validators</h2>
+</section>

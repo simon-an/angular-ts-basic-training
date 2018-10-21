@@ -5,17 +5,18 @@ import { AuthService } from '../services/auth.service';
 import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private auth: AuthService, private router: Router) {}
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('canactivate', state, next);
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
     return this.verifyUser();
   }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('canLoad', route);
     return this.verifyUser();
   }
 

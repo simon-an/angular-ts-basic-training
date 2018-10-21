@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'cool-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   dialogRef: MatDialogRef<LoginDialogComponent>;
@@ -26,17 +26,22 @@ export class LoginComponent implements OnInit {
       top: '',
       bottom: '',
       left: '',
-      right: '',
+      right: ''
     },
     data: {
       message: '',
-      role: of('user'),
-    },
+      role: of('user')
+    }
   };
 
   loading = false;
 
-  constructor(private auth: AuthService, public dialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private auth: AuthService,
+    public dialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
     this.config.data.role = this.activatedRoute.paramMap.pipe(map((params: ParamMap) => params.get('role')));
     this.openModal();
   }

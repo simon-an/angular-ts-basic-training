@@ -13,7 +13,7 @@ import {
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { HeaderWithSidenavComponent } from './components/header-with-sidenav/header-with-sidenav.component';
@@ -22,6 +22,8 @@ import { SafeItemFormComponent } from './components/safe-item-form/safe-item-for
 import { FormsModule } from '@angular/forms';
 import { LoginDialogComponent } from './container/login-dialog/login-dialog.component';
 import { LoginComponent } from './container/login/login.component';
+import { UserExistsDirective } from './directives/user-exists-validator.directive';
+import { SpecialAdminValidatorDirective } from './directives/admin-email-validator.directive';
 
 @NgModule({
   imports: [
@@ -40,9 +42,17 @@ import { LoginComponent } from './container/login/login.component';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule
   ],
-  declarations: [HeaderWithSidenavComponent, AddSafeItemDialogComponent, SafeItemFormComponent, LoginDialogComponent, LoginComponent],
+  declarations: [
+    HeaderWithSidenavComponent,
+    AddSafeItemDialogComponent,
+    SafeItemFormComponent,
+    LoginDialogComponent,
+    LoginComponent,
+    UserExistsDirective,
+    SpecialAdminValidatorDirective
+  ],
   exports: [
     HeaderWithSidenavComponent,
     AddSafeItemDialogComponent,
@@ -61,7 +71,9 @@ import { LoginComponent } from './container/login/login.component';
     LoginDialogComponent,
     LoginComponent,
     MatProgressSpinnerModule,
+    UserExistsDirective,
+    SpecialAdminValidatorDirective
   ],
-  entryComponents: [AddSafeItemDialogComponent, LoginDialogComponent],
+  entryComponents: [AddSafeItemDialogComponent, LoginDialogComponent]
 })
 export class SharedModule {}
