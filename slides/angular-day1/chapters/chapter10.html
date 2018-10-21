@@ -72,19 +72,21 @@
 </section>
 <section>
     <h2>Custom Pipes</h2>
-</section>
-<section>
-    <h2>Custom Pipes</h2>
-</section>
-<section>
-    <h2>Custom Pipes</h2>
+    <p>They are Directives</p>
 </section>
 <section>
     <h2>Custom Validators</h2>
-</section>
-<section>
-    <h2>Custom Validators</h2>
-</section>
-<section>
-    <h2>Custom Validators</h2>
+    <p>They are Directives</p>
+    <p>ValidatorFn</p>
+    <p>Validator and Async Validator</p>
+    <p>Add to validator injector</p>
+    <pre><code data-trim>
+        providers: [
+            {
+              provide: NG_VALIDATORS,
+              useExisting: SpecialAdminValidatorDirective,
+              multi: true
+            }
+        ]
+    </code></pre>
 </section>

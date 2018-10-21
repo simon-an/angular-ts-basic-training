@@ -1,3 +1,28 @@
 <section>
     <h1>More Services Integrate the NodeJS Backend</h1>
 </section>
+<section>
+    <h2>HttpClient</h2>
+    <p>Perform HTTP requests.</p>
+    <p>HttpClient is available as an injectable class, with methods to perform HTTP requests. Each request method has
+        multiple signatures, and the return type varies according to which signature is called (mainly the values of
+        observe and responseType).</p>
+</section>
+<section>
+    <h2>HttpInterceptor</h2>
+    <p>Intercepts HttpRequest and handles them.</p>
+    <p>Most interceptors will transform the outgoing request before passing it to the next interceptor in the chain, by
+        calling next.handle(transformedReq).</p>
+</section>
+<section>
+    <h2>JsonpInterceptor</h2>
+    <p>An HttpInterceptor which identifies requests with the method JSONP and shifts them to the JsonpClientBackend.</p>
+</section>
+<section>
+    <h2>Exercise 11.1</h2>
+    <p>Implement auth.service and safe.service to call the NodeJS Backend</p>
+</section>
+<section>
+    <h2>Exercise 11.2</h2>
+    <p>Implement some interceptors.</p>
+</section>
