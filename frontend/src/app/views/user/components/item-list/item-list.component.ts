@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { SafeItem, Safe } from 'src/app/core';
 
 @Component({
@@ -8,13 +8,13 @@ import { SafeItem, Safe } from 'src/app/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent implements OnInit {
-
   @Input()
   items: SafeItem[];
 
-  constructor() { }
+  @Output()
+  showInvoiceEmitter = new EventEmitter<string>();
 
-  ngOnInit() {
-  }
+  constructor() {}
 
+  ngOnInit() {}
 }

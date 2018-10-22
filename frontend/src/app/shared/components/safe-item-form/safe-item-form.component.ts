@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, ChangeDetectionStrategy, Input, Output } from '@angular/core';
 import { SafeItem } from 'src/app/core';
+import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
   selector: 'cool-safe-item-form',
@@ -8,20 +9,43 @@ import { SafeItem } from 'src/app/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafeItemFormComponent implements OnInit {
+  constructor(private fileService: FileService) {}
 
-  @Output() result: EventEmitter<SafeItem> = new EventEmitter();
+  // TODO: Remove this when we're done
+  get diagnostic() {
+    return JSON.stringify(this.model);
+  }
+
+  @Output()
+  result: EventEmitter<SafeItem> = new EventEmitter();
   model = <SafeItem>{};
 
-  constructor() { }
+  state = {
+    file: null,
+    fileSize: 0,
+    uploading: false,
+    invoice: null
+  };
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit() {
     this.result.emit(this.model);
   }
 
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
-
+  onFileChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      this.state.file = event.target.files[0];
+      this.state.fileSize = this.state.file.size;
+      // console.log(this.state.file);
+      reader.readAsDataURL(this.state.file);
+      reader.onload = () => {
+        // console.log(reader.result);
+        const id = this.fileService.uploadFile(reader.result);
+        this.model.invoiceId = id;
+        // console.log(id);
+      };
+    }
+  }
 }

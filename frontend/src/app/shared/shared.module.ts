@@ -24,6 +24,7 @@ import { LoginDialogComponent } from './container/login-dialog/login-dialog.comp
 import { LoginComponent } from './container/login/login.component';
 import { UserExistsDirective } from './directives/user-exists-validator.directive';
 import { SpecialAdminValidatorDirective } from './directives/admin-email-validator.directive';
+import { FileSizePipe } from './directives/file-size.pipe';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { SpecialAdminValidatorDirective } from './directives/admin-email-validat
     LoginDialogComponent,
     LoginComponent,
     UserExistsDirective,
-    SpecialAdminValidatorDirective
+    SpecialAdminValidatorDirective,
+    FileSizePipe
   ],
   exports: [
     HeaderWithSidenavComponent,
@@ -72,7 +74,8 @@ import { SpecialAdminValidatorDirective } from './directives/admin-email-validat
     LoginComponent,
     MatProgressSpinnerModule,
     UserExistsDirective,
-    SpecialAdminValidatorDirective
+    SpecialAdminValidatorDirective,
+    FileSizePipe
   ],
   entryComponents: [AddSafeItemDialogComponent, LoginDialogComponent]
 })
