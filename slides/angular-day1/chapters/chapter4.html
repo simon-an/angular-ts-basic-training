@@ -1,32 +1,61 @@
 <section>
-    <h1>Modules</h1>
+    <h1>Modules<br>and<br>Routing</h1>
 </section>
 <section>
-    <h2>Module Creation</h2>
+    <h2>Modules</h2>
+    <p>ngModule <br>= <br>cohesive block of code dedicated to an application domain, a workflow, or a closely related set of capabilities</p>
+    <p>Root Module bootstraps the application<br>(= AppModule)</p>
+</section>
+<section>
+    <h2>Recommended Modules</h2>
     <ul>
-        <li>Root Module</li>
-        <li>Shared Module</li>
-        <li>Lazy Loading Modules</li>
+        <li>Core</li>
+        <li>Features</li>
+        <li>Shared</li>
     </ul>
+    <aside class="notes">
+        A feature module delivers a cohesive set of functionality focused on a specific application need such as a user workflow, routing, or forms.<br>
+        Feature modules partition the app into focused areas.<br>
+        A feature module collaborates with the root module and with other modules through the services it provides and the components, directives, and pipes that it shares.<br>
+        A shared module consists of commonly used directives, pipes, and components.
+    </aside>
+</section>
+<section>
+    <h2>Exercise 4.1</h2>
+    <p>Create modules</p>
 </section>
 <!-- ng generate module state --module app -->
 <!-- ng generate @ngrx/schematics:store State --root --module state
 ng generate @ngrx/schematics:effect App --root --module state -->
 <section>
-    <h2>Routing</h2>
-    <p>app.component.html</p>
-    <pre><code data-trim>
-            <router-outlet></router-outlet>
+    <h2>Routing & Navigation</h2>
+    <ul>
+        <li>URL in address bar</li>
+        <li>links on page</li>
+        <li>back and forward button in browser</li>
+    </ul>
+</section>
+<section>
+    <h2>Set the base</h2>
+    <pre><code class="html" data-trim>
+    <base href="/"></code>
+    </pre>
+    <p>Router configuration in app-routing.module.ts</p>
+</section>
+<section>
+    <h2>Router Outlet</h2>
+    <pre><code class="html" data-trim>
+        <router-outlet></router-outlet>
     </code></pre>
     <p class="fragment" data-code-focus="1">
-        router-outlet is a placeholder for the router in the dom. The router places the active component there.
+        Placeholder for the router in the dom.<br>The router places the active component there.
     </p>
     <p class="fragment">
-        it is possible to use multiple router-outlets at the same time.
+        It is possible to use multiple router-outlets at the same time.
     </p>
 </section>
 <section>
-    <h2>Routing</h2>
+    <h2>Router Link</h2>
     <p>home.component.html</p>
     <pre><code data-trim style="font-size: 17px">
         ng g c views/home/home --changeDetection OnPush --module views/home
@@ -71,7 +100,22 @@ ng generate @ngrx/schematics:effect App --root --module state -->
         </mat-sidenav-container>
     </code></pre>
     <p class="fragment" data-code-focus="6">
-        ng-content is a placeholder for the html content, passed from the parent to its child.
+        <code>ng-content</code> is a placeholder for the html content, passed from the parent to its child.
+    </p>
+</section>
+<section>
+    <h2>Content for <code>ng-content</code> in <code>home.component.ts</code></h2>
+    <pre><code class="html" data-trim style="font-size: 17px">
+        &lt;cool-header-with-sidenav&gt;
+            &lt;ng-container navlist>
+                &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a&gt;
+                &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a&gt;
+            &lt;/ng-container&gt;
+            &lt;p body&gt;home works&lt;/p&gt;
+        &lt;/cool-header-with-sidenav&gt;
+    </code></pre>
+    <p class="fragment" data-code-focus="2,6">
+        ng-content using attribute selectors
     </p>
 </section>
 <section>
@@ -81,7 +125,7 @@ ng generate @ngrx/schematics:effect App --root --module state -->
         <!-- header-with-sidenav.component.html -->
         <ng-content select="[nav-list]"></ng-content>
         <!-- home.component.html -->
-        <div nav-list>...</div>
+        &lt;div nav-list>...&lt;/div>
     </code></pre>
     <pre><code class="html" data-trim style="font-size: 12px">
         <!-- Selector using Attribute with Value -->
@@ -105,7 +149,7 @@ ng generate @ngrx/schematics:effect App --root --module state -->
         <!-- header-with-sidenav.component.html -->
         <ng-content select="[nav][list]"></ng-content>
         <!-- home.component.html -->
-        <div nav list>...</div>
+        &lt;div nav list>...&lt;/div>
     </code></pre>
     <pre><code class="html" data-trim style="font-size: 12px">
         <!-- Selector using an HTML Tag -->
@@ -119,62 +163,13 @@ ng generate @ngrx/schematics:effect App --root --module state -->
     </aside>
 </section>
 <section>
-    <h2>Routing</h2>
-    <pre><code class="html" data-trim style="font-size: 17px">
-        &lt;cool-header-with-sidenav&gt;
-            &lt;ng-container navlist>
-                &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a&gt;
-                &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a&gt;
-            &lt;/ng-container&gt;
-            &lt;p body&gt;home works&lt;/p&gt;
-        &lt;/cool-header-with-sidenav&gt;
-    </code></pre>
-    <p class="fragment" data-code-focus="2,6">
-        ng-content used attributes, too
-    </p>
+    <h2>Exercise 4.2</h2>
+    <p>Routing</p>
 </section>
 <section>
-    <h2>Selectors</h2>
-    <pre><code data-trim>
-             
-    </code></pre>
-</section>
-<section>
-    <h2>Routing</h2>
-    <p>home-routing.module.ts</p>
-    <pre><code data-trim>
-            const routes: Routes = [
-            {
-              path: '',
-              component: HomeComponent
-            }
-          ];
-    </code></pre>
-</section>
-<section>
-    <h2>Routing</h2>
-    <p>app-routing.module.ts</p>
-    <pre><code data-trim>
-            const routes: Routes = [
-            {
-              path: 'admin',
-              loadChildren: './views/admin/admin.module#AdminModule'
-            },
-            {
-              path: 'user',
-              loadChildren: './views/user/user.module#UserModule'
-            },
-            {
-              path: 'home',
-              loadChildren: './views/home/home.module#HomeModule'
-            },
-            {
-              path: '',
-              redirectTo: 'home',
-              pathMatch: 'full'
-            }
-          ];
-    </code></pre>
+    <h2>Lazy Loading Modules</h2>
+    <p>No Module Hierarchy</p>
+    <p>Injector Hierarchy</p>
 </section>
 <section>
     <h2>Secondary Routes</h2>
@@ -185,44 +180,50 @@ ng generate @ngrx/schematics:effect App --root --module state -->
     </ul>
 </section>
 <section>
-    <h2>Routing</h2>
-    <pre><code data-trim>
+    <h3>Secondary Routes</h3>
+    <pre><code class="bash" data-trim style="font-size: 17px">
+        ng g c views/user/components/item-list  --changeDetection OnPush --module views/user
+        ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
+    </code></pre>
+    <pre><code class="html" data-trim style="font-size: 17px">
+        <!-- user.component.html -->
+        <router-outlet name="secondary"></router-outlet>
+        &lt;a mat-list-item [routerLink]="[{outlets: { secondary: ['safe'] } }]">Safe&lt;/a>
+        <!-- app.component.html -->
+        <router-outlet #routerOutlet="outlet"></router-outlet>
     </code></pre>
 </section>
 <section>
-    <h2>Routing</h2>
-    <pre><code data-trim>
+    <pre><code class="typescript" data-trim style="font-size: 17px; line-height: 15px">
+        /* user.routing.module.ts */
+            const routes: Routes = [
+            {
+                path: 'home',
+                component: UserComponent,
+                children: [
+                {
+                    path: 'safe',
+                    component: SafeComponent,
+                    outlet: 'secondary'
+                },
+                {
+                    path: '',
+                    component: UserHomeComponent,
+                    outlet: 'secondary'
+                }
+                ],
+            },
+            {
+                path: '',
+                redirectTo: 'home'
+            }
+            ];
     </code></pre>
+    <p class="fragment" data-code-focus="5,9">
+        router module can use outlet to place components in multiple router-outlets
+    </p>
 </section>
 <section>
-    <h2>Routing</h2>
-    <pre><code data-trim>
-    </code></pre>
-</section>
-<section>
-    <h2>Modules Basics</h2>
-    <ul>
-        <li>Treeshaking</li>
-        <li>...</li>
-    </ul>
-</section>
-<section>
-    <h2>Recommended Modules</h2>
-    <ul>
-        <li>Core</li>
-        <li>Features</li>
-        <li>Shared</li>
-    </ul>
-</section>
-<section>
-    <h2>Lazy Loading Modules</h2>
-    <p>No Module Hierarchy</p>
-    <p>Injector Hierarchy</p>
-</section>
-
-<section>
-    <h2>More Schematics</h2>
-    <pre><code>ng add ng-momentum</code></pre>
-    <pre><code>ng g ng-momentum:scaffold --spec=false --force</code></pre>
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/BottleRocketStudios/ng-momentum">On Github</a>
+    <h2>Exercise 4.3</h2>
+    <p>Secondary Routing</p>
 </section>

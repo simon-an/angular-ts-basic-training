@@ -1,4 +1,6 @@
-## 3. Add Angular Material and your first module
+# Chapter 4
+## Exercise: 4.1 
+### Add Angular Material and your first module:
 ```bash
 # Add Angular Material
 ng add @angular/material
@@ -16,7 +18,7 @@ Add to app.component.html
 <router-outlet></router-outlet>
 ```
 
-## 4. Generate all needed modules
+### Generate all needed modules
 ```bash
 cd frontend
 # Generate core module 
@@ -34,8 +36,8 @@ ng g module views/user --routing
 ng g module views/admin --routing
 ```
 
-## 5. Add Routing
-Add router-outlet to app.component.html
+## Exercise: 4.2
+### Add router-outlet to app.component.html
 ```html
 <router-outlet></router-outlet>
 ```
@@ -45,7 +47,7 @@ Add router-outlet to app.component.html
 ng g @angular/material:nav shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
 ```
 
-Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
+### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 Replace mat-nav-list with
 ```html
 <ng-content select="[navlist]"></ng-content>
@@ -55,11 +57,11 @@ Replace "Add Content Here" comment
 <ng-content select="[body]"></ng-content>
 ```
 
+### Home View
 ```bash
 # Generate home view
 ng g c views/home/home --changeDetection OnPush --module views/home
 ```
-
 Add content to src\app\views\home\home\home.component.html
 ```html
 <cool-header-with-sidenav>
@@ -84,11 +86,14 @@ const routes: Routes = [
 ];
 ```
 
+### Admin View
 ```bash
 # Generate admin view
 ng g c views/admin/admin --changeDetection OnPush --module views/admin
 ```
 Add routing configuration to admin module.
+<details><summary>Show Solution</summary>
+
 ```TypeScript
 const routes: Routes = [
   {
@@ -97,12 +102,16 @@ const routes: Routes = [
   }
 ];
 ```
+</details>
 
+### User View
 ```bash
 # Generate user view
 ng g c views/user/user --changeDetection OnPush --module views/user
 ```
 Add routing configuration to user module.
+<details><summary>Show Solution</summary>
+
 ```TypeScript
 const routes: Routes = [
   {
@@ -111,6 +120,7 @@ const routes: Routes = [
   }
 ];
 ```
+</details>
 
 Configure routing of the whole app
 ```TypeScript
@@ -136,8 +146,8 @@ const routes: Routes = [
 ```
 Now you can navigate to the user and the admin page.
 
-## 6. Create secondary routes
-To see the user and admin page included into the header and navigation you need the following
+## Exercise: 4.3
+To see the user and admin page included into the header and navigation you need secondary routes:
 
 ```bash
 ng g c views/user/components/userhome  --changeDetection OnPush --module views/user
