@@ -1,12 +1,15 @@
 # Chapter 6
 
-## 6.1 Create safe list in user.component.
+## Exercise 6.0 Create core module
+ng generate module core --module app
+
+## Exercise 6.1 Create safe list in user.component
 
 ![61](screenshots/61.PNG)
 
-## Task 6.1.1 Create models: SafeItem, Safe
-
+## Exercise 6.1.1 Create models: Safe, SafeItem 
 ```typescript
+// app\core\model\safe.ts
 export class Safe {
   id: string;
   value: number;
@@ -15,13 +18,18 @@ export class Safe {
   activeSince: Date;
 }
 
+// app\core\model\safeitem.ts
 export class SafeItem {
   id: string;
   name: string;
 }
 ```
 
-## Task 6.1.2 Create global service: SafeService
+## Exercise 6.1.2 Create global service: SafeService
+
+```bash
+ng g s core/services/safe
+```
 
 <details>
 <summary>Show Code</summary>
@@ -75,8 +83,7 @@ export class SafeService {
 
 </details>
 
-## Task 6.1.3 Create Barrel files for core module.
-
+## Exercise 6.1.3 Create Barrel files for core module.
 <details><summary>src/app/core/index.ts</summary>
 
 ```typescript
@@ -132,8 +139,9 @@ import { Safe, SafeService } from 'src/app/core';
 import { Observable } from 'rxjs';
 
 @Component({
+  selector: 'cool-userhome',
   templateUrl: './userhome.component.html',
-  styleUrls: ['./userhome.component.css'],
+  styleUrls: ['./userhome.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserHomeComponent implements OnInit {
@@ -169,7 +177,21 @@ export class UserHomeComponent implements OnInit {
 
 </details>
 
-<details><summary>user-routing.module.ts</summary>
+<details><summary>user-routing.module.ts (short)</summary>
+
+```typescript
+...
+{
+  path: 'safe/:id',
+  component: SafeComponent,
+  outlet: 'secondary',
+},
+...
+```
+
+</details>
+
+<details><summary>user-routing.module.ts (long)</summary>
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -210,7 +232,7 @@ export class UserRoutingModule {}
 
 </details>
 
-## Exercise 6.2.2 safe.component subscribe to service and routeparam an get safe and its items
+## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
 
 <details><summary>safe.component.ts</summary>
 
@@ -224,7 +246,7 @@ import { Safe, SafeService, SafeItem } from 'src/app/core';
 @Component({
   selector: 'cool-safe',
   templateUrl: './safe.component.html',
-  styleUrls: ['./safe.component.css'],
+  styleUrls: ['./safe.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SafeComponent implements OnInit {
@@ -242,7 +264,7 @@ export class SafeComponent implements OnInit {
 
 </details>
 
-## Exercise 6.2.3 Itemlist Component show list of safe items
+## Exercise 6.2.3 Itemlist component show list of safe items
 
 <details><summary>safe.component.html</summary>
 
@@ -265,12 +287,12 @@ export class SafeComponent implements OnInit {
 
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { SafeItem, Safe } from 'src/app/core';
+import { SafeItem } from 'src/app/core';
 
 @Component({
   selector: 'cool-item-list',
   templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css'],
+  styleUrls: ['./item-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemListComponent implements OnInit {
