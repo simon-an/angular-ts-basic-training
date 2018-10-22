@@ -2,7 +2,7 @@
     <h2>Lets add some content..</h2>
     <ul>
         <li>Barrel TS</li>
-        <li>Rxjs @angular</li>
+        <li>RxJS @angular</li>
         <li>Dependency Injection</li>
         <li>Routing parameters</li>
         <li>Template Binding and Rendering</li>
@@ -13,14 +13,14 @@
 <section>
     <h2>Barrel</h2>
     <ul>
-        <li>index.ts file exports folder content.</li>
+        <li>index.ts file exports folder content</li>
         <li>import paths are shorter and easier</li>
         <li>imports from one module appear in one line</li>
         <li>recommended for the core and shared module</li>
     </ul>
 </section>
 <section>
-    <h2>RXJS</h2>
+    <h2>RxJS</h2>
     <ul>
         <li>Subject, BehaviorSubject, AsyncSubject</li>
         <li>Subjects are Observables and Subcribers.</li>
@@ -30,30 +30,31 @@
 </section>
 <section>
     <h2>Dependency Injection</h2>
-    <p>You can configure injectors with providers at different levels of your app, by setting a metadata value in one
-        of
-        three places: </p>
+    <p>Configure injectors with providers by setting a metadata value in the...</p>
     <ul>
-        <li>In the @Injectable() decorator for the service itself.</li>
-        <li>In the @NgModule() decorator for an NgModule.</li>
-        <li>In the @Component() decorator for a component.</li>
+        <li>... <code>@Injectable()</code> decorator for the service itself.</li>
+        <li>... <code>@NgModule()</code> decorator for an NgModule.</li>
+        <li>... <code>@Component()</code> decorator for a component.</li>
     </ul>
     <p>
-        Injectors are inherited, which means that if a given injector can't resolve a dependency, it asks the parent
-        injector to resolve it.
+        Injectors are inherited<br>
+        -> if a given injector can't resolve a dependency, it asks the parent injector to resolve it
     </p>
-    <pre><code> [{ provide: Logger, useClass: Logger }]</code></pre>
-
-    <pre><code data-trim>
-    import { InjectionToken } from '@angular/core';
-    export const APP_CONFIG = new InjectionToken&lt;AppConfig>('app.config');
+    <pre><code data-trim style="font-size: 17px;">
+        [{ provide: Logger, useClass: Logger }]
     </code></pre>
-    <p><a target="_blank" href="https://angular.io/guide/dependency-injection-providers">DI Providers</a></p>
-    <p><a target="_blank" href="https://angular.io/guide/hierarchical-dependency-injection">DI Hierarchy</a></p>
+    <pre><code data-trim style="font-size: 17px;">
+        import { InjectionToken } from '@angular/core';
+        export const APP_CONFIG = new InjectionToken&lt;AppConfig>('app.config');
+    </code></pre>
+    <p>More Info: <a target="_blank" href="https://angular.io/guide/dependency-injection-providers">DI Providers</a>, <a target="_blank" href="https://angular.io/guide/hierarchical-dependency-injection">DI Hierarchy</a></p>
+    <aside class="notes">
+        Used in the design of Angular applications to increase their efficiency and modularity<br>
+        Dependencies are services or objects that a class needs to perform its function
+    </aside>
 </section>
-
 <section>
-    <h2>DI decorators</h2>
+    <h2>Dependency Injection Decorators</h2>
     <ul>
         <li>forwardRef</li>
         <p>Async Injection</p>
@@ -62,42 +63,56 @@
         <li>@SkipSelf</li>
         <li>@HostListener('mouseenter')</li>
         <li>@Host</li>
-        <p>Stop Injector bubbling. Checks viewProviders instead of providers. Element Injectors only.</p>
     </ul>
-
+    <aside class="notes">
+        forwardRef(): creates an indirect reference that Angular can resolve later. Allows to refer to references which are not yet defined.<br>
+        @Optional: marks a dependency as optional<br>
+        @Self: retrieve a dependency only from the local injector<br>
+        @SkipSelf: dependency resolution should start from the parent injector<br>
+        @HostListener: Binds a CSS event to a host listener and supplies configuration metadata<br>
+        @Host: retrieve a dependency from any injector until reaching the host element of the current component
+    </aside>
 </section>
-
 <section>
+    <h2>Dependency Injection Dos</h2>
+    <ul>
+        <li>Stop Injector bubbling.</li>
+        <li>Check viewProviders instead of providers.</li>
+        <li>Use Element Injectors only.</li>
+    </ul>
+</section>
+<section>
+    <h2>Dependency Injection: Providers</h2>
     <p>Two Loggers</p>
     <pre><code data-trim>
     [ NewLogger,
-    { provide: OldLogger, useClass: NewLogger}]
-    ]</code></pre>
+        { provide: OldLogger, useClass: NewLogger}]
+    ]
+    </code></pre>
     <p>One Logger</p>
     <pre><code data-trim>
     [ NewLogger,
-    { provide: OldLogger, useExisting: NewLogger}]
-    ]</code></pre>
+        { provide: OldLogger, useExisting: NewLogger}]
+    ]
+</code></pre>
 </section>
-
 <section>
-    <h2>Value providers</h2>
-    <p> An object in the shape of the logger service</p>
+    <h2>Dependency Injection:<br>Value Providers</h2>
+    <p>An object in the shape of the logger service</p>
     <pre><code data-trim class="typescript">
     export function SilentLoggerFn() {}
 
     const silentLogger = {
-        logs: ['Silent logger says "Shhhhh!". Provided via "useValue"'],
+        logs: ['Silent logger says "Shhhh!". Provided via "useValue"'],
         log: SilentLoggerFn
     };
 
     [{ provide: Logger, useValue: silentLogger }]
 </code></pre>
 </section>
-
 <section>
-    <h2>Factory providers</h2>
-    <pre><code data-trim class="typescript">
+    <h2>Dependency Injection:<br>Factory Providers</h2>
+    <pre><code data-trim class="typescript" style="font-size: 21px;">
     constructor(
         private logger: Logger,
         private isAuthorized: boolean) { }
@@ -106,26 +121,31 @@
         return new HeroService(logger, userService.user.isAuthorized);
     };
 
-    export let heroServiceProvider =
-    { provide: HeroService,
+    export let heroServiceProvider = {
+        provide: HeroService,
         useFactory: heroServiceFactory,
         deps: [Logger, UserService]
     };
     </code></pre>
 </section>
-
 <section>
     <h2>Routes with params</h2>
-    <pre><code class="typescript"> [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]</code></pre>
-    <pre><code data-trim class="typescript">  constructor(
+    <pre><code data-trim class="typescript">
+        /* in comp.template.html */
+        [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]</code></pre>
+    <pre><code data-trim class="typescript">
+        /* in comp.component.ts */
+        constructor(
             private activatedRoute: ActivatedRoute,
             private service: SafeService
-            ) { }
+        ) { }
         ...
-        this.activatedRoute.paramMap
-        </code></pre>
-    <pre><code class="typescript"> params.get('id')</code></pre>
-    <pre><code class="typescript"> 
+        this.activatedRoute.paramMap.pipe(
+            map((params: ParamMap) => params.get('id'))
+        );
+    </code></pre>
+    <pre><code data-trim class="typescript">
+        /* in router configuration */
         {
             path: 'safe/:id',
             component: SafeComponent,
@@ -134,35 +154,32 @@
     </code></pre>
 </section>
 <section>
-    <h2>*ngFor, async, {{}}</h2>
+    <h2>Additional Syntax on the Template</h2>
     <ul>
-        <li>let item of items</li>
-        <li>{{ variable }}</li>
-        <li>observable | async</li>
+        <li>Loop Directive:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<pre><code data-trim class="html">*ngFor="let item of items"</code></pre></li>
+        <li>Interpolation: <pre><code data-trim class="html">{{ variable }}</code></pre></li>
+        <li>AsyncPipe: <pre><code data-trim class="html">observable | async</code></pre></li>
     </ul>
 </section>
 <section>
     <h2>Services</h2>
-    <a href="https://angular.io/guide/architecture-services" target="_blank">Docs</a>
     <pre><code data-trim class="typescript" style="font-size: 18px">
-            @Injectable()
-            class UsefulService {
-            }
-            
-            @Injectable()
-            class NeedsService {
-              constructor(public service: UsefulService) {}
-            }
-            
-            const injector = ReflectiveInjector.resolveAndCreate([NeedsService, UsefulService]);
-            expect(injector.get(NeedsService).service instanceof UsefulService).toBe(true);
+        @Injectable()
+        class UsefulService {
+        }
+        
+        @Injectable()
+        class NeedsService {
+            constructor(public service: UsefulService) {}
+        }
+        
+        const injector = ReflectiveInjector.resolveAndCreate([NeedsService, UsefulService]);
+        expect(injector.get(NeedsService).service instanceof UsefulService).toBe(true);
     </code></pre>
-    <ul>
-        <li></li>
-    </ul>
+    <p><a href="https://angular.io/guide/architecture-services" target="_blank">Services Docs</a></p>
 </section>
 <section>
-    <h2>Now Exercise 6</h2>
+    <h2>Exercise 6</h2>
 </section>
 <section>
     <h2>Recap</h2>
