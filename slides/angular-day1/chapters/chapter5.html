@@ -29,10 +29,10 @@
     <h2>Component Configuration</h2>
     <h3>Changedetection Strategy</h3>
     <pre><code data-trim>
-        // CheckAlways
+        /* CheckAlways */
         changeDetection: ChangeDetectionStrategy.Default
 
-        // CheckOnce (on demand) -> should be the default
+        /* CheckOnce (on demand) -> should be the default */
         changeDetection: ChangeDetectionStrategy.OnPush
     </code></pre>
     <aside class="notes">
@@ -46,7 +46,7 @@
     <h3>View Encapsulation / Shadow DOM</h3>
     <p>An encapsulation policy for the template and styles:<br><code>Emulated</code> (default), <code>None</code>, <code>ShadowDom</code></p>
     <pre><code data-trim>
-        // Emulate native scoping of styles
+        /* Emulate native scoping of styles */
         encapsulation: ViewEncapsulation.Emulated
     </code></pre>
     <p>-> Library or Dump Components might use <code>ShadowDom</code>, because stronger encapsulation (ShadowDom currently only supported in Chrome)</p>
