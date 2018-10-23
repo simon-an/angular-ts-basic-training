@@ -1,7 +1,9 @@
 # Chapter 6
 
 ## Exercise 6.0 Create core module
+```bash
 ng generate module core --module app
+```
 
 ## Exercise 6.1 Create safe list in user.component
 
