@@ -1,9 +1,9 @@
 <section>
     <h1>Guards & Login</h1>
-    <p>Guards are protecting routes</p>
+    <p class="fragment">Guards protect routes</p>
 </section>
 <section>
-    <h2>Hook: interface CanActivate</h2>
+    <h2>Hook: interface <code>CanActivate</code></h2>
     <pre><code data-trim class="typescript">
         export interface CanActivate {
             canActivate(
@@ -11,22 +11,21 @@
                 state: RouterStateSnapshot
             ): Observable&lt;boolean> | Promise&lt;boolean> | boolean;
         }
-
     </code></pre>
 </section>
 <section>
     <h2>Guards</h2>
     <ul>
-        <li>The CanActivate guard (checking route access).</li>
-        <li>The CanActivateChild guard (checking child route access).</li>
-        <li>The CanDeactivate guard (ask permission to discard unsaved changes).</li>
-        <li>The Resolve guard (pre-fetching route data).</li>
-        <li>The CanLoad guard (check before loading feature module assets).</li>
+        <li>The <code>CanActivate</code> guard: check route access</li>
+        <li>The <code>CanActivateChild</code> guard: check child route access</li>
+        <li>The <code>CanDeactivate</code> guard: ask permission to discard unsaved changes</li>
+        <li>The <code>Resolve</code> guard: pre-fetching route data</li>
+        <li>The <code>CanLoad</code> guard: check before loading feature module assets</li>
     </ul>
 </section>
 <section>
     <h2>decleared at routes</h2>
-    <pre><code data-trim>
+    <pre><code data-trim class="typescript">
     {
         path: '',
         ...
@@ -35,8 +34,7 @@
         canActivateChild: [],
     },
     </code></pre>
-
 </section>
 <section>
-    <h2>Exercise 9.1</h2>
+    <h2>Exercise 9</h2>
 </section>
