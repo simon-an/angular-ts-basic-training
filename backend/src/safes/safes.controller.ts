@@ -12,6 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { SafeItem } from './interfaces/safeitem';
 
 @Controller('safes')
 export class SafesController {
@@ -37,5 +38,15 @@ export class SafesController {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
     return foundSafe;
+  }
+
+  @Get(':id/items')
+  @UseGuards(AuthGuard('bearer'))
+  async getAll(@Param('id') id): Promise<SafeItem[] | HttpException> {
+    const items = this.safesService.getItems(id);
+    if (!items) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return items;
   }
 }
