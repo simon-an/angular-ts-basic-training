@@ -17,18 +17,18 @@ export class AppComponent {
           if (user) {
             router.navigate(['/' + user.role]);
           } else {
+            localStorage.removeItem('TOKEN');
             router.navigate(['/home']);
           }
         },
         error => {
-          localStorage.removeItem('TOKEN');
-          router.navigate(['/home']);
-        },
-        () => {
+          console.log('error');
           localStorage.removeItem('TOKEN');
           router.navigate(['/home']);
         }
       );
+    } else {
+      router.navigate(['/home']);
     }
   }
 }
