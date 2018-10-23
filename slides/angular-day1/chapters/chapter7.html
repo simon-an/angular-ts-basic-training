@@ -8,7 +8,8 @@
     </ul>
 </section>
 <section>
-    <h2>Now Excersice 7.1</h2>
+    <h2>Excersice 7.1</h2>
+    <p>Add footer with add button to item list and dialog</p>
 </section>
 <section>
     <h2>Template Syntax</h2>
@@ -18,28 +19,34 @@
     </ul>
 </section>
 <section>
-    <h2>Now Excersice 7.2</h2>
+    <h2>Excersice 7.2</h2>
+    <p>Add Price to safe item</p>
 </section>
 <section>
-    <h2>Excercise 7.3</h2>
-    <p>Directives</p>
+    <h2>Directives</h2>
     <ul>
-        <li>ngModel</li>
-        <pre><code>#name="ngModel"</code></pre>
-        <pre><code>[(ngModel)]="model.name"</code></pre>
-        <li>ngForm</li>
-        <pre><code> #safeitemForm="ngForm"</code></pre>
+        <li>
+            ngModel
+            <pre><code>#name="ngModel"</code></pre>
+            <pre><code>[(ngModel)]="model.name"</code></pre>
+        </li>
+        <li>
+            ngForm
+            <pre><code>#safeitemForm="ngForm"</code></pre>
+        </li>
         <li>required</li>
-        <li>pattern</li>
-        <pre><code> pattern="[0-9]*"</code></pre>
+        <li>
+            pattern
+            <pre><code>pattern="[0-9]*"</code></pre>
+        </li>
         <li>'#var','ref-var' template reference variable</li>
         <li>mat-raised-button</li>
         <li>color="primary"</li>
     </ul>
 </section>
 <section>
-    <h2>Excercise 7.3</h2>
-    <p>selectors</p>
+    <h2>Form (1)</h2>
+    <p>Selectors</p>
     <ul>
         <li>form</li>
         <li>input</li>
@@ -48,23 +55,24 @@
     </ul>
 </section>
 <section>
-    <h2>Excercise 7.3</h2>
-    <p>EventEmmiter</p>
+    <h2>Form (2)</h2>
     <ul>
-        <li>ngSubmit</li>
+        <li>@Output() ngSubmit</li>
+        <li>FormGroup</li>
+        <li>FormControl</li>
     </ul>
-    <p>Others</p>
-    <ul>
-        <li>@Output()</li>
-        <li>NgFormGroup</li>
-        <li>NgFormControl</li>
-    </ul>
+    <aside class="notes">
+        @Output() ngSubmit: EventEmitter<br>
+        FormGroup: Tracks the value and validity state of a group of FormControl instances<br>
+        FormControl: Tracks the value and validation status of an individual form control.
+    </aside>
 </section>
 <section>
-    <h2>Now Excersice 7.3</h2>
+    <h2>Excersice 7.3</h2>
+    <p>Create a template driven form inside a dialog</p>
 </section>
 <section>
-    <p>Recap</p>
+    <h2>Recap</h2>
     <ul>
         <li class="fragment">What is two way binding?</li>
         <li class="fragment">What shall the Output annotation be used for?</li>

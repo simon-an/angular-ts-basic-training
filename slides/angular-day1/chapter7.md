@@ -1,12 +1,14 @@
 # Chapter 7
 
 ## Exercise: 7.1
+### Add footer with add button to item list and dialog
 
-Add a footer to safe component
-create a add button when in the item list view.
+Add a footer to safe component:
+Create an add button when in the item list view.
 Add button should open a new dialog.
 
-```
+Generate dialog
+```bash
 ng g component shared/container/addSafeItemDialog --export --changeDetection OnPush
 ```
 
@@ -25,7 +27,7 @@ safe.component.html
 </footer>
 ```
 
-safe.component.css
+safe.component.scss
 
 ```css
 :host {
@@ -60,9 +62,8 @@ safe.component.ts
 
 </details>
 
-# Create Form inside Dialog
-
 ## Exercise: 7.2
+### Add Price to safe item
 
 Add Price to SafeItem Model and item-list.component.html
 
@@ -80,14 +81,13 @@ Add Price to SafeItem Model and item-list.component.html
 
 </details>
 
-## Exercise: 7.3 Create a template driven form inside a dialog
+## Exercise: 7.3
+### Create a template driven form inside a dialog
 
 ![73](screenshots/73.PNG)
 
-```
-ng g component shared/components/SafeItemForm --export --changeDetection OnPush
-```
-
+Add close button to dialog:
+add-safe-item-dialog.component.ts TODO hier richtig?
 ```typescript
 export class AddSafeItemDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddSafeItemDialogComponent>) {}
@@ -100,23 +100,25 @@ export class AddSafeItemDialogComponent implements OnInit {
 }
 ```
 
+Create form:
+```bash
+ng g component shared/components/SafeItemForm --export --changeDetection OnPush
+```
+Add AddSafeItemDialogComponent to shared module entryComponents.
+
 ## write the dialog template
 
-add-safe-item-dialog.html
+add-safe-item-dialog.component.html
 
 ```html
 <cool-safe-item-form></cool-safe-item-form>
 ```
-
-## Create Form Component
 
 ### Exercise 7.3.1 Create Form Component
 
 safe-item-form.component.html
 <details><summary>Show Solution</summary>
 <p>
-
-
 
 ```html
 <h1>Please insert name and price of the item</h1>
@@ -156,7 +158,7 @@ import { SafeItem } from 'src/app/core';
 @Component({
   selector: 'cool-safe-item-form',
   templateUrl: './safe-item-form.component.html',
-  styleUrls: ['./safe-item-form.component.css'],
+  styleUrls: ['./safe-item-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SafeItemFormComponent implements OnInit {
@@ -182,16 +184,16 @@ export class SafeItemFormComponent implements OnInit {
 </p>
 </details>
 
-Add addItem to safe-service.ts
+Add addItem to safe.service.ts
 
 ```typescript
-  addItem(item: SafeItem): any {
-    const newItems = [
-      ... this.items.getValue(),
-      item
-    ];
-    this.items.next(newItems);
-  }
+addItem(item: SafeItem): any {
+  const newItems = [
+    ... this.items.getValue(),
+    item
+  ];
+  this.items.next(newItems);
+}
 ```
 
 ### Exercise 7.3.2 Call the add Item Method from the safe.component.ts
@@ -202,30 +204,31 @@ Add addItem to safe-service.ts
 safe.component.ts
 
 ```typescript
-  onAddSafeItem(event) {
-    const dialogRef = this.dialog.open(AddSafeItemDialogComponent, {
-      height: '400px',
-      width: '600px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      if (result) {
-        this.service.addItem(result);
-      }
-    });
-  }
+onAddSafeItem(event) {
+  const dialogRef = this.dialog.open(AddSafeItemDialogComponent, {
+    height: '400px',
+    width: '600px',
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+    if (result) {
+      this.service.addItem(result);
+    }
+  });
+}
 ```
 
 </p>
 </details>
 
-### Exercise 7.3.3 Bind the from result to the dialog component.
+### Exercise 7.3.3 Bind the form result to the dialog component.
 
 <details><summary>Show Solution</summary>
 <p>
 
+add-safe-item-dialog.component.html
 ```html
-<cool-safe-item-form (result)=closeDialog($event)></cool-safe-item-form>
+<cool-safe-item-form (result)="closeDialog($event)"></cool-safe-item-form>
 ```
 
 </p>
