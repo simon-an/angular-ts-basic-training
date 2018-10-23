@@ -97,9 +97,9 @@
     export const ItemActionTypes = {RemoveItem: '[Items] Remove item'}
     export class RemoveItem implements Action {
         type = ItemActionTypes.RemoveItem;
-        constructor(public payload?: any) {}
+        constructor(public payload: {id: number}) {}
     }
-    store.dispatch(new ItemActionTypes.RemoveItem(1));
+    store.dispatch(new ItemActionTypes.RemoveItem({id: 1}));
     </code></pre>
 </section>
 <section>
@@ -117,7 +117,7 @@
     function handleRemoveItem(state: State, action: itemActions.RemoveItem): State {
         return {
             ...state,
-            items: state.items.filter((item) => item.id === action.payload)
+            items: state.items.filter((item) => item.id === action.payload.id)
         }
     }
     </code></pre>
