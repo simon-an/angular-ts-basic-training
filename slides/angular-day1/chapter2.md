@@ -1,4 +1,17 @@
 # Chapter 2
+## Exercise: 2.0
+### Add .prettierrc file
+```json
+{
+  "printWidth": 120,
+  "singleQuote": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": true
+}
+```
+
 ## Exercise: 2.1 
 Setup Angular CLI and create and start your Angular App
 
