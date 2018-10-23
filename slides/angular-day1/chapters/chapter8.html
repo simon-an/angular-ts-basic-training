@@ -1,7 +1,8 @@
 <section>
-    <h1>Mutability + Redux</h1>
+    <h1>Mutability<br>
+        &<br>
+        Redux</h1>
 </section>
-
 <section>
     <h2>Challenge</h2>
     <p class="fragement">Observing attribute changes</p>
@@ -19,7 +20,8 @@
                 "name": "Laptop"
             },
         ]
-    }, {...}]</code></pre>
+    }, {...}]
+    </code></pre>
 </section>
 <section>
     <h2>Complexity</h2>
@@ -50,16 +52,16 @@
     </table>
 </section>
 <section>
-    <h2>Hack: use plain RX-JS</h2>
+    <h2>Hack: use plain RxJS</h2>
     <pre><code data-trim class="typescript">
-            getSafes(): Observable&lt;Safe[]> {
-            getSafe(safeId: string): Observable&lt;Safe> {
-            getItems(safeId: string): Observable&lt;SafeItem[]> {
-            getItem(safeId: string, itemId: string): Observable&lt;SafeItem> {
+        getSafes(): Observable&lt;Safe[]> {
+        getSafe(safeId: string): Observable&lt;Safe> {
+        getItems(safeId: string): Observable&lt;SafeItem[]> {
+        getItem(safeId: string, itemId: string): Observable&lt;SafeItem> {
     </code></pre>
-    <p class="fragment">services manages state using rxjs.</p>
-    <p class="fragment">services are for behavior, not for state.</p>
-    <p class="fragment">RXJS HELL</p>
+    <p class="fragment">Services manage state using RxJS</p>
+    <p class="fragment">Services are for behavior, not for state.</p>
+    <p class="fragment">RxJS HELL</p>
     <p class="fragment">Architecture Pattern to solve this: flux</p>
 </section>
 <section>
@@ -73,34 +75,52 @@
 </section>
 <section>
     <h2>Single source of truth</h2>
-    <p>The state of your whole application is stored in an object tree within a single store.</p>
-    <p>This state can include server responses and cached data, as well as locally created data that has not yet been
-        persisted to the server.</p>
-    <p>UI state is also increasing in complexity, as we need to manage active routes, selected tabs, spinners,
-        pagination controls, and so on.</p>
+    <ul>
+        <li>state of whole application stored in an object tree within a single store</li>
+        <li>This state can include
+            <ul>
+                <li>server responses</li>
+                <li>cached data</li>
+                <li>locally created data not yet persisted to the server</li>
+            </ul>
+        </li>
+        <li>UI state is also increasing in complexity, as we need to manage active routes, selected tabs, spinners, pagination controls,...</li>
+    </ul>
     <pre><code data-trim class="typescript">console.log(store.getState())
 </code></pre>
 </section>
 <section>
     <h2>State is read-only</h2>
-    <p>Enforcing that every change is described as an action lets us have a clear understanding of what’s going on in
-        the app.</p>
-    <p>The only way to change the state is to emit an action, an object describing what happened.</p>
-    <pre><code data-trim class="typescript">store.dispatch({
-        type: 'REMOVE_ITEM',
-        id: 1
-    })
-</code></pre>
+    <p>Enforcing every change is described as an action lets us have a clear understanding of what’s going on in the app.</p>
+    <p>The only way to change the state is to dispatch an action, an object describing what happened.</p>
+    <pre><code data-trim class="typescript">
+    export const ItemActionTypes = {RemoveItem: '[Items] Remove item'}
+    export class RemoveItem implements Action {
+        type = ItemActionTypes.RemoveItem;
+        constructor(public payload?: any) {}
+    }
+    store.dispatch(new ItemActionTypes.RemoveItem(1));
+    </code></pre>
 </section>
 <section>
-    <h2>Changes are made with pure functions</h2>
-    <p>To specify how the state tree is transformed by actions, you write
-        pure reducers.</p>
-    <pre><code data-trim class="typescript">store.dispatch({
-        type: 'REMOVE_ITEM',
-        id: 1
-    })
-</code></pre>
+    <h2>Transform store</h2>
+    <p>To specify how the state tree is transformed by actions, you write pure reducer functions.</p>
+    <pre><code data-trim class="typescript" style="font-size: 17px">
+    export function reducer(state = initialState, action: itemActions.ItemActions): State {
+        switch (action.type) {
+          case ItemActionTypes.RemoveItem:
+            return handleRemoveItem(state, action);
+          default:
+            return state;
+        }
+    }
+    function handleRemoveItem(state: State, action: itemActions.RemoveItem): State {
+        return {
+            ...state,
+            items: state.items.filter((item) => item.id === action.payload)
+        }
+    }
+    </code></pre>
 </section>
 <section>
     <h2>Redux Training</h2>
