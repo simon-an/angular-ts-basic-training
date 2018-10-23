@@ -8,6 +8,7 @@
     <pre><code data-trim class="html">
         "template variable or text" | pipe:arguments
     </code></pre>
+    <p class="fragment">NEVER use pipes for filtering and sorting!</p>
 </section>
 <section>
     <h2>Pure Pipes</h2>
@@ -22,7 +23,7 @@
         -> pipe is invoked on each change-detection cycle, even if the arguments have not changed.</p>
 </section>
 <section>
-    <h2>Default Pipes</h2>
+    <h2>Default Pipes (1)</h2>
     <ul>
         <li>async</li>
         <li>json</li>
@@ -34,50 +35,65 @@
         <li>titlecase</li>
         <li>percent</li>
     </ul>
-    <p class="fragment">NEVER use pipes for filtering and sorting!</p>
 </section>
 <section>
-    <h2>Default Pipe cont.</h2>
+    <h2>Default Pipes (2)</h2>
     <ul>
-        <li>I18n</li>
-        <pre><code data-trim class="typescript" style="font-size: 14px">
-        @Component(
-            {selector: 'i18n-select-pipe', template: `<div>{{gender | i18nSelect: inviteMap}} </div>`})
-        export class I18nSelectPipeComponent {
-        gender: string = 'male';
-        inviteMap: any = {'male': 'Invite him.', 'female': 'Invite her.', 'other': 'Invite them.'};
-        }
-     </code></pre>
-        <li>keyvalue</li>
-        <p>Transforms Object or Map into an array of key value pairs.</p>
-        <pre><code data-trim class="html">
-            <div *ngFor="let item of object | keyvalue">
-                {{item.key}}:{{item.value}}
-            </div>
+        <li>
+            I18n
+            <pre><code data-trim class="typescript" style="font-size: 15px">
+                @Component(
+                    {selector: 'i18n-select-pipe', template: `<div>{{gender | i18nSelect: inviteMap}} </div>`})
+                export class I18nSelectPipeComponent {
+                gender: string = 'male';
+                inviteMap: any = {'male': 'Invite him.', 'female': 'Invite her.', 'other': 'Invite them.'};
+                }
             </code></pre>
-        <li>slice</li>
-        <pre><code data-trim class="html">
-            <li *ngFor="let i of collection | slice:1:3">{{i}}</li>
-        </code></pre>
+        </li>
+        <li>
+            keyvalue: Transforms Object or Map into an array of key value pairs.
+            <pre><code data-trim class="html" style="font-size: 15px">
+                <div *ngFor="let item of object | keyvalue">
+                    {{item.key}}:{{item.value}}
+                </div>
+            </code></pre>
+        </li>
+        <li>
+            slice
+            <pre><code data-trim class="html"  style="font-size: 15px">
+                <li *ngFor="let i of collection | slice:1:3">{{i}}</li>
+            </code></pre>
+        </li>
     </ul>
 </section>
 <section>
     <h2>Default Validators</h2>
     <ul>
-        <li> min (numbers)</li>
-        <li> max (numbers)</li>
-        <li> required </li>
-        <li> requiredTrue (checkboxes)</li>
-        <li> email </li>
-        <li> pattern</li>
-        <li> minLength </li>
-        <li> maxLength </li>
-        <li> nullValidator, compose, composeAsync</li>
+        <li>min (numbers)</li>
+        <li>max (numbers)</li>
+        <li>required </li>
+        <li>requiredTrue (checkboxes)</li>
+        <li>email </li>
+        <li>pattern</li>
+        <li>minLength </li>
+        <li>maxLength </li>
+        <li>nullValidator, compose, composeAsync</li>
     </ul>
 </section>
 <section>
     <h2>Custom Pipes</h2>
     <p>They are Directives</p>
+    <pre><code data-trim class="typescript">
+        @Pipe({
+            name: "fileSize"
+        })
+        export class FileSizePipe implements PipeTransform {
+            transform(value: number, args?: any): any {
+                /* insert transformation code here */
+                return value;
+            }
+        }
+    </code></pre>
 </section>
 <section>
     <h2>Custom Validators</h2>
