@@ -22,9 +22,14 @@
   "dependencies": {
     "@nestjs/common": "^5.1.0",
     "@nestjs/core": "^5.1.0",
+    "@nestjs/passport": "5.1.0",
+    "passport": "0.4.0",
+    "passport-http-bearer": "1.0.1",
+    "passport-local": "1.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.1.0",
