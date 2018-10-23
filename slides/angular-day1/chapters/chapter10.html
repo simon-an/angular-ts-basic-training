@@ -1,5 +1,7 @@
 <section>
-    <h1>Pipe and Validators</h1>
+    <h1>Pipes<br>
+        &<br>
+        Validators</h1>
 </section>
 <section>
     <h2>Pipes</h2>
@@ -9,27 +11,30 @@
 </section>
 <section>
     <h2>Pure Pipes</h2>
-    <p>When true, the pipe is pure, meaning that the transform() method is invoked only when its input arguments
-        change.
-        Pipes are pure by default.</p>
-    <p>If the pipe has internal state (that is, the result depends on state other than its arguments), set pure to
-        false.
-        In this case, the pipe is invoked on each change-detection cycle, even if the arguments have not changed.</p>
+    <p>Pure Pipe = the transform() method is invoked only when its input arguments change</p>
+    <pre><code data-trim class="typescript">
+        @Pipe({
+            name: 'pipeImpure',
+            pure: false // if missing pipe is pure by default
+        })
+    </code></pre>
+    <p>If pipe has internal state, set pure to false.<br>
+        -> pipe is invoked on each change-detection cycle, even if the arguments have not changed.</p>
 </section>
 <section>
     <h2>Default Pipes</h2>
     <ul>
         <li>async</li>
         <li>json</li>
-        <li>currency </li>
+        <li>currency</li>
         <li>date </li>
         <li>decimal</li>
         <li>lowercase</li>
         <li>uppercase</li>
         <li>titlecase</li>
         <li>percent</li>
-
     </ul>
+    <p class="fragment">NEVER use pipes for filtering and sorting!</p>
 </section>
 <section>
     <h2>Default Pipe cont.</h2>
