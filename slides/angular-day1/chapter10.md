@@ -1,17 +1,17 @@
-# Pipes and Validators
+# Chapter 10 Pipes and Validators
 
 ## Preparation
 
 <details><summary>auth-service.ts</summary>
 
 ```typescript
-import { Injectable } from "@angular/core";
-import { Observable, timer, of, BehaviorSubject } from "rxjs";
-import { LoginData, User } from "../model";
-import { map, tap, take } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { Observable, timer, of, BehaviorSubject } from 'rxjs';
+import { LoginData, User } from '../model';
+import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
@@ -22,15 +22,15 @@ export class AuthService {
     if (loginData) {
       return timer(30).pipe(
         map(time => {
-          if (loginData.email === "simon.potzernheim@metafinanz.de") {
+          if (loginData.email === 'simon.potzernheim@metafinanz.de') {
             return {
-              id: "1",
-              name: "simon.potzernheim@metafinanz.de",
+              id: '1',
+              name: 'simon.potzernheim@metafinanz.de',
               role: loginData.role
             } as User;
           }
-          if (loginData.email.includes("@gmail.com")) {
-            return { id: "2", name: loginData.email, role: "user" } as User;
+          if (loginData.email.includes('@gmail.com')) {
+            return { id: '2', name: loginData.email, role: 'user' } as User;
           }
           return null;
         }),
@@ -49,8 +49,8 @@ export class AuthService {
       .pipe(
         map(time => {
           if (
-            email === "simon.potzernheim@metafinanz.de" ||
-            email.includes("@gmail.com")
+            email === 'simon.potzernheim@metafinanz.de' ||
+            email.includes('@gmail.com')
           ) {
             return true;
           } else {
@@ -65,8 +65,8 @@ export class AuthService {
     return timer(300).pipe(
       map(time => {
         if (
-          email === "simon.potzernheim@metafinanz.de" ||
-          email.includes("@gmail.com")
+          email === 'simon.potzernheim@metafinanz.de' ||
+          email.includes('@gmail.com')
         ) {
           return true;
         } else {
@@ -81,16 +81,19 @@ export class AuthService {
 
 </details>
 
-## Exersice 10.1 Create admin and email domain validator
+## Exersice: 10.1
+### Create admin and email domain validator
+
+TODO @michael add email domain validator
 
 ## Exersice 10.2 Create user exists async validator
 
 <details><summary>Solution</summary>
 
-- login-dialog.compoonent.html
+login-dialog.compoonent.html
 
 ```html
-<h2>Please Loging as {{state.role}}</h2>
+<h2>Please Log in as {{state.role}}</h2>
 <form (ngSubmit)="dialogRef.close(state)" #loginForm="ngForm" coolSpecialAdminValidator>
   <mat-form-field>
     <mat-select placeholder="Role" #roleInput [(value)]="state.role" matInput name="role" [(ngModel)]="state.role">
@@ -130,11 +133,14 @@ export class AuthService {
   X:{{email.errors | json }} -->
 </form>
 ```
-
-- admin-email-validator.directive.ts
+Create
+admin-email-validator.directive.ts
+```bash
+ng generate directive shared/directives/admin-email-validator SpecialAdminValidatorDirective --module shared
+```
 
 ```typescript
-import { Directive } from "@angular/core";
+import { Directive } from '@angular/core';
 import {
   AbstractControl,
   ValidationErrors,
@@ -142,24 +148,24 @@ import {
   FormGroup,
   Validator,
   NG_VALIDATORS
-} from "@angular/forms";
+} from '@angular/forms';
 
 export const adminDomainValidator: ValidatorFn = (
   control: FormGroup
 ): ValidationErrors | null => {
-  const role = control.get("role");
-  const email = control.get("email");
+  const role = control.get('role');
+  const email = control.get('email');
 
   return role &&
     email &&
-    role.value === "admin" &&
-    !email.value.includes("@metafinanz.de")
+    role.value === 'admin' &&
+    !email.value.includes('@metafinanz.de')
     ? { specialAdmin: true }
     : null;
 };
 
 @Directive({
-  selector: "[coolSpecialAdminValidator]",
+  selector: '[coolSpecialAdminValidator]',
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -177,22 +183,26 @@ export class SpecialAdminValidatorDirective implements Validator {
 }
 ```
 
-- user-exists-validator.directive.ts
+Create user-exists-validator.directive.ts
+
+```bash
+ng generate directive shared/directives/user-exists-validator UserExistsValidatorDirective --module shared
+```
 
 ```typescript
-import { Directive } from "@angular/core";
+import { Directive } from '@angular/core';
 import {
   AsyncValidator,
   ValidationErrors,
   AbstractControl,
   NG_ASYNC_VALIDATORS
-} from "@angular/forms";
-import { Observable } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { AuthService } from "src/app/core";
+} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { AuthService } from 'src/app/core';
 
 @Directive({
-  selector: "[coolUserExists]",
+  selector: '[coolUserExists]',
   providers: [
     {
       provide: NG_ASYNC_VALIDATORS,
@@ -207,7 +217,7 @@ export class UserExistsDirective implements AsyncValidator {
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    console.log("UserExistsDirective", ctrl);
+    console.log('UserExistsDirective', ctrl);
     return this.service.emailExistsRxjs(ctrl.value).pipe(
       map(isTaken => (isTaken ? null : { userExists: true })),
       catchError(() => null)
@@ -218,20 +228,22 @@ export class UserExistsDirective implements AsyncValidator {
 
 </details>
 
-## Exercise 10.3 Create a custom pipe which transform the file upload size to KB or MB
+## Exercise 10.3
+### Create a custom pipe which transform the file upload size to KB or MB
 
-```cli
+```bash
 ng g pipe shared/directives/fileSize --export --lintFix
+
 ng g service core/services/file
 ```
 
 <details><summary>core/services/file.service.ts</summary>
 
 ```typescript
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class FileService {
   file = null;
@@ -240,7 +252,7 @@ export class FileService {
 
   uploadFile(file: string | ArrayBuffer): string {
     this.file = file;
-    return "c1b16842-826a-40b0-a2d9-dc9359fb9582";
+    return 'c1b16842-826a-40b0-a2d9-dc9359fb9582';
   }
 }
 ```
@@ -256,14 +268,14 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output
-} from "@angular/core";
-import { SafeItem } from "src/app/core";
-import { FileService } from "src/app/core/services/file.service";
+} from '@angular/core';
+import { SafeItem } from 'src/app/core';
+import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
-  selector: "cool-safe-item-form",
-  templateUrl: "./safe-item-form.component.html",
-  styleUrls: ["./safe-item-form.component.css"],
+  selector: 'cool-safe-item-form',
+  templateUrl: './safe-item-form.component.html',
+  styleUrls: ['./safe-item-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafeItemFormComponent implements OnInit {
@@ -340,7 +352,7 @@ export class SafeItemFormComponent implements OnInit {
 
 </details>
 
-- safeitem.ts
+safeitem.ts
 
 ```typescript
 export class SafeItem {
@@ -351,28 +363,28 @@ export class SafeItem {
 }
 ```
 
-- create the file pipe.
-- add a button to the item-list.component, which will be used to show the invoice.
+### Adjust the file size pipe.
+### Add a button to the item-list.component which will be used to show the invoice.
 
 <details><summary>solution</summary>
 
-- file-size.pipe.ts
+file-size.pipe.ts
 
 ```typescript
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "fileSize"
+  name: 'fileSize'
 })
 export class FileSizePipe implements PipeTransform {
   transform(value: number, args?: any): any {
-    console.log("filesize", value, args);
+    console.log('filesize', value, args);
     if (args) {
       switch (args) {
-        case "KB": {
+        case 'KB': {
           return value / 1024;
         }
-        case "MB": {
+        case 'MB': {
           return value / (1024 * 1024);
         }
       }
@@ -392,28 +404,28 @@ export class FileSizePipe implements PipeTransform {
 function getUnit(val) {
   switch (val) {
     case 0:
-      return "B";
+      return 'B';
     case 1:
-      return "KB";
+      return 'KB';
     case 2:
-      return "MB";
+      return 'MB';
     case 3:
-      return "WTF";
+      return 'WTF';
   }
 }
 ```
 
-- item-list.component.html
+item-list.component.html
 
 ```html
  <button *ngIf="item.invoiceId" (click)="showInvoiceEmitter.emit(item.invoiceId)" mat-button>Show Invoice</button>
 ```
 
-- item-list.component.ts
+item-list.component.ts
 
 ```typescript
-  @Output()
-  showInvoiceEmitter = new EventEmitter<string>();
+@Output()
+showInvoiceEmitter = new EventEmitter<string>();
 ```
 
 </details>
