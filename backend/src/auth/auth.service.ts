@@ -9,10 +9,8 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
   login(loginData: LoginData): string {
-    const userFound: User = this.usersService
-      .findAll()
-      .filter(user => user.role === loginData.role)
-      .find(user => user.name === loginData.email);
+    const userFound: User = this.usersService.findByEmailAndRole(loginData);
+    console.log(userFound);
     if (userFound) {
       const token = uuid();
       this.usersService.login(userFound.id, token);

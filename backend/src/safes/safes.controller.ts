@@ -27,7 +27,7 @@ export class SafesController {
   @Get()
   @UseGuards(AuthGuard('bearer'))
   async findAll(): Promise<Safe[]> {
-    return this.safesService.findAll();
+    return this.safesService.findAll().toPromise();
   }
 
   @Get(':id')
@@ -37,7 +37,7 @@ export class SafesController {
     if (!foundSafe) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
-    return foundSafe;
+    return foundSafe.toPromise();
   }
 
   @Get(':id/items')
@@ -47,6 +47,19 @@ export class SafesController {
     if (!items) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
-    return items;
+    return items.toPromise();
+  }
+
+  @Post(':id/items')
+  @UseGuards(AuthGuard('bearer'))
+  async newItem(
+    @Param('id') id,
+    @Body() dto: SafeItem,
+  ): Promise<SafeItem | HttpException> {
+    const item = this.safesService.addItem(dto, id);
+    if (!item) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return item.toPromise();
   }
 }

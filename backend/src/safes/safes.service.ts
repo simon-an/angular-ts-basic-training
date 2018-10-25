@@ -2,10 +2,20 @@ import { Safe } from './interfaces/safe.interface';
 import { Injectable, HttpException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { SafeItem } from './interfaces/safeitem';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import {
+  map,
+  switchMap,
+  switchMapTo,
+  tap,
+  concatMapTo,
+  take,
+  startWith,
+} from 'rxjs/operators';
 
 @Injectable()
 export class SafesService {
-  private readonly safes: Safe[] = [
+  private readonly safesMock: Safe[] = [
     {
       id: uuid(),
       value: 999,
@@ -22,7 +32,7 @@ export class SafesService {
     },
   ];
 
-  private readonly items: SafeItem[][] = [
+  private readonly itemsMock: SafeItem[][] = [
     [
       {
         id: uuid(),
@@ -65,40 +75,66 @@ export class SafesService {
     ],
   ];
 
+  private readonly safes: BehaviorSubject<Safe[]> = new BehaviorSubject<Safe[]>(
+    this.safesMock,
+  );
+  private readonly items: BehaviorSubject<SafeItem[][]> = new BehaviorSubject<
+    SafeItem[][]
+  >(this.itemsMock);
+
   constructor() {
     let newsafes = [];
-    this.safes.forEach(safe => {
-      const index = this.safes.indexOf(safe);
-      const items2 = this.items[index];
+
+    // recalculare safemock data
+    this.safesMock.forEach(safe => {
+      const index = this.safesMock.indexOf(safe);
+      const items2 = this.itemsMock[index];
       const prize = items2
         .map(item => item.price)
         .reduce((val, sum) => sum + val);
       const result = { ...safe, value: prize, itemSize: items2.length };
       newsafes = [...newsafes, result];
     });
-    this.safes = newsafes;
+    this.safes.next(newsafes);
   }
 
   create(safe: Safe) {
-    this.safes.push(safe);
+    this.safes.next([...this.safes.getValue(), safe]);
   }
 
-  getItems(safeId: string): SafeItem[] {
-    const index = this.safes.indexOf(
-      this.safes.find(safe => safe.id === safeId),
+  getItems(safeId: string): Observable<SafeItem[]> {
+    return this.safes.pipe(
+      map(safes1 => {
+        const index = safes1.indexOf(safes1.find(safe => safe.id === safeId));
+        if (index > -1) {
+          return this.items.getValue()[index];
+        }
+        return null;
+      }),
+      take(1),
     );
-    if (index > -1) {
-      return this.items[index];
-    }
-    return null;
   }
 
-  findAll(): Safe[] {
-    return this.safes;
+  addItem(item: SafeItem, safeId: string): Observable<SafeItem> {
+    const createItem = { ...item, id: uuid() };
+    const newItems$ = this.getItems(safeId).pipe(
+      map((items: SafeItem[]) => {
+        return [...items, createItem];
+      }),
+      map(items => [...this.items.getValue(), items]),
+    );
+    newItems$.subscribe(this.items);
+    return of(createItem);
   }
 
-  findOne(id: string): Safe {
-    const safe2 = this.safes.find(safe => safe.id === id);
-    return safe2;
+  findAll(): Observable<Safe[]> {
+    return this.safes.asObservable().pipe(take(1));
+  }
+
+  findOne(id: string): Observable<Safe> {
+    const observable = this.safes.pipe(
+      map(safe3 => safe3.find(safe => safe.id === id)),
+    );
+    return observable;
   }
 }

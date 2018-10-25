@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Safe, SafeItem } from '../model';
-import { Observable, Subject, BehaviorSubject, timer, interval } from 'rxjs';
-import { map, switchMap, switchMapTo, tap, concatMapTo, take, startWith } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject, timer, interval, ReplaySubject } from 'rxjs';
+import { map, switchMap, switchMapTo, tap, concatMapTo, take, startWith, shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoggerService } from './logger.service';
 
@@ -13,8 +13,8 @@ export class SafeService {
   private readonly itemsUrl = '/api/items';
 
   // private currentSafe: Subject<Safe> = new Subject<Safe>();
-  private safes: BehaviorSubject<Safe[]> = new BehaviorSubject<Safe[]>([]);
-  private items: BehaviorSubject<SafeItem[]> = new BehaviorSubject<SafeItem[]>([]);
+  private safes: ReplaySubject<Safe[]> = new ReplaySubject<Safe[]>();
+  private items: ReplaySubject<SafeItem[]> = new ReplaySubject<SafeItem[]>();
 
   constructor(private http: HttpClient) {
     // this.safes.next([
@@ -22,9 +22,10 @@ export class SafeService {
     //   { id: '2', value: 123, itemSize: 3, active: true, activeSince: new Date() }
     // ] as Safe[]);
 
-    interval(5000)
+    // interval(5000)
+    timer(1000)
       .pipe(
-        startWith(0),
+        // startWith(0),
         concatMapTo(this.loadSafes())
         // take(1)
       )
@@ -36,22 +37,30 @@ export class SafeService {
   }
 
   loadSafes(): Observable<Safe[]> {
-    return this.http.get(this.safesUrl).pipe(
-      map((safes: Safe[]) => safes),
-      tap(safes => console.log(safes))
-    );
+    return this.http.get(this.safesUrl).pipe(map((safes: Safe[]) => safes));
   }
 
   getSafes(): Observable<Safe[]> {
-    return this.safes.asObservable();
+    return this.safes.asObservable().pipe(tap(safes => console.log('get', safes)));
   }
 
-  addItem(item: SafeItem): any {
-    const newItems = [...this.items.getValue(), item];
-    this.items.next(newItems);
+  addItem(item: SafeItem, safeId: string): Observable<SafeItem> {
+    console.log(item, safeId);
+    // const newItems = [...this.items.getValue(), item];
+    // this.items.next(newItems);
+    return this.http.post(this.safesUrl + `/${safeId}/items`, item).pipe(
+      tap(item1 => console.log('adaditem', item1)),
+      map((response: SafeItem) => response),
+      take(1)
+    );
   }
 
   getItems(safeId: string): Observable<SafeItem[]> {
-    return this.http.get(this.safesUrl + `/${safeId}/items`).pipe(map((items: SafeItem[]) => items));
+    const result$ = this.http.get(this.safesUrl + `/${safeId}/items`).pipe(
+      map((items: SafeItem[]) => items),
+      shareReplay(1)
+    );
+    result$.subscribe(this.items);
+    return result$;
   }
 }

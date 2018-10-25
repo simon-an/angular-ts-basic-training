@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './interfaces/user.interface';
+import { v4 as uuid } from 'uuid';
+import { LoginData } from 'auth/logindata';
 
 export interface Mapping {
   [key: string]: string;
@@ -12,12 +14,12 @@ export class UsersService {
 
   constructor() {
     this.users.push({
-      id: '1',
+      id: uuid(),
       name: 'simon.potzernheim@metafinanz.de',
       role: 'user',
     } as User);
     this.users.push({
-      id: 'Admin1',
+      id: uuid(),
       name: 'simon.potzernheim@metafinanz.de',
       role: 'admin',
     } as User);
@@ -35,9 +37,11 @@ export class UsersService {
     return this.users.find(user => user.id === id);
   }
 
-  // findByEmail(email: string) {
-  //   return this.users.find(user => user.name === email);
-  // }
+  findByEmailAndRole(data: LoginData) {
+    return this.users
+      .filter(user => user.role === data.role)
+      .find(user => user.name === data.email);
+  }
 
   findOneByToken(token) {
     return this.findOne(this.tokens[token]);
