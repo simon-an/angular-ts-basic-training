@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, map, withLatestFrom } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, map, withLatestFrom, switchMapTo } from 'rxjs/operators';
+import { Observable, merge, Subject } from 'rxjs';
 import { Safe, SafeService, SafeItem } from 'src/app/core';
 import { AddSafeItemDialogComponent } from 'src/app/shared/container/add-safe-item-dialog/add-safe-item-dialog.component';
 import { MatDialog } from '@angular/material';
@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material';
 export class SafeComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
+  trigger$: Subject<any> = new Subject<any>();
 
   constructor(private activatedRoute: ActivatedRoute, private service: SafeService, private dialog: MatDialog) {}
 
@@ -27,7 +28,10 @@ export class SafeComponent implements OnInit {
       })
     );
 
-    this.items$ = this.safe$.pipe(switchMap((safe: Safe) => this.service.getItems(safe.id)));
+    this.items$ = merge(this.safe$, this.trigger$).pipe(
+      withLatestFrom(this.safe$),
+      switchMap(([trigger, safe]: [any, Safe]) => this.service.getItems(safe.id))
+    );
   }
 
   onAddSafeItem(event) {
@@ -41,7 +45,8 @@ export class SafeComponent implements OnInit {
       .subscribe(([result, safe]) => {
         if (!!result) {
           console.log(`Dialog result: ${result}`);
-          this.service.addItem(result, safe.id);
+          const result$ = this.service.addItem(result, safe.id);
+          this.trigger$.next(1);
         }
       });
   }

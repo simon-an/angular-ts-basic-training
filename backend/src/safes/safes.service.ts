@@ -37,13 +37,13 @@ export class SafesService {
       {
         id: uuid(),
         price: 134,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'Fahhrad',
       },
       {
         id: uuid(),
         price: 234,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'Fahhrad',
       },
     ],
@@ -51,25 +51,25 @@ export class SafesService {
       {
         id: uuid(),
         price: 12,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'Fahhrad',
       },
       {
         id: uuid(),
         price: 34,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'Auto',
       },
       {
         id: uuid(),
         price: 45,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'Laptop',
       },
       {
         id: uuid(),
         price: 56,
-        invoiceId: null,
+        invoiceId: uuid(),
         name: 'UsbStick',
       },
     ],
@@ -84,6 +84,8 @@ export class SafesService {
 
   constructor() {
     let newsafes = [];
+
+    // this.items.subscribe(stuff => console.log(stuff));
 
     // recalculare safemock data
     this.safesMock.forEach(safe => {
@@ -117,13 +119,21 @@ export class SafesService {
 
   addItem(item: SafeItem, safeId: string): Observable<SafeItem> {
     const createItem = { ...item, id: uuid() };
+    const index = this.safes
+      .getValue()
+      .indexOf(this.safes.getValue().find(safe => safe.id === safeId));
     const newItems$ = this.getItems(safeId).pipe(
       map((items: SafeItem[]) => {
         return [...items, createItem];
       }),
-      map(items => [...this.items.getValue(), items]),
+      map(items => [
+        ...this.items.getValue().slice(0, index),
+        items,
+        ...this.items.getValue().slice(index + 1),
+      ]),
     );
     newItems$.subscribe(this.items);
+    this.refreshSave();
     return of(createItem);
   }
 
@@ -136,5 +146,19 @@ export class SafesService {
       map(safe3 => safe3.find(safe => safe.id === id)),
     );
     return observable;
+  }
+
+  refreshSave() {
+    let newsafes = [];
+    this.safes.getValue().forEach(safe => {
+      const index = this.safes.getValue().indexOf(safe);
+      const items2 = this.items.getValue()[index];
+      const prize = items2
+        .map(item => item.price)
+        .reduce((val, sum) => sum + val);
+      const result = { ...safe, value: prize, itemSize: items2.length };
+      newsafes = [...newsafes, result];
+    });
+    this.safes.next(newsafes);
   }
 }

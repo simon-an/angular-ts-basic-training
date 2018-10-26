@@ -45,12 +45,13 @@ export class SafeService {
   }
 
   addItem(item: SafeItem, safeId: string): Observable<SafeItem> {
-    console.log(item, safeId);
+    console.log(item, safeId, this.http);
     // const newItems = [...this.items.getValue(), item];
     // this.items.next(newItems);
     return this.http.post(this.safesUrl + `/${safeId}/items`, item).pipe(
-      tap(item1 => console.log('adaditem', item1)),
       map((response: SafeItem) => response),
+      // tap(item => this.refreshItems(safeId)),
+      tap(response => this.refreshItems2(response)),
       take(1)
     );
   }
@@ -62,5 +63,19 @@ export class SafeService {
     );
     result$.subscribe(this.items);
     return result$;
+  }
+
+  refreshItems(safeId: string) {
+    this.getItems(safeId).subscribe(this.items);
+  }
+  refreshItems2(item: SafeItem) {
+    this.items
+      .pipe(
+        map(i => [...i, item]),
+        take(1)
+      )
+      .subscribe(this.items);
+
+    this.loadSafes().subscribe(this.safes);
   }
 }
