@@ -29,6 +29,13 @@ export class FileService {
   }
 
   getFiles(): Observable<string[]> {
-    return this.http.get('/files').pipe(map((x: string[]) => x));
+    return this.http.get('api/files').pipe(map((x: string[]) => x));
+  }
+
+  get(id: string): Promise<string> {
+    return this.http
+      .get('api/files/' + id, { responseType: 'text' })
+      .pipe(map((x: string) => x))
+      .toPromise();
   }
 }
