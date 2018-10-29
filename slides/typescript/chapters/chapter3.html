@@ -144,7 +144,7 @@
 </section>
 <section>
     <h2>Warte auf uns!</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     let p1 = Promise.resolve(3);
     let p2 = 1337;
     let p3 = new Promise((resolve, reject) => {
@@ -153,8 +153,11 @@
     
     Promise.all([p1, p2, p3])
     .then(values => {
-        console.log(values); // [3, 1337, "foo"]
+        console.log(values);
     });
+    </code></pre>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+    // [3, 1337, "foo"]
     </code></pre>
     <aside class="notes">
         <ul>
@@ -165,7 +168,7 @@
 </section>
 <section>
     <h2>Erster gewinnt!</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     let promise1 = new Promise((resolve, reject) => {
         setTimeout(resolve, 500, 'one');
     });
@@ -176,8 +179,10 @@
     
     Promise.race([promise1, promise2]).then(function(value) {
         console.log(value);
-        // Both resolve, but promise2 is faster
     });
+    </code></pre>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+    // Both resolve, but promise2 is faster
     // expected output: "two"
     </code></pre>
     <aside class="notes">
@@ -196,13 +201,13 @@
 </section>
 <section>
     <h2>Timing</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     Promise.resolve().then(() => console.log(2));
     console.log(1);
     </code></pre>
-    <p class="fragment">
-        Ausgabe:  1, 2
-    </p>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+    // expected output:  1, 2
+    </code></pre>
     <p class="fragment">
         Die übergebene Funktion wird auf die Microtask-Queue gelegt, d.h. die Funktion wird später ausgeführt, weil die Queue erst am Ende des aktuellen Laufs der JavaScript Event Loop abgearbeitet wird.
     </p>
@@ -210,22 +215,27 @@
 <section>
     <h2>Quellen zu Promises</h2>
     <ul>
-        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise</li>
-        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN Promise</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises">MDN Using Promises</a></li>
     </ul>
 </section>
 <section>
-    TODO
     <h2>Übung Promise</h2>
-    <h3>Lösung: Consolenausgabe</h3>
-    Ausgabe initial wird aus erstelltem Promise ausgegeben
-    Fahlerfall bei dem normalerweise "Do this" ausgegeben worden wäre
-    <pre><code data-trim data-noescape>
+    <p>Setze die Konsolenausgabe mit einem Promise um</p>
+    <pre><code data-trim data-noescape class="typescript">
+    // Konsolenausgabe
     Initial
     Do that
     Do this, no matter what happened before
     </code></pre>
-    <pre><code data-trim data-noescape>
+    <ul>
+        <li>Ausgabe "Initial" wird im erstelltem Promise geloggt</li>
+        <li>Fehlerfall bei dem normalerweise "Do this" geloggt worden wäre, aber wegen des Fehlers "Do that" geloggt wird</li>
+    </ul>
+</section>
+<section>
+    <h2>Lösung Übung Promise</h2>
+    <pre><code data-trim data-noescape class="typescript">
     new Promise((resolve, reject) => {
         console.log('Initial');
         resolve();
@@ -247,7 +257,7 @@
     <h3>Async / Await</h3>
     <ul>
         <li>Einführung mit ES2017</li>
-        <li>Eine <code>async</code> Funktion Deklaration definiert eine asynchrone Funktion. Sie kann eine <code>await</code> Expression enthalten, die die Ausführung der <code>async</code> Funktion unterbricht und auf die Auflösung des Promise warten und dann erst die <code>async</code> Funktion weiter ausführt.</li>
+        <li>Eine <code>async</code> Funktion Deklaration definiert eine asynchrone Funktion. Sie kann eine <code>await</code> Expression enthalten, die die Ausführung der <code>async</code> Funktion unterbricht und auf die Auflösung des Promise wartet und dann erst die <code>async</code> Funktion weiter ausführt.</li>
         <li>Mit <code>async</code>/<code>await</code> können wir Promises im Programmablauf synchron verwenden.</li>
     </ul>
 </section>
@@ -272,7 +282,7 @@
 <section>
     <h2>Quellen zu Async / Await</h2>
     <ul>
-        <li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">MDN Async Function</a></li>
     </ul>
 </section>
 <section>
@@ -341,7 +351,7 @@
             <li>...durch die Werte eines Streams zu iterieren</li>
             <li>...Werte auf verschiedene Typen zu mappen</li>
             <li>...Streams zu filtern</li>
-            <li>...mehrere Stream miteinander zu verknüpfen</li>
+            <li>...mehrere Streams miteinander zu verknüpfen</li>
         </ul>
     </p>
 </section>
@@ -425,7 +435,7 @@
     <p>
         Fehler kontrolliert in einer Observable Sequenz behandeln.<br>
         <br>
-        Achtung: Immer ein Observable zurückgeben, da es vom nächsten Schritt als übernommen wird!
+        Achtung: Immer ein Observable zurückgeben, da es vom nächsten Schritt übernommen wird!
     </p>
 </section>
 <section>
