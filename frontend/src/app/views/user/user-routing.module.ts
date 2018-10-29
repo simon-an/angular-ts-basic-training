@@ -15,24 +15,24 @@ const routes: Routes = [
         component: SafeComponent,
         outlet: 'secondary',
         resolve: {
-          safe: SafeResolverService,
-        },
+          safe: SafeResolverService
+        }
       },
       {
         path: '',
         component: UserHomeComponent,
-        outlet: 'secondary',
-      },
-    ],
+        outlet: 'secondary'
+      }
+    ]
   },
   {
     path: '',
-    redirectTo: 'home',
-  },
+    redirectTo: 'home'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class UserRoutingModule {}

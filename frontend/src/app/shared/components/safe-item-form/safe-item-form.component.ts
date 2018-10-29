@@ -42,8 +42,8 @@ export class SafeItemFormComponent implements OnInit {
       reader.readAsDataURL(this.state.file);
       reader.onload = () => {
         // console.log(reader.result);
-        const id = this.fileService.uploadFile(reader.result);
-        this.model.invoiceId = id;
+        const id$ = this.fileService.uploadFile(this.state.file);
+        id$.subscribe(id => (this.model.invoiceId = id));
         // console.log(id);
       };
     }
