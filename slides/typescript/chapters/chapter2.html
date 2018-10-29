@@ -379,14 +379,15 @@
 <section>
     <h2>Advanced Types</h2>
     <p>Intersection</p>
-    <pre><code>function extend&lt;T, U>(first: T, second: U): T & U {</code></pre>
+    <pre><code data-trim data-noescape>function extend&lt;T, U>(first: T, second: U): T & U {</code></pre>
     <p>Union Types</p>
-    <pre><code>function padLeft(value: string, padding: string | number) {</code></pre>
+    <pre><code data-trim data-noescape>function padLeft(value: string, padding: string | number) {</code></pre>
     <p>Type Guards</p>
-    <pre><code>
-        function isFish(pet: Fish | Bird): pet is Fish {
-            return (&lt;Fish>pet).swim !== undefined;
-        }</code></pre>
+    <pre><code data-trim data-noescape>
+    function isFish(pet: Fish | Bird): pet is Fish {
+        return (&lt;Fish>pet).swim !== undefined;
+    }
+    </code></pre>
 </section>
 <section>
     <h2>Advanced Types Cont.</h2>
