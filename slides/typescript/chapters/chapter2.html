@@ -428,18 +428,20 @@
 </section>
 <section>
     <pre><code data-trim data-noescape>
-        class ZipCodeValidator implements StringValidator {
-            isAcceptable(s: string) {
-                return s.length === 5 && numberRegexp.test(s);
-            }
+    class ZipCodeValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return s.length === 5 && numberRegexp.test(s);
         }
-        export { ZipCodeValidator };
-        export { ZipCodeValidator as mainValidator };
+    }
+    export { ZipCodeValidator };
+    export { ZipCodeValidator as mainValidator };
     </code></pre>
-    <pre><code>import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";</code></pre>
-    <pre><code>import * as validator from "./ZipCodeValidator";
-        let myValidator = new validator.ZipCodeValidator();
-        Import a module for side-effects only</code></pre>
+    <pre><code data-trim data-noescape>import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";</code></pre>
+    <pre><code data-trim data-noescape>
+    import * as validator from "./ZipCodeValidator";
+    let myValidator = new validator.ZipCodeValidator();
+    Import a module for side-effects only
+    </code></pre>
 </section>
 <section>
     <pre><code data-trim data-noescape>
