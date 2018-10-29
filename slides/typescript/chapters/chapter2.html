@@ -467,7 +467,7 @@
             Verhalten gedacht. </li>
         <li>TypeScript unterstützt export = um diesen traditionellen CommonJS and AMD Workflow zu
             unterstützen.</li>
-        <li>The export = gibt ein ein einzelnes Objeckt an, das exportiert wird. Exportiert werden können: class,
+        <li>The export = gibt ein einzelnes Objeckt an, das exportiert wird. Exportiert werden können: class,
             interface,
             namespace, function, oder enum.</li>
         <li>Wenn der TypeScript-specific export = benutzt wird, muss der Import des Modules mit = require("module")
@@ -476,7 +476,7 @@
 </section>
 <section>
     <h2>Arbeiten mit anderen JavaScript Libraries</h2>
-    <p> Um die Struktur der Library zu beschreiben, die nicht in TypeScript geschreiben wurde, müssen wir die API der
+    <p> Um die Struktur der Library zu beschreiben, die nicht in TypeScript geschrieben wurde, müssen wir die API der
         Library definieren.
         Deklarationen, die keine Implementierung definieren, sind “ambient”. Diese APIs sind in d.ts files definiert,
         ähnlich wie .h Dateien in C++.
@@ -633,7 +633,7 @@
 
 <section>
     <h2>Filter</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape style="font-size: 20px">
         const initialArray = [1, 2, 3, 4];
         for (let index = 0; index &lt; initialArray.length; index++) {
             if (initialArray[index] * 100 > 200) {
@@ -642,7 +642,7 @@
             }
         }
     </code></pre>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape style="font-size: 20px">
         console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200));
     </code></pre>
 </section>
