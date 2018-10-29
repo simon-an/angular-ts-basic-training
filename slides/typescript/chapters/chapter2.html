@@ -212,15 +212,14 @@
 <section>
     <h2>Interfaces</h2>
     <p>Explizit definierte Typen</p>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
             function printLabel(labelledObj: { label: string }) {
                 console.log(labelledObj.label);
             }
-            
             let myObj = {size: 10, label: "Size 10 Object"};
             printLabel(myObj);
     </code></pre>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
             interface LabelledValue {
                 label: string;
                 readonly optional?: boolean;
@@ -229,7 +228,6 @@
             function printLabel(labelledObj: LabelledValue) {
                 console.log(labelledObj.label);
             }
-            
             let myObj = {size: 10, label: "Size 10 Object"};
             printLabel(myObj);
     </code></pre>
