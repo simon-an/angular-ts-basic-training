@@ -1,3 +1,4 @@
+// execute ts-node chapter_3/chapter_3_rxjs_operator_flatMap.ts
 import { of, interval } from "rxjs";
 import { flatMap, map } from "rxjs/operators";
 
