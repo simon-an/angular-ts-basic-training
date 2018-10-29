@@ -617,16 +617,16 @@
 
 <section>
     <h2>Map</h2>
-    <pre><code data-trim data-noescape>
-            const resultArray = [];
-            const initialArray = [1, 2, 3, 4];
-            for (let index = 0; index &lt; initialArray.length; index++) {
-                resultArray[index] = initialArray[index] * initialArray[index];
-            }
+    <pre><code data-trim data-noescape class="typescript">
+    const resultArray = [];
+    const initialArray = [1, 2, 3, 4];
+    for (let index = 0; index &lt; initialArray.length; index++) {
+        resultArray[index] = initialArray[index] * initialArray[index];
+    }
     </code></pre>
-    <pre><code data-trim data-noescape>
-            const multiply = (value: number) => value * value;
-            console.log([1, 2, 3, 4].map(multiply));
+    <pre><code data-trim data-noescape class="typescript">
+    const multiply = (value: number) => value * value;
+    console.log([1, 2, 3, 4].map(multiply));
     </code></pre>
 </section>
 
@@ -649,13 +649,13 @@
 
 <section>
     <h2>Reduce</h2>
-    <pre><code data-trim data-noescape>
-            let result = 0;
-            [1, 2, 3, 4].forEach(number => result += number);
+    <pre><code data-trim data-noescape class="typescript">
+    let result = 0;
+    [1, 2, 3, 4].forEach(number => result += number);
     </code></pre>
-    <pre><code data-trim data-noescape>
-            // Pure Function
-            const reducer = (sum: number, value: number) => sum += value;
-            console.log([1, 2, 3, 4].reduce(reducer, 0));
+    <pre><code data-trim data-noescape class="typescript">
+    // Pure Function
+    const reducer = (sum: number, value: number) => sum += value;
+    console.log([1, 2, 3, 4].reduce(reducer, 0));
     </code></pre>
 </section>
