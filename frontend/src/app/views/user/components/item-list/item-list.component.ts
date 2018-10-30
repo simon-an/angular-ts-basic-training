@@ -12,7 +12,7 @@ export class ItemListComponent implements OnInit {
   items: SafeItem[];
 
   @Output()
-  showInvoiceEmitter = new EventEmitter<string>();
+  showInvoice = new EventEmitter<string>();
 
   constructor() {}
 

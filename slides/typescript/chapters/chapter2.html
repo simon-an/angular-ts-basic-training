@@ -1,5 +1,7 @@
 <!-- <aside style="position: absolute; top: 0px; right: 0px;" data-controls-layout>Typescript Handy On</aside> -->
-<section><h1>TypeScript Basics</h1></section>
+<section>
+    <h1>TypeScript Basics</h1>
+</section>
 <section>
     <h2>Setup</h2>
     <p>Setup VSCODE: Install Extensions: tslint</p>
@@ -176,6 +178,7 @@
             return sum;
         }
     </code></pre>
+    <p class="fragement">Use let instead var for i.</p>
 </section>
 <section>
     <p>Was ist das Ergebnis auf der Console?</p>
@@ -390,27 +393,28 @@
     }
     </code></pre>
 </section>
-<section>
+<!-- <section>
     <h2>Advanced Types Cont.</h2>
     <p>typeof type guards: primitive Types</p>
     <p>instanceof type guards: objects</p>
     <p>Nullable types: Union mit null</p>
-</section>
-<section>
+</section> -->
+<!-- <section>
     <h2>Symbols</h2>
     Symbols sind immutable, und unique.
     <pre><code data-trim data-noescape>
     let sym2 = Symbol("key");
     let sym3 = Symbol("key");
     sym2 === sym3; // false
-</code></pre>
+    </code></pre>
     <p>Wie strings, können symbols als Keys für object properties genutzt werden.</p>
-</section>
+</section> -->
 <section>
     <h2>Iterators und Generators</h2>
     <p>values: for..of (Iterator Types. Unterschiedlicher Compiler-Output mit ES3 und ES5)</p>
     <p>keys: for..in Objects und Iterator Types</p>
     <pre><code data-trim data-noescape>
+    const list28 = ["4", "5", "6"];
     for (let i in list28) {
         console.log(i); // "0", "1", "2",
     }
@@ -419,7 +423,7 @@
     }
     </code></pre>
 </section>
-<section>
+<!-- <section>
     <h2>Modules</h2>
     <p>In TypeScript, just as in ECMAScript 2015, any file containing a top-level import or export is considered a
         module. Conversely, a file without any top-level import or export declarations is treated as a script whose
@@ -482,7 +486,7 @@
         Deklarationen, die keine Implementierung definieren, sind “ambient”. Diese APIs sind in d.ts files definiert,
         ähnlich wie .h Dateien in C++.
     </p>
-</section>
+</section> -->
 <section>
     <h2>Namespaces</h2>
     <p>Ähnlich zu packages in Java oder C++.</p>
@@ -504,7 +508,7 @@
 <!-- <section>
     <h2>Module Resolution</h2>
 </section> -->
-<section>
+<!-- <section>
     <h2>Declaration Merging</h2>
     <style>
         td {
@@ -561,7 +565,7 @@
             <td>X</td>
         </tr>
     </table>
-</section>
+</section> -->
 <section>
     <h2>Declaration Merging</h2>
     <pre><code data-trim data-noescape>
@@ -589,7 +593,7 @@
                 @g()
                 method(param: string) {</code></pre>
 </section>
-<section>
+<!-- <section>
     <h2>Mixins</h2>
     <p>aka Traits in Skala.</p>
     <pre><code data-trim data-noescape>
@@ -605,7 +609,9 @@
         } 
         class SmartObject implements Activatable {
     </code></pre>
-</section>
+
+    <p class="fragment">What is missing here?</p>
+</section> -->
 <!-- <section>
     <h2>Triple-Slash Directives</h2>
     <p>Triple-slash directives are single-line comments containing a single XML tag. The contents of the comment are

@@ -1,22 +1,29 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, map, withLatestFrom, switchMapTo } from 'rxjs/operators';
+import { Observable, merge, Subject } from 'rxjs';
 import { Safe, SafeService, SafeItem } from 'src/app/core';
 import { AddSafeItemDialogComponent } from 'src/app/shared/container/add-safe-item-dialog/add-safe-item-dialog.component';
 import { MatDialog } from '@angular/material';
+import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
   selector: 'cool-safe',
   templateUrl: './safe.component.html',
   styleUrls: ['./safe.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafeComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
+  trigger$: Subject<any> = new Subject<any>();
 
-  constructor(private activatedRoute: ActivatedRoute, private service: SafeService, private dialog: MatDialog) {}
+  constructor(
+    private fileService: FileService,
+    private activatedRoute: ActivatedRoute,
+    private service: SafeService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     // Changed in Exersice 9.4.1
@@ -27,19 +34,37 @@ export class SafeComponent implements OnInit {
       })
     );
 
-    this.items$ = this.safe$.pipe(switchMap((safe: Safe) => this.service.getItems(safe.id)));
+    this.items$ = merge(this.safe$, this.trigger$).pipe(
+      withLatestFrom(this.safe$),
+      switchMap(([trigger, safe]: [any, Safe]) => this.service.getItems(safe.id))
+    );
+  }
+
+  openInvoice(id: string) {
+    this.fileService
+      .get(id)
+      .then(image => {
+        // console.log(image);
+        const newTab = window.open();
+        newTab.document.body.innerHTML = '<img src="' + image + '">';
+      })
+      .catch(err => console.error('invoice not found:', id, err));
   }
 
   onAddSafeItem(event) {
     const dialogRef = this.dialog.open(AddSafeItemDialogComponent, {
       height: '400px',
-      width: '600px',
+      width: '600px'
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      if (result) {
-        this.service.addItem(result);
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(withLatestFrom(this.safe$))
+      .subscribe(([result, safe]) => {
+        if (!!result) {
+          console.log(`Dialog result: ${result}`);
+          const result$ = this.service.addItem(result, safe.id);
+          result$.subscribe(this.trigger$);
+        }
+      });
   }
 }

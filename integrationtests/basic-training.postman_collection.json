@@ -1,0 +1,539 @@
+{
+  "info": {
+    "_postman_id": "4392c0f5-f865-458d-95b1-97fd33a16266",
+    "name": "basic-training",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "localhost:4200/api/login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "eee3f37e-a8db-48c8-91cf-520a49bb5e24",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData.token).to.be.a('string')",
+              "    pm.expect(jsonData.token).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "});+",
+              "// example using response assertions",
+              "pm.test(\"response should be okay to process\", function () { ",
+              "    pm.response.to.not.be.error; ",
+              "    pm.response.to.not.have.jsonBody(\"error\"); ",
+              "  //  pm.response.to.be.json;",
+              "});",
+              "",
+              "pm.globals.set(\"token\", jsonData.token);",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"email\" : \"simon.potzernheim@metafinanz.de\",\n\t\"role\" : \"user\"\n}"
+        },
+        "url": {
+          "raw": "localhost:4200/api/login",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:4200/api/login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "2ff03144-0dd4-47d1-a26a-ef91836faf71",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData.id).to.be.a('string')",
+              "    pm.expect(jsonData.id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData.name).to.be.a('string')",
+              "    pm.expect(jsonData.role).to.be.a('string')",
+              "});+",
+              "// example using response assertions",
+              "pm.test(\"response should be okay to process\", function () { ",
+              "    pm.response.to.not.be.error; ",
+              "    pm.response.to.not.have.jsonBody(\"error\"); ",
+              "  //  pm.response.to.be.json;",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"email\" : \"simon.potzernheim@metafinanz.de\"\n\t\"role\" : \"user\"\n}"
+        },
+        "url": {
+          "raw": "localhost:4200/api/login",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:4200/api/safes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "e6c24cac-9562-4fca-97cb-e478a010c74f",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData[0].id).to.be.a('string')",
+              "    pm.expect(jsonData[0].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].id).to.be.a('string')",
+              "    pm.expect(jsonData[1].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].itemSize).to.be.a('number')",
+              "    pm.expect(jsonData[1].active).to.be.a('boolean')",
+              "    pm.expect(jsonData[1].activeSince).to.be.a('string')",
+              "",
+              "});+",
+              "// example using response assertions",
+              "pm.test(\"response should be okay to process\", function () { ",
+              "    pm.response.to.not.be.error; ",
+              "    pm.response.to.not.have.jsonBody(\"error\"); ",
+              "  //  pm.response.to.be.json;",
+              "});",
+              "",
+              "pm.globals.set(\"safeId\", jsonData[0].id);",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\tinvoiceId: \"c1b16842-826a-40b0-a2d9-dc9359fb9582\"\r\n\tname: \"asdasd\"\r\n\tprice: \"234234\"\r\n}"
+        },
+        "url": {
+          "raw": "localhost:4200/api/safes/",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "safes", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:4200/api/safes/id/items",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "0daa5e85-54e0-4747-9aa1-0ee341daf85d",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData[0].id).to.be.a('string')",
+              "    pm.expect(jsonData[0].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].id).to.be.a('string')",
+              "    pm.expect(jsonData[1].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].price).to.be.a('number')",
+              "    pm.expect(jsonData[1].name).to.be.a('string')",
+              "    pm.expect(jsonData[1].invoiceId).to.be.a('string')",
+              "",
+              "});+",
+              "// example using response assertions",
+              "pm.test(\"response should be okay to process\", function () { ",
+              "    pm.response.to.not.be.error; ",
+              "    pm.response.to.not.have.jsonBody(\"error\"); ",
+              "  //  pm.response.to.be.json;",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\tinvoiceId: \"c1b16842-826a-40b0-a2d9-dc9359fb9582\"\r\n\tname: \"asdasd\"\r\n\tprice: \"234234\"\r\n}"
+        },
+        "url": {
+          "raw": "localhost:4200/api/safes/{{safeId}}/items",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "safes", "{{safeId}}", "items"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:4200/api/safes/id/items",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "e6c24cac-9562-4fca-97cb-e478a010c74f",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData.id).to.be.a('string')",
+              "    pm.expect(jsonData.id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData.price).to.be.a('number')",
+              "    pm.expect(jsonData.name).to.be.a('string')",
+              "    pm.expect(jsonData.invoiceId).to.be.a('string')",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\n        \"id\": \"e297db0b-60ec-4216-a9b9-2322136bf6e0\",\n        \"price\": 134,\n        \"invoiceId\": \"asdfg\",\n        \"name\": \"Fahhrad\"\n    }"
+        },
+        "url": {
+          "raw": "localhost:4200/api/safes/{{safeId}}/items",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "safes", "{{safeId}}", "items"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:4200/api/safes/id/items Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "0daa5e85-54e0-4747-9aa1-0ee341daf85d",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Response data format is correct\", () => {",
+              "    pm.expect(jsonData[0].id).to.be.a('string')",
+              "    pm.expect(jsonData[0].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].id).to.be.a('string')",
+              "    pm.expect(jsonData[1].id).to.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)",
+              "    pm.expect(jsonData[1].price).to.be.a('number')",
+              "    pm.expect(jsonData[1].name).to.be.a('string')",
+              "    pm.expect(jsonData[1].invoiceId).to.be.a('string')",
+              "    pm.expect(jsonData).to.be.length(3)",
+              "",
+              "});+",
+              "// example using response assertions",
+              "pm.test(\"response should be okay to process\", function () { ",
+              "    pm.response.to.not.be.error; ",
+              "    pm.response.to.not.have.jsonBody(\"error\"); ",
+              "  //  pm.response.to.be.json;",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "type": "text",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\tinvoiceId: \"c1b16842-826a-40b0-a2d9-dc9359fb9582\"\r\n\tname: \"asdasd\"\r\n\tprice: \"234234\"\r\n}"
+        },
+        "url": {
+          "raw": "localhost:4200/api/safes/{{safeId}}/items",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "safes", "{{safeId}}", "items"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "files",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "filename",
+              "type": "file",
+              "src": "",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "localhost:4200/api/files",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "files"]
+        }
+      },
+      "response": [
+        {
+          "name": "files",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "file",
+              "file": {}
+            },
+            "url": {
+              "raw": "localhost:3000/files",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["files"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "plain",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 26 Oct 2018 11:26:38 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "get file",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "image/jpeg",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "localhost:4200/api/files/0b345479-a3d6-4cbe-aa85-fabda59695e3",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "files", "0b345479-a3d6-4cbe-aa85-fabda59695e3"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "files",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "filename",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "localhost:4200/api/files",
+          "host": ["localhost"],
+          "port": "4200",
+          "path": ["api", "files"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
