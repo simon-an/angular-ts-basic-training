@@ -51,7 +51,7 @@ export class SafeService {
   private items: BehaviorSubject<SafeItem[]> = new BehaviorSubject<SafeItem[]>([]);
 
   getSafe(safeId: string): Observable<Safe> {
-    return this.safes.asObservable().pipe(map(safes1 => safes1.find(safe => safe.id === safeId)));
+    return this.safes.asObservable().pipe(map((safes1: Safe[]) => safes1.find(safe => safe.id === safeId)));
   }
 
   getSafes(): Observable<Safe[]> {
