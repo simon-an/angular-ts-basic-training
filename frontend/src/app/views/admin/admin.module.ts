@@ -10,4 +10,4 @@ import { MatListModule } from '@angular/material';
   imports: [CommonModule, SharedModule, MatListModule, AdminRoutingModule],
   declarations: [AdminComponent]
 })
-export class AdminModule { }
+export class AdminModule {}

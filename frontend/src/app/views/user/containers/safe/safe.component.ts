@@ -2,10 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, map, withLatestFrom, switchMapTo } from 'rxjs/operators';
 import { Observable, merge, Subject } from 'rxjs';
-import { Safe, SafeService, SafeItem } from 'src/app/core';
-import { AddSafeItemDialogComponent } from 'src/app/shared/container/add-safe-item-dialog/add-safe-item-dialog.component';
+import { Safe, SafeService, SafeItem, FileService } from '~core';
+import { AddSafeItemDialogComponent } from '~container/add-safe-item-dialog';
 import { MatDialog } from '@angular/material';
-import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
   selector: 'cool-safe',

@@ -1,19 +1,21 @@
 # Chapter 9
 
 ## Preparation
+
 ### Create auth service:
+
 ```bash
 ng g service core/services/auth
 ```
 
 ```typescript
-import { Injectable } from '@angular/core';
-import { Observable, timer, of, BehaviorSubject } from 'rxjs';
-import { LoginData, User } from '../model';
-import { map, tap } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { Observable, timer, of, BehaviorSubject } from "rxjs";
+import { LoginData, User } from "../model";
+import { map, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
   user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
@@ -24,11 +26,15 @@ export class AuthService {
     if (loginData) {
       return timer(30).pipe(
         map(time => {
-          if (loginData.email === 'simon.potzernheim@metafinanz.de') {
-            return { id: '1', name: 'simon.potzernheim@metafinanz.de', role: loginData.role } as User;
+          if (loginData.email === "simon.potzernheim@metafinanz.de") {
+            return {
+              id: "1",
+              name: "simon.potzernheim@metafinanz.de",
+              role: loginData.role
+            } as User;
           }
-          if (loginData.email.includes('@gmail.com')) {
-            return { id: '2', name: loginData.email, role: 'user' } as User;
+          if (loginData.email.includes("@gmail.com")) {
+            return { id: "2", name: loginData.email, role: "user" } as User;
           }
           return null;
         }),
@@ -85,9 +91,11 @@ export interface User {
   role: string;
 }
 ```
+
 Add both models to the barrel file.
 
 ## Exercise: 9.1
+
 ### Create Login Component with routing
 
 Hint: create a route <code>/login/:role</code> to LoginComponent
@@ -98,25 +106,25 @@ Hint: create a route <code>/login/:role</code> to LoginComponent
 home-routing.module.ts
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from 'src/app/shared/container/login/login.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { HomeComponent } from "./home/home.component";
+import { LoginComponent } from "src/app/shared/container/login/login.component";
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: "index",
     component: HomeComponent,
     children: [
       {
-        path: 'login/:role',
+        path: "login/:role",
         component: LoginComponent
       }
     ]
   },
   {
-    path: '',
-    redirectTo: 'index'
+    path: "",
+    redirectTo: "index"
   }
 ];
 
@@ -146,6 +154,7 @@ home.component.html
 </details>
 
 ## Exercise: 9.2
+
 ### Create Login Dialog
 
 <details>
@@ -164,19 +173,19 @@ form {
 <summary>login-dialog.component.ts</summary>
 
 ```typescript
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
-  selector: 'cool-login-dialog',
-  templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.scss']
+  selector: "cool-login-dialog",
+  templateUrl: "./login-dialog.component.html",
+  styleUrls: ["./login-dialog.component.scss"]
 })
 export class LoginDialogComponent {
-  roles = ['user', 'admin'];
+  roles = ["user", "admin"];
   state = {
-    role: 'user',
-    email: 'simon@gmail.com'
+    role: "user",
+    email: "simon@gmail.com"
   };
 
   constructor(
@@ -219,20 +228,20 @@ export class LoginDialogComponent {
 <summary>login.component.ts</summary>
 
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
-import { switchMap, map, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { LoginData } from 'src/app/core/model/logindata';
-import { User } from 'src/app/core/model/user';
-import { of } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material";
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
+import { LoginDialogComponent } from "../login-dialog/login-dialog.component";
+import { switchMap, map, tap } from "rxjs/operators";
+import { AuthService } from "src/app/core/services/auth.service";
+import { LoginData } from "src/app/core/model/logindata";
+import { User } from "src/app/core/model/user";
+import { of } from "rxjs";
 
 @Component({
-  selector: 'cool-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "cool-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   dialogRef: MatDialogRef<LoginDialogComponent>;
@@ -240,18 +249,18 @@ export class LoginComponent implements OnInit {
   config: MatDialogConfig = {
     disableClose: false,
     hasBackdrop: true,
-    backdropClass: '',
-    width: '',
-    height: '',
+    backdropClass: "",
+    width: "",
+    height: "",
     position: {
-      top: '',
-      bottom: '',
-      left: '',
-      right: ''
+      top: "",
+      bottom: "",
+      left: "",
+      right: ""
     },
     data: {
-      message: '',
-      role: of('user')
+      message: "",
+      role: of("user")
     }
   };
 
@@ -264,7 +273,7 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.config.data.role = this.activatedRoute.paramMap.pipe(
-      map((params: ParamMap) => params.get('role'))
+      map((params: ParamMap) => params.get("role"))
     );
     this.openModal();
   }
@@ -278,22 +287,22 @@ export class LoginComponent implements OnInit {
       .pipe(
         tap(() => (this.loading = true)),
         switchMap((loginData: LoginData) => {
-          console.log('data', loginData);
+          console.log("data", loginData);
           return this.auth.login(loginData);
         })
       )
       .subscribe((user: User | null) => {
         this.loading = false;
-        console.log('user', user);
+        console.log("user", user);
         this.dialogRef = null;
         if (user) {
           if (user.role) {
-            this.router.navigate(['/' + user.role]);
+            this.router.navigate(["/" + user.role]);
           } else {
-            this.router.navigate(['/user']);
+            this.router.navigate(["/user"]);
           }
         } else {
-          this.config.data.message = 'Unauthorized';
+          this.config.data.message = "Unauthorized";
           this.openModal();
         }
       });
@@ -304,6 +313,7 @@ export class LoginComponent implements OnInit {
 </details>
 
 ## Exercise: 9.2.1
+
 ### Add progress spinner to login.component
 
 Hint: Use mat-spinner from Angular Material.
@@ -323,6 +333,7 @@ login.component.html
 </details>
 
 ## Exercise: 9.3
+
 ### Implement Guards
 
 When guard blocks, it should schedule a redirect.
@@ -333,32 +344,32 @@ When guard blocks, it should schedule a redirect.
 ### Add guards to app-routing.module.ts
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AdminGuard } from './core/guards/admin.guard';
-import { AuthGuard } from './core/guards/auth.guard';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { AdminGuard } from "./core/guards/admin.guard";
+import { AuthGuard } from "./core/guards/auth.guard";
 
 const routes: Routes = [
   {
-    path: 'admin',
-    loadChildren: './views/admin/admin.module#AdminModule',
+    path: "admin",
+    loadChildren: "./views/admin/admin.module#AdminModule",
     canLoad: [AuthGuard, AdminGuard],
     canActivate: [AuthGuard, AdminGuard]
   },
   {
-    path: 'user',
-    loadChildren: './views/user/user.module#UserModule',
+    path: "user",
+    loadChildren: "./views/user/user.module#UserModule",
     canLoad: [AuthGuard],
     canActivate: [AuthGuard]
   },
   {
-    path: 'home',
-    loadChildren: './views/home/home.module#HomeModule'
+    path: "home",
+    loadChildren: "./views/home/home.module#HomeModule"
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full"
   }
 ];
 
@@ -377,7 +388,7 @@ export class AppRoutingModule {}
 ### admin.guard.ts
 
 ```typescript
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -385,13 +396,13 @@ import {
   CanLoad,
   Router,
   Route
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { map, tap, take } from 'rxjs/operators';
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "../services/auth.service";
+import { map, tap, take } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AdminGuard implements CanActivate, CanLoad {
   constructor(private auth: AuthService, private router: Router) {}
@@ -408,11 +419,11 @@ export class AdminGuard implements CanActivate, CanLoad {
 
   userIsAdmin(): Observable<boolean> {
     return this.auth.getUser().pipe(
-      map(user => user.role === 'admin'),
+      map(user => user.role === "admin"),
       tap(canload => {
         if (!canload) {
-          console.log('error. goback to home.');
-          this.router.navigate(['/home']);
+          console.log("error. goback to home.");
+          this.router.navigate(["/home"]);
         }
       }),
       take(1)
@@ -424,7 +435,7 @@ export class AdminGuard implements CanActivate, CanLoad {
 ### auth.guard.ts
 
 ```typescript
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -432,13 +443,13 @@ import {
   Router,
   CanLoad,
   Route
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { map, tap, take } from 'rxjs/operators';
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "../services/auth.service";
+import { map, tap, take } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(private auth: AuthService, private router: Router) {}
@@ -458,8 +469,8 @@ export class AuthGuard implements CanActivate, CanLoad {
       map(Boolean),
       tap(canload => {
         if (!canload) {
-          console.log('error. goback to home.');
-          this.router.navigate(['/home']);
+          console.log("error. goback to home.");
+          this.router.navigate(["/home"]);
         }
       }),
       take(1)
@@ -471,6 +482,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 </details>
 
 ## Additional Exercise: 9.4.1
+
 ### Create safe-resolver.service.ts for safe component routing
 
 ```bash
@@ -482,21 +494,21 @@ ng g service core/services/SafeResolver
 safe-resolver.service.ts
 
 ```typescript
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   Router,
   Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
-} from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
+} from "@angular/router";
+import { Observable, of, EMPTY } from "rxjs";
+import { mergeMap, take } from "rxjs/operators";
 
-import { Safe } from '../model';
-import { SafeService } from './safe.service';
+import { Safe } from "../model";
+import { SafeService } from "./safe.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SafeResolverService implements Resolve<Safe> {
   constructor(private safeService: SafeService, private router: Router) {}
@@ -505,7 +517,7 @@ export class SafeResolverService implements Resolve<Safe> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Safe> | Observable<never> {
-    const id = route.paramMap.get('id');
+    const id = route.paramMap.get("id");
 
     return this.safeService.getSafe(id).pipe(
       take(1),
@@ -514,7 +526,7 @@ export class SafeResolverService implements Resolve<Safe> {
           return of(safe);
         } else {
           // id not found
-          this.router.navigate(['home']);
+          this.router.navigate(["home"]);
           return EMPTY;
         }
       })
@@ -533,19 +545,20 @@ this.safe$ = this.activatedRoute.data.pipe(
 );
 ```
 
-Question: Is safe.component now dump?
+Question: Is safe.component now dumb?
 
 </details>
 
 ## Additional Exercise: 9.4.2
+
 ### Inject role to Dialog Component
 
 ```typescript
-export const ROLE_TOKEN = new InjectionToken<Observable<string>>('ROLE');
+export const ROLE_TOKEN = new InjectionToken<Observable<string>>("ROLE");
 
 export const roleFactory = (activatedRoute: ActivatedRoute) => {
   return activatedRoute.paramMap.pipe(
-    map((params: ParamMap) => params.get('role'))
+    map((params: ParamMap) => params.get("role"))
   );
 };
 

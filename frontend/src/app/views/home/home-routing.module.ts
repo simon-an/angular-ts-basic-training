@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from 'src/app/shared/container/login/login.component';
+import { LoginComponent } from '~container/login';
 
 const routes: Routes = [
   {
@@ -10,18 +10,18 @@ const routes: Routes = [
     children: [
       {
         path: 'login/:role',
-        component: LoginComponent,
-      },
-    ],
+        component: LoginComponent
+      }
+    ]
   },
   {
     path: '',
-    redirectTo: 'index',
-  },
+    redirectTo: 'index'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class HomeRoutingModule {}

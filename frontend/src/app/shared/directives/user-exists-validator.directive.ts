@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { AsyncValidator, ValidationErrors, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { AuthService } from 'src/app/core';
+import { AuthService } from '~core/';
 
 @Directive({
   selector: '[coolUserExists]',
