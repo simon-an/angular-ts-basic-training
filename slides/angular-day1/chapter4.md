@@ -9,7 +9,7 @@ ng add @angular/material
 ng generate module shared --module app
 
 # Generate Angular Material navigation
-ng g @angular/material:nav shared/components/sidenav --changeDetection OnPush --export --module shared --selector cool-sidenav
+ng g @angular/material:nav --name shared/components/sidenav --changeDetection OnPush --export --module shared --selector cool-sidenav
 ```
 
 Add to app.component.html
@@ -44,7 +44,7 @@ ng g module views/admin --routing
 
 ```bash
 # Generate header with sidenav
-ng g @angular/material:nav shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
+ng g @angular/material:nav -name shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
 ```
 
 ### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
@@ -169,7 +169,7 @@ Add router outlet to user.component.html
   </div>
 </cool-header-with-sidenav>
 ```
-Add SharedModule to user.modules.ts
+Add SharedModule to user.module.ts
 
 Add router outlet to app.component.html
 ```html
