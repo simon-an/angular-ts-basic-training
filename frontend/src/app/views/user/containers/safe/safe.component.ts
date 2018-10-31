@@ -25,7 +25,7 @@ export class SafeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Changed in Exersice 9.4.1
+    // Changed in Exercise 9.4.1
     // this.safe$ = this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))));
     this.safe$ = this.activatedRoute.data.pipe(
       map((data: { safe: Safe }) => {

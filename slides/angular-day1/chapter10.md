@@ -81,12 +81,12 @@ export class AuthService {
 
 </details>
 
-## Exersice: 10.1
+## Exercise: 10.1
 ### Create admin and email domain validator
 
 TODO @michael add email domain validator
 
-## Exersice 10.2 Create user exists async validator
+## Exercise 10.2 Create user exists async validator
 
 <details><summary>Solution</summary>
 
