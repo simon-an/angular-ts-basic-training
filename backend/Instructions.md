@@ -22,7 +22,7 @@ cd backend
 npm run start:dev
 ```
 
-# Excercises
+# Exercise
 ## 1. Create GET Controller for Safe and call it
 ```bash
 nest g controller safes
