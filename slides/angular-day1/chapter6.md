@@ -88,7 +88,7 @@ export class SafeService {
 ## Exercise 6.1.3 Create Barrel files for core module.
 <details><summary>src/app/core/index.ts</summary>
 
-Right click folder src/app/core -> Create Barrel (Folders) (Extension: NG42 TypeScript Helpers)
+Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
 ```typescript
 // start:ng42.barrel
 export * from './model';
