@@ -271,6 +271,9 @@ export class SafeComponent implements OnInit {
 
 ## Exercise 6.2.3 Itemlist component show list of safe items
 
+Generate item-list component:
+Right click "src\app\shared\components" -> Angular: Generate a component -> Enter name "itemList" and press Enter -> Select "Exported pure component" -> Confirm
+
 <details><summary>safe.component.html</summary>
 
 ```html
