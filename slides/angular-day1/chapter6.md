@@ -88,7 +88,7 @@ export class SafeService {
 ## Exercise 6.1.3 Create Barrel files for core module.
 <details><summary>src/app/core/index.ts</summary>
 
-Right click src/app/core -> Create Barrel (Folders) (Extension: NG42 TypeScript Helpers)
+Right click folder src/app/core -> Create Barrel (Folders) (Extension: NG42 TypeScript Helpers)
 ```typescript
 // start:ng42.barrel
 export * from './model';
@@ -99,7 +99,7 @@ export * from './services';
 </details>
 <details><summary>src/app/core/model/index.ts</summary>
 
-Right click src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
+Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 ```typescript
 // start:ng42.barrel
 export * from './safe';
@@ -110,7 +110,7 @@ export * from './safeitem';
 </details>
 <details><summary>src/app/core/services/index.ts</summary>
 
-Right click src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
+Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 ```typescript
 // start:ng42.barrel
 export * from './safe.service';
