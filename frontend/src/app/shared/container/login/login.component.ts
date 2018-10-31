@@ -3,10 +3,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { switchMap, map, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { LoginData } from 'src/app/core/model/logindata';
-import { User } from 'src/app/core/model/user';
 import { of } from 'rxjs';
+import { AuthService, LoginData, User } from '~core/';
 
 @Component({
   selector: 'cool-login',

@@ -10,7 +10,7 @@
     <h2>Component Types</h2>
     <p><a target="_blank" rel="noopener noreferrer" href="https://angular.io/api/core/Component">Docs</a></p>
     <ul>
-        <li>Dump Component: Layout, Styling</li>
+        <li>Dumb Component: Layout, Styling</li>
         <li>Smart Component: View, Container</li>
     </ul>
 </section>
@@ -49,7 +49,7 @@
         /* Emulate native scoping of styles */
         encapsulation: ViewEncapsulation.Emulated
     </code></pre>
-    <p>-> Library or Dump Components might use <code>ShadowDom</code>, because stronger encapsulation (ShadowDom currently only supported in Chrome)</p>
+    <p>-> Library or Dumb Components might use <code>ShadowDom</code>, because stronger encapsulation (ShadowDom currently only supported in Chrome)</p>
     <aside class="notes">
         Emulated: Emulate native scoping of styles by adding an attribute containing surrogate id to the Host Element and pre-processing the style rules provided via styles or styleUrls, and adding the new Host Element attribute to all selectors. This is the default option.<br>
         None: Don't provide any template or style encapsulation.<br>
