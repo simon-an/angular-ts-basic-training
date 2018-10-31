@@ -150,7 +150,7 @@ Now you can navigate to the user and the admin page.
 To see the user and admin page included into the header and navigation you need secondary routes:
 
 ```bash
-ng g c views/user/components/userhome  --changeDetection OnPush --module views/user
+ng g c views/user/components/userHome  --changeDetection OnPush --module views/user
 ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
 ```
 
