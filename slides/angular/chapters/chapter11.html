@@ -11,12 +11,10 @@
 <section>
     <h2>HttpInterceptor</h2>
     <p>Intercepts HttpRequest and handles them.</p>
-    <p>Most interceptors will transform the outgoing request before passing it to the next interceptor in the chain, by
-        calling next.handle(transformedReq).</p>
-</section>
-<section>
-    <h2>JsonpInterceptor</h2>
-    <p>An HttpInterceptor which identifies requests with the method JSONP and shifts them to the JsonpClientBackend.</p>
+    <p>Most interceptors will transform the outgoing request before passing it to the next interceptor in the chain, by calling next.handle(transformedReq).</p>
+    <aside class="notes">
+        Use for header manipulation
+    </aside>
 </section>
 <section>
     <h2>Exercise 11.1</h2>
