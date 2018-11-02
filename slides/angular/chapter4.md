@@ -1,36 +1,14 @@
 # Chapter 4
 
-## Exercise: 4.1
-
-### Add Angular Material and your first module
-
-```bash
-# Add Angular Material
-ng add @angular/material
-
-# Generate shared module
-ng generate module shared --module app
-
-# Generate Angular Material navigation
-ng g @angular/material:nav --name shared/components/sidenav --changeDetection OnPush --export --module shared --selector cool-sidenav
-```
-
-Add to app.component.html
-
-```html
-<cool-sidenav></cool-sidenav>
-<router-outlet></router-outlet>
-```
+## Preparation 4.1
 
 ### Generate all needed modules
 
 ```bash
-cd frontend
-# Generate core module
+# make sure you are in the angular project folder
+cd ngx-safe
+# Generate core module as a root module
 ng generate module core --module app
-
-# Remove "SharedModule" from app.module.ts, we will regenerate it
-rm -rf src/app/shared/
 
 # Generate new shared module
 ng generate module shared
@@ -41,9 +19,33 @@ ng g module views/user --routing
 ng g module views/admin --routing
 ```
 
+### Generate root components for modules
+
+```bash
+# Generate home view
+ng g c views/home/home --changeDetection OnPush --module views/home
+```
+
+```bash
+# Generate admin view
+ng g c views/admin/admin --changeDetection OnPush --module views/admin
+```
+
+```bash
+# Generate user view
+ng g c views/user/user --changeDetection OnPush --module views/user
+```
+
 ## Exercise: 4.2
 
-### Add router-outlet to app.component.html
+### Add Angular Material and your first module
+
+```bash
+# Add Angular Material
+ng add @angular/material
+```
+
+Replace code in app/app.component.html
 
 ```html
 <router-outlet></router-outlet>
@@ -56,7 +58,7 @@ ng g @angular/material:nav -name shared/components/header-with-sidenav --changeD
 
 ### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 
-Replace mat-nav-list with
+Replace mat-nav-list html tag with
 
 ```html
 <ng-content select="[navlist]"></ng-content>
@@ -69,11 +71,6 @@ Replace "Add Content Here" comment
 ```
 
 ### Home View
-
-```bash
-# Generate home view
-ng g c views/home/home --changeDetection OnPush --module views/home
-```
 
 Add content to src\app\views\home\home\home.component.html
 
@@ -91,7 +88,7 @@ Add content to src\app\views\home\home\home.component.html
 
 Add SharedModule and MatListModule to home.module.ts
 
-Add routing configuration to home module.
+Add routing configuration to app/views/home/home-routing.module.ts
 
 ```TypeScript
 const routes: Routes = [
@@ -104,12 +101,7 @@ const routes: Routes = [
 
 ### Admin View
 
-```bash
-# Generate admin view
-ng g c views/admin/admin --changeDetection OnPush --module views/admin
-```
-
-Add routing configuration to admin module.
+Add routing configuration to app/views/admin-routing.module.ts
 
 <details><summary>Show Solution</summary>
 
@@ -126,12 +118,7 @@ const routes: Routes = [
 
 ### User View
 
-```bash
-# Generate user view
-ng g c views/user/user --changeDetection OnPush --module views/user
-```
-
-Add routing configuration to user module.
+Add routing configuration to app/views/user/user-routing.module.ts
 
 <details><summary>Show Solution</summary>
 
@@ -146,7 +133,7 @@ const routes: Routes = [
 
 </details>
 
-Configure routing of the whole app
+Configure routing of the whole app in app/app-routing.module.ts
 
 ```TypeScript
 const routes: Routes = [
@@ -172,18 +159,20 @@ const routes: Routes = [
 
 Now you can navigate to the user and the admin page.
 
-Hint: When loading user page see that only the user module is loaded in the Chrome networks tab.
+Hint: When loading user page, you can see that only the user module is loaded in the Chrome networks tab.
 
-## Exercise: 4.3
+## Addional Exercise: 4.3 Secondary Routing
 
-To see the user and admin page included into the header and navigation you need secondary routes:
+<details><summary>Task</summary>
 
 ```bash
 ng g c views/user/components/userHome  --changeDetection OnPush --module views/user
-ng g c views/user/containers/safe  --changeDetection OnPush --module views/user
+ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
 ```
 
-Add router outlet to user.component.html
+To see the user and admin page included into the header and navigation you need secondary routes:
+
+Replace codein app/views/user/user.component.html
 
 ```html
 <cool-header-with-sidenav>
@@ -202,13 +191,13 @@ Add router outlet to user.component.html
 
 Add SharedModule to user.module.ts
 
-Add router outlet to app.component.html
+Add router outlet to app/app.component.html
 
 ```html
 <router-outlet></router-outlet>
 ```
 
-Add routes to user.routing.module.ts
+Add routes to app/views/user/user.routing.module.ts
 
 ```typescript
 const routes: Routes = [
@@ -234,3 +223,5 @@ const routes: Routes = [
   }
 ];
 ```
+
+</details>

@@ -4,6 +4,8 @@
 
 ### Add .prettierrc file
 
+- Configuration for the Prettier VS-Code Extension.
+
 ```json
 {
   "printWidth": 120,
@@ -25,13 +27,17 @@ npm i -g @angular/cli
 ```
 
 ```bash
-ng new frontend --routing --style scss
+# create a new angular project
+ng new ngx-safe --routing --style scss
 
 # Change to the directory containing your Angular App
-cd frontend
+cd ngx-safe
 
-# Start your Angular App
-ng serve
+# Start your Angular App using angular cli
+ng serve --open
+# Start your Angular App using npm start commmand from package.json
+# and passthrough --open command to angular cli.
+npm start -- --open
 ```
 
 Path to your Angular App: http://localhost:4200/
