@@ -3,6 +3,6 @@
     <span *ngIf="item!.price">
       {{item!.price | currency:'EUR':true}}
     </span>
-    <button *ngIf="item.invoiceId" (click)="showInvoice.emit(item.invoiceId)" mat-button>Show Invoice</button>
+    <button *ngIf="item.invoiceId" (click)="showInvoice.emit(item.invoiceId)" mat-button>{{ showinvoice | translate}}</button>
   </li>
 </ul>

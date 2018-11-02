@@ -25,12 +25,17 @@ import { LoginComponent } from './container/login/login.component';
 import { UserExistsDirective } from './directives/user-exists-validator.directive';
 import { SpecialAdminValidatorDirective } from './directives/admin-email-validator.directive';
 import { FileSizePipe } from './directives/file-size.pipe';
+import { SafeListComponent } from './container/safe-list/safe-list.component';
+import { SafeComponent } from './container/safe/safe.component';
+import { ItemListComponent } from './components/item-list/item-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     LayoutModule,
     RouterModule,
+    TranslateModule,
     FormsModule,
     MatFormFieldModule,
     MatDialogModule,
@@ -53,7 +58,10 @@ import { FileSizePipe } from './directives/file-size.pipe';
     LoginComponent,
     UserExistsDirective,
     SpecialAdminValidatorDirective,
-    FileSizePipe
+    FileSizePipe,
+    SafeListComponent,
+    SafeComponent,
+    ItemListComponent
   ],
   exports: [
     HeaderWithSidenavComponent,
@@ -75,7 +83,10 @@ import { FileSizePipe } from './directives/file-size.pipe';
     MatProgressSpinnerModule,
     UserExistsDirective,
     SpecialAdminValidatorDirective,
-    FileSizePipe
+    FileSizePipe,
+    SafeComponent,
+    SafeListComponent,
+    ItemListComponent
   ],
   entryComponents: [AddSafeItemDialogComponent, LoginDialogComponent]
 })

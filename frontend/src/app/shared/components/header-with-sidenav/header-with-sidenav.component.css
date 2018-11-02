@@ -10,3 +10,7 @@
   position: sticky;
   top: 0;
 }
+
+.alignright {
+  flex: 1 1 auto;
+}

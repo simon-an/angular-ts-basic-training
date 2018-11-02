@@ -1,7 +1,1 @@
-<p>Safe List</p>
-<ul>
-  <li *ngFor="let safe of (safes$ | async)">
-    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
-    {{safe?.value}}€ size: {{safe?.itemSize}}
-  </li>
-</ul>
+<cool-safe-list></cool-safe-list>

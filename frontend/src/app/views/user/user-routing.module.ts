@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
-import { SafeComponent } from './containers/safe/safe.component';
 import { UserHomeComponent } from './components/userhome/userhome.component';
-import { SafeResolverService } from '~core';
+import { SafeComponent } from '~shared/*';
+import { SafeResolverService } from '~core/*';
 
 const routes: Routes = [
   {

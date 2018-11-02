@@ -9,10 +9,10 @@ export class FileSizePipe implements PipeTransform {
     if (args) {
       switch (args) {
         case 'KB': {
-          return value / 1024;
+          return `${value / 1024} KB`;
         }
         case 'MB': {
-          return value / (1024 * 1024);
+          return `${value / (1024 * 1024)} MB`;
         }
       }
     } else {

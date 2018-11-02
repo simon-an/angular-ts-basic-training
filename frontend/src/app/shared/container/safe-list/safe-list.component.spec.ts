@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SafeComponent } from './safe.component';
+import { SafeListComponent } from './safe-list.component';
 
-describe('SafeComponent', () => {
-  let component: SafeComponent;
-  let fixture: ComponentFixture<SafeComponent>;
+describe('SafeListComponent', () => {
+  let component: SafeListComponent;
+  let fixture: ComponentFixture<SafeListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SafeComponent ]
-    })
-    .compileComponents();
+      declarations: [SafeListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SafeComponent);
+    fixture = TestBed.createComponent(SafeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

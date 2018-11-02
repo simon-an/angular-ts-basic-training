@@ -5,12 +5,27 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user/user.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatListModule, MatButtonModule, MatIconModule } from '@angular/material';
-import { ItemListComponent } from './components/item-list/item-list.component';
-import { SafeComponent } from './containers/safe/safe.component';
 import { UserHomeComponent } from './components/userhome/userhome.component';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 @NgModule({
-  imports: [CommonModule, SharedModule, UserRoutingModule, MatIconModule, MatButtonModule, MatListModule],
-  declarations: [UserComponent, ItemListComponent, SafeComponent, UserHomeComponent]
+  imports: [
+    CommonModule,
+    SharedModule,
+    TranslateModule,
+    // TranslateModule.forChild({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: createTranslateLoader,
+    //     deps: [HttpClient]
+    //   }
+    // }),
+    UserRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatListModule
+  ],
+  declarations: [UserComponent, UserHomeComponent]
 })
-export class UserModule { }
+export class UserModule {}

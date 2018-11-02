@@ -11,7 +11,9 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>frontend</span>
+      <ng-content select="[toolbar='mainleft']"></ng-content>
+      <span class="alignright">{{'applicationName' | translate}}</span>
+      <ng-content select="[toolbar='mainright']"></ng-content>
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content select="[body]"></ng-content>
