@@ -3,28 +3,15 @@
     <h1>TypeScript Basics</h1>
 </section>
 <section>
-    <h2>Setup</h2>
-    <p>Setup VSCODE: Install Extensions: tslint</p>
-    <pre><code>npm i --save-dev typescript</code></pre>
-    <pre><code>npm install -g typescript</code></pre>
-    <p class="fragment">Global installierte Module sind automatisch in der Path Umgebungsvariable. Das tsc Kommando
-        wird in der Shell verfügbar.</p>
-    <p class="fragment">tsc vs npm run tsc</p>
+    <h2>Exercise 1 & 2</h2>
+    <p>Setup TypeScript and your first TypeScript project</p>
+    <aside class="notes">
+        Show package.json<br>
+        package.json corresponds to pom.xml of maven<br>
+        node_modules corresponds to .m2 folder of maven<br>
+        Show tsconfig.json: show targe says es5 and module says es2015 as result targets
+    </aside>
 </section>
-<section>
-    <h2>Typescript Hands On</h2>
-    <p>Wir testen den Typescript Compiler.</p>
-    <pre><code>echo console.log('hello world') >> helloworld.ts</code></pre>
-    <pre><code>tsc helloworld.ts</code></pre>
-    <pre><code data-trim data-noescape>node helloworld.js</code></pre>
-</section>
-<section>
-    <p>Wir initialiseieren ein Typescript Projekt mit Typescript Compiler.</p>
-    <pre><code>tsc --init</code></pre>
-    <p>Verzeichnis 'src' erstellen und helloword.ts hinein verschieben.</p>
-    <pre><code>"rootDir": "./src",</code></pre>
-    <pre><code>"outDir": "./out",</code></pre>
-    <pre><code>tsc</code></pre>
 </section>
 <section>
     <h2>Basic Types</h2>
@@ -32,19 +19,19 @@
     <pre><code>let isDone: boolean = false;</code></pre>
     <h4>Number</h4>
     <pre><code  class="typescript" data-trim data-noescape>
-                let decimal: number = 6; 
-                let hex: number = 0xf00d; 
-                let binary: number = 0b1010; 
-                let octal: number = 0o744;
-            </code></pre>
+        let decimal: number = 6; 
+        let hex: number = 0xf00d; 
+        let binary: number = 0b1010; 
+        let octal: number = 0o744;
+    </code></pre>
     <h4>String</h4>
     <pre><code class="typescript" data-trim data-noescape>
-                let color: string = "blue";
-                color = 'red';
-                let age: number = 37;
-                let sentence: string = `Hello, my name is ${ fullName }.
-                I'll be ${ age + 1 } years old next month.`;
-            </code></pre>
+        let color: string = "blue";
+        color = 'red';
+        let age: number = 37;
+        let sentence: string = `Hello, my name is ${ fullName }.
+        I'll be ${ age + 1 } years old next month.`;
+    </code></pre>
 </section>
 <section>
     <h4>Array</h4>
@@ -52,39 +39,40 @@
     <pre><code class="typescript">let list: Array&lt;number> = [1, 2, 3];</code></pre>
     <h4>Tuple</h4>
     <pre><code data-trim data-noescape>
-            let x: [string, number];
-            // Initialize it
-            x = ["hello", 10]; // OK
-            // Initialize it incorrectly
-            x = [10, "hello"]; // Error
-            </code></pre>
+        let x: [string, number];
+        // Initialize it
+        x = ["hello", 10]; // OK
+        // Initialize it incorrectly
+        x = [10, "hello"]; // Error
+    </code></pre>
     <h4>Enum</h4>
     <pre><code data-trim data-noescape>
-                    enum Color {Red, Green, Blue}
-                    let c: Color = Color.Green;
-            </code></pre>
+        enum Color {Red, Green, Blue}
+        let c: Color = Color.Green;
+    </code></pre>
 </section>
 <section>
     <h5>Any</p>
         <pre><code>let list: any[] = [1, true, "free"];</code></pre>
-        <h5>Unkown</h5>
-        <pre><code data-trim data-noescape>
-                    let someValue: unknown = "this is a string";
-                    if (typeof someValue === 'string') {
-                        let strLength: number = (&lt;string>someValue).length;
-                    }
-            </code></pre>
-        <h5>Void</h5>
-        <pre><code data-trim data-noescape>
-                function warnUser(): void {
-                    console.log("This is my warning message");
-                }</code></pre>
-        <h5>Never</h5>
-        <pre><code data-trim data-noescape>
-                function error(message: string): never {
-                    throw new Error(message);
-                }
-                </code></pre>
+    <h5>Unkown</h5>
+    <pre><code data-trim data-noescape>
+        let someValue: unknown = "this is a string";
+        if (typeof someValue === 'string') {
+            let strLength: number = (&lt;string>someValue).length;
+        }
+    </code></pre>
+    <h5>Void</h5>
+    <pre><code data-trim data-noescape>
+        function warnUser(): void {
+            console.log("This is my warning message");
+        }
+    </code></pre>
+    <h5>Never</h5>
+    <pre><code data-trim data-noescape>
+        function error(message: string): never {
+            throw new Error(message);
+        }
+    </code></pre>
 </section>
 <section>
     <h5>Undefined, Null</h5>
