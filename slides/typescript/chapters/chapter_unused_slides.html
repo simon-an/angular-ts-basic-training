@@ -168,3 +168,16 @@ used as compiler directives.</p>
 <!-- <section>
 <h2>Type Checking JavaScript Files</h2>
 </section> -->
+<section>
+    <h2>Decorators</h2>
+    <pre><code>tsc --target ES5 --experimentalDecorators</code></pre>
+    <pre><code data-trim data-noescape>
+        @classDecorator 
+        class Greeter {</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        class C {
+            @f()
+            @g()
+            method(param: string) {
+    </code></pre>
+</section>
