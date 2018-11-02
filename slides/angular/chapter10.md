@@ -2,6 +2,17 @@
 
 ## Preparation
 
+- add new model app/core/model/safeitem.ts
+
+```typescript
+export class SafeItem {
+  id: string;
+  name: string;
+  price: number;
+  invoiceId: string;
+}
+```
+
 - Replace the app/core/services/auth-service.ts
 
 <details><summary>auth-service.ts</summary>
@@ -87,9 +98,14 @@ export class AuthService {
 
 ### Create admin and email domain validator
 
+- Create a validator, which validates the email to be from a specific domain, when the role is admin.
+- Hint: Validator must be attached to the form tag.
+
 TODO @michael add email domain validator
 
 ## Exercise 10.2 Create user exists async validator
+
+- Create an async validator, which calles the auth-service userExists method.
 
 <details><summary>Solution</summary>
 
@@ -237,6 +253,14 @@ export class UserExistsDirective implements AsyncValidator {
 
 ### Create a custom pipe which transform the file upload size to KB or MB
 
+- the custom pile should be used like this:
+
+```typescript
+{{ 12490 | fileSize }}
+{{ 12490 | fileSize:'MB' }}
+{{ 12490 | fileSize:'KB' }}
+```
+
 ```bash
 ng g pipe shared/directives/fileSize --export --lintFix
 
@@ -357,17 +381,6 @@ export class SafeItemFormComponent implements OnInit {
 ```
 
 </details>
-
-safeitem.ts
-
-```typescript
-export class SafeItem {
-  id: string;
-  name: string;
-  price: number;
-  invoiceId: string;
-}
-```
 
 ### Adjust the file size pipe
 
