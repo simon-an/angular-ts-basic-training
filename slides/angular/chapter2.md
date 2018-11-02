@@ -42,7 +42,6 @@ Configure your app
 
 Adjust app prefixes
 
-<ul>
-<li>Change prefix from "app" to "cool" in src/tslint.json</li>
-<li>Change prefix from "app" to "cool" in angular.json</li>
-</ul>
+- Change prefix from "app" to "cool" in src/tslint.json
+- Change prefix from "app" to "cool" in angular.json
+- Change `<app-root></app-root>` to `<cool-root></cool-root>` in src/index.html
