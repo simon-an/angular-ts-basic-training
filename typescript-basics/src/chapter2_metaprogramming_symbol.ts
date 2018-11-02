@@ -1,17 +1,17 @@
-const sym: unique symbol = Symbol('foobar');
+const sym: unique symbol = Symbol("foobar");
 
 let obj27 = {
-  [sym]: 'value'
+  [sym]: "value"
 };
 
 console.log(obj27[sym]); // "value"
-console.log(sym === Symbol.for('foobar')); // "value"
+console.log(sym === Symbol.for("foobar")); // "value"
 
 const getClassNameSymbol = Symbol();
 
 class C {
   [getClassNameSymbol]() {
-    return 'C';
+    return "C";
   }
 }
 

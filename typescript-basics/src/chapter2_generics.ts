@@ -1,4 +1,4 @@
-  interface GenericIdentityFn {
+interface GenericIdentityFn {
   <T>(arg: T): T;
 }
 
@@ -20,12 +20,12 @@ myGenericNumber.add = function(x, y) {
 };
 
 let stringNumeric = new GenericNumber<string>();
-stringNumeric.zeroValue = '';
+stringNumeric.zeroValue = "";
 stringNumeric.add = function(x, y) {
   return x + y;
 };
 
-console.log(stringNumeric.add(stringNumeric.zeroValue, 'test'));
+console.log(stringNumeric.add(stringNumeric.zeroValue, "test"));
 
 // function loggingIdentity<T>(arg: T): T {
 //   console.log(arg.length);  // Error: T doesn't have .length

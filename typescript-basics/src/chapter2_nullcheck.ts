@@ -13,7 +13,7 @@ function nullcheck3(param: { property: string }): boolean {
   return !!(param && param.property);
 }
 
-const obj: { property: string } = { property: 'Hello World' };
+const obj: { property: string } = { property: "Hello World" };
 console.log(nullcheck1(obj)); // true
 console.log(nullcheck2(obj)); // Hello World
 console.log(nullcheck3(obj)); // true

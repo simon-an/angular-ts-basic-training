@@ -1,31 +1,3 @@
-function extend<T, U>(first: T, second: U): T & U {
-  let result = <T & U>{};
-  for (let id in first) {
-    (<any>result)[id] = (<any>first)[id];
-  }
-  for (let id in second) {
-    if (!result.hasOwnProperty(id)) {
-      (<any>result)[id] = (<any>second)[id];
-    }
-  }
-  return result;
-}
-
-class Person {
-  constructor(public name: string) {}
-}
-interface Loggable {
-  log(): void;
-}
-class ConsoleLogger implements Loggable {
-  log() {
-    console.log('this', this);
-  }
-}
-var jim = extend(new Person('Jim'), new ConsoleLogger());
-var n = jim.name;
-jim.log();
-
 /* */
 interface Bird {
   fly(): void;
@@ -67,16 +39,16 @@ function rollDie(): 1 | 2 | 3 | 4 | 5 | 6 {
 /* */
 
 interface Square {
-  kind: 'square';
+  kind: "square";
   size: number;
 }
 interface Rectangle {
-  kind: 'rectangle';
+  kind: "rectangle";
   width: number;
   height: number;
 }
 interface Circle {
-  kind: 'circle';
+  kind: "circle";
   radius: number;
 }
 
@@ -84,13 +56,13 @@ type Shape = Square | Rectangle | Circle;
 
 function area(s: Shape) {
   switch (s.kind) {
-    case 'square':
+    case "square":
       return s.size * s.size;
-    case 'rectangle':
+    case "rectangle":
       return s.height * s.width;
-    case 'circle':
+    case "circle":
       return Math.PI * s.radius ** 2;
   }
 }
-console.log(area({ kind: 'square', size: 5 }));
-console.log(area({ kind: 'rectangle', width: 1, height: 5 }));
+console.log(area({ kind: "square", size: 5 }));
+console.log(area({ kind: "rectangle", width: 1, height: 5 }));

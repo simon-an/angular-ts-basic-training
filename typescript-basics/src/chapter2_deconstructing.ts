@@ -3,9 +3,9 @@ console.log(first); // outputs 1
 console.log(rest); // outputs [ 2, 3, 4 ]
 
 let o = {
-  a: 'foo',
+  a: "foo",
   b: 12,
-  c: 'bar'
+  c: "bar"
 };
 const { a, c } = o;
 console.log(c, a);
