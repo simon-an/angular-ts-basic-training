@@ -1,6 +1,6 @@
 const numLivesForCat = 9;
 const kitty = {
-  name: 'Aurora',
+  name: "Aurora",
   numLives: numLivesForCat
 };
 
@@ -11,9 +11,9 @@ const kitty = {
 // };
 
 // all "okay"
-kitty.name = 'Rory';
-kitty.name = 'Kitty';
-kitty.name = 'Cat';
+kitty.name = "Rory";
+kitty.name = "Kitty";
+kitty.name = "Cat";
 kitty.numLives--;
 
 console.log(kitty);
