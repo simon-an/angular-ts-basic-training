@@ -203,7 +203,7 @@ Add SharedModule to user.module.ts
 Add router outlet to app.component.html
 
 ```html
-<router-outlet #routerOutlet="outlet"></router-outlet>
+<router-outlet></router-outlet>
 ```
 
 Add routes to user.routing.module.ts
