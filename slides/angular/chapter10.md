@@ -2,6 +2,8 @@
 
 ## Preparation
 
+- Replace the app/core/services/auth-service.ts
+
 <details><summary>auth-service.ts</summary>
 
 ```typescript
@@ -367,9 +369,9 @@ export class SafeItem {
 }
 ```
 
-### Adjust the file size pipe.
+### Adjust the file size pipe
 
-### Add a button to the item-list.component which will be used to show the invoice.
+### Add a button to the item-list.component which will be used to show the invoice
 
 <details><summary>solution</summary>
 
