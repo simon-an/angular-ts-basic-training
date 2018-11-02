@@ -467,14 +467,15 @@
     </p>
 </section>
 <section>
-    <h2>Operator <code>retry()</code></h2>
-    <pre><code data-trim data-noescape>
+    <h2>Operator <code>retry()</code> & <code>retryWhen()</code></h2>
+    <pre><code class="typescript" data-trim data-noescape style="font-size: 20px">
     retry(count: number): Observable
+    retryWhen(receives: (errors: Observable) => Observable, the: scheduler): Observable
     </code></pre>
     <p>
-        Wenn das Ursprungs-Observable einen Fehler wift, der nicht gefangen wird, wird die Observable Sequenz erneut ausgeführt. Dies passiert maximal "count" mal, erst dann wird der Fehler weitergeworfen.<br>
+        If origin observable throws an error -> retry count times after throwing error or retryWhen(custom criteria)<br>
         <br>
-        Achtung: Keinen Retry bei Requests zur Authentifizierung einsetzen, sonst könnte das eine Aussperrung des Nutzers nach sich ziehen.
+        Caution: Do not use retry for authentication requests or risk blocking user account
     </p>
     <aside class="notes">
         Do not retry authentication requests, since these should only be initiated by user action.

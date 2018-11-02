@@ -1,3 +1,4 @@
+// execute ts-node chapter_3/chapter_3_rxjs_operator_retry.ts
 import { interval, of, throwError } from "rxjs";
 import { mergeMap, retry } from "rxjs/operators";
 
