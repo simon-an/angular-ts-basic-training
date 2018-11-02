@@ -170,7 +170,7 @@
 </section>
 <section>
     <p>Was ist das Ergebnis auf der Console?</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         for (var i = 0; i &lt; 10; i++) {
             setTimeout(function() { console.log(i); }, 100 * i);
         }
@@ -178,24 +178,24 @@
 </section>
 <section>
     <h2>Destructing Arrays</h2>
-    <pre><code data-trim data-noescape>
-            let [first, ...rest] = [1, 2, 3, 4];
-            console.log(first); // outputs 1
-            console.log(rest); // outputs [ 2, 3, 4 ]
+    <pre><code class="typescript" data-trim data-noescape>
+        let [first, ...rest] = [1, 2, 3, 4];
+        console.log(first); // outputs 1
+        console.log(rest); // outputs [ 2, 3, 4 ]
     </code></pre>
     <h2>Destructing Objects</h2>
-    <pre><code data-trim data-noescape>
-            let o = {
-                a: "foo",
-                b: 12,
-                c: "bar"
-            };
-            let { a, b } = o;
+    <pre><code class="typescript" data-trim data-noescape>
+        let o = {
+            a: "foo",
+            b: 12,
+            c: "bar"
+        };
+        let { a, b } = o;
     </code></pre>
 </section>
 <section>
     <h2>Spread Operator</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         let first = [1, 2];
         let second = [3, 4];
         let bothPlus = [0, ...first, ...second, 5];
@@ -205,23 +205,23 @@
     <h2>Interfaces</h2>
     <p>Explizit definierte Typen</p>
     <pre><code data-trim data-noescape class="typescript">
-            function printLabel(labelledObj: { label: string }) {
-                console.log(labelledObj.label);
-            }
-            let myObj = {size: 10, label: "Size 10 Object"};
-            printLabel(myObj);
+        function printLabel(labelledObj: { label: string }) {
+            console.log(labelledObj.label);
+        }
+        let myObj = {size: 10, label: "Size 10 Object"};
+        printLabel(myObj);
     </code></pre>
     <pre><code data-trim data-noescape class="typescript">
-            interface LabelledValue {
-                label: string;
-                readonly optional?: boolean;
-            }
-            
-            function printLabel(labelledObj: LabelledValue) {
-                console.log(labelledObj.label);
-            }
-            let myObj = {size: 10, label: "Size 10 Object"};
-            printLabel(myObj);
+        interface LabelledValue {
+            label: string;
+            readonly optional?: boolean;
+        }
+        
+        function printLabel(labelledObj: LabelledValue) {
+            console.log(labelledObj.label);
+        }
+        let myObj = {size: 10, label: "Size 10 Object"};
+        printLabel(myObj);
     </code></pre>
     <p>Was macht der Compiler mit Interfaces?</p>
 </section>
@@ -232,19 +232,19 @@
         <li>Properties: readonly</li>
         <li>ReadonlyArray:</li>
     </ul>
-    <pre><code data-trim data-noescape>
-            let a: number[] = [1, 2, 3, 4];
-            let ro: ReadonlyArray&lt;number> = a;
-            ro[0] = 12; // error!
-            ro.push(5); // error!
-            ro.length = 100; // error!
-            a = ro; // error!
+    <pre><code class="typescript" data-trim data-noescape>
+        let a: number[] = [1, 2, 3, 4];
+        let ro: ReadonlyArray&lt;number> = a;
+        ro[0] = 12; // error!
+        ro.push(5); // error!
+        ro.length = 100; // error!
+        a = ro; // error!
     </code></pre>
 </section>
 <section>
     <h2>Klassen</h2>
     <p>Constructor Parameter werden automatisch zu Properties, mit einem Zugriffsmodifier oder readonly.</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         class DigitalClock implements ClockInterface {
             constructor(public h: number, public m: number) {}
             tick() {
@@ -252,7 +252,7 @@
             }
         }
     </code></pre>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
             get fullName(): string {
                 return this._fullName;
             }
@@ -268,26 +268,32 @@
 <section>
     <h2>Funktionen</h2>
     <p>Unterschied zu JS: Signatur.</p>
-    <pre><code data-trim data-noescape>
-    function add(x: number, y: number): number {
-        return x + y;
-    }
-    let myAdd: (x: number, y: number) => number = (x, y) => {
-        return x + y;
-    };
-    type functionType = (x: number, y: number) => number;
-    let myAdd: functionType = (x, y) => {
-        return x + y;
-    };
+    <pre><code class="typescript" data-trim data-noescape>
+        function add(x: number, y: number): number {
+            return x + y;
+        }
+        let myAdd: (x: number, y: number) => number = (x, y) => {
+            return x + y;
+        };
+        type functionType = (x: number, y: number) => number;
+        let myAdd: functionType = (x, y) => {
+            return x + y;
+        };
     </code></pre>
 </section>
 <section>
-    <p>Optional Parameter: </p>
-    <pre><code>function buildName(firstName: string, lastName?: string) {</code></pre>
-    <p>Default Parameter: </p>
-    <pre><code> function buildName(firstName: string, lastName = 'Smith') {</code></pre>
-    <p>Rest Parameter: </p>
-    <pre><code>function buildName(firstName: string, ...restOfName: string[]) {</code></pre>
+    <p>Optional Parameter:</p>
+    <pre><code class="typescript" data-trim data-noescape>
+        function buildName(firstName: string, lastName?: string) {}
+    </code></pre>
+    <p>Default Parameter:</p>
+    <pre><code class="typescript" data-trim data-noescape>
+        function buildName(firstName: string, lastName = 'Smith') {}
+    </code></pre>
+    <p>Rest Parameter:</p>
+    <pre><code class="typescript" data-trim data-noescape>
+        function buildName(firstName: string, ...restOfName: string[]) {}
+    </code></pre>
 </section>
 <section>
     <h2>this and arrow functions</h2>
@@ -297,11 +303,15 @@
 <section>
     <h2>Generics</h2>
     <p>Function Signature</p>
-    <pre><code>function create&lt;T>(c: {new(): T; }): T {</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        function create&lt;T>(c: {new(): T; }): T {}
+    </code></pre>
     <p>Function Signature</p>
-    <pre><code>function getProperty&lt;T, K extends keyof T>(obj: T, key: K) {</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        function getProperty&lt;T, K extends keyof T>(obj: T, key: K) {}
+    </code></pre>
     <p>Generic Classes</p>
-    <pre><code>
+    <pre><code class="typescript" data-trim data-noescape>
         class GenericNumber&lt;T> {
             zeroValue: T;
             add: (x: T, y: T) => T;
@@ -311,7 +321,7 @@
 <section>
     <h2>Enums</h2>
     <p>Numeric Enums</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
     enum Direction {
         Up = 1,
         Down,
@@ -320,7 +330,7 @@
     }
     </code></pre>
     <p>String Enums</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         enum Direction {
             Up = "UP",
             Down = "DOWN",
@@ -335,16 +345,18 @@
     <pre><code>let x = [0, 1, null];</code></pre>
     <pre><code>number | null</code></pre>
     <p>Contextual Type</p>
-    <pre><code>function createZoo(): Animal[] {
-        return [new Rhino(), new Elephant(), new Snake()];
-    }</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        function createZoo(): Animal[] {
+            return [new Rhino(), new Elephant(), new Snake()];
+        }
+    </code></pre>
     <pre><code>Animal</code></pre>
 </section>
 <section>
-    <h2>Type Compatibility</h2>
+    <h2>Type Compatibility (1)</h2>
     <p>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types
         based solely on their members. This is in contrast with nominal typing. Consider the following code:</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         interface Named {
             name: string;
         }
@@ -359,126 +371,50 @@
     </code></pre>
 </section>
 <section>
-    <h2>Type Compatibility contd.</h2>
-    <pre><code data-trim data-noescape>
-            let x = (a: number) => 0;
-            let y = (b: number, s: string) => 0;
-            
-            y = x; // OK
-            x = y; // Error
+    <h2>Type Compatibility (2)</h2>
+    <pre><code class="typescript" data-trim data-noescape>
+        let x = (a: number) => 0;
+        let y = (b: number, s: string) => 0;
+        
+        y = x; // OK
+        x = y; // Error
     </code></pre>
 </section>
 <section>
     <h2>Advanced Types</h2>
     <p>Intersection</p>
-    <pre><code data-trim data-noescape>function extend&lt;T, U>(first: T, second: U): T & U {</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        function extend&lt;T, U>(first: T, second: U): T & U {}
+    </code></pre>
     <p>Union Types</p>
-    <pre><code data-trim data-noescape>function padLeft(value: string, padding: string | number) {</code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        function padLeft(value: string, padding: string | number) {}
+    </code></pre>
     <p>Type Guards</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
     function isFish(pet: Fish | Bird): pet is Fish {
         return (&lt;Fish>pet).swim !== undefined;
     }
     </code></pre>
 </section>
-<!-- <section>
-    <h2>Advanced Types Cont.</h2>
-    <p>typeof type guards: primitive Types</p>
-    <p>instanceof type guards: objects</p>
-    <p>Nullable types: Union mit null</p>
-</section> -->
-<!-- <section>
-    <h2>Symbols</h2>
-    Symbols sind immutable, und unique.
-    <pre><code data-trim data-noescape>
-    let sym2 = Symbol("key");
-    let sym3 = Symbol("key");
-    sym2 === sym3; // false
-    </code></pre>
-    <p>Wie strings, können symbols als Keys für object properties genutzt werden.</p>
-</section> -->
 <section>
     <h2>Iterators und Generators</h2>
     <p>values: for..of (Iterator Types. Unterschiedlicher Compiler-Output mit ES3 und ES5)</p>
     <p>keys: for..in Objects und Iterator Types</p>
-    <pre><code data-trim data-noescape>
-    const list28 = ["4", "5", "6"];
-    for (let i in list28) {
+    <pre><code class="typescript" data-trim data-noescape>
+    const list4to6 = ["4", "5", "6"];
+    for (let i in list4to6) {
         console.log(i); // "0", "1", "2",
     }
-    for (let i of list28) {
+    for (let i of list4to6) {
         console.log(i); // "4", "5", "6"
     }
     </code></pre>
 </section>
-<!-- <section>
-    <h2>Modules</h2>
-    <p>In TypeScript, just as in ECMAScript 2015, any file containing a top-level import or export is considered a
-        module. Conversely, a file without any top-level import or export declarations is treated as a script whose
-        contents are available in the global scope (and therefore to modules as well).</p>
-    <p>Any declaration (such as a variable, function, class, type alias, or interface) can be exported by adding the
-        export keyword.</p>
-</section>
-<section>
-    <pre><code data-trim data-noescape>
-    class ZipCodeValidator implements StringValidator {
-        isAcceptable(s: string) {
-            return s.length === 5 && numberRegexp.test(s);
-        }
-    }
-    export { ZipCodeValidator };
-    export { ZipCodeValidator as mainValidator };
-    </code></pre>
-    <pre><code data-trim data-noescape>import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";</code></pre>
-    <pre><code data-trim data-noescape>
-    import * as validator from "./ZipCodeValidator";
-    let myValidator = new validator.ZipCodeValidator();
-    Import a module for side-effects only
-    </code></pre>
-</section>
-<section>
-    <pre><code data-trim data-noescape>
-        //ZipCodeValidator.ts
-        export default class ZipCodeValidator {
-            static numberRegexp = /^[0-9]+$/;
-            isAcceptable(s: string) {
-                return s.length === 5 && 
-                    ZipCodeValidator.numberRegexp.test(s);
-            }
-        }
-        //Test.ts
-        import validator from "./ZipCodeValidator";
-        let myValidator = new validator();
-    </code></pre>
-</section>
-<section>
-    <h2>export = und import = require()</h2>
-    <ul style="font-size: 30px;">
-        <li>CommonJS und AMD exportieren ein Objekt, das alle exports eines Modules enthält.</li>
-        <li>Das export object kann durch ein beliebiges Objekt ersetzt werden. Default exports sind als Ersatz für
-            dieses
-            Verhalten gedacht. </li>
-        <li>TypeScript unterstützt export = um diesen traditionellen CommonJS and AMD Workflow zu
-            unterstützen.</li>
-        <li>The export = gibt ein einzelnes Objeckt an, das exportiert wird. Exportiert werden können: class,
-            interface,
-            namespace, function, oder enum.</li>
-        <li>Wenn der TypeScript-specific export = benutzt wird, muss der Import des Modules mit = require("module")
-            erfolgen.</li>
-    </ul>
-</section>
-<section>
-    <h2>Arbeiten mit anderen JavaScript Libraries</h2>
-    <p> Um die Struktur der Library zu beschreiben, die nicht in TypeScript geschrieben wurde, müssen wir die API der
-        Library definieren.
-        Deklarationen, die keine Implementierung definieren, sind “ambient”. Diese APIs sind in d.ts files definiert,
-        ähnlich wie .h Dateien in C++.
-    </p>
-</section> -->
 <section>
     <h2>Namespaces</h2>
     <p>Ähnlich zu packages in Java oder C++.</p>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {
                 export class Triangle { }
@@ -490,73 +426,9 @@
         // Same as 'new Shapes.Polygons.Square()
     </code></pre>
 </section>
-<!-- <section>
-    <h2>Namespaces and Modules</h2>
-</section> -->
-<!-- <section>
-    <h2>Module Resolution</h2>
-</section> -->
-<!-- <section>
-    <h2>Declaration Merging</h2>
-    <style>
-        td {
-            text-align: center !important;
-        }
-    </style>
-    <table>
-        <tr>
-            <th>Declaration Type</th>
-            <th>Namespace</th>
-            <th>Type</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Namespace</td>
-            <td>X</td>
-            <td></td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Class</td>
-            <td></td>
-            <td>X</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Enum</td>
-            <td></td>
-            <td>X</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Interface</td>
-            <td></td>
-            <td>X</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Type Alias</td>
-            <td></td>
-            <td>X</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Function</td>
-            <td></td>
-            <td></td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Variable</td>
-            <td></td>
-            <td></td>
-            <td>X</td>
-        </tr>
-    </table>
-</section> -->
 <section>
     <h2>Declaration Merging</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
     interface Box {
         height: number;
         width: number;
@@ -575,39 +447,13 @@
     <pre><code data-trim data-noescape>
         @classDecorator 
         class Greeter {</code></pre>
-    <pre><code data-trim data-noescape>
-            class C {
-                @f()
-                @g()
-                method(param: string) {</code></pre>
-</section>
-<!-- <section>
-    <h2>Mixins</h2>
-    <p>aka Traits in Skala.</p>
-    <pre><code data-trim data-noescape>
-        // Activatable Mixin
-        class Activatable {
-            isActive: boolean;
-            activate() {
-                this.isActive = true;
-            }
-            deactivate() {
-                this.isActive = false;
-            }
-        } 
-        class SmartObject implements Activatable {
+    <pre><code class="typescript" data-trim data-noescape>
+        class C {
+            @f()
+            @g()
+            method(param: string) {
     </code></pre>
-
-    <p class="fragment">What is missing here?</p>
-</section> -->
-<!-- <section>
-    <h2>Triple-Slash Directives</h2>
-    <p>Triple-slash directives are single-line comments containing a single XML tag. The contents of the comment are
-        used as compiler directives.</p>
-</section> -->
-<!-- <section>
-    <h2>Type Checking JavaScript Files</h2>
-</section> -->
+</section>
 <section>
     <h2>Map</h2>
     <pre><code data-trim data-noescape class="typescript">

@@ -1,0 +1,170 @@
+<!-- <section>
+<h2>Advanced Types Cont.</h2>
+<p>typeof type guards: primitive Types</p>
+<p>instanceof type guards: objects</p>
+<p>Nullable types: Union mit null</p>
+</section> -->
+<!-- <section>
+<h2>Symbols</h2>
+Symbols sind immutable, und unique.
+<pre><code data-trim data-noescape>
+let sym2 = Symbol("key");
+let sym3 = Symbol("key");
+sym2 === sym3; // false
+</code></pre>
+<p>Wie strings, können symbols als Keys für object properties genutzt werden.</p>
+</section> -->
+<!-- <section>
+<h2>Modules</h2>
+<p>In TypeScript, just as in ECMAScript 2015, any file containing a top-level import or export is considered a
+module. Conversely, a file without any top-level import or export declarations is treated as a script whose
+contents are available in the global scope (and therefore to modules as well).</p>
+<p>Any declaration (such as a variable, function, class, type alias, or interface) can be exported by adding the
+export keyword.</p>
+</section>
+<section>
+<pre><code data-trim data-noescape>
+class ZipCodeValidator implements StringValidator {
+isAcceptable(s: string) {
+return s.length === 5 && numberRegexp.test(s);
+}
+}
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };
+</code></pre>
+<pre><code data-trim data-noescape>import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";</code></pre>
+<pre><code data-trim data-noescape>
+import * as validator from "./ZipCodeValidator";
+let myValidator = new validator.ZipCodeValidator();
+Import a module for side-effects only
+</code></pre>
+</section>
+<section>
+<pre><code data-trim data-noescape>
+//ZipCodeValidator.ts
+export default class ZipCodeValidator {
+static numberRegexp = /^[0-9]+$/;
+isAcceptable(s: string) {
+return s.length === 5 && 
+ZipCodeValidator.numberRegexp.test(s);
+}
+}
+//Test.ts
+import validator from "./ZipCodeValidator";
+let myValidator = new validator();
+</code></pre>
+</section>
+<section>
+<h2>export = und import = require()</h2>
+<ul style="font-size: 30px;">
+<li>CommonJS und AMD exportieren ein Objekt, das alle exports eines Modules enthält.</li>
+<li>Das export object kann durch ein beliebiges Objekt ersetzt werden. Default exports sind als Ersatz für
+dieses
+Verhalten gedacht. </li>
+<li>TypeScript unterstützt export = um diesen traditionellen CommonJS and AMD Workflow zu
+unterstützen.</li>
+<li>The export = gibt ein einzelnes Objeckt an, das exportiert wird. Exportiert werden können: class,
+interface,
+namespace, function, oder enum.</li>
+<li>Wenn der TypeScript-specific export = benutzt wird, muss der Import des Modules mit = require("module")
+erfolgen.</li>
+</ul>
+</section>
+<section>
+<h2>Arbeiten mit anderen JavaScript Libraries</h2>
+<p> Um die Struktur der Library zu beschreiben, die nicht in TypeScript geschrieben wurde, müssen wir die API der
+Library definieren.
+Deklarationen, die keine Implementierung definieren, sind “ambient”. Diese APIs sind in d.ts files definiert,
+ähnlich wie .h Dateien in C++.
+</p>
+</section> -->
+<!-- <section>
+<h2>Namespaces and Modules</h2>
+</section> -->
+<!-- <section>
+<h2>Module Resolution</h2>
+</section> -->
+<!-- <section>
+<h2>Declaration Merging</h2>
+<style>
+td {
+text-align: center !important;
+}
+</style>
+<table>
+<tr>
+<th>Declaration Type</th>
+<th>Namespace</th>
+<th>Type</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>Namespace</td>
+<td>X</td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td>Class</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>Enum</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Type Alias</td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Function</td>
+<td></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td>Variable</td>
+<td></td>
+<td></td>
+<td>X</td>
+</tr>
+</table>
+</section> -->
+<!-- <section>
+<h2>Mixins</h2>
+<p>aka Traits in Skala.</p>
+<pre><code data-trim data-noescape>
+// Activatable Mixin
+class Activatable {
+isActive: boolean;
+activate() {
+this.isActive = true;
+}
+deactivate() {
+this.isActive = false;
+}
+} 
+class SmartObject implements Activatable {
+</code></pre>
+<p class="fragment">What is missing here?</p>
+</section> -->
+<!-- <section>
+<h2>Triple-Slash Directives</h2>
+<p>Triple-slash directives are single-line comments containing a single XML tag. The contents of the comment are
+used as compiler directives.</p>
+</section> -->
+<!-- <section>
+<h2>Type Checking JavaScript Files</h2>
+</section> -->
