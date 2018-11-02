@@ -240,7 +240,7 @@ export class UserExistsDirective implements AsyncValidator {
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     console.log("UserExistsDirective", ctrl);
     return this.service.emailExistsRxjs(ctrl.value).pipe(
-      map(isTaken => (isTaken ? null : { userExists: true })),
+      map(isTaken => (isTaken ? null : { userExists: "user does not exist" })),
       catchError(() => null)
     );
   }
