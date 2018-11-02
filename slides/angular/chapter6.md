@@ -106,7 +106,7 @@ export class SafeService {
 
 </details>
 
-## Exercise 6.1.3 Create Barrel files for core module.
+## Exercise 6.1.3 Create Barrel files for core module
 
 <details><summary>src/app/core/index.ts</summary>
 
@@ -187,7 +187,7 @@ export class UserHomeComponent implements OnInit {
 
 </details>
 
-## Exercise 6.2 Create item list in safe.component.
+## Exercise 6.2 Create item list in safe.component
 
 ![62](screenshots/62.PNG)
 
@@ -304,7 +304,11 @@ export class SafeComponent implements OnInit {
 ## Exercise 6.2.3 Itemlist component show list of safe items
 
 Generate item-list component:
-Right click "src\app\shared\components" -> Angular: Generate a component -> Enter name "itemList" and press Enter -> Select "Exported pure component" -> Confirm
+
+1. Right click "src\app\shared\components"
+2. Select "Angular: Generate a component"
+3. Enter name "itemList" and press Enter
+4. Select "Exported pure component" and select "Confirm"
 
 <details><summary>safe.component.html</summary>
 

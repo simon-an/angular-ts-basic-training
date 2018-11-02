@@ -2,7 +2,7 @@
 
 ## Exercise: 4.1
 
-### Add Angular Material and your first module:
+### Add Angular Material and your first module
 
 ```bash
 # Add Angular Material
