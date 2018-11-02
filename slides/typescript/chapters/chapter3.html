@@ -330,7 +330,7 @@
         <li>Es wird zur Implementierung von verteilten Event Handling Systemen verwendet ("Event Driven" Software).</li>
     </ul>
     <aside class="notes">
-            Quellen: https://en.wikipedia.org/wiki/Observer_pattern, https://de.wikipedia.org/wiki/Beobachter_(Entwurfsmuster)
+        Quellen: https://en.wikipedia.org/wiki/Observer_pattern, https://de.wikipedia.org/wiki/Beobachter_(Entwurfsmuster)
     </aside>
 </section>
 <section>
@@ -372,6 +372,34 @@
     
     of(1, 2, 3, 4).subscribe(next, error, completed);
     </code></pre>
+</section>
+<section>
+    <h2>Hot & Cold Obervables (1)</h2>
+    <h3>Cold Observable</h3>
+    <ul>
+        <li>The data producer is created by the observable itself</li>
+        <li>Multiple subscribers: the whole data stream is re-emitted for each subscriber</li>
+        <li>Always emits</li>
+        <li>Making a cold observable hot using the <code>share</code> operator</li>
+        <li>Examples: observables created using the <code>of</code>, <code>from</code>, <code>range</code>, <code>interval</code> and <code>timer</code> operators</li>
+    </ul>
+    <aside class="notes">
+        multiple subscribers: Each subscriber becomes independent and gets its own stream of data<br>
+        data is not being produced until the observable is subscribed to.
+    </aside>
+</section>
+<section>
+    <h2>Hot & Cold Obervables (2)</h2>
+    <h3>Hot Observable</h3>
+    <ul>
+        <li>The data producer is outside of the observable itself</li>
+        <li>These observables are closing over external data producers</li>
+        <li>The data is being produced regardless of if there’s a subscriber or not.</li>
+        <li>Examples: <code>fromEvent</code> operator for user events (clicks, mouse moves,…) or WebSocket events</li>
+    </ul>
+    <aside class="notes">
+        If there’s no subscriber when the data is being produced, the data is simply lost.
+    </aside>
 </section>
 <section>
     <h2>Operatoren</h2>
