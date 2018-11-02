@@ -52,38 +52,44 @@
     </code></pre>
 </section>
 <section>
-    <h5>Any</p>
-        <pre><code>let list: any[] = [1, true, "free"];</code></pre>
-    <h5>Unkown</h5>
-    <pre><code data-trim data-noescape>
+    <h4>Any</h4>
+    <pre><code class="typescript" data-trim data-noescape>
+        let list: any[] = [1, true, "free"];
+    </code></pre>
+    <h4>Unkown</h4>
+    <pre><code class="typescript" data-trim data-noescape>
         let someValue: unknown = "this is a string";
         if (typeof someValue === 'string') {
             let strLength: number = (&lt;string>someValue).length;
         }
     </code></pre>
-    <h5>Void</h5>
-    <pre><code data-trim data-noescape>
+    <h4>Void</h4>
+    <pre><code class="typescript" data-trim data-noescape>
         function warnUser(): void {
             console.log("This is my warning message");
         }
     </code></pre>
-    <h5>Never</h5>
-    <pre><code data-trim data-noescape>
+    <h4>Never</h4>
+    <pre><code class="typescript" data-trim data-noescape>
         function error(message: string): never {
             throw new Error(message);
         }
     </code></pre>
 </section>
 <section>
-    <h5>Undefined, Null</h5>
-    <pre><code class="typescript">function doSomething(param: string | null | undefined): void</code></pre>
-    <h5>Object</h5>
+    <h4>Undefined, Null</h4>
+    <pre><code class="typescript" data-trim data-noescape>
+        function doSomething(param: string | null | undefined): void
+    </code></pre>
+    <h4>Object</h4>
     <p>Object ist ein nicht primitiver Typ, also alles was nicht number, string, boolean,
         symbol, null, oder undefined ist.</p>
-    <pre><code>declare function create(o: object | null): void;
-                </code></pre>
-    <pre><code>declare function create(o: {} | null): void;
-                    </code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        declare function create(o: object | null): void;
+    </code></pre>
+    <pre><code class="typescript" data-trim data-noescape>
+        declare function create(o: {} | null): void;
+    </code></pre>
 </section>
 <section>
     <h2>Type Assertions</h2>
@@ -92,12 +98,12 @@
 </section>
 <section>
     <h2>Undefined & null Prüfung</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code class="typescript" data-trim data-noescape>
         function nullcheck(param: { property: string }) {
-            if(param !== null && param !== undefined){
+            if(param !== null && typeof param !== 'undefined'){
                 if(param.property !== null && 
-                param.property !== undefined){
-                    // NOOOOO
+                    typeof param.property !== 'undefined'){
+                        // NOOOOO
                 }
             }
             if(param && param.property){
