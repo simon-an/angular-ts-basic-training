@@ -52,3 +52,5 @@ Set rootDir and outDir in tsconfig.json:
 ```
 
 Run command `tsc` to generate helloworld.js
+
+Run command `tsc -w` to watch the files and generate js files when something changes in the ts files.
