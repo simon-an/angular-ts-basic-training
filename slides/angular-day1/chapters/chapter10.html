@@ -16,7 +16,7 @@
     <pre><code data-trim class="typescript">
         @Pipe({
             name: 'pipeImpure',
-            pure: false // if missing pipe is pure by default
+            pure: false // default value true -> pipe is pure by default
         })
     </code></pre>
     <p>If pipe has internal state, set pure to false.<br>
@@ -111,4 +111,7 @@
             }
         ]
     </code></pre>
+    <aside class="notes">
+        Multiple providers can be associated with a single token in other areas as well. For example, you can register a custom form validator using the built-in NG_VALIDATORS token, and provide multiple instances of a given validator provider by using the multi: true property in the provider object. Angular adds your custom validators to the existing collection.
+    </aside>
 </section>
