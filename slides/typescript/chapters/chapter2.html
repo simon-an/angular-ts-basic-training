@@ -59,10 +59,15 @@
     <h4>Unkown</h4>
     <pre><code class="typescript" data-trim data-noescape>
         let someValue: unknown = "this is a string";
+        let someValue: unknown = 999;
         if (typeof someValue === 'string') {
             let strLength: number = (&lt;string>someValue).length;
+        } else {
+            console.error('wrong type');
         }
     </code></pre>
+</section>
+<section>
     <h4>Void</h4>
     <pre><code class="typescript" data-trim data-noescape>
         function warnUser(): void {
@@ -73,6 +78,11 @@
     <pre><code class="typescript" data-trim data-noescape>
         function error(message: string): never {
             throw new Error(message);
+        }
+        function blockthread(message: string): never {
+            while(true){
+                
+            }
         }
     </code></pre>
 </section>
