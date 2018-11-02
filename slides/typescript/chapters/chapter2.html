@@ -288,17 +288,21 @@
     <h2>Funktionen</h2>
     <p>Unterschied zu JS: Signatur.</p>
     <pre><code class="typescript" data-trim data-noescape>
-        function add(x: number, y: number): number {
-            return x + y;
-        }
-        let myAdd: (x: number, y: number) => number = (x, y) => {
+        let myAdd0: (x: number, y: number) => number = (x, y) => {
             return x + y;
         };
+
+        function myAdd1(x: number, y: number): number {
+            return x + y;
+        }
         type functionType = (x: number, y: number) => number;
-        let myAdd: functionType = (x, y) => {
+        let myAdd2: functionType = (x, y) => {
             return x + y;
         };
     </code></pre>
+    <aside class="notes">
+        First is not so good because it is badly readable and the definition of the signature is not reusable. Second and third example are good.
+    </aside>
 </section>
 <section>
     <p>Optional Parameter:</p>

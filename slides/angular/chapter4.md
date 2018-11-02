@@ -172,6 +172,8 @@ const routes: Routes = [
 
 Now you can navigate to the user and the admin page.
 
+Hint: When loading user page see that only the user module is loaded in the Chrome networks tab.
+
 ## Exercise: 4.3
 
 To see the user and admin page included into the header and navigation you need secondary routes:
@@ -203,7 +205,7 @@ Add SharedModule to user.module.ts
 Add router outlet to app.component.html
 
 ```html
-<router-outlet #routerOutlet="outlet"></router-outlet>
+<router-outlet></router-outlet>
 ```
 
 Add routes to user.routing.module.ts
