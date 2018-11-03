@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { SafeItem, FileService } from '~core/';
+import { SafeItem } from '~core/model';
+import { FileService } from '~core/services';
 
 @Component({
   selector: 'cool-safe-item-form',

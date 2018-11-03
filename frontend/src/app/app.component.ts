@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Cool Safe';
 
   constructor(auth: AuthService, router: Router, translate: TranslateService) {
     // this language will be used as a fallback when a translation isn't found in the current language

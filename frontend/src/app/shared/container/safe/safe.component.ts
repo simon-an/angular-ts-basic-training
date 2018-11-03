@@ -2,7 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, map, withLatestFrom, switchMapTo } from 'rxjs/operators';
 import { Observable, merge, Subject } from 'rxjs';
-import { Safe, SafeService, SafeItem, FileService } from '~core/*';
+import { Safe, SafeItem } from '~core/model';
+import { SafeService, FileService } from '~core/services';
 import { AddSafeItemDialogComponent } from '../add-safe-item-dialog';
 import { MatDialog } from '@angular/material';
 

@@ -5,9 +5,9 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user/user.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatListModule, MatButtonModule, MatIconModule } from '@angular/material';
-import { UserHomeComponent } from './components/userhome/userhome.component';
+import { UserHomeComponent } from './container/userhome/userhome.component';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [

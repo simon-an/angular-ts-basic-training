@@ -25,7 +25,7 @@ import { LoginComponent } from './container/login/login.component';
 import { UserExistsDirective } from './directives/user-exists-validator.directive';
 import { SpecialAdminValidatorDirective } from './directives/admin-email-validator.directive';
 import { FileSizePipe } from './directives/file-size.pipe';
-import { SafeListComponent } from './container/safe-list/safe-list.component';
+import { SafeListComponent } from './components/safe-list/safe-list.component';
 import { SafeComponent } from './container/safe/safe.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { TranslateModule } from '@ngx-translate/core';

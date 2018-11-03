@@ -4,7 +4,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { AuthService, LoginData, User } from '~core/';
+import { LoginData, User } from '~core/model';
+import { AuthService } from '~core/services';
 
 @Component({
   selector: 'cool-login',

@@ -7,8 +7,6 @@
 ```bash
 # make sure you are in the angular project folder
 cd ngx-safe
-# Generate core module as a root module
-ng generate module core --module app
 
 # Generate new shared module
 ng generate module shared
@@ -53,7 +51,8 @@ Replace code in app/app.component.html
 
 ```bash
 # Generate header with sidenav
-ng g @angular/material:nav -name shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
+ng g @angular/material:nav -name shared/components/header-with-sidenav --changeDetection OnPush
+  --export --module shared --selector cool-header-with-sidenav
 ```
 
 ### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
@@ -166,7 +165,7 @@ Hint: When loading user page, you can see that only the user module is loaded in
 <details><summary>Task</summary>
 
 ```bash
-ng g c views/user/components/userHome  --changeDetection OnPush --module views/user
+ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
 ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
 ```
 

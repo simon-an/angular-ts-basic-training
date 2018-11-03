@@ -35,8 +35,14 @@ export class SafeItem {
 ng g s core/services/safe
 ```
 
+- safe.service should provice data to pass the following test:
+
+TODO add test here.
+
+- add mock code to safe.service.ts
+
 <details>
-<summary>Show Code</summary>
+<summary>Show Solution</summary>
 
 ```typescript
 import { Injectable } from "@angular/core";
@@ -146,19 +152,20 @@ export * from "./safe.service";
 
 ## Exercise 6.1.4 userhome.component show list of safes
 
-Hint: call safeservice.getSafes()
+- userhome.component should call safeservice.getSafes()
+- userhome.component should include safe-list.component
+- safe-list.component should have a input for safes.
+
+```bash
+ng generate c shared/components/safe-list --export --changeDetection OnPush --module shared
+```
 
 <details><summary>Solution</summary>
 
 userhome.component.html
 
 ```html
-<p>Safe List</p>
-<ul>
-  <li *ngFor="let safe of (safes$ | async)">
-    {{safe?.id}} - {{safe?.value}}€ size: {{safe?.itemSize}}
-  </li>
-</ul>
+<cool-safe-list [safes]="safes$ | async"></cool-safe-list>
 ```
 
 userhome.component.ts
@@ -185,6 +192,44 @@ export class UserHomeComponent implements OnInit {
 }
 ```
 
+safe-list.component.html
+
+```html
+<ul>
+  <li *ngFor="let safe of safes">
+    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
+    {{safe?.value}}€ size: {{safe?.itemSize}}
+  </li>
+</ul>
+```
+
+safe-list.component.ts
+
+```typescript
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from "@angular/core";
+import { Safe } from "~core/*";
+
+@Component({
+  selector: "cool-safe-list",
+  templateUrl: "./safe-list.component.html",
+  styleUrls: ["./safe-list.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class SafeListComponent implements OnInit {
+  @Input()
+  safes: Safe[];
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
 </details>
 
 ## Exercise 6.2 Create item list in safe.component
@@ -192,20 +237,6 @@ export class UserHomeComponent implements OnInit {
 ![62](screenshots/62.PNG)
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
-
-<details><summary>userhome.component.html</summary>
-
-```html
-<p>Safe List</p>
-<ul>
-  <li *ngFor="let safe of (safes$ | async)">
-    {{safe?.id}} - {{safe?.value}}€ size: {{safe?.itemSize}}
-    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
-  </li>
-</ul>
-```
-
-</details>
 
 <details><summary>user-routing.module.ts (short)</summary>
 
