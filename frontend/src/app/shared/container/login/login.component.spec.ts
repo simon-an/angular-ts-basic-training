@@ -10,9 +10,27 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+const TEST_DIRECTIVES = [LoginDialogComponent];
+
+@NgModule({
+  imports: [
+    TranslateModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule,
+    HttpClientTestingModule,
+    MatDialogModule,
+    NoopAnimationsModule
+  ],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [LoginDialogComponent]
+})
+class DialogTestModule {}
+
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  // let component: LoginComponent;
+  // let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,21 +57,3 @@ describe('LoginComponent', () => {
   //   component.loading = true;
   // });
 });
-
-const TEST_DIRECTIVES = [LoginDialogComponent];
-
-@NgModule({
-  imports: [
-    TranslateModule,
-    FormsModule,
-    MatSelectModule,
-    MatInputModule,
-    HttpClientTestingModule,
-    MatDialogModule,
-    NoopAnimationsModule
-  ],
-  exports: TEST_DIRECTIVES,
-  declarations: TEST_DIRECTIVES,
-  entryComponents: [LoginDialogComponent]
-})
-class DialogTestModule {}

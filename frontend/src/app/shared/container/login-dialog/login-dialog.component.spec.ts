@@ -16,6 +16,47 @@ import { NgModule, Component, Directive, ViewChild, ViewContainerRef, Injector, 
 import { LoginDialogComponent } from './login-dialog.component';
 import { of } from 'rxjs';
 
+@Component({
+  selector: 'cool-dir-with-view-container',
+  template: ``
+})
+// tslint:disable-next-line:component-class-suffix
+class DirectiveWithViewContainer {
+  constructor(public viewContainerRef: ViewContainerRef) {}
+}
+
+@Component({
+  selector: 'cool-arbitrary-component',
+  template: `<cool-dir-with-view-container></cool-dir-with-view-container>`
+})
+// tslint:disable-next-line:component-class-suffix
+class ComponentWithChildViewContainer {
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer: DirectiveWithViewContainer;
+
+  get childViewContainer() {
+    return this.childWithViewContainer.viewContainerRef;
+  }
+}
+
+const TEST_DIRECTIVES = [LoginDialogComponent, ComponentWithChildViewContainer, DirectiveWithViewContainer];
+
+@NgModule({
+  imports: [
+    TranslateModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule,
+    HttpClientTestingModule,
+    MatDialogModule,
+    NoopAnimationsModule
+  ],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [LoginDialogComponent, ComponentWithChildViewContainer]
+})
+class DialogTestModule {}
+
 describe('LoginDialog', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
@@ -64,44 +105,3 @@ describe('LoginDialog', () => {
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
   });
 });
-
-@Component({
-  selector: 'cool-dir-with-view-container',
-  template: ``
-})
-// tslint:disable-next-line:component-class-suffix
-class DirectiveWithViewContainer {
-  constructor(public viewContainerRef: ViewContainerRef) {}
-}
-
-@Component({
-  selector: 'cool-arbitrary-component',
-  template: `<cool-dir-with-view-container></cool-dir-with-view-container>`
-})
-// tslint:disable-next-line:component-class-suffix
-class ComponentWithChildViewContainer {
-  @ViewChild(DirectiveWithViewContainer)
-  childWithViewContainer: DirectiveWithViewContainer;
-
-  get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
-  }
-}
-
-const TEST_DIRECTIVES = [LoginDialogComponent, ComponentWithChildViewContainer, DirectiveWithViewContainer];
-
-@NgModule({
-  imports: [
-    TranslateModule,
-    FormsModule,
-    MatSelectModule,
-    MatInputModule,
-    HttpClientTestingModule,
-    MatDialogModule,
-    NoopAnimationsModule
-  ],
-  exports: TEST_DIRECTIVES,
-  declarations: TEST_DIRECTIVES,
-  entryComponents: [LoginDialogComponent, ComponentWithChildViewContainer]
-})
-class DialogTestModule {}

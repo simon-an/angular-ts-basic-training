@@ -10,6 +10,52 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { inject, async, fakeAsync, flushMicrotasks, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { NgModule, Component, Directive, ViewChild, ViewContainerRef, Injector, Inject } from '@angular/core';
 
+@Component({
+  selector: 'cool-dir-with-view-container',
+  template: ``
+})
+// tslint:disable-next-line:component-class-suffix
+class DirectiveWithViewContainer {
+  constructor(public viewContainerRef: ViewContainerRef) {}
+}
+
+@Component({
+  selector: 'cool-arbitrary-component',
+  template: `<cool-dir-with-view-container></cool-dir-with-view-container>`
+})
+// tslint:disable-next-line:component-class-suffix
+class ComponentWithChildViewContainer {
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer: DirectiveWithViewContainer;
+
+  get childViewContainer() {
+    return this.childWithViewContainer.viewContainerRef;
+  }
+}
+
+const TEST_DIRECTIVES = [
+  SafeItemFormComponent,
+  AddSafeItemDialogComponent,
+  FileSizePipe,
+  ComponentWithChildViewContainer,
+  DirectiveWithViewContainer
+];
+
+@NgModule({
+  imports: [
+    TranslateModule,
+    FormsModule,
+    MatInputModule,
+    HttpClientTestingModule,
+    MatDialogModule,
+    NoopAnimationsModule
+  ],
+  exports: TEST_DIRECTIVES,
+  declarations: TEST_DIRECTIVES,
+  entryComponents: [SafeItemFormComponent, AddSafeItemDialogComponent, ComponentWithChildViewContainer]
+})
+class DialogTestModule {}
+
 describe('AddSafeItemDialogComponent', () => {
   let dialog: MatDialog;
   let overlayContainerElement: HTMLElement;
@@ -57,49 +103,3 @@ describe('AddSafeItemDialogComponent', () => {
     expect(dialogRef.componentInstance.dialogRef).toBe(dialogRef);
   });
 });
-
-@Component({
-  selector: 'cool-dir-with-view-container',
-  template: ``
-})
-// tslint:disable-next-line:component-class-suffix
-class DirectiveWithViewContainer {
-  constructor(public viewContainerRef: ViewContainerRef) {}
-}
-
-@Component({
-  selector: 'cool-arbitrary-component',
-  template: `<cool-dir-with-view-container></cool-dir-with-view-container>`
-})
-// tslint:disable-next-line:component-class-suffix
-class ComponentWithChildViewContainer {
-  @ViewChild(DirectiveWithViewContainer)
-  childWithViewContainer: DirectiveWithViewContainer;
-
-  get childViewContainer() {
-    return this.childWithViewContainer.viewContainerRef;
-  }
-}
-
-const TEST_DIRECTIVES = [
-  SafeItemFormComponent,
-  AddSafeItemDialogComponent,
-  FileSizePipe,
-  ComponentWithChildViewContainer,
-  DirectiveWithViewContainer
-];
-
-@NgModule({
-  imports: [
-    TranslateModule,
-    FormsModule,
-    MatInputModule,
-    HttpClientTestingModule,
-    MatDialogModule,
-    NoopAnimationsModule
-  ],
-  exports: TEST_DIRECTIVES,
-  declarations: TEST_DIRECTIVES,
-  entryComponents: [SafeItemFormComponent, AddSafeItemDialogComponent, ComponentWithChildViewContainer]
-})
-class DialogTestModule {}
