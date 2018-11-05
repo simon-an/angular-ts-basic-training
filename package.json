@@ -1,0 +1,24 @@
+{
+  "name": "angular-ts-basic-training",
+  "version": "1.0.0",
+  "description": "- Node Sass install issue on windows.\r https://github.com/sass/node-sass/issues/2074",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon-an/angular-ts-basic-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simon-an/angular-ts-basic-training/issues"
+  },
+  "homepage": "https://github.com/simon-an/angular-ts-basic-training#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
+    "husky": "^1.1.3"
+  }
+}
