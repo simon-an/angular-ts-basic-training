@@ -58,20 +58,28 @@ export class LoginComponent implements OnInit {
           return this.auth.login(loginData);
         })
       )
-      .subscribe((user: User | null) => {
-        this.loading = false;
-        console.log('user', user);
-        this.dialogRef = null;
-        if (user) {
-          if (user.role) {
-            this.router.navigate(['/' + user.role]);
+      .subscribe(
+        (user: User | null) => {
+          this.loading = false;
+          // console.log('user', user);
+          this.dialogRef = null;
+          if (user) {
+            if (user.role) {
+              this.router.navigate(['/' + user.role]);
+            } else {
+              this.router.navigate(['/user']);
+            }
           } else {
-            this.router.navigate(['/user']);
+            this.config.data.message = 'Unauthorized';
+            this.openModal();
           }
-        } else {
-          this.config.data.message = 'Unauthorized';
+        },
+        error => {
+          // console.log(error);
+          this.loading = false;
+          this.config.data.message = 'Server not available';
           this.openModal();
         }
-      });
+      );
   }
 }

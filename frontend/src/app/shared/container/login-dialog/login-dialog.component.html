@@ -14,7 +14,6 @@
   <mat-form-field>
     <input email coolUserExists required name="email" [(ngModel)]=state.email matInput placeholder="Email" #email="ngModel"
       [ngModelOptions]="{updateOn: 'blur'}">
-    <mat-error> {{ data.message }} </mat-error>
     <mat-error *ngIf="email?.errors?.userExists">
       user does not exists
     </mat-error>
@@ -26,7 +25,7 @@
     </mat-error>
   </mat-form-field>
 
-
+  <mat-error> {{ data.message }} </mat-error>
   <button [disabled]="!loginForm.valid" mat-button color="primary">
     Login
   </button>

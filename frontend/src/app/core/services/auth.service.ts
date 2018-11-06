@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(loginData: LoginData): Observable<User | null> {
+  login(loginData: LoginData): Observable<User | never | null> {
     if (loginData) {
       return this.http.post(this.authUrl, loginData).pipe(
         map((res: any) => res.token),
@@ -25,8 +25,10 @@ export class AuthService {
         ),
         tap((user: User) => this.user.next(user)),
         catchError(err => {
-          console.log(err);
-          return of(null);
+          if (err.status === 401) {
+            return of(null);
+          }
+          throw err;
         })
       );
     }
