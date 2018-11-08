@@ -4,6 +4,7 @@ import { AdminComponent } from './admin/admin.component';
 import { SafeResolverService } from '~core/services';
 import { SafeComponent } from '~shared/container';
 import { SafeListComponent } from '~shared/components';
+import { AdminSafesResolverService } from './admin-safes-resolver.service';
 
 const routes: Routes = [
   {
@@ -13,7 +14,10 @@ const routes: Routes = [
       {
         path: '',
         component: SafeListComponent,
-        outlet: 'admin1'
+        outlet: 'admin1',
+        resolve: {
+          safes: AdminSafesResolverService
+        }
       },
       {
         path: 'safe/:id',
