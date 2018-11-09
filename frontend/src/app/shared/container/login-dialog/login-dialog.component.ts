@@ -10,7 +10,7 @@ export class LoginDialogComponent {
   roles = ['user', 'admin'];
   state = {
     role: 'user',
-    email: 'simon@gmail.com'
+    email: null
   };
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
