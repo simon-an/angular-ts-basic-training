@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './userhome.component.html',
-  styleUrls: ['./userhome.component.css'],
+  styleUrls: ['./userhome.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserHomeComponent implements OnInit {

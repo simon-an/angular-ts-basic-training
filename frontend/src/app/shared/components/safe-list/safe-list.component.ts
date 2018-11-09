@@ -5,7 +5,7 @@ import { Safe } from '~core/model';
 @Component({
   selector: 'cool-safe-list',
   templateUrl: './safe-list.component.html',
-  styleUrls: ['./safe-list.component.css'],
+  styleUrls: ['./safe-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated
 })

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  styleUrls: ['./admin.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
 export class AdminComponent implements OnInit {

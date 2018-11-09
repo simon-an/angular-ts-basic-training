@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/** Dialog Styles have to be global **/
+.logindialog-overlay {
+  .mobile & {
+    background: black;
+  }
+}
+
+.logindialog-panel {
+  .mobile & {
+    // important is used because MatDialog applies css to the elements
+    max-width: none !important;
+    max-height: none !important;
+
+    width: calc(100% - 2em) !important;
+    height: calc(100% - 2em) !important;
+  }
+}

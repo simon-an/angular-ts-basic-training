@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, ChangeDetectionStrategy, Input, Output } from '@angular/core';
 import { SafeItem } from '~core/model';
 import { FileService } from '~core/services';
+import { switchMap, filter } from 'rxjs/operators';
+import { from, Observable, AsyncSubject } from 'rxjs';
 
 @Component({
   selector: 'cool-safe-item-form',
   templateUrl: './safe-item-form.component.html',
-  styleUrls: ['./safe-item-form.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./safe-item-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SafeItemFormComponent implements OnInit {
   constructor(private fileService: FileService) {}
@@ -19,6 +21,7 @@ export class SafeItemFormComponent implements OnInit {
   @Output()
   result: EventEmitter<SafeItem> = new EventEmitter();
   model = <SafeItem>{};
+  invoiceImage$: AsyncSubject<string> = new AsyncSubject();
 
   state = {
     file: null,
@@ -44,6 +47,7 @@ export class SafeItemFormComponent implements OnInit {
         // console.log(reader.result);
         const id$ = this.fileService.uploadFile(this.state.file);
         id$.subscribe(id => (this.model.invoiceId = id));
+        id$.pipe(switchMap(id => from(this.fileService.get(id)))).subscribe(this.invoiceImage$);
         // console.log(id);
       };
     }

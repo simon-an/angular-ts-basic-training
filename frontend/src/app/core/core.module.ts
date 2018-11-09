@@ -6,6 +6,7 @@ import { TimingInterceptor } from './interceptors/timing.interceptors';
 import { ProgressBarService } from './services/progress-bar.service';
 import { AuthService } from './services';
 import { AuthInterceptor } from './interceptors/auth.interceptors';
+import { FullscreenOverlayContainer, OverlayContainer } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],

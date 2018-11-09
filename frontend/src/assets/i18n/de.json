@@ -1,5 +1,6 @@
 {
   "applicationName": "Cool Safe",
   "role": "User",
-  "showinvoice": "Rechnung anzeigen"
+  "showinvoice": "Rechnung anzeigen",
+  "uploadinvoice": "Rechnung hochladen"
 }

@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material';
 @Component({
   selector: 'cool-safe',
   templateUrl: './safe.component.html',
-  styleUrls: ['./safe.component.css'],
+  styleUrls: ['./safe.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafeComponent implements OnInit {
@@ -53,8 +53,10 @@ export class SafeComponent implements OnInit {
 
   onAddSafeItem(event) {
     const dialogRef = this.dialog.open(AddSafeItemDialogComponent, {
-      height: '400px',
-      width: '600px'
+      // height: '800px',
+      width: '600px',
+      backdropClass: 'logindialog-overlay',
+      panelClass: 'logindialog-panel'
     });
     dialogRef
       .afterClosed()
