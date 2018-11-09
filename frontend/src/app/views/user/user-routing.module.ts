@@ -14,6 +14,7 @@ const routes: Routes = [
         path: 'safe/:id',
         component: SafeComponent,
         outlet: 'secondary',
+        data: { showAddButton: true },
         resolve: {
           safe: SafeResolverService
         }

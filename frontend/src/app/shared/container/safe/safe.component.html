@@ -1,5 +1,5 @@
 <cool-item-list [items]="items$ | async" (showInvoice)="openInvoice($event)"></cool-item-list>
-<footer>
+<footer *ngIf="(showAddButton$ | async)">
   <button mat-fab color="primary" (click)="onAddSafeItem($event)">
     <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
   </button>

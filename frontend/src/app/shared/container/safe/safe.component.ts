@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, map, withLatestFrom, switchMapTo } from 'rxjs/operators';
 import { Observable, merge, Subject } from 'rxjs';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafeComponent implements OnInit {
+  showAddButton$: Observable<boolean>;
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
   trigger$: Subject<any> = new Subject<any>();
@@ -31,6 +32,12 @@ export class SafeComponent implements OnInit {
     this.safe$ = this.activatedRoute.data.pipe(
       map((data: { safe: Safe }) => {
         return data.safe;
+      })
+    );
+
+    this.showAddButton$ = this.activatedRoute.data.pipe(
+      map((data: { showAddButton: boolean }) => {
+        return data.showAddButton;
       })
     );
 
