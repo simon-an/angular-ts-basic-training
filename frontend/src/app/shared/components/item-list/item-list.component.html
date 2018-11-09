@@ -1,8 +1,8 @@
 <ul>
   <li *ngFor="let item of items">{{item?.name}}
     <span *ngIf="item!.price">
-      {{item!.price | currency:'EUR':true}}
+      {{item!.price | currency:'EUR':'symbol'}}
     </span>
-    <button *ngIf="item.invoiceId" (click)="showInvoice.emit(item.invoiceId)" mat-button>{{ showinvoice | translate}}</button>
+    <button *ngIf="item.invoiceId" (click)="showInvoice.emit(item.invoiceId)" mat-button>{{ 'showinvoice' | translate}}</button>
   </li>
 </ul>
