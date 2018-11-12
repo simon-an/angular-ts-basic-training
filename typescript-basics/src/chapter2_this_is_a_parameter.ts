@@ -39,3 +39,31 @@ let pickedCard2 = cardPicker();
 console.log("card: " + pickedCard2.card + " of " + pickedCard2.suit);
 let pickedCard3 = cardPicker();
 console.log("card: " + pickedCard3.card + " of " + pickedCard3.suit);
+
+interface Card {
+  suit: string;
+  card: number;
+}
+interface Deck {
+  suits: string[];
+  cards: number[];
+  createCardPicker(this: Deck): () => Card;
+}
+let betterDeck: Deck = {
+  suits: ["hearts", "spades", "clubs", "diamonds"],
+  cards: Array(52),
+  // NOTE: The function now explicitly specifies that its callee must be of type Deck
+  createCardPicker: function(this: Deck) {
+    return () => {
+      let pickedCard = Math.floor(Math.random() * 52);
+      let pickedSuit = Math.floor(pickedCard / 13);
+
+      return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
+    };
+  }
+};
+
+let betterCardPicker: () => Card = betterDeck.createCardPicker();
+let betterPickedCard: Card = betterCardPicker();
+
+console.log("card: " + betterPickedCard.card + " of " + betterPickedCard.suit);
