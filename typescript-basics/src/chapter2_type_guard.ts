@@ -31,7 +31,7 @@ function getSmallPet(): Fish | Bird {
   }
 }
 
-let pet = getSmallPet();
+let pet: Fish | Bird = getSmallPet();
 pet.layEggs(); // okay
 // pet.swim(); // errors
 // pet.fly(); // errors
@@ -47,4 +47,4 @@ if (isFish(pet)) {
   pet.fly();
 }
 
-console.log(isFish(getSmallPet()));
+console.log("isFish", isFish(pet));

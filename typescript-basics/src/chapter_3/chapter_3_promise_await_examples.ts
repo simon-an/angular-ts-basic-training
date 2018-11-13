@@ -1,14 +1,13 @@
 function doSomeThing(value: number): Promise<number> {
-  return new Promise((resolve, reject) => {
+  return new Promise<number>((resolve, reject) => {
     // throw new Error('Something failed')
     setTimeout(() => {
       // Dont throw errors here.
       console.log("doSomeThing", value + 1);
       // reject(new Error('Something failed'));
       resolve(value + 1);
-    }, 1000)
-  }
-  );
+    }, 1000);
+  });
 }
 function doSomeThingElse(value: number): Promise<number> {
   return new Promise(resolve =>
