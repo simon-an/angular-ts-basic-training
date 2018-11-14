@@ -32,6 +32,10 @@ export interface SafeItem {
 ## Exercise 6.1.2 Create global service: SafeService (this is a temporary mock service)
 
 ```bash
+# when not done in 4.4
+ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
+ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
+
 ng g s core/services/safe
 ```
 
