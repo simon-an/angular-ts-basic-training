@@ -110,26 +110,17 @@ export class SafeService {
 }
 ```
 
+There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettier will fix this error
+
 </details>
 
 ## Exercise 6.1.3 Create Barrel files for core module
 
-<details><summary>src/app/core/index.ts</summary>
+<details><summary>Barrel file for the core module model</summary>
 
-Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
+Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
-```typescript
-// start:ng42.barrel
-export * from "./model";
-export * from "./services";
-// end:ng42.barrel
-```
-
-</details>
-<details><summary>src/app/core/model/index.ts</summary>
-
-Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
-
+src/app/core/model/index.ts
 ```typescript
 // start:ng42.barrel
 export * from "./safe";
@@ -138,6 +129,21 @@ export * from "./safeitem";
 ```
 
 </details>
+
+<details><summary>Barrel file for the core module</summary>
+
+Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
+
+src/app/core/index.ts
+```typescript
+// start:ng42.barrel
+export * from "./model";
+export * from "./services";
+// end:ng42.barrel
+```
+
+</details>
+
 <details><summary>src/app/core/services/index.ts</summary>
 
 Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
