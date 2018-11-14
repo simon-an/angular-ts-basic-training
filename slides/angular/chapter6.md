@@ -165,7 +165,7 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
-1. Add routing to user-routing.module.ts:
+1. Adjuste routing of user-routing.module.ts:
 ```typescript
 const routes: Routes = [
   {
