@@ -14,5 +14,3 @@ css/reveal.min.css
 js/reveal.min.js
 coverage/
 .nyc_output/
-**/*.js
-**/*.js.map
