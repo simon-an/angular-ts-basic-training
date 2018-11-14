@@ -101,7 +101,7 @@ export class AuthService {
 - Create a validator, which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.
 
-login-dialog.compoonent.html
+login-dialog.component.html
 
 ```html
 <h2>Please Log in as {{state.role}}</h2>
