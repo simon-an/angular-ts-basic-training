@@ -29,7 +29,7 @@ export interface SafeItem {
 }
 ```
 
-## Exercise 6.1.2 Create global service: SafeService
+## Exercise 6.1.2 Create global service: SafeService (this is a temporary mock service)
 
 ```bash
 ng g s core/services/safe
@@ -116,7 +116,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 ## Exercise 6.1.3 Create Barrel files for core module
 
-<details><summary>Barrel file for the core module model</summary>
+<details><summary>Create barrel file for the core module model</summary>
 
 Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
@@ -130,7 +130,7 @@ export * from "./safeitem";
 
 </details>
 
-<details><summary>Barrel file for the core module</summary>
+<details><summary>Create barrel file for the core module</summary>
 
 Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
 
@@ -144,10 +144,11 @@ export * from "./services";
 
 </details>
 
-<details><summary>src/app/core/services/index.ts</summary>
+<details><summary>Create barrel file for the service directory</summary>
 
 Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
+src/app/core/services/index.ts
 ```typescript
 // start:ng42.barrel
 export * from "./safe.service";
