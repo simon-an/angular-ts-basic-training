@@ -75,6 +75,51 @@ const routes: Routes = [
 ];
 ```
 
+Add routing configuration to app/views/home/home-routing.module.ts
+
+```TypeScript
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  }
+];
+```
+### Admin View
+
+Add routing configuration to app/views/admin-routing.module.ts
+
+<details><summary>Show Solution</summary>
+
+```TypeScript
+const routes: Routes = [
+  {
+    path: '',
+    component: AdminComponent
+  }
+];
+```
+
+</details>
+
+### User View
+
+Add routing configuration to app/views/user/user-routing.module.ts
+
+<details><summary>Show Solution</summary>
+
+```TypeScript
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent
+  }
+];
+```
+
+</details>
+
+
 ```bash
 # Generate header with sidenav
 ng g @angular/material:nav -name shared/components/header-with-sidenav --changeDetection OnPush
@@ -112,51 +157,6 @@ Add content to src\app\views\home\home\home.component.html
 ```
 
 Add SharedModule and MatListModule to home.module.ts
-
-Add routing configuration to app/views/home/home-routing.module.ts
-
-```TypeScript
-const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  }
-];
-```
-
-### Admin View
-
-Add routing configuration to app/views/admin-routing.module.ts
-
-<details><summary>Show Solution</summary>
-
-```TypeScript
-const routes: Routes = [
-  {
-    path: '',
-    component: AdminComponent
-  }
-];
-```
-
-</details>
-
-### User View
-
-Add routing configuration to app/views/user/user-routing.module.ts
-
-<details><summary>Show Solution</summary>
-
-```TypeScript
-const routes: Routes = [
-  {
-    path: '',
-    component: UserComponent
-  }
-];
-```
-
-</details>
 
 Now you can navigate to the user and the admin page.
 
