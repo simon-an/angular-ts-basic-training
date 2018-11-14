@@ -126,6 +126,8 @@ ng g @angular/material:nav -name shared/components/header-with-sidenav --changeD
   --export --module shared --selector cool-header-with-sidenav
 ```
 
+## Exercise: 4.3
+
 ### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 
 Replace mat-nav-list html tag with
