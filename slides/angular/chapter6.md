@@ -177,8 +177,9 @@ ng g c shared/components/safe-list --export --changeDetection OnPush --module sh
 }
 ```
 2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
-3. In safe-list.component get the safes from an @Input and show the list of safe ids (Use @Input: https://angular.io/api/core/Input)
-4. Give the safes to the safe.component with the innput directive (https://angular.io/api/core/Input)
+3. In safe-list.component get the safes from an @Input (Use @Input: https://angular.io/api/core/Input)
+4. Show the list of safe ids with ngFor and {{}}
+5. Give the safes to the safe.component with the innput directive (https://angular.io/api/core/Input)
 
 <details><summary>Solution</summary>
 
