@@ -160,15 +160,15 @@ export * from "./safe.service";
 ## Exercise 6.1.4 userhome.component show list of safes
 
 ```bash
-ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
-ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
+ng g c views/user/containers/userHome --changeDetection OnPush --module views/user
+ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
 1. Add routing to user-routing.module.ts to path 'user/home' and load user-home.component
-2. Add safe-list.component to the template of the user-home.component.
-3. In the smart safe-list.component get the list of safes from the safe.service.
-4. Give the safes to the safe.component and show the list of safe ids. (Use @Input: https://angular.io/api/core/Input)
+2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
+3. In safe-list.component get the safes from an @Input and show the list of safe ids (Use @Input: https://angular.io/api/core/Input)
+4. Give the safes to the safe.component with the innput directive (https://angular.io/api/core/Input)
 
 <details><summary>Solution</summary>
 
