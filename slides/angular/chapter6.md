@@ -116,7 +116,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 ## Exercise 6.1.3 Create Barrel files for core module
 
-<details><summary>Create barrel file for the core module model</summary>
+<details><summary>Create barrel file for the core module models</summary>
 
 Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
