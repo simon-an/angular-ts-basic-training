@@ -167,14 +167,16 @@ ng g c shared/components/safe-list --export --changeDetection OnPush --module sh
 
 1. Add routing to user-routing.module.ts:
 ```typescript
-{
-  path: '',
-  component: UserComponent,
-  redirectTo: 'home'
-}, {
-  path: 'home',
-  component: UserHomeComponent
-}
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent,
+    redirectTo: 'home'
+  }, {
+    path: 'home',
+    component: UserHomeComponent
+  }
+]
 ```
 2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
 3. In safe-list.component get the safes from an @Input (Use @Input: https://angular.io/api/core/Input)
