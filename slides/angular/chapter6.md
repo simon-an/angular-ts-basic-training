@@ -159,21 +159,16 @@ export * from "./safe.service";
 
 ## Exercise 6.1.4 userhome.component show list of safes
 
-- when not done in 4.4
-
 ```bash
 ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
 ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
+ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
-
-- userhome.component should call safeservice.getSafes()
-- userhome.component should include safe-list.component
-- safe-list.component should have a input for safes.
-
-```bash
-ng generate c shared/components/safe-list --export --changeDetection OnPush --module shared
-```
+1. Add routing to user-routing.module.ts to path 'user/home' and load user-home.component
+2. Add safe-list.component to the template of the user-home.component.
+3. In the smart safe-list.component get the list of safes from the safe.service.
+4. Give the safes to the safe.component and show the list of safe ids. (Use @Input: https://angular.io/api/core/Input)
 
 <details><summary>Solution</summary>
 
@@ -246,14 +241,6 @@ export class SafeListComponent implements OnInit {
 ```
 
 </details>
-
-1. Add routing to user-routing.module.ts to path 'user/home' and load user-home.component
-2. Add safe.component to the template of the user-home.component.
-3. In the smart safe.component get the list of safes from the safe.service.
-4. Give the safes to the safe-list.component and show the list of safe ids. (Use @Input: https://angular.io/api/core/Input)
-
-Cool safe smart comp auf safe service zugreifen und der dumb component die liste der safes übergeben
-
 
 ## Exercise 6.2 Create item list in safe.component
 
