@@ -101,14 +101,6 @@ export class AuthService {
 - Create a validator, which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.
 
-TODO @michael add email domain validator
-
-## Exercise 10.2 Create user exists async validator
-
-- Create an async validator, which calles the auth-service userExists method.
-
-<details><summary>Solution</summary>
-
 login-dialog.compoonent.html
 
 ```html
@@ -203,6 +195,13 @@ export class SpecialAdminValidatorDirective implements Validator {
   }
 }
 ```
+</details>
+
+## Exercise 10.2 Create user exists async validator
+
+- Create an async validator, which calles the auth-service userExists method.
+
+<details><summary>Solution</summary>
 
 Create user-exists-validator.directive.ts
 
