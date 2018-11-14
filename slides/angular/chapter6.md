@@ -14,7 +14,7 @@ ng generate module core --module app
 
 ```typescript
 // app\core\model\safe.ts
-export class Safe {
+export interface Safe {
   id: string;
   value: number;
   itemSize: number;
@@ -23,7 +23,7 @@ export class Safe {
 }
 
 // app\core\model\safeitem.ts
-export class SafeItem {
+export interface SafeItem {
   id: string;
   name: string;
 }
