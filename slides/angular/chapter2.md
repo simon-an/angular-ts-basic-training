@@ -1,22 +1,5 @@
 # Chapter 2
 
-## Exercise: 2.0
-
-### Add .prettierrc file
-
-- Configuration for the Prettier VS-Code Extension.
-
-```json
-{
-  "printWidth": 120,
-  "singleQuote": true,
-  "useTabs": false,
-  "tabWidth": 2,
-  "semi": true,
-  "bracketSpacing": true
-}
-```
-
 ## Exercise: 2.1
 
 Setup Angular CLI and create and start your Angular App
@@ -51,3 +34,20 @@ Adjust app prefixes
 - Change prefix from "app" to "cool" in src/tslint.json
 - Change prefix from "app" to "cool" in angular.json
 - Change `<app-root></app-root>` to `<cool-root></cool-root>` in src/index.html
+
+## Exercise: 2.3
+
+### Add .prettierrc file
+
+- Configuration for the Prettier VS-Code Extension.
+
+```json
+{
+  "printWidth": 120,
+  "singleQuote": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": true,
+  "bracketSpacing": true
+}
+```
