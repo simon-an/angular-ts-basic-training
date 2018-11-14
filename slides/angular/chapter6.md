@@ -166,7 +166,7 @@ ng g c shared/components/safe-list --export --changeDetection OnPush --module sh
 ```
 
 1. Add routing to user-routing.module.ts:
-```json
+```typescript
 {
   path: '',
   component: UserComponent,
