@@ -126,8 +126,7 @@ ng add @angular/material
 
 ```bash
 # Generate header with sidenav
-ng g @angular/material:nav --name shared/components/header-with-sidenav --changeDetection OnPush
-  --export --module shared --selector cool-header-with-sidenav
+ng g @angular/material:nav --name shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
 ```
 
 
