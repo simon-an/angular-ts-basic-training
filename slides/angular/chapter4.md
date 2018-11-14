@@ -51,6 +51,30 @@ Replace code in app/app.component.html
 <router-outlet></router-outlet>
 ```
 
+Configure routing of the whole app in app/app-routing.module.ts
+
+```TypeScript
+const routes: Routes = [
+  {
+    path: 'admin',
+    loadChildren: './views/admin/admin.module#AdminModule'
+  },
+  {
+    path: 'user',
+    loadChildren: './views/user/user.module#UserModule'
+  },
+  {
+    path: 'home',
+    loadChildren: './views/home/home.module#HomeModule'
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
+];
+```
+
 ```bash
 # Generate header with sidenav
 ng g @angular/material:nav -name shared/components/header-with-sidenav --changeDetection OnPush
@@ -133,30 +157,6 @@ const routes: Routes = [
 ```
 
 </details>
-
-Configure routing of the whole app in app/app-routing.module.ts
-
-```TypeScript
-const routes: Routes = [
-  {
-    path: 'admin',
-    loadChildren: './views/admin/admin.module#AdminModule'
-  },
-  {
-    path: 'user',
-    loadChildren: './views/user/user.module#UserModule'
-  },
-  {
-    path: 'home',
-    loadChildren: './views/home/home.module#HomeModule'
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  }
-];
-```
 
 Now you can navigate to the user and the admin page.
 
