@@ -165,7 +165,17 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
-1. Add routing to user-routing.module.ts to path 'user/home' and load user-home.component
+1. Add routing to user-routing.module.ts:
+```json
+{
+  path: '',
+  component: UserComponent,
+  redirectTo: 'home'
+}, {
+  path: 'home',
+  component: UserHomeComponent
+}
+```
 2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
 3. In safe-list.component get the safes from an @Input and show the list of safe ids (Use @Input: https://angular.io/api/core/Input)
 4. Give the safes to the safe.component with the innput directive (https://angular.io/api/core/Input)
