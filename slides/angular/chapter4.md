@@ -38,13 +38,6 @@ ng g c views/user/user --changeDetection OnPush --module views/user
 
 ## Exercise: 4.2
 
-### Add Angular Material and your first module
-
-```bash
-# Add Angular Material
-ng add @angular/material
-```
-
 Replace code in app/app.component.html
 
 ```html
@@ -119,6 +112,17 @@ const routes: Routes = [
 
 </details>
 
+## Exercise: 4.3 Add navigation to the home component
+
+
+### Add Angular Material and your first module
+
+```bash
+# Add Angular Material
+ng add @angular/material
+```
+
+### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 
 ```bash
 # Generate header with sidenav
@@ -126,9 +130,6 @@ ng g @angular/material:nav -name shared/components/header-with-sidenav --changeD
   --export --module shared --selector cool-header-with-sidenav
 ```
 
-## Exercise: 4.3 Add navigation to the home component
-
-### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 
 Replace mat-nav-list html tag with
 
