@@ -32,10 +32,6 @@ export interface SafeItem {
 ## Exercise 6.1.2 Create global service: SafeService (this is a temporary mock service)
 
 ```bash
-# when not done in 4.4
-ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
-ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
-
 ng g s core/services/safe
 ```
 
@@ -162,6 +158,14 @@ export * from "./safe.service";
 </details>
 
 ## Exercise 6.1.4 userhome.component show list of safes
+
+- when not done in 4.4
+
+```bash
+ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
+ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
+```
+
 
 - userhome.component should call safeservice.getSafes()
 - userhome.component should include safe-list.component
