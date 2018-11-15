@@ -11,7 +11,7 @@ Add button should open a new dialog.
 Generate dialog
 
 ```bash
-ng g component shared/container/addSafeItemDialog --export --changeDetection OnPush
+ng g component shared/containers/addSafeItemDialog --export --changeDetection OnPush
 ```
 
 ![71](screenshots/71.PNG)
