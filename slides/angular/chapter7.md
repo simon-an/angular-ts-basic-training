@@ -115,16 +115,25 @@ safe.component.ts
 
 Add Price to SafeItem Model and item-list.component.html
 
-<details><summary>Show Solution</summary>
+<details><summary>Show Solution </summary>
+
+- item-list.component.html (short)
 
 ```html
-<ul>
-  <li *ngFor="let item of items">{{item?.name}}
-    <span *ngIf="item!.price">
-      {{item!.price}}€
-    </span>
-  </li>
-</ul>
+<ng-container body>
+    <header>
+      <h4 mat-subheader>Items</h4>
+      <button mat-mini-fab color="primary" (click)="onAddSafeItem($event)">
+        <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+      </button>
+    </header>
+    <mat-list>
+      <mat-list-item *ngFor="let item of items">
+        <p matLine>{{ item?.name }}</p>
+        <p matLine>{{ item?.price }}€</p>
+      </mat-list-item>
+    </mat-list>
+  </ng-container>
 ```
 
 </details>
