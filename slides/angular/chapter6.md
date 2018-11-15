@@ -161,7 +161,6 @@ export * from "./safe.service";
 
 ```bash
 ng g c views/user/containers/userHome --changeDetection OnPush --module views/user
-ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
@@ -259,7 +258,31 @@ export class SafeListComponent implements OnInit {
 
 ![62](screenshots/62.PNG)
 
+```bash
+ng g c shared/containers/safe --export --changeDetection OnPush --module shared
+```
+
+
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
+
+<details><summary>Add routerLink to safe-list.component.html</summary>
+  
+  ```html
+<mat-nav-list>
+  <h3 mat-subheader>Safes</h3>
+  <a [routerLink]="[safe?.id]" [matTooltip]="safe.id" mat-list-item *ngFor="let safe of safes">
+    <mat-icon mat-list-icon *ngIf="safe?.itemSize > 0; else: empty"> work </mat-icon>
+    <ng-template #empty><mat-icon mat-list-icon>work_outline</mat-icon></ng-template>
+    <p mat-line>{{ safe?.value }}€</p>
+    <p mat-line>size: {{ safe?.itemSize }}</p>
+  </a>
+</mat-nav-list>
+
+  ```
+
+</details>
+
+### Solution with secondary routing (named router-outlet & child routes)
 
 <details><summary>user-routing.module.ts (short)</summary>
 
@@ -316,6 +339,46 @@ export class UserRoutingModule {}
 
 </details>
 
+
+### Solution using the main router-outlet
+
+<details><summary>user-routing.module.ts (short)</summary>
+
+```typescript
+...
+{
+  path: 'safes/:id',
+  component: SafeComponent,
+},
+...
+```
+
+</details>
+
+<details><summary>user-routing.module.ts (long)</summary>
+
+```typescript
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent
+  },
+  {
+    path: 'safes',
+    component: UserSafesComponent
+  },
+  {
+    path: 'safes/:id',
+    component: SafeComponent
+  }
+];
+
+```
+
+</details>
+
+
+
 ## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
 
 <details><summary>safe.component.ts</summary>
@@ -363,6 +426,11 @@ Generate item-list component:
 2. Select "Angular: Generate a component"
 3. Enter name "itemList" and press Enter
 4. Select "Exported pure component" and select "Confirm"
+
+Or in the terminal: 
+```bash
+ng g component shared/components/itemList --changeDetection OnPush
+```
 
 <details><summary>safe.component.html</summary>
 
