@@ -161,7 +161,6 @@ export * from "./safe.service";
 
 ```bash
 ng g c views/user/containers/userHome --changeDetection OnPush --module views/user
-ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
 ```
 
@@ -258,6 +257,11 @@ export class SafeListComponent implements OnInit {
 ## Exercise 6.2 Create item list in safe.component
 
 ![62](screenshots/62.PNG)
+
+```bash
+ng g c shared/containers/safe --export --changeDetection OnPush --module shared
+```
+
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
