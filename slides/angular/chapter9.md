@@ -60,8 +60,8 @@ ng g guard core/guards/admin --lintFix
 ### Create Login Dialog Component and Login Component
 
 ```bash
-ng g component --entry-component --export shared/container/loginDialog
-ng g component --export shared/container/login
+ng g component --entry-component --export shared/containers/loginDialog
+ng g component --export shared/containers/login
 ```
 
 <details>
