@@ -2,17 +2,10 @@
 
 ## Exercise: 7.1
 
-### Add footer with add button to item list and dialog
+### Add header with add button to item list and
 
-Add a footer to safe component:
+Add a header element to the item list component:
 Create an add button when in the item list view.
-Add button should open a new dialog.
-
-Generate dialog
-
-```bash
-ng g component shared/containers/addSafeItemDialog --export --changeDetection OnPush
-```
 
 ![71](screenshots/71.PNG)
 
@@ -29,7 +22,7 @@ ng g component shared/containers/addSafeItemDialog --export --changeDetection On
       <a mat-list-item routerLink="../" routerLinkActive="active">Back to Safes</a>
     </mat-nav-list>
   </ng-container>
-  <!-- Content -->
+  <!-- Content Start -->
   <ng-container body>
     <header>
       <h4 mat-subheader>Items</h4>
@@ -41,7 +34,7 @@ ng g component shared/containers/addSafeItemDialog --export --changeDetection On
       <mat-list-item *ngFor="let item of items">{{ item?.name }}</mat-list-item>
     </mat-list>
   </ng-container>
-  <!---->
+  <!-- Content End -->
 </cool-header-with-sidenav>
 
 ```
@@ -58,9 +51,8 @@ header {
 ```
 
 ```typescript
- 
 ```
-  
+
 </details>
 <details><summary>Show Solution Secondary Routing</summary>
 
@@ -140,26 +132,28 @@ Add Price to SafeItem Model and item-list.component.html
 
 ## Exercise: 7.3
 
-### Create a template driven form inside a dialog
+### Exercise: 7.3.1 Create the dialog and add open dialog function
+
+Generate dialog component
+
+```bash
+ng g component shared/containers/addSafeItemDialog --export --changeDetection OnPush
+```
+
+Add open dialog function:
+
+<details><summary>Show Solution</summary>
+
+```typescript
+```
+
+</details>
+
+### Exercise: 7.3.2 Create a template driven form inside a dialog
 
 ![73](screenshots/73.PNG)
 
-Add close button to dialog:
-add-safe-item-dialog.component.ts TODO hier richtig?
-
-```typescript
-export class AddSafeItemDialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<AddSafeItemDialogComponent>) {}
-
-  ngOnInit() {}
-
-  closeDialog(safeItem: SafeItem) {
-    this.dialogRef.close(safeItem);
-  }
-}
-```
-
-Create form:
+Create form component:
 
 ```bash
 ng g component shared/components/SafeItemForm --export --changeDetection OnPush
@@ -175,7 +169,7 @@ add-safe-item-dialog.component.html
 <cool-safe-item-form></cool-safe-item-form>
 ```
 
-### Exercise 7.3.1 Create Form Component
+### Exercise 7.3.3 Create Form Component
 
 safe-item-form.component.html
 
@@ -265,10 +259,9 @@ addItem(item: SafeItem): any {
 }
 ```
 
-### Exercise 7.3.2 Call the add Item Method from the safe.component.ts
+### Exercise 7.3.4 Call the add Item Method from the safe.component.ts
 
 <details><summary>Show Solution</summary>
-<p>
 
 safe.component.ts
 
@@ -287,13 +280,26 @@ onAddSafeItem(event) {
 }
 ```
 
-</p>
 </details>
 
-### Exercise 7.3.3 Bind the form result to the dialog component.
+### Exercise 7.3.5 Bind the form result to the dialog component
 
 <details><summary>Show Solution</summary>
-<p>
+
+Add close function to the dialog:
+add-safe-item-dialog.component.ts
+
+```typescript
+export class AddSafeItemDialogComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<AddSafeItemDialogComponent>) {}
+
+  ngOnInit() { }
+
+  closeDialog(safeItem: SafeItem) {
+    this.dialogRef.close(safeItem);
+  }
+}
+```
 
 add-safe-item-dialog.component.html
 
@@ -301,7 +307,6 @@ add-safe-item-dialog.component.html
 <cool-safe-item-form (result)="closeDialog($event)"></cool-safe-item-form>
 ```
 
-</p>
 </details>
 
 ## Additional Exercise: add Edit SafeItem
