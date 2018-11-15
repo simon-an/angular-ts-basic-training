@@ -16,10 +16,55 @@ ng g component shared/containers/addSafeItemDialog --export --changeDetection On
 
 ![71](screenshots/71.PNG)
 
-<details><summary>Show Solution</summary>
-<p>
+<details><summary>Show Solution Main Routing</summary>
+  
+- item.list.component.html
+
+```html
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active">Home</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="../" routerLinkActive="active">Back to Safes</a>
+    </mat-nav-list>
+  </ng-container>
+  <!-- Content -->
+  <ng-container body>
+    <header>
+      <h4 mat-subheader>Items</h4>
+      <button mat-mini-fab color="primary" (click)="onAddSafeItem($event)">
+        <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+      </button>
+    </header>
+    <mat-list>
+      <mat-list-item *ngFor="let item of items">{{ item?.name }}</mat-list-item>
+    </mat-list>
+  </ng-container>
+  <!---->
+</cool-header-with-sidenav>
+
+```
+
+item-list.component.scss
+
+```css
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+```
+
+```typescript
+ 
+```
+  
+</details>
+<details><summary>Show Solution Secondary Routing</summary>
+
 safe.component.html
-</p>
 
 ```html
 <footer>
