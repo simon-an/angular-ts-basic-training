@@ -265,6 +265,8 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
+### Solution with secondary routing (named router-outlet & child routes)
+
 <details><summary>user-routing.module.ts (short)</summary>
 
 ```typescript
@@ -319,6 +321,32 @@ export class UserRoutingModule {}
 ```
 
 </details>
+
+
+### Solution using the main router-outlet
+
+<details><summary>user-routing.module.ts (short)</summary>
+
+```typescript
+...
+{
+  path: 'safes/:id',
+  component: SafeComponent,
+},
+...
+```
+
+</details>
+
+<details><summary>user-routing.module.ts (long)</summary>
+
+```typescript
+
+```
+
+</details>
+
+
 
 ## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
 
