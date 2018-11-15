@@ -402,6 +402,11 @@ Generate item-list component:
 3. Enter name "itemList" and press Enter
 4. Select "Exported pure component" and select "Confirm"
 
+Or in the terminal: 
+```bash
+ng g component shared/components/itemList --changeDetection OnPush
+```
+
 <details><summary>safe.component.html</summary>
 
 ```html
