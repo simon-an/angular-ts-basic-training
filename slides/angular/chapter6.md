@@ -265,7 +265,7 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
-<details><summary>Add routerLink to safe-list.component.ts</summary>
+<details><summary>Add routerLink to safe-list.component.html</summary>
   
   ```html
 <mat-nav-list>
