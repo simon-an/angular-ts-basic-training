@@ -13,7 +13,8 @@ import {
   MatCardModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTooltipModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { HeaderWithSidenavComponent } from './components/header-with-sidenav/header-with-sidenav.component';
@@ -48,6 +49,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatTooltipModule,
     MatProgressSpinnerModule
   ],
   declarations: [
@@ -78,6 +80,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatTooltipModule,
     LoginDialogComponent,
     LoginComponent,
     MatProgressSpinnerModule,
