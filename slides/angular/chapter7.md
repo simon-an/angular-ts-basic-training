@@ -18,7 +18,7 @@ ng g component shared/containers/addSafeItemDialog --export --changeDetection On
 
 <details><summary>Show Solution Main Routing</summary>
   
-- item.list.component.html
+- item-list.component.html
 
 ```html
 <cool-header-with-sidenav>
