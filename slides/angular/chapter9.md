@@ -98,7 +98,7 @@ Add both models to the barrel file.
 
 ### Create Login Component with routing
 
-Hint: create a route <code>/login/:role</code> to LoginComponent
+Hint: create a route <code>/login/:role</code> to LoginComponent in the home module
 
 <details>
 <summary>Solution</summary>
