@@ -358,6 +358,20 @@ export class UserRoutingModule {}
 <details><summary>user-routing.module.ts (long)</summary>
 
 ```typescript
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent
+  },
+  {
+    path: 'safes',
+    component: UserSafesComponent
+  },
+  {
+    path: 'safes/:id',
+    component: SafeComponent
+  }
+];
 
 ```
 
