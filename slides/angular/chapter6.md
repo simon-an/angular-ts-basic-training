@@ -266,9 +266,20 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
 <details><summary>Add routerLink to safe-list.component.ts</summary>
+  
   ```html
-  <a [routerLink]="[safe.id]" ...>...</a>
+<mat-nav-list>
+  <h3 mat-subheader>Safes</h3>
+  <a [routerLink]="[safe?.id]" [matTooltip]="safe.id" mat-list-item *ngFor="let safe of safes">
+    <mat-icon mat-list-icon *ngIf="safe?.itemSize > 0; else: empty"> work </mat-icon>
+    <ng-template #empty><mat-icon mat-list-icon>work_outline</mat-icon></ng-template>
+    <p mat-line>{{ safe?.value }}€</p>
+    <p mat-line>size: {{ safe?.itemSize }}</p>
+  </a>
+</mat-nav-list>
+
   ```
+
 </details>
 
 ### Solution with secondary routing (named router-outlet & child routes)
