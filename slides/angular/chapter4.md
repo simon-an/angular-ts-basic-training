@@ -164,7 +164,7 @@ Now you can navigate to the user and the admin page.
 
 Hint: When loading user page, you can see that only the user module is loaded in the Chrome networks tab.
 
-## Addional Exercise: 4.3 Secondary Routing
+## Addional Exercise: 4.4 Secondary Routing
 
 <details><summary>Task</summary>
 
