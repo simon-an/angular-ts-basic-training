@@ -375,37 +375,45 @@ Generate item-list component:
 <details><summary>item-list.component.html</summary>
 
 ```html
-<ul>
-  <li *ngFor="let item of items">{{item?.name}}</li>
-</ul>
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active">Home</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/user" routerLinkActive="active">User Home</a>
+
+    </mat-nav-list>
+  </ng-container>
+  <mat-list body *ngIf="!!items">
+    <h3 mat-subheader>Items</h3>
+    <mat-list-item *ngFor="let item of items">{{ item?.name }}</mat-list-item>
+  </mat-list>
+</cool-header-with-sidenav>
 ```
 
 </details>
 <details><summary>item-list.component.ts</summary>
+Add an Input
 
 ```typescript
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
-import { SafeItem } from "src/app/core";
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { SafeItem } from 'src/app/core/model';
 
 @Component({
-  selector: "cool-item-list",
-  templateUrl: "./item-list.component.html",
-  styleUrls: ["./item-list.component.scss"],
+  selector: 'cool-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent implements OnInit {
-  @Input()
-  items: SafeItem[];
 
-  constructor() {}
+  @Input() items: SafeItem[];
 
-  ngOnInit() {}
+  constructor() { }
+
+  ngOnInit() { }
 }
+
 ```
 
 </details>
