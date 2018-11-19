@@ -161,6 +161,7 @@ Generate dialog component
 ```bash
 ng g component shared/containers/addSafeItemDialog --export --changeDetection OnPush
 ```
+
 Add open dialog function:
 
 - Import MatDialogModule
