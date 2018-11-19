@@ -1,7 +1,15 @@
-<p>Hello {{'role' | translate }}</p>
-<ul>
-  <li *ngFor="let safe of safes">
-    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
-    {{safe?.value}}€ size: {{safe?.itemSize}}
-  </li>
-</ul>
+<p>Hello {{ 'role' | translate }}</p>
+<mat-nav-list>
+  <h3 mat-subheader>Safes</h3>
+  <a
+    [routerLink]="[{ outlets: { secondary: ['safe', safe.id] } }]"
+    [matTooltip]="safe.id"
+    mat-list-item
+    *ngFor="let safe of safes"
+  >
+    <mat-icon mat-list-icon *ngIf="safe?.itemSize > 0; else: empty"> work </mat-icon>
+    <ng-template #empty><mat-icon mat-list-icon>work_outline</mat-icon></ng-template>
+    <p mat-line>{{ safe?.value }}€</p>
+    <p mat-line>size: {{ safe?.itemSize }}</p>
+  </a>
+</mat-nav-list>

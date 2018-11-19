@@ -50,7 +50,29 @@ header {
 
 ```
 
+item-list.component.ts
+
 ```typescript
+import { SafeItem } from './../../../core/model/safe-item';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+
+@Component({
+  selector: 'cool-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ItemListComponent implements OnInit {
+  @Input() items: SafeItem[];
+  constructor() {}
+
+  ngOnInit() {}
+
+  onAddSafeItem(clickEvent) {
+    console.log(clickEvent);
+  }
+}
+
 ```
 
 </details>
@@ -139,8 +161,10 @@ Generate dialog component
 ```bash
 ng g component shared/containers/addSafeItemDialog --export --changeDetection OnPush
 ```
-
 Add open dialog function:
+
+- Import MatDialogModule
+- Add dialog component to entryComponents in the shared module
 
 <details><summary>Show Solution</summary>
 

@@ -29,6 +29,18 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home'
+  },
+  {
+    path: 'safe/:id',
+    component: SafeComponent,
+    data: { showAddButton: true },
+    resolve: {
+      safe: SafeResolverService
+    }
+  },
+  {
+    path: 'safes',
+    component: UserHomeComponent
   }
 ];
 

@@ -60,8 +60,8 @@ ng g guard core/guards/admin --lintFix
 ### Create Login Dialog Component and Login Component
 
 ```bash
-ng g component --entry-component --export shared/container/loginDialog
-ng g component --export shared/container/login
+ng g component --entry-component --export shared/containers/loginDialog
+ng g component --export shared/containers/login
 ```
 
 <details>
@@ -98,7 +98,7 @@ Add both models to the barrel file.
 
 ### Create Login Component with routing
 
-Hint: create a route <code>/login/:role</code> to LoginComponent
+Hint: create a route <code>/login/:role</code> to LoginComponent in the home module
 
 <details>
 <summary>Solution</summary>

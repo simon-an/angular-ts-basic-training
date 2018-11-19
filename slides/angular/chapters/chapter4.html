@@ -55,9 +55,6 @@
     <h2>Router Link</h2>
     <p>home.component.html</p>
     <pre><code data-trim style="font-size: 17px">
-        ng g c views/home/home --changeDetection OnPush --module views/home
-    </code></pre>
-    <pre><code data-trim style="font-size: 17px">
         <cool-header-with-sidenav>
             &lt;ng-container navlist>
               &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a>
@@ -69,13 +66,9 @@
     <p class="fragment" data-code-focus="3-4">
         Router is used with routerLink directive
     </p>
-    <p class="fragment">add shared.module to home.module</p>
 </section>
 <section>
     <p>header-with-sidenav.component.html</p>
-    <pre><code data-trim style="font-size: 17px">
-        ng g c shared/components/header-with-sidenav --changeDetection OnPush --export --module shared
-    </code></pre>
     <pre><code data-trim style="font-size: 12px">
         <mat-sidenav-container class="sidenav-container">
             &lt;mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
