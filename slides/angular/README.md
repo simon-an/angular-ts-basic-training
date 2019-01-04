@@ -554,7 +554,7 @@ Reveal.isAutoSliding();
 
 ### Custom Key Bindings
 
-Custom key bindings can be added and removed using the following Javascript API. Custom key bindings will override the default keyboard bindings, but will in turn be overridden by the user defined bindings in the `keyboard` config option.
+Custom key bindings can be added and removed using the following JavaScript API. Custom key bindings will override the default keyboard bindings, but will in turn be overridden by the user defined bindings in the `keyboard` config option.
 
 ```javascript
 Reveal.addKeyBinding(binding, callback);
