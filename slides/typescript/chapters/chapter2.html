@@ -1,4 +1,4 @@
-<!-- <aside style="position: absolute; top: 0px; right: 0px;" data-controls-layout>Typescript Handy On</aside> -->
+<!-- <aside style="position: absolute; top: 0px; right: 0px;" data-controls-layout>TypeScript Handy On</aside> -->
 <section>
     <h1>TypeScript Basics</h1>
 </section>
@@ -148,7 +148,7 @@
 </section>
 <section>
     <h4>const</h4>
-    <p>const sorgt <b>nicht</b> für Immutability</p>
+    <p><pre>const</pre> does <b>not</b> enforce immutability!</p>
     <pre><code data-trim data-noescape>
         const numLivesForCat = 9;
         const kitty = {
@@ -170,7 +170,7 @@
     </aside>
 </section>
 <section>
-    <p>Wo ist der Fehler?</p>
+    <p>Where is the error?</p>
     <pre><code data-trim data-noescape>
         function sumMatrix(matrix: number[][]) {
             var sum = 0;
@@ -186,7 +186,7 @@
     <p class="fragment">Use let instead var for i.</p>
 </section>
 <section>
-    <p>Was ist das Ergebnis auf der Console?</p>
+    <p>What is the console output?</p>
     <pre><code class="typescript" data-trim data-noescape>
         for (var i = 0; i &lt; 10; i++) {
             setTimeout(function() { console.log(i); }, 100 * i);
@@ -210,7 +210,7 @@
         let { a, b } = o;
     </code></pre>
     <aside class="notes">
-        Usefull to extract values from a tuples
+        Usefull to extract values from a tuple
     </aside>
 </section>
 <section>
@@ -224,7 +224,7 @@
 </section>
 <section>
     <h2>Interfaces</h2>
-    <p>Explizit definierte Typen</p>
+    <p>Explicitly defined types</p>
     <pre><code data-trim data-noescape class="typescript">
         function printLabel(labelledObj: { label: string }) {
             console.log(labelledObj.label);
@@ -244,7 +244,10 @@
         let myObj = {size: 10, label: "Size 10 Object"};
         printLabel(myObj);
     </code></pre>
-    <p>Was macht der Compiler mit Interfaces?</p>
+    <p>What does the compiler do with interfaces?</p>
+    <aside class="notes">
+        interfaces will not be transpiles to es5 -> they disappear!
+    </aside>
 </section>
 <section>
     <h2>Readonly</h2>
@@ -263,8 +266,8 @@
     </code></pre>
 </section>
 <section>
-    <h2>Klassen</h2>
-    <p>Constructor Parameter werden automatisch zu Properties, mit einem Zugriffsmodifier oder readonly.</p>
+    <h2>Classes</h2>
+    <p>Constructor parameters will automatically be transformes to properties with a access modifier or readonly.</p>
     <pre><code class="typescript" data-trim data-noescape>
         class DigitalClock implements ClockInterface {
             constructor(public h: number, public m: number) {}
@@ -287,8 +290,8 @@
         </code></pre>
 </section>
 <section>
-    <h2>Funktionen</h2>
-    <p>Unterschied zu JS: Signatur.</p>
+    <h2>Functions</h2>
+    <p>Difference to JavaScript: Signature</p>
     <pre><code class="typescript" data-trim data-noescape>
         let myAdd0: (x: number, y: number) => number = (x, y) => {
             return x + y;
@@ -322,8 +325,8 @@
 </section>
 <section>
     <h2>this and arrow functions</h2>
-    <p>In JavaScript ist <i>this</i> eine Variable, die gesetzt wird, wenn eine Funktion aufgerufen wird. </p>
-    <p>Arrow Funktionen setzen <i>this</i> dort, wo die Funktion erzeugt wird.</p>
+    <p>In JavaScript <i>this</i> is a variable that will be created if a function is executed.</p>
+    <p>Arrow functions will create <i>this</i> where the function will be created.</p>
 </section>
 <section>
     <h2>Generics</h2>
@@ -437,7 +440,7 @@
 </section>
 <section>
     <h2>Namespaces</h2>
-    <p>Ähnlich zu packages in Java oder C++.</p>
+    <p>Similar to packages in Java or C++.</p>
     <pre><code class="typescript" data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {
