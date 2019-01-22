@@ -127,51 +127,41 @@
     <p>!! Operator: "bang, bang you're boolean" </p>
 </section>
 <section>
-    <h2>Variable Declarations</h2>
-    <pre><code>var a = 10;</code></pre>
+    <h2>Variable Declarations 1</h2>
+    <pre><code>var a = 10; // the old way</code></pre>
     <pre><code data-trim data-noescape>
-        const b = 'hello';
-        b += 'world'; // error
+        let greeting = 'hello';
+        greeting = 'bye';
     </code></pre>
-    <p>var scoping</p>
-    <pre><code data-trim data-noescape>
-        function f(shouldInitialize: boolean) {
-            var x;
-            if (shouldInitialize) {
-                x = 10;
-            }
-            return x;
-        }
-        console.log(f(true)); // returns '10'
-        console.log(f(false)); // returns 'undefined'                          
-    </code></pre>
+    <p>Rule of thumb: Use let instead of var.</p>
 </section>
 <section>
-    <h4>const</h4>
-    <p><pre>const</pre> does <b>not</b> enforce immutability!</p>
+    <h2>Variable Declarations 2</h2>
     <pre><code data-trim data-noescape>
-        const numLivesForCat = 9;
-        const kitty = {
-            name: "Aurora",
-            numLives: numLivesForCat,
-        }
-        kitty = {// Error
-            name: "Danielle",
-            numLives: numLivesForCat
-        };
-        // all "okay"
-        kitty.name = "Rory";
-        kitty.name = "Kitty";
-        kitty.name = "Cat";
-        kitty.numLives--;
+        const greeting = 'hello';
+        greeting = 'bye'; // error
+    </code></pre>
+    <p>Immutability for primitive data types.</p>
+    <pre><code data-trim data-noescape>
+        const greeting = { text: 'hello'} ;
+        greeting.text = 'bye'; // mutating sub properties is allowed (e.g. content of arrays and objects)
+        console.log(greeting); // { text: 'bye' }
     </code></pre>
     <aside class="notes">
         const is like final in JAVA.<br>
-        see readonly for immutability
+        see readonly for true immutability
     </aside>
 </section>
 <section>
-    <p>Where is the error?</p>
+    <h2>Variable Scoping</h2>
+    <ul>
+        <li>var: function scope</li>
+        <li>const & let: block scope</li>
+    </ul>
+    <aside class="notes">See examples: chapter2_variable_scoping.ts</aside>
+</section>
+<section>
+    <p>Where is the problem?</p>
     <pre><code data-trim data-noescape>
         function sumMatrix(matrix: number[][]) {
             var sum = 0;
@@ -185,14 +175,6 @@
         }
     </code></pre>
     <p class="fragment">Use let instead var for i.</p>
-</section>
-<section>
-    <p>What is the console output?</p>
-    <pre><code class="typescript" data-trim data-noescape>
-        for (var i = 0; i &lt; 10; i++) {
-            setTimeout(function() { console.log(i); }, 100 * i);
-        }
-    </code></pre>
 </section>
 <section>
     <h2>Destructuring Arrays</h2>
