@@ -9,7 +9,7 @@
         Show package.json<br>
         package.json corresponds to pom.xml of maven<br>
         node_modules corresponds to .m2 folder of maven<br>
-        Show tsconfig.json: show targe says es5 and module says es2015 as result targets
+        Show tsconfig.json: show target says es5 and module says es2015 as result targets
     </aside>
 </section>
 </section>
@@ -244,9 +244,9 @@
         let myObj = {size: 10, label: "Size 10 Object"};
         printLabel(myObj);
     </code></pre>
-    <p>What does the compiler do with interfaces?</p>
+    <p>What does the transpiler do with interfaces?</p>
     <aside class="notes">
-        interfaces will not be transpiles to es5 -> they disappear!
+        Answer: interfaces will not be transpiles to es5 -> they disappear!
     </aside>
 </section>
 <section>
@@ -267,7 +267,10 @@
 </section>
 <section>
     <h2>Classes</h2>
-    <p>Constructor parameters will automatically be transformes to properties with a access modifier or readonly.</p>
+    <ul>
+        <li>Can be used as type if there is a constructor function in the type.</li>
+        <li>Constructor parameters will automatically be transformed to properties with an access modifier or readonly.</li>
+    </ul>
     <pre><code class="typescript" data-trim data-noescape>
         class DigitalClock implements ClockInterface {
             constructor(public h: number, public m: number) {}
@@ -277,17 +280,17 @@
         }
     </code></pre>
     <pre><code class="typescript" data-trim data-noescape>
-            get fullName(): string {
-                return this._fullName;
+        get fullName(): string {
+            return this._fullName;
+        }
+        set fullName(newName: string) {
+            if (passcode && passcode == "secret passcode") {
+                this._fullName = newName;
             }
-            set fullName(newName: string) {
-                if (passcode && passcode == "secret passcode") {
-                    this._fullName = newName;
-                }
-            }
-            employee.fullName = "Bob Smith";
-            console.log(employee.fullName);
-        </code></pre>
+        }
+        employee.fullName = "Bob Smith";
+        console.log(employee.fullName);
+    </code></pre>
 </section>
 <section>
     <h2>Functions</h2>
