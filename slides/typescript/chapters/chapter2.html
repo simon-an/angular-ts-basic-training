@@ -43,7 +43,7 @@
 </section>
 <section>
     <h2>Basic Types: Tuple</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
         let x: [string, number, number];
         // Initialize it
         x = ['hello', 10, 5]; // OK
@@ -53,7 +53,7 @@
 </section>
 <section>
     <h2>Basic Types: Enum</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
         enum Color {Red, Green, Blue}
         let c: Color = Color.Green;
     </code></pre>
@@ -515,4 +515,11 @@
     const reducer = (sum: number, value: number) => sum += value;
     console.log([1, 2, 3, 4].reduce(reducer, 0));
     </code></pre>
+</section>
+<section>
+    <h2>Sources</h2>
+    <ul>
+        <li><a href="https://www.typescriptlang.org/docs/home.html">Official TypeScript Documentation</a></li>
+        <li><a href="https://basarat.gitbooks.io/typescript/">TypeScript Deep Dive</a></li>
+    </ul>
 </section>
