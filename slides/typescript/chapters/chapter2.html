@@ -166,7 +166,8 @@
         kitty.numLives--;
     </code></pre>
     <aside class="notes">
-        const is like final in JAVA.
+        const is like final in JAVA.<br>
+        see readonly for immutability
     </aside>
 </section>
 <section>
@@ -235,7 +236,7 @@
     <pre><code data-trim data-noescape class="typescript">
         interface LabelledValue {
             label: string;
-            readonly optional?: boolean;
+            optional?: boolean; // optional parameter
         }
         
         function printLabel(labelledObj: LabelledValue) {
@@ -257,6 +258,11 @@
         <li>ReadonlyArray:</li>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
+        interface LabelledValue {
+            label: string;
+            readonly generalInfo: string;
+        }
+
         let a: number[] = [1, 2, 3, 4];
         let ro: ReadonlyArray&lt;number> = a;
         ro[0] = 12; // error!
