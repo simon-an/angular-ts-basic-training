@@ -14,17 +14,20 @@
 </section>
 </section>
 <section>
-    <h2>Basic Types</h2>
-    <h4>Boolean</h4>
+    <h2>Basic Types: Boolean</h2>
     <pre><code>let isDone: boolean = false;</code></pre>
-    <h4>Number</h4>
+</section>
+<section>
+    <h2>Basic Types: Number</h2>
     <pre><code  class="typescript" data-trim data-noescape>
         let decimal: number = 6; 
         let hex: number = 0xf00d; 
         let binary: number = 0b1010; 
         let octal: number = 0o744;
     </code></pre>
-    <h4>String</h4>
+</section>
+<section>
+    <h2>Basic Types: String</h2>
     <pre><code class="typescript" data-trim data-noescape>
         let color: string = "blue";
         color = 'red';
@@ -34,29 +37,39 @@
     </code></pre>
 </section>
 <section>
-    <h4>Array</h4>
+    <h2>Basic Types: Array</h2>
     <pre><code>let list: number[] = [1, 2, 3];</code></pre>
     <pre><code class="typescript">let list: Array&lt;number> = [1, 2, 3];</code></pre>
-    <h4>Tuple</h4>
+</section>
+<section>
+    <h2>Basic Types: Tuple</h2>
     <pre><code data-trim data-noescape>
-        let x: [string, number];
+        let x: [string, number, number];
         // Initialize it
-        x = ["hello", 10]; // OK
+        x = ['hello', 10, 5]; // OK
         // Initialize it incorrectly
-        x = [10, "hello"]; // Error
+        x = [10, 'hello', 5]; // Error
     </code></pre>
-    <h4>Enum</h4>
+</section>
+<section>
+    <h2>Basic Types: Enum</h2>
     <pre><code data-trim data-noescape>
         enum Color {Red, Green, Blue}
         let c: Color = Color.Green;
     </code></pre>
+    <aside class="notes">
+        Tuple type: fixed types in an array with different content (could be used for string-number pairs)
+    </aside>
+</section>
 </section>
 <section>
-    <h4>Any</h4>
+    <h2>Basic Types: Any</h2>
     <pre><code class="typescript" data-trim data-noescape>
         let list: any[] = [1, true, "free"];
     </code></pre>
-    <h4>Unknown</h4>
+</section>
+<section>
+    <h2>Basic Types: Unknown</h2>
     <pre><code class="typescript" data-trim data-noescape>
         let someValue: unknown = "this is a string";
         let someValue: unknown = 999;
@@ -68,13 +81,15 @@
     </code></pre>
 </section>
 <section>
-    <h4>Void</h4>
+    <h2>Basic Types: Void</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function warnUser(): void {
             console.log("This is my warning message");
         }
     </code></pre>
-    <h4>Never</h4>
+</section>
+<section>
+    <h2>Basic Types: Never</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function error(message: string): never {
             throw new Error(message);
@@ -86,8 +101,9 @@
         }
     </code></pre>
 </section>
+</section>
 <section>
-    <h4>Undefined, Null</h4>
+    <h2>Basic Types: Undefined, Null</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function doSomething(param: string | null | undefined): void
     </code></pre>
