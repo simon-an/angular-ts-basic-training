@@ -50,6 +50,9 @@
         // Initialize it incorrectly
         x = [10, 'hello', 5]; // Error
     </code></pre>
+    <aside class="notes">
+        Tuple type: fixed types in an array with different content (could be used for string-number pairs)
+    </aside>
 </section>
 <section>
     <h2>Basic Types: Enum</h2>
@@ -57,9 +60,6 @@
         enum Color {Red, Green, Blue}
         let c: Color = Color.Green;
     </code></pre>
-    <aside class="notes">
-        Tuple type: fixed types in an array with different content (could be used for string-number pairs)
-    </aside>
 </section>
 </section>
 <section>
@@ -67,6 +67,10 @@
     <pre><code class="typescript" data-trim data-noescape>
         let list: any[] = [1, true, "free"];
     </code></pre>
+    <p>Try to avoid this type!</p>
+    <aside class="notes">
+        opt-out of type-checking and let the values pass through compile-time checks
+    </aside>
 </section>
 <section>
     <h2>Basic Types: Unknown</h2>
@@ -79,6 +83,10 @@
             console.error('wrong type');
         }
     </code></pre>
+    <aside class="notes">
+        type-safe counterpart of any<br>
+        see example: chapter2_unkown.ts
+    </aside>
 </section>
 <section>
     <h2>Basic Types: Void</h2>
@@ -87,6 +95,9 @@
             console.log("This is my warning message");
         }
     </code></pre>
+    <aside class="notes">
+        the absence of having any type at all
+    </aside>
 </section>
 <section>
     <h2>Basic Types: Never</h2>
@@ -100,16 +111,19 @@
             }
         }
     </code></pre>
-</section>
+    <aside class="notes">
+        the function will return never!
+    </aside>
 </section>
 <section>
     <h2>Basic Types: Undefined, Null</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function doSomething(param: string | null | undefined): void
     </code></pre>
-    <h4>Object</h4>
-    <p>Object ist ein nicht primitiver Typ, also alles was nicht number, string, boolean,
-        symbol, null, oder undefined ist.</p>
+</section>
+<section>
+    <h2>Basic Types: Object</h2>
+    <p>Object is a non-primitive type.</p>
     <pre><code class="typescript" data-trim data-noescape>
         function create(o: object | null): void;
     </code></pre>
@@ -150,6 +164,9 @@
         greeting = 'bye';
     </code></pre>
     <p>Rule of thumb: Use let instead of var.</p>
+    <aside class="notes">
+        see example chapter2_constlet.ts
+    </aside>
 </section>
 <section>
     <h2>Variable Declarations 2</h2>
@@ -165,7 +182,9 @@
     </code></pre>
     <aside class="notes">
         const is like final in JAVA.<br>
-        see readonly for true immutability
+        see readonly for true immutability<br>
+        see example chapter2_constlet.ts<br>
+        see example chapter2_constmutablity.ts
     </aside>
 </section>
 <section>
@@ -209,7 +228,7 @@
         let { a, b } = o;
     </code></pre>
     <aside class="notes">
-        Usefull to extract values from a tuple
+        see example chapter2_deconstructing.ts
     </aside>
 </section>
 <section>
@@ -220,6 +239,9 @@
         let bothPlus = [0, ...first, ...second, 5];
     </code></pre>
     <p class="fragment">[0, 1, 2, 3, 4, 5]</p>
+    <aside class="notes">
+        see example chapter2_spreadoperator.ts
+    </aside>
 </section>
 <section>
     <h2>Interfaces</h2>
@@ -245,7 +267,8 @@
     </code></pre>
     <p>What does the transpiler do with interfaces?</p>
     <aside class="notes">
-        Answer: interfaces will not be transpiles to es5 -> they disappear!
+        Answer: interfaces will not be transpiles to es5 -> they disappear!<br>
+        see example chapter2_interface.ts
     </aside>
 </section>
 <section>
@@ -253,7 +276,7 @@
     <ul>
         <li>Variables: const</li>
         <li>Properties: readonly</li>
-        <li>ReadonlyArray:</li>
+        <li>For Arrays: ReadonlyArray</li>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
         interface LabelledValue {
@@ -268,6 +291,9 @@
         ro.length = 100; // error!
         a = ro; // error!
     </code></pre>
+    <aside class="notes">
+        see example chapter2_readonly_array.ts
+    </aside>
 </section>
 <section>
     <h2>Classes</h2>
@@ -283,6 +309,9 @@
             }
         }
     </code></pre>
+</section>
+<section>
+    <h2>Access Class Properties</h2>
     <pre><code class="typescript" data-trim data-noescape>
         get fullName(): string {
             return this._fullName;
@@ -292,9 +321,13 @@
                 this._fullName = newName;
             }
         }
+        
         employee.fullName = "Bob Smith";
-        console.log(employee.fullName);
+        console.log(employee.fullName); // "Bob Smith"
     </code></pre>
+    <aside class="notes">
+        see example chapter2_getter_setter.ts
+    </aside>
 </section>
 <section>
     <h2>Functions</h2>
@@ -307,33 +340,39 @@
         function myAdd1(x: number, y: number): number {
             return x + y;
         }
-        type functionType = (x: number, y: number) => number;
-        let myAdd2: functionType = (x, y) => {
+
+        type fType = (x: number, y: number) => number;
+        let myAdd2: fType = (x, y) => {
             return x + y;
         };
     </code></pre>
     <aside class="notes">
-        First is not so good because it is badly readable and the definition of the signature is not reusable. Second and third example are good.
+        First is not so good because it is badly readable and the definition of the signature is not reusable. Second and third example are good.<br>
     </aside>
 </section>
 <section>
-    <p>Optional Parameter:</p>
+    <h2>Functions: Optional Parameter</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, lastName?: string) {}
     </code></pre>
-    <p>Default Parameter:</p>
+    <h2>Functions: Default Parameter:</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, lastName = 'Smith') {}
     </code></pre>
-    <p>Rest Parameter:</p>
+    <h2>Functions: Rest Parameter:</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, ...restOfName: string[]) {}
     </code></pre>
+    <aside class="notes">
+        see example chapter2_functions.ts
+    </aside>
 </section>
 <section>
     <h2>this and arrow functions</h2>
-    <p>In JavaScript <i>this</i> is a variable that will be created if a function is executed.</p>
-    <p>Arrow functions will create <i>this</i> where the function will be created.</p>
+    <ul>
+        <li>In JavaScript <i>this</i> is a variable that will be created if a function is executed.</li>
+        <li>Arrow functions will create <i>this</i> where the function will be created.</li>
+    </ul>
 </section>
 <section>
     <h2>Generics</h2>
@@ -373,12 +412,14 @@
             Right = "RIGHT",
         }
     </code></pre>
+    <aside class="notes">
+        Numeric Enums: because of the 1 the other values will be automatically incremented -> Down = 2, Left = 3, Right = 4; without 1 -> Up = 0, Down = 1,...
+    </aside>
 </section>
 <section>
     <h2>Type Inference</h2>
     <p>Best common type</p>
-    <pre><code>let x = [0, 1, null];</code></pre>
-    <pre><code>number | null</code></pre>
+    <pre><code>let x = [0, 1, null]; // -> (number | null)</code></pre>
     <p>Contextual Type</p>
     <pre><code class="typescript" data-trim data-noescape>
         function createZoo(): Animal[] {
@@ -386,6 +427,9 @@
         }
     </code></pre>
     <pre><code>Animal</code></pre>
+    <aside class="notes">
+        best common type: will be calculated automatically
+    </aside>
 </section>
 <section>
     <h2>Type Compatibility (1)</h2>
@@ -415,16 +459,27 @@
     </code></pre>
 </section>
 <section>
-    <h2>Advanced Types</h2>
-    <p>Union Types</p>
+    <h2>Advanced Types: Union Types</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function padLeft(value: string, padding: string | number) {}
     </code></pre>
-    <p>Intersection</p>
+    <aside class="notes">
+        padding can be of type string or number<br>
+        see example: chapter2_types_union.ts
+    </aside>
+</section>
+<section>
+    <h2>Advanced Types: Intersection</h2>
     <pre><code class="typescript" data-trim data-noescape>
         function extend&lt;T, U>(first: T, second: U): T & U {}
     </code></pre>
-    <p>Type Guards</p>
+    <aside class="notes">
+        combines multiple types into one: if one type is intersection of two other types consequently that type will have all properties from two intersected types<br>
+        see example: chapter2_types_intersection.ts
+    </aside>
+</section>
+<section>
+    <h2>Advanced Types: Type Guards</h2>
     <pre><code class="typescript" data-trim data-noescape>
     function isFish(pet: Fish | Bird): pet is Fish {
         return (&lt;Fish>pet).swim !== undefined;
@@ -432,11 +487,14 @@
     </code></pre>
 </section>
 <section>
-    <h2>Iterators und Generators</h2>
-    <p>values: for..of (Iterator Types. Unterschiedlicher Compiler-Output mit ES3 und ES5)</p>
-    <p>keys: for..in Objects und Iterator Types</p>
+    <h2>Iterables</h2>
+    <ul>
+        <li>iterator types: Array, Map, Set, String, Int32Array, Uint32Array</li>
+        <li>for..of -> used with iterator types; returns a list of keys on the object being iterated</li>
+        <li>for..in -> used with objects and iterator types; returns a list of values of the numeric properties of the object being iterated</li>
+    </ul>
     <pre><code class="typescript" data-trim data-noescape>
-    const list4to6 = ["4", "5", "6"];
+    const list4to6 = [4, 5, 6];
     for (let i in list4to6) {
         console.log(i); // "0", "1", "2" (index: always of type string)
     }
@@ -447,7 +505,7 @@
 </section>
 <section>
     <h2>Namespaces</h2>
-    <p>Similar to packages in Java or C++.</p>
+    <p>internal modules</p>
     <pre><code class="typescript" data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {

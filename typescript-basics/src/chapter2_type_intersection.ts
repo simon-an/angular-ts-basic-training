@@ -1,28 +1,17 @@
-interface Square {
-  kind: "square";
-  size: number;
-}
-interface Rectangle {
-  kind: "rectangle";
-  width: number;
-  height: number;
-}
-interface Circle {
-  kind: "circle";
-  radius: number;
+interface IStudent {
+  id: string;
+  age: number;
 }
 
-type Shape = Square | Rectangle | Circle;
-
-function area(s: Shape) {
-  switch (s.kind) {
-    case "square":
-      return s.size * s.size;
-    case "rectangle":
-      return s.height * s.width;
-    case "circle":
-      return Math.PI * s.radius ** 2;
-  }
+interface IWorker {
+  companyId: string;
 }
-console.log(area({ kind: "square", size: 5 }));
-console.log(area({ kind: "rectangle", width: 1, height: 5 }));
+
+type IWorkingStudent = IStudent & IWorker;
+
+let person: IWorkingStudent;
+person = {
+  id: 'PID123',
+  age: 5,
+  companyId: 'CID01'
+};
