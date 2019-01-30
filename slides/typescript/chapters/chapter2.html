@@ -96,7 +96,8 @@
         }
     </code></pre>
     <aside class="notes">
-        the absence of having any type at all
+        the absence of having any type at all<br>
+        void is a Unit. never is a falsum
     </aside>
 </section>
 <section>
@@ -112,7 +113,8 @@
         }
     </code></pre>
     <aside class="notes">
-        the function will return never!<br>
+        the function will never return! -> compiler can check this<br>
+        void is a Unit. never is a falsum<br>
         see example chapter2_never.ts
     </aside>
 </section>
@@ -140,7 +142,7 @@
 <section>
     <h2>Undefined & null Check</h2>
     <pre><code class="typescript" data-trim data-noescape>
-        function nullcheck(param: { property: string }) {
+        function nullCheck(param: { property: string }) {
             if(param !== null && typeof param !== 'undefined'){
                 if(param.property !== null && 
                     typeof param.property !== 'undefined'){
@@ -278,6 +280,7 @@
     </code></pre>
     <p>What does the transpiler do with interfaces?</p>
     <aside class="notes">
+        First example without interface, second example with interface is more readable<br>
         Answer: interfaces will not be transpiles to es5 -> they disappear!<br>
         see example chapter2_interface.ts
     </aside>

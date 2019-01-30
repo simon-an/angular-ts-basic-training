@@ -1,7 +1,7 @@
 function error(message: string): never {
   throw new Error(message);
 }
-function doStuff(): void {
+function doStuff(): void { // this cannot be of type never!
   console.log("i did something");
 }
 
