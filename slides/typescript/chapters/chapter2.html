@@ -531,7 +531,10 @@
     }
     
     let box: Box = {height: 5, width: 6, scale: 10};
-</code></pre>
+    </code></pre>
+    <aside class="notes">
+        The compiler merges separate declarations declared with the same name into a single definition. This merged definition has the features of both of the original declarations.
+    </aside>
 </section>
 <section>
     <h2>Map</h2>
@@ -544,8 +547,11 @@
     </code></pre>
     <pre><code data-trim data-noescape class="typescript">
     const multiply = (value: number) => value * value;
-    console.log([1, 2, 3, 4].map(multiply));
+    console.log([1, 2, 3, 4].map(multiply)); // [1, 4, 9, 16]
     </code></pre>
+    <aside class="notes">
+        map() method creates a new array with the results of calling a provided function on every element in this array.
+    </aside>
 </section>
 <section>
     <h2>Filter</h2>
@@ -559,20 +565,26 @@
         }
     </code></pre>
     <pre><code data-trim data-noescape style="font-size: 20px" class="typescript">
-        console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200));
+        console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200)); // [300, 400]
     </code></pre>
+    <aside class="notes">
+        filter() method creates a new array with all elements that pass the test implemented by the provided function.
+    </aside>
 </section>
 <section>
     <h2>Reduce</h2>
     <pre><code data-trim data-noescape class="typescript">
     let result = 0;
     [1, 2, 3, 4].forEach(number => result += number);
+    console.log(result); // 10
     </code></pre>
     <pre><code data-trim data-noescape class="typescript">
-    // Pure Function
     const reducer = (sum: number, value: number) => sum += value;
-    console.log([1, 2, 3, 4].reduce(reducer, 0));
+    console.log([1, 2, 3, 4].reduce(reducer, 0)); // 10
     </code></pre>
+    <aside class="notes">
+        reduce() method applies a function simultaneously against two values of the array (from left-to-right) as to reduce it to a single value.
+    </aside>
 </section>
 <section>
     <h2>Sources</h2>
