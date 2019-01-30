@@ -1,4 +1,3 @@
-/* */
 interface Bird {
   fly(): void;
   layEggs(): void;

@@ -1,6 +1,6 @@
 function nullcheck1(param: { property: string }): boolean {
-  if (param !== null && param !== undefined) {
-    if (param.property !== null && param.property !== undefined) {
+  if (param !== null && typeof param !== 'undefined') {
+    if (param.property !== null && typeof param.property !== 'undefined') {
       return true;
     }
   }

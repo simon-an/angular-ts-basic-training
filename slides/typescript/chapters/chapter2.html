@@ -85,7 +85,7 @@
     </code></pre>
     <aside class="notes">
         type-safe counterpart of any<br>
-        see example: chapter2_unkown.ts
+        see example: chapter2_unknown.ts
     </aside>
 </section>
 <section>
@@ -112,7 +112,8 @@
         }
     </code></pre>
     <aside class="notes">
-        the function will return never!
+        the function will return never!<br>
+        see example chapter2_never.ts
     </aside>
 </section>
 <section>
@@ -155,6 +156,10 @@
         }
     </code></pre>
     <p>!! Operator: "bang, bang you're boolean" </p>
+    <aside class="notes">
+        see example chapter2_nullcheck.ts<br>
+        see example chapter2_strict_null_check.ts
+    </aside>
 </section>
 <section>
     <h2>Variable Declarations 1</h2>
@@ -193,7 +198,10 @@
         <li>var: function scope</li>
         <li>const & let: block scope</li>
     </ul>
-    <aside class="notes">See examples: chapter2_variable_scoping.ts</aside>
+    <aside class="notes">
+        see example chapter2_variable_scoping.ts<br>
+        see example chapter2_scopingvarlet.ts
+    </aside>
 </section>
 <section>
     <p>Where is the problem?</p>
@@ -210,6 +218,9 @@
         }
     </code></pre>
     <p class="fragment">Use let instead var for i.</p>
+    <aside class="notes">
+        see example chapter2_test_findtheerror.ts
+    </aside>
 </section>
 <section>
     <h2>Destructuring Arrays/Tupes</h2>
@@ -391,6 +402,9 @@
             add: (x: T, y: T) => T;
         }
     </code></pre>
+    <aside class="notes">
+        see example chapter2_generics.ts
+    </aside>
 </section>
 <section>
     <h2>Enums</h2>
@@ -485,6 +499,9 @@
         return (&lt;Fish>pet).swim !== undefined;
     }
     </code></pre>
+    <aside class="notes">
+        see example chapter2_type-guard.ts
+    </aside>
 </section>
 <section>
     <h2>Iterables</h2>
@@ -502,6 +519,9 @@
         console.log(i); // "4", "5", "6" (items: always of type string)
     }
     </code></pre>
+    <aside class="notes">
+        see example chapter2_forin_forof.ts
+    </aside>
 </section>
 <section>
     <h2>Namespaces</h2>
@@ -550,7 +570,8 @@
     console.log([1, 2, 3, 4].map(multiply)); // [1, 4, 9, 16]
     </code></pre>
     <aside class="notes">
-        map() method creates a new array with the results of calling a provided function on every element in this array.
+        map() method creates a new array with the results of calling a provided function on every element in this array.<br>
+        see example chapter2_map.ts
     </aside>
 </section>
 <section>
@@ -568,7 +589,8 @@
         console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200)); // [300, 400]
     </code></pre>
     <aside class="notes">
-        filter() method creates a new array with all elements that pass the test implemented by the provided function.
+        filter() method creates a new array with all elements that pass the test implemented by the provided function.<br>
+        see example chapter2_filter.ts
     </aside>
 </section>
 <section>
@@ -583,7 +605,8 @@
     console.log([1, 2, 3, 4].reduce(reducer, 0)); // 10
     </code></pre>
     <aside class="notes">
-        reduce() method applies a function simultaneously against two values of the array (from left-to-right) as to reduce it to a single value.
+        reduce() method applies a function simultaneously against two values of the array (from left-to-right) as to reduce it to a single value.<br>
+        see example chapter2_reducer.ts
     </aside>
 </section>
 <section>
