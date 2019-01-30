@@ -406,6 +406,7 @@
         }
     </code></pre>
     <aside class="notes">
+        Generics generalize functions and classes that can be used with different types<br>
         see example chapter2_generics.ts
     </aside>
 </section>
@@ -436,16 +437,19 @@
 <section>
     <h2>Type Inference</h2>
     <p>Best common type</p>
-    <pre><code>let x = [0, 1, null]; // -> (number | null)</code></pre>
+    <pre><code>let x = [0, 1, null]; // type of x is (number | null)</code></pre>
     <p>Contextual Type</p>
     <pre><code class="typescript" data-trim data-noescape>
-        function createZoo(): Animal[] {
-            return [new Rhino(), new Elephant(), new Snake()];
-        }
+        window.onmousedown = function(mouseEvent) {
+            console.log(mouseEvent.clickTime);  // error, because mouseEvent is of type MouseEvent
+        };
+        window.onmousedown = function(mouseEvent: any) {
+            console.log(mouseEvent.clickTime);  // no error, because mouseEvent is of type any
+        };
     </code></pre>
-    <pre><code>Animal</code></pre>
     <aside class="notes">
-        best common type: will be calculated automatically
+        best common type: will be calculated automatically<br>
+        contextual typing: the type of an expression is implied by its location
     </aside>
 </section>
 <section>

@@ -1,11 +1,29 @@
-interface GenericIdentityFn {
-  <T>(arg: T): T;
+// two identity functions with the same functionality but different types for the argument
+function identityNumber(arg: number): number {
+  console.log(arg);
+  return arg;
 }
+let num: number = identityNumber(2);
 
+function identityString(arg: string): string {
+  console.log(arg);
+  return arg;
+}
+let str: string = identityString('bla');
+
+// generic identity function
 function identity<T>(arg: T): T {
+  console.log(arg);
   return arg;
 }
 
+str = identity('bla');
+// num = identity('bla'); // error because argument has to be the same type as the variable
+num = identity(2);
+
+interface GenericIdentityFn {
+  <T>(arg: T): T;
+}
 let myIdentity: GenericIdentityFn = identity;
 
 class GenericNumber<T> {
