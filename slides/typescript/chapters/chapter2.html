@@ -67,7 +67,7 @@
     <pre><code class="typescript" data-trim data-noescape>
         let list: any[] = [1, true, "free"];
     </code></pre>
-    <p>Try to avoid this type!</p>
+    <p>Try to avoid the any type!</p>
     <aside class="notes">
         opt-out of type-checking and let the values pass through compile-time checks
     </aside>
@@ -454,8 +454,7 @@
 </section>
 <section>
     <h2>Type Compatibility (1)</h2>
-    <p>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types
-        based solely on their members. This is in contrast with nominal typing. Consider the following code:</p>
+    <p>Type compatibility in TypeScript is based on structural subtyping. Structural typing is a way of relating types based solely on their members.</p>
     <pre><code class="typescript" data-trim data-noescape>
         interface Named {
             name: string;
@@ -465,8 +464,7 @@
             name: string;
         }
         let p: Named;
-        // OK, because of structural typing
-        p = new Person();
+        p = new Person(); // OK, because of structural typing
     </code></pre>
 </section>
 <section>
