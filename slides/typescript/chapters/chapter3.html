@@ -1,4 +1,117 @@
 <section>
+        <h1>How does JavaScript work?</h1>
+</section>
+<section>
+    <h2>Execution (1)</h2>
+    <p>JavaScript execution is single threaded</p>
+    <ul>
+        <li>Call Stack -> stack of function calls</li>
+        <li>Event Loop -> pulls stuff from the event queue and puts stuff on the call stack</li>
+        <li>Callback Queue -> tracks all events that should be executed in JavaScript</li>
+        <li>APIs: setTimeout, AJAX</li>
+    </ul>
+    <aside class="notes">
+        while the execution of a script anything is blocked -> unresponsive page!<br>
+        browser has possibility to span a new thread if using Web APIs
+        <ul>
+            <li>setTimeout (starts a timer and tracks its end on a different thread)</li>
+            <li>Ajax (makes a network request and tracks it on a different thread)</li>
+        </ul>
+        see images/EventLoop.png<br>
+        we do not wait for network a request and are only able to do anything in between because of asynchronicity
+    </aside>
+</section>
+<section>
+    <h2>Execution (2)</h2>
+    <pre><code data-trim data-noescape class="typescript">
+        function logIt() { console.log('bla'); }
+        function callLogIt() { logIt(); }
+        function callSetTimeout() { setTimeout(func, 5000); callLogIt(); }
+        function main() { callLogIt(); }
+        main();
+    </code></pre>
+    <aside class="notes">
+        <pre><code data-trim data-noescape class="typescript">
+            function call stack
+            | func           | called as seventh after about 5000 milliseconds
+            | console.log()  | called at sixth and popped when finished, but as first
+            | logIt          | called at fifth
+            | callLogIt      | called at fourth
+            | setTimeout     | called at third
+            | callSetTimeout | called at second
+            | main           | called at first, finishes at last
+        </code></pre>
+        setTimeout(func, 5000);
+        <ol>
+            <li>Put setTimeout on Stack</li>
+            <li>Calls WebAPI setTimeout that starts a timer</li>
+            <li>Remove setTimeout from stack</li>
+            <li>After 5000 milliseconds the func will be put onto the event queue</li>
+            <li>When the stack is empty the next waiting function (func) will be put by the event loop into the stack</li>
+            <li>func executes and will be removed from the stack after execution</li>
+        </ol>
+    </aside>
+</section>
+<section>
+    <h2>What will be logged by the console? (1)</h2>
+    <pre><code data-trim data-noescape class="typescript">
+        function func() {
+            console.log('alpha');
+            setTimeout(function() { console.log('beta'); }, 0);
+            console.log('gamma')
+        }
+        func();
+    </code></pre>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+        alpha
+        gamma
+        beta
+    </code></pre>
+</section>
+<section>
+    <h2>What will be logged by the console? (2)</h2>
+    <pre><code data-trim data-noescape class="typescript">
+        function func() {
+            console.log('alpha');
+            setTimeout(function() { console.log('beta'); }, 2000);
+            console.log('gamma')
+        }
+        func();
+    </code></pre>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+        alpha
+        gamma
+        beta
+    </code></pre>
+</section>
+<section>
+    <h2>What will be logged by the console? (3)</h2>
+    <pre><code data-trim data-noescape class="typescript">
+        function func() {
+            console.log('alpha');
+            setTimeout(console.log('beta'), 2000);
+            console.log('gamma')
+        }
+        func();
+    </code></pre>
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+        alpha
+        beta
+        gamma
+    </code></pre>
+</section>
+<section> 
+    <h2>What will be logged by the console? (3)</h2>
+    <pre><code data-trim data-noescape class="typescript">
+    for (var i = 0; i &lt; 10; i++) { 
+        setTimeout(function() { console.log(i); }, 1000 * i);
+    } 
+    </code></pre> 
+    <pre class="fragment"><code data-trim data-noescape class="typescript">
+        10 // 10 times every second
+    </code></pre>  
+</section>
+<section>
     <h1>Promises <br>& <br>Async / Await</h1>
 </section>
 <section>
@@ -33,34 +146,31 @@
     </aside>
 </section>
 <section>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     function success(result) {
-        console.log("Audio file ready at URL: " + result);
+        console.log("Here is the data: " + result);
     }
     
     function failure(error) {
-        console.log("Error generating audio file: " + error);
+        console.log("Ops, there was an error: " + error);
     }
     
     // Without promise
-    createAudioFileAsync(audioSettings, success, failure);
+    getDataFromAPI(apiSettings, success, failure);
 
     // With promise
-    createAudioFileAsync(audioSettings).then(success, failure);
+    getDataFromAPIWithPromise(apiSettings).then(success, failure);
     </code></pre>
     <p class="fragment">
         <code>then()</code> will be executed as recently as the function <code>createAudioFileAsync</code> returns.
     </p>
-    <aside class="notes">
-        multiple then() can be appended after each other -> They will be executed in that order they were appended.
-    </aside>
 </section>
 <section>
     <h2>Promise Chaining</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     promiseFunction()
-        .then(success1, failure1)
-        .then(success2, failure2)
+        .then(success1)
+        .then(success2)
         .catch(failureCallback);
     </code></pre>
     <p>
@@ -71,32 +181,29 @@
         </ul>
     </p>
     <aside class="notes">
-        Execution order: 1. promiseFunction 2. success1()/failure1() 3. success2()/failure2()
+        Execution order: 1. promiseFunction 2. success1() 3. success2(); failureCallback if there is an error in one of the previous functions<br>
+        .catch(func) = .then(undefined, func)
     </aside>
 </section>
 <section>
     <h2>Create a Promise</h2>
-    <pre><code data-trim data-noescape>
-    new Promise( /* executor */ function(resolve, reject) { ... } );
-    </code></pre>
-    <p>
-        Create a Promise for example to wrap an old API:
-    </p>
-    <pre><code data-trim data-noescape>
-    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-    // alternative: Promise.resolve(setTimeout(resolve, ms));
-    wait(10000)
-        .then(() => saySomething("10 seconds"))
-        .catch(failureCallback);
+    <pre><code data-trim data-noescape class="typescript">
+    new Promise( /* executor */ (resolve, reject) => {
+        console.log('long lasting thing is in progress');
+        resolve(); // or reject() if there is an error case and directly jump to catch()
+    })
+    .then(() => console.log('the long lasting thing has been resolved'))
+    .catch(() => console.log('the long lasting thing has been rejected'));
     </code></pre>
     <aside class="notes">
-        A function with the arguments resolve and reject will be forwarded. The executor function will be immediately executed by the Promise implementation.
-        The executor function initiate asynchronous work and when it is done it will call the resolve or reject function.
-        If there is an error in the executor function the Promise and so its return value will be rejected.
+        Create a Promise for example to wrap an old API<br>
+        A function with the arguments resolve and reject will be forwarded. The executor function will be immediately executed by the Promise implementation.<br>
+        The executor function initiate asynchronous work and when it is done it will call the resolve or reject function.<br>
+        If there is an error in the executor function the Promise and so its return value will be rejected.<br>
     </aside>
 </section>
 <section>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     // callback hell
     doSomething(function(result) {
         doSomethingElse(result, function(newResult) {
@@ -106,9 +213,10 @@
         }, failureCallback);
     }, failureCallback);
     </code></pre>
+    <aside class="notes">We need Promises to escape callback hell</aside>
 </section>
 <section>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     // promise chain
     doSomething()
     .then(function(result) {
@@ -124,7 +232,7 @@
     </code></pre>
 </section>
 <section>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     // promise chain with arrow functions
     doSomething()
         .then(result => doSomethingElse(result))
@@ -202,7 +310,7 @@
     // expected output:  1, 2
     </code></pre>
     <p class="fragment">
-        The forwarded function will be layed on the micro tasks queue -> the function will be executed later, because the queue will be executed at the end of the current execution of the JavaScript Event Loop.
+        The forwarded function will be layed on the events queue -> the function will be executed later, because the queue will be executed at the end of the current execution of the JavaScript Event Loop.
     </p>
 </section>
 <section>
@@ -280,18 +388,6 @@
 </section>
 <section>
     <h1>RxJS</h1>
-    <!-- <p>
-        5-10 most important functions of RxJS:
-        <ul>
-            <li>pipe(map, map)</li>
-            <li>map</li>
-            <li>switchMap, mergeMap, concatMap</li>
-            <li>filter</li>
-            <li>from, of, timer, interval</li>
-            <li>combineLatest</li>
-            <li>merge, zip</li>
-        </ul>
-    </p> -->
 </section>
 <section>
     <h2>What is RxJS?</h2>
@@ -344,7 +440,7 @@
 </section>
 <section>
     <h2>Create and listen!</h2>
-    <pre><code data-trim data-noescape>
+    <pre><code data-trim data-noescape class="typescript">
     import { of } from "rxjs";
 
     function next(val: number) {
@@ -389,6 +485,16 @@
     </aside>
 </section>
 <section>
+    <h2><code>pipe()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    pipe(functions: ...*): Observable
+    </code></pre>
+    <p>
+        Operator chaining<br>
+        Like a recipe (Set of instructions that produce values). The recipe will be executed only if subcribe() will be called on it.
+    </p>
+</section>
+<section>
     <h2><code>map()</code> operator</h2>
     <pre><code data-trim data-noescape>
     map(project: Function, thisArg?: any): Observable
@@ -407,16 +513,6 @@
     </p>
 </section>
 <section>
-    <h2><code>pipe()</code> operator</h2>
-    <pre><code data-trim data-noescape>
-    pipe(functions: ...*): Observable
-    </code></pre>
-    <p>
-        Operator chaining<br>
-        Like a recipe (Set of instructions that produce values) nennen. The recipe will be executed only if subcribe() will be called on it.
-    </p>
-</section>
-<section>
     <h2><code>concat()</code> operator</h2>
     <pre><code data-trim data-noescape>
     concat(observables: ...*): Observable
@@ -426,12 +522,63 @@
     </p>
 </section>
 <section>
+    <h2><code>merge()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    merge(input: Observable): Observable
+    </code></pre>
+    <p>
+        Turn multiple observables into a single observable.
+    </p>
+    <aside class="notes">
+        Use concat if order is important.
+    </aside>
+</section>
+<section>
     <h2><code>flatMap()</code> / <code>mergeMap()</code> operators</h2>
     <pre><code data-trim data-noescape>
     mergeMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable
     </code></pre>
     <p>
         Flattens an inner observable.
+    </p>
+    <aside class="notes">
+        Use concatMap if oder is important.
+    </aside>
+</section>
+<section>
+    <h2><code>concatMap()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    concatMap(project: function, resultSelector: function): Observable
+    </code></pre>
+    <p>
+        Map values to inner observable, subscribe and emit in order.
+    </p>
+</section>
+<section>
+    <h2><code>switchMap()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    switchMap(project: function: Observable, resultSelector: function(outerValue, innerValue, outerIndex, innerIndex): any): Observable
+    </code></pre>
+    <p>
+        Map to observable, complete previous inner observable, emit values.
+    </p>
+</section>
+<section>
+    <h2><code>combineLatest()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    combineLatest(observables: ...Observable, project: function): Observable
+    </code></pre>
+    <p>
+        When any observable emits a value, emit the latest value from each.
+    </p>
+</section>
+<section>
+    <h2><code>zip()</code> operator</h2>
+    <pre><code data-trim data-noescape>
+    zip(observables: *): Observable
+    </code></pre>
+    <p>
+        After all observables emit, emit values as an array
     </p>
 </section>
 <section>
@@ -472,7 +619,6 @@
 <section>
     <h2>Sources</h2>
     <ul>
-        <li>https://de.wikipedia.org/wiki/Reaktive_Programmierung</li>
         <li>https://rxjs-dev.firebaseapp.com/</li>
         <li>https://angular.io/guide/rx-library</li>
         <li>https://www.learnrxjs.io/</li>
