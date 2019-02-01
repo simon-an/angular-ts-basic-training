@@ -33,7 +33,8 @@ Adjust app prefixes
 
 - Change prefix from "app" to "cool" in src/tslint.json
 - Change prefix from "app" to "cool" in angular.json
-- Change `<app-root></app-root>` to `<cool-root></cool-root>` in src/index.html
+- Change `<app-root></app-root>` to `<cool-root></cool-root>` in src/index.html and app.component.ts
+- Change title to Cool Safe in src/index.html
 
 ## Exercise: 2.3
 
@@ -49,6 +50,20 @@ Adjust app prefixes
   "tabWidth": 2,
   "semi": true,
   "bracketSpacing": true
+}
+```
+
+tsconfig.json
+
+```json
+{
+  "baseUrl": "./src",
+  "paths": {
+    "~core/*": ["app/core/*"],
+    "~safe/*": ["app/safe/*"],
+    "~layout/*": ["app/layout/*"],
+    "~store/*": ["app/store/*"]
+  }
 }
 ```
 

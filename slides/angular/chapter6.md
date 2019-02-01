@@ -121,6 +121,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
 src/app/core/model/index.ts
+
 ```typescript
 // start:ng42.barrel
 export * from "./safe";
@@ -135,6 +136,7 @@ export * from "./safeitem";
 Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
 
 src/app/core/index.ts
+
 ```typescript
 // start:ng42.barrel
 export * from "./model";
@@ -149,6 +151,7 @@ export * from "./services";
 Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
 src/app/core/services/index.ts
+
 ```typescript
 // start:ng42.barrel
 export * from "./safe.service";
@@ -165,18 +168,21 @@ ng g c shared/components/safe-list --export --changeDetection OnPush --module sh
 ```
 
 1. Adjuste routing of user-routing.module.ts:
+
 ```typescript
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: UserComponent,
-    redirectTo: 'home'
-  }, {
-    path: 'home',
+    redirectTo: "home"
+  },
+  {
+    path: "home",
     component: UserHomeComponent
   }
-]
+];
 ```
+
 2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
 3. In safe-list.component get the safes from an @Input (Use @Input: https://angular.io/api/core/Input)
 4. Show the list of safe ids with ngFor and {{}}
@@ -262,7 +268,6 @@ export class SafeListComponent implements OnInit {
 ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ```
 
-
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
 <details><summary>Add routerLink to safe-list.component.html</summary>
@@ -278,8 +283,7 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
   </a>
 </mat-nav-list>
 
-  ```
-
+````
 </details>
 
 ### Solution with secondary routing (named router-outlet & child routes)
@@ -289,12 +293,12 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 ```typescript
 ...
 {
-  path: 'safe/:id',
-  component: SafeComponent,
-  outlet: 'secondary',
+path: 'safe/:id',
+component: SafeComponent,
+outlet: 'secondary',
 },
 ...
-```
+````
 
 </details>
 
@@ -339,7 +343,6 @@ export class UserRoutingModule {}
 
 </details>
 
-
 ### Solution using the main router-outlet
 
 <details><summary>user-routing.module.ts (short)</summary>
@@ -360,24 +363,21 @@ export class UserRoutingModule {}
 ```typescript
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: UserComponent
   },
   {
-    path: 'safes',
+    path: "safes",
     component: UserSafesComponent
   },
   {
-    path: 'safes/:id',
+    path: "safes/:id",
     component: SafeComponent
   }
 ];
-
 ```
 
 </details>
-
-
 
 ## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
 
@@ -427,7 +427,8 @@ Generate item-list component:
 3. Enter name "itemList" and press Enter
 4. Select "Exported pure component" and select "Confirm"
 
-Or in the terminal: 
+Or in the terminal:
+
 ```bash
 ng g component shared/components/itemList --changeDetection OnPush
 ```
@@ -464,24 +465,30 @@ ng g component shared/components/itemList --changeDetection OnPush
 Add an Input
 
 ```typescript
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { SafeItem } from 'src/app/core/model';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from "@angular/core";
+import { SafeItem } from "src/app/core/model";
 
 @Component({
-  selector: 'cool-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.scss'],
+  selector: "cool-item-list",
+  templateUrl: "./item-list.component.html",
+  styleUrls: ["./item-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent implements OnInit {
+  @Input()
+  items: SafeItem[];
 
-  @Input() items: SafeItem[];
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {}
 }
-
 ```
 
 </details>
+
+[Next](chapter4.md)

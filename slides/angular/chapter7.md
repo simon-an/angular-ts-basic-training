@@ -36,7 +36,6 @@ Create an add button when in the item list view.
   </ng-container>
   <!-- Content End -->
 </cool-header-with-sidenav>
-
 ```
 
 item-list.component.scss
@@ -47,23 +46,28 @@ header {
   flex-direction: row;
   align-items: center;
 }
-
 ```
 
 item-list.component.ts
 
 ```typescript
-import { SafeItem } from './../../../core/model/safe-item';
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { SafeItem } from "./../../../core/model/safe-item";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from "@angular/core";
 
 @Component({
-  selector: 'cool-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.scss'],
+  selector: "cool-item-list",
+  templateUrl: "./item-list.component.html",
+  styleUrls: ["./item-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemListComponent implements OnInit {
-  @Input() items: SafeItem[];
+  @Input()
+  items: SafeItem[];
   constructor() {}
 
   ngOnInit() {}
@@ -72,7 +76,6 @@ export class ItemListComponent implements OnInit {
     console.log(clickEvent);
   }
 }
-
 ```
 
 </details>
@@ -318,7 +321,7 @@ add-safe-item-dialog.component.ts
 export class AddSafeItemDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddSafeItemDialogComponent>) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   closeDialog(safeItem: SafeItem) {
     this.dialogRef.close(safeItem);
@@ -339,3 +342,5 @@ add-safe-item-dialog.component.html
 - Implement an EditSafeItem Dialog.
 - Pass a copy of safeitem to the dialog.
 - Modify form to accept optional @Input.
+
+[Next](chapter8.md)

@@ -9,7 +9,8 @@
 cd ngx-safe
 
 # Generate new shared module
-ng generate module shared
+ng generate module safe
+ng generate module layout
 
 # Generate home, user and admin modules
 ng g module views/home --routing
@@ -23,17 +24,17 @@ ng g module views/admin --routing
 
 ```bash
 # Generate home view
-ng g c views/home/home --changeDetection OnPush --module views/home
+ng g c views/home/homeLandingPage --changeDetection OnPush --module views/home
 ```
 
 ```bash
 # Generate admin view
-ng g c views/admin/admin --changeDetection OnPush --module views/admin
+ng g c views/admin/pages/adminLandingPage --changeDetection OnPush --module views/admin
 ```
 
 ```bash
 # Generate user view
-ng g c views/user/user --changeDetection OnPush --module views/user
+ng g c views/user/userLandingPage --changeDetection OnPush --module views/user
 ```
 
 ## Exercise: 4.2
@@ -74,7 +75,7 @@ Add routing configuration to app/views/home/home-routing.module.ts
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeLandingPageComponent
   }
 ];
 ```
@@ -89,7 +90,7 @@ Add routing configuration to app/views/admin-routing.module.ts
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent
+    component: AdminLandingPageComponent
   }
 ];
 ```
@@ -106,7 +107,7 @@ Add routing configuration to app/views/user/user-routing.module.ts
 const routes: Routes = [
   {
     path: '',
-    component: UserComponent
+    component: UserLandingPageComponent
   }
 ];
 ```
@@ -126,7 +127,7 @@ ng add @angular/material
 
 ```bash
 # Generate header with sidenav
-ng g @angular/material:nav --name shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
+ng g @angular/material:nav --name layout/header-with-sidenav --changeDetection OnPush --export --module layout --selector cool-header-with-sidenav
 ```
 
 Replace mat-nav-list html tag with
@@ -143,7 +144,7 @@ Replace "Add Content Here" comment
 
 ### Home View
 
-Add content to src\app\views\home\home\home.component.html
+Add content to src\app\views\home\home-landing-page\home-landing-page.component.html
 
 ```html
 <cool-header-with-sidenav>
@@ -161,7 +162,7 @@ Add content to src\app\views\home\home\home.component.html
 </cool-header-with-sidenav>
 ```
 
-Add SharedModule and MatListModule to home.module.ts
+Add LayoutModule and MatListModule to home.module.ts
 
 Now you can navigate to the user and the admin page.
 
@@ -231,3 +232,5 @@ const routes: Routes = [
 ```
 
 </details>
+
+[Next](chapter6.md)
