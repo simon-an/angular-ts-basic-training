@@ -168,7 +168,19 @@ Now you can navigate to the user and the admin page.
 
 Hint: When loading user page, you can see that only the user module is loaded in the Chrome networks tab.
 
-## Addional Exercise: 4.4 Secondary Routing
+## Fix Karma Tests: 4.4
+
+- home-landing-page.component.spec.ts
+
+```typescript
+imports: [CommonModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
+```
+
+- app.component.spec.ts
+
+Very easy to fix.
+
+## Addional Exercise: 4.5 Secondary Routing
 
 <details><summary>Task</summary>
 

@@ -6,7 +6,7 @@
 ng generate module core --module app
 ```
 
-## Exercise 6.1 Create safe list in user.component
+## Exercise 6.1 Create Safe List
 
 ![61](screenshots/61.PNG)
 
@@ -22,14 +22,60 @@ export interface Safe {
   activeSince: Date;
 }
 
-// app\core\model\safeitem.ts
+// app\core\model\safe-item.ts
 export interface SafeItem {
   id: string;
   name: string;
 }
 ```
 
-## Exercise 6.1.2 Create global service: SafeService (this is a temporary mock service)
+## Exercise 6.1.2 Create Barrel files for core module
+
+<details><summary>Create barrel file for the core module models</summary>
+
+Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
+
+src/app/core/model/index.ts
+
+```typescript
+// start:ng42.barrel
+export * from "./safe";
+export * from "./safeitem";
+// end:ng42.barrel
+```
+
+</details>
+
+<details><summary>Create barrel file for the core module</summary>
+
+Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
+
+src/app/core/index.ts
+
+```typescript
+// start:ng42.barrel
+export * from "./model";
+export * from "./services";
+// end:ng42.barrel
+```
+
+</details>
+
+<details><summary>Create barrel file for the service directory</summary>
+
+Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
+
+src/app/core/services/index.ts
+
+```typescript
+// start:ng42.barrel
+export * from "./safe.service";
+// end:ng42.barrel
+```
+
+</details>
+
+## Exercise 6.1.3 Create global service: SafeService (this is a temporary mock service)
 
 ```bash
 ng g s core/services/safe
@@ -37,7 +83,103 @@ ng g s core/services/safe
 
 - safe.service should provice data to pass the following test:
 
-TODO add test here.
+<details>
+<summary>Karma Test</summary>
+
+```typescript
+import { TestBed } from "@angular/core/testing";
+
+import { SafeService } from "./safe.service";
+import { filter, delay } from "rxjs/operators";
+
+describe("SafeService", () => {
+  beforeEach(() => TestBed.configureTestingModule({}));
+
+  it("should be created", () => {
+    const service: SafeService = TestBed.get(SafeService);
+    expect(service).toBeTruthy();
+  });
+  it("test safe id 1", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service.getSafe("1").subscribe(safe => {
+      expect(safe.active).toBe(true);
+      expect(safe.activeSince).toEqual(new Date(1999, 1, 1));
+      expect(safe.id).toBe("1");
+      expect(safe.itemSize).toBe(2);
+      expect(safe.value).toBe(999);
+      done();
+    });
+  });
+  it("test safe id 2", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service.getSafe("2").subscribe(safe => {
+      expect(safe.active).toBe(true);
+      expect(safe.activeSince).toEqual(new Date(2018, 12, 30));
+      expect(safe.id).toBe("2");
+      expect(safe.itemSize).toBe(3);
+      expect(safe.value).toBe(123);
+      done();
+    });
+  });
+  it("test safe id 0", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service.getSafe("0").subscribe(safe => {
+      expect(safe).toBeUndefined();
+      done();
+    });
+  });
+  it("test safe id 3", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service.getSafe("3").subscribe(safe => {
+      expect(safe).toBeUndefined();
+      done();
+    });
+  });
+
+  it("test safe items for safeId: 1", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service
+      .getItems("1")
+      .pipe(filter(Boolean))
+      .subscribe(items => {
+        expect(items.length).toBe(2);
+        done();
+      });
+  });
+  it("test safe items for safeId: 2", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service
+      .getItems("2")
+      .pipe(filter(Boolean))
+      .subscribe(items => {
+        expect(items.length).toBe(3);
+        done();
+      });
+  });
+  it("test safe items for invalid id", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service
+      .getItems("12342453452343638234")
+      .pipe(delay(2100))
+      .subscribe(items => {
+        expect(items).toBeNull();
+        done();
+      });
+  });
+  it("test safes", (done: DoneFn) => {
+    const service: SafeService = TestBed.get(SafeService);
+    service
+      .getSafes()
+      .pipe(delay(2100))
+      .subscribe(safes => {
+        expect(safes.length).toEqual(2);
+        done();
+      });
+  });
+});
+```
+
+</details>
 
 - add mock code to safe.service.ts
 
@@ -114,53 +256,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 </details>
 
-## Exercise 6.1.3 Create Barrel files for core module
-
-<details><summary>Create barrel file for the core module models</summary>
-
-Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
-
-src/app/core/model/index.ts
-
-```typescript
-// start:ng42.barrel
-export * from "./safe";
-export * from "./safeitem";
-// end:ng42.barrel
-```
-
-</details>
-
-<details><summary>Create barrel file for the core module</summary>
-
-Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
-
-src/app/core/index.ts
-
-```typescript
-// start:ng42.barrel
-export * from "./model";
-export * from "./services";
-// end:ng42.barrel
-```
-
-</details>
-
-<details><summary>Create barrel file for the service directory</summary>
-
-Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
-
-src/app/core/services/index.ts
-
-```typescript
-// start:ng42.barrel
-export * from "./safe.service";
-// end:ng42.barrel
-```
-
-</details>
-
-## Exercise 6.1.4 userhome.component show list of safes
+## Exercise 6.1.4 admin-safe-list-page.component should show list of safes
 
 ```bash
 ng g c views/user/containers/userHome --changeDetection OnPush --module views/user
