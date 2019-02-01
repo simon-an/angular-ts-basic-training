@@ -51,3 +51,5 @@ Adjust app prefixes
   "bracketSpacing": true
 }
 ```
+
+(Next)[chapter3.md]
