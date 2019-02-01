@@ -180,7 +180,19 @@ imports: [CommonModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule,
 
 Very easy to fix.
 
-## Addional Exercise: 4.5 Secondary Routing
+## Add Error Page to App Module: 4.5
+
+```bash
+ng g component components/PageNotFound --changeDetection OnPush
+```
+
+- add to app.routing.module.ts
+
+```typescript
+ { path: '**', component: PageNotFoundComponent }
+```
+
+## Addional Exercise: 4.6 Secondary Routing
 
 <details><summary>Task</summary>
 
