@@ -52,4 +52,4 @@ Adjust app prefixes
 }
 ```
 
-(Next)[chapter3.md]
+[Next](chapter3.md)
