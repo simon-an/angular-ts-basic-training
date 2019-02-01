@@ -1,95 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>reveal.js</title>
 
-	<title>reveal.js</title>
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/theme/black.css" />
 
-	<link rel="stylesheet" href="css/reveal.css">
-	<link rel="stylesheet" href="css/theme/black.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css" />
 
-	<!-- Theme used for syntax highlighting of code -->
-	<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? "css/print/pdf.css"
+        : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+  </head>
 
-	<!-- Printing and PDF exports -->
-	<script>
-		var link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-		document.getElementsByTagName('head')[0].appendChild(link);
-	</script>
-</head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-external="chapters/chapter1.html"></section>
+        <section data-external="chapters/chapter2.html"></section>
+        <section data-external="chapters/chapter3.html"></section>
+        <section data-external="chapters/chapter4.html"></section>
+        <section data-external="chapters/chapter5.html"></section>
+        <section data-external="chapters/chapter6.html"></section>
+        <section data-external="chapters/chapter7.html"></section>
+        <section data-external="chapters/chapter8.html"></section>
+        <section data-external="chapters/chapter9.html"></section>
+        <section data-external="chapters/chapter10.html"></section>
+        <section data-external="chapters/chapter11.html"></section>
+        <section data-external="chapters/chapter12.html"></section>
+      </div>
+    </div>
 
-<body>
-	<div class="reveal">
-		<div class="slides">
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
 
-			<section data-external="chapters/chapter1.html"> </section>
-			<section data-external="chapters/chapter2.html"> </section>
-			<section data-external="chapters/chapter3.html"> </section>
-			<section data-external="chapters/chapter4.html"> </section>
-			<section data-external="chapters/chapter5.html"> </section>
-			<section data-external="chapters/chapter6.html"> </section>
-			<section data-external="chapters/chapter7.html"> </section>
-			<section data-external="chapters/chapter8.html"> </section>
-			<section data-external="chapters/chapter9.html"> </section>
-			<section data-external="chapters/chapter10.html"> </section>
-			<section data-external="chapters/chapter11.html"> </section>
-			<section data-external="chapters/chapter12.html"> </section>
-		</div>
-	</div>
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
 
-	<script src="lib/js/head.min.js"></script>
-	<script src="js/reveal.js"></script>
-
-	<script>
-		// More info about config & dependencies:
-		// - https://github.com/hakimel/reveal.js#configuration
-		// - https://github.com/hakimel/reveal.js#dependencies
-		Reveal.initialize({
-			// Factor of the display size that should remain empty around the content
-			margin: 0.1,
-
-			// Bounds for smallest/largest possible scale to apply to content
-			minScale: 0.2,
-			maxScale: 1.5,
-			history: true,
-			dependencies: [{
-					src: 'plugin/external/external.js',
-					condition: function () {
-						return !!document.querySelector('[data-external]');
-					}
-				},
-				{
-					src: 'plugin/markdown/marked.js'
-				},
-				{
-					src: 'plugin/markdown/markdown.js'
-				},
-				{
-					src: 'plugin/notes/notes.js',
-					async: true
-				},
-				{
-					src: 'plugin/highlight/highlight.js',
-					async: true,
-					callback: function () {
-						hljs.initHighlightingOnLoad();
-					}
-				},
-				{
-					src: 'plugin/reveal-code-focus/reveal-code-focus.js',
-					async: true,
-					callback: function () {
-						RevealCodeFocus();
-					}
-				}
-			]
-		});
-	</script>
-</body>
-
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 1.5,
+        history: true,
+        dependencies: [
+          {
+            src: "plugin/external/external.js",
+            condition: function() {
+              return !!document.querySelector("[data-external]");
+            }
+          },
+          {
+            src: "plugin/markdown/marked.js"
+          },
+          {
+            src: "plugin/markdown/markdown.js"
+          },
+          {
+            src: "plugin/notes/notes.js",
+            async: true
+          },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            }
+          },
+          {
+            src: "plugin/reveal-code-focus/reveal-code-focus.js",
+            async: true,
+            callback: function() {
+              RevealCodeFocus();
+            }
+          },
+          {
+            src: "lib/js/classList.js",
+            condition: function() {
+              return !document.body.classList;
+            }
+          },
+          { src: "plugin/search/search.js", async: true },
+          { src: "plugin/zoom-js/zoom.js", async: true }
+        ]
+      });
+    </script>
+  </body>
 </html>

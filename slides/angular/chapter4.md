@@ -78,6 +78,7 @@ const routes: Routes = [
   }
 ];
 ```
+
 ### Admin View
 
 Add routing configuration to app/views/admin-routing.module.ts
@@ -114,7 +115,6 @@ const routes: Routes = [
 
 ## Exercise: 4.3 Add navigation to the home component
 
-
 ### Add Angular Material and your first module
 
 ```bash
@@ -128,7 +128,6 @@ ng add @angular/material
 # Generate header with sidenav
 ng g @angular/material:nav --name shared/components/header-with-sidenav --changeDetection OnPush --export --module shared --selector cool-header-with-sidenav
 ```
-
 
 Replace mat-nav-list html tag with
 
@@ -150,8 +149,12 @@ Add content to src\app\views\home\home\home.component.html
 <cool-header-with-sidenav>
   <ng-container navlist>
     <mat-nav-list>
-      <a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin</a>
-      <a mat-list-item routerLink="/user" routerLinkActive="active">Login as User</a>
+      <a mat-list-item routerLink="/admin" routerLinkActive="active"
+        >Login as Admin</a
+      >
+      <a mat-list-item routerLink="/user" routerLinkActive="active"
+        >Login as User</a
+      >
     </mat-nav-list>
   </ng-container>
   <p body>home works</p>

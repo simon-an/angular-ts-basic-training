@@ -1,161 +1,171 @@
+<section><h1>Tooling and Project Setup</h1></section>
 <section>
-    <h1>Tooling and Project Setup</h1>
+  <h2>Overview</h2>
+  <ul>
+    <li>VS Code</li>
+    <li>Chrome Extension</li>
+    <li>Angular CLI</li>
+    <li>TSLint</li>
+    <li>Test Coverage</li>
+    <li>Webpack</li>
+    <li>Schematics</li>
+  </ul>
 </section>
 <section>
-    <h2>Overview</h2>
-    <ul>
-        <li>VS Code</li>
-        <li>Chrome Extension</li>
-        <li>Angular CLI</li>
-        <li>TSLint</li>
-        <li>Test Coverage</li>
-        <li>Webpack</li>
-        <li>Schematics</li>
-    </ul>
+  <h2>VS Code</h2>
+  <p>
+    Code editor redefined and optimized for building and debugging modern web
+    and cloud applications<br /><br />
+    <a href="https://code.visualstudio.com/">VS Code</a>
+  </p>
 </section>
 <section>
-    <h2>VS Code</h2>
-    <p>
-        Code editor redefined and optimized for building and debugging modern web and cloud applications<br><br>
-        <a href="https://code.visualstudio.com/">VS Code</a>
-    </p>
+  <h2>VS Code: Important Extensions</h2>
+  <ul>
+    <li>Material Icon Theme</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme -->
+    <li>Prettier - Code formatter</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode -->
+    <li>Angular Language Service</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=Angular.ng-template -->
+    <li>Angular Schematics</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics -->
+    <li>NG.42 TS HELPERS</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=NG-42.ng-fortytwo-vscode-extension -->
+    <li>mikael.angular-beastcode</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode -->
+    <li>Angular Extension Pack (optional)</li>
+    <!-- https://marketplace.visualstudio.com/items?itemName=loiane.angular-extension-pack loiane.angular-extension-pack-->
+  </ul>
 </section>
 <section>
-    <h2>VS Code: Important Extensions</h2>
-    <ul>
-        <li>Material Icon Theme</li><!-- https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme -->
-        <li>Prettier - Code formatter</li><!-- https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode -->
-        <li>Angular Language Service</li><!-- https://marketplace.visualstudio.com/items?itemName=Angular.ng-template -->
-        <li>Angular Schematics</li><!-- https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics -->
-        <li>NG.42 TS HELPERS</li><!-- https://marketplace.visualstudio.com/items?itemName=NG-42.ng-fortytwo-vscode-extension -->
-        <li>mikael.angular-beastcode</li><!-- https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode -->
-        <li>Angular Extension Pack (optional)</li><!-- https://marketplace.visualstudio.com/items?itemName=loiane.angular-extension-pack loiane.angular-extension-pack-->
-    </ul>
+  <h2>Chrome Extension</h2>
+  <p>
+    <a
+      target="blank"
+      href="https://chrome.google.com/webstore/detail/augury/elgalmkoelokbchhkhacckoklkejnhcd"
+      >Augury</a
+    >
+  </p>
+  <ul>
+    <li>Inspect component tree</li>
+    <li>Inspect router tree</li>
+    <li>Inspect NgModules</li>
+  </ul>
 </section>
 <section>
-    <h2>Chrome Extension</h2>
-    <p>
-        <a target="blank" href="https://chrome.google.com/webstore/detail/augury/elgalmkoelokbchhkhacckoklkejnhcd">Augury</a>
-    </p>
-    <ul>
-        <li>Inspect component tree</li>
-        <li>Inspect router tree</li>
-        <li>Inspect NgModules</li>
-    </ul>
+  <h2>Angular CLI</h2>
+  <p>
+    The Angular CLI is a tool to initialize, develop, scaffold and maintain
+    Angular applications. <br /><br />
+    <a href="https://cli.angular.io/">Angular CLI</a>
+  </p>
 </section>
 <section>
-    <h2>Angular CLI</h2>
-    <p>
-        The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular applications.
-        <br><br>
-        <a href="https://cli.angular.io/">Angular CLI</a>
-    </p>
-</section>
-<section>
-    <h2>Angular CLI Commands</h2>
-    <pre><code class="bash">
+  <h2>Angular CLI Commands</h2>
+  <pre><code class="bash">
     # Install Angular CLI
     npm i -g @angular/cli
     </code></pre>
-    <pre><code class="bash">
+  <pre><code class="bash">
     # Create new angular app
     ng new frontend --routing --style scss
     </code></pre>
-    <pre><code class="bash">
+  <pre><code class="bash">
     # Updates (all) dependencies to latest versions
     ng update (--all)
     </code></pre>
 </section>
 <section>
-    <h2>Angular CLI Commands</h2>
-    <pre><code class="bash">
+  <h2>Angular CLI Commands</h2>
+  <pre><code class="bash">
     # Start app with automatic browser reload
     ng serve
     </code></pre>
-    <pre><code class="bash">
+  <pre><code class="bash">
     # Lint your app code using tslint
     ng lint
     </code></pre>
 </section>
 <section>
-    <h2>Angular CLI Commands</h2>
-    <pre><code class="bash">
+  <h2>Angular CLI Commands</h2>
+  <pre><code class="bash">
     # Running unit tests
     ng test
     </code></pre>
-    <pre><code class="bash">
+  <pre><code class="bash">
     # Running end-to-end tests
     ng e2e
     </code></pre>
-    <pre><code class="bash">
+  <pre><code class="bash">
     # Bundling
     ng build
     </code></pre>
-    <aside class="notes">
-        Show the commands
-    </aside>
+  <aside class="notes">Show the commands</aside>
 </section>
 <section>
-    <h2>Exercise 2.1</h2>
-    <p>Setup, create and start your Angular app</p>
-    <aside class="notes">
-        show both tslint.json and tsconfig.json
-    </aside>
+  <h2>Exercise 2.1</h2>
+  <p>Setup, create and start your Angular app</p>
+  <aside class="notes">show both tslint.json and tsconfig.json</aside>
 </section>
 <section>
-    <h2>TSLint</h2>
-    <ul>
-        <li>extensible static analysis tool that checks TypeScript code for readability, maintainability, and
-            functionality errors.</li>
-        <li>configure in tslint.json</li>
-        <li><a href="https://palantir.github.io/tslint/">TSLint</a></li>
-    </ul>
+  <h2>TSLint</h2>
+  <ul>
+    <li>
+      extensible static analysis tool that checks TypeScript code for
+      readability, maintainability, and functionality errors.
+    </li>
+    <li>configure in tslint.json</li>
+    <li><a href="https://palantir.github.io/tslint/">TSLint</a></li>
+  </ul>
 </section>
 <section>
-    <h2>Karma Code Coverage shown in Istanbul</h2>
-    <pre><code class="bash">
+  <h2>Karma Code Coverage shown in Istanbul</h2>
+  <pre><code class="bash">
     ng test --watch=false --code-coverage
     </code></pre>
-    <p>see coverage/index.html for results</p>
-    <img src="chapters/images/istanbul-coverage.png">
+  <p>see coverage/index.html for results</p>
+  <img src="images/istanbul-coverage.png" />
 </section>
 <section>
-    <h2>Webpack</h2>
-    <p>
-        Static module bundler for modern JavaScript applications
-    </p>
-    <aside class="notes">
-        it internally builds a dependency graph which maps every module your project needs and generates one or more
-        bundles.<br>
-        all different kind of assets like images, fonts and stylesheets<br>
-        async chunk loading and prefetching to help you deliver the best possible version of your project to the user,
-        always caring about loading times and performance.<br>
-        built in tree shaking to remove not used fragments and so can create smaller bundles
-    </aside>
+  <h2>Webpack</h2>
+  <p>Static module bundler for modern JavaScript applications</p>
+  <aside class="notes">
+    it internally builds a dependency graph which maps every module your project
+    needs and generates one or more bundles.<br />
+    all different kind of assets like images, fonts and stylesheets<br />
+    async chunk loading and prefetching to help you deliver the best possible
+    version of your project to the user, always caring about loading times and
+    performance.<br />
+    built in tree shaking to remove not used fragments and so can create smaller
+    bundles
+  </aside>
 </section>
 <section>
-    <h2>Schematics</h2>
-    <pre><code class="bash" data-trim style="font-size: 12px;">
+  <h2>Schematics</h2>
+  <pre><code class="bash" data-trim style="font-size: 12px;">
     ng add @angular/material
     ng generate module shared --module app
     ng g @angular/material:nav shared/components/sidenav --changeDetection OnPush --export --module shared --selector cool-sidenav
     </code></pre>
 </section>
 <section>
-    <h2>Angular CLI Workspace File <code>angular.json</code></h2>
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/angular/angular-cli/wiki/angular-workspace">Angular
-        CLI Workspace File Reference</a>
-    <ul>
-        <li>projects: frontend, frontend-e2e</li>
-        <li>assets</li>
-        <li>styles</li>
-        <li>architect.build.configurations -> environments</li>
-    </ul>
-    <br>
+  <h2>Angular CLI Workspace File <code>angular.json</code></h2>
+  <a
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://github.com/angular/angular-cli/wiki/angular-workspace"
+    >Angular CLI Workspace File Reference</a
+  >
+  <ul>
+    <li>projects: frontend, frontend-e2e</li>
+    <li>assets</li>
+    <li>styles</li>
+    <li>architect.build.configurations -> environments</li>
+  </ul>
+  <br />
 </section>
 <section>
-    <h2>Exercise 2.2</h2>
-    <p>
-        Configure your app
-    </p>
+  <h2>Exercise 2.2</h2>
+  <p>Configure your app</p>
 </section>
