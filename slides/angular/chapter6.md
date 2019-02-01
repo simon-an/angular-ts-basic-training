@@ -20,6 +20,7 @@ export interface Safe {
   itemSize: number;
   active: boolean;
   activeSince: Date;
+  users: string[];
 }
 
 // app\core\model\safe-item.ts
@@ -107,6 +108,7 @@ describe("SafeService", () => {
       expect(safe.id).toBe("1");
       expect(safe.itemSize).toBe(2);
       expect(safe.value).toBe(999);
+      expect(safe.users.length).toBe(1);
       done();
     });
   });
@@ -118,6 +120,7 @@ describe("SafeService", () => {
       expect(safe.id).toBe("2");
       expect(safe.itemSize).toBe(3);
       expect(safe.value).toBe(123);
+      expect(safe.users.length).toBe(3);
       done();
     });
   });
@@ -256,102 +259,72 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 </details>
 
-## Exercise 6.1.4 admin-safe-list-page.component should show list of safes
+## Exercise 6.1.4 admin-landing-page.component should show list of safes
 
 ```bash
-ng g c views/user/containers/userHome --changeDetection OnPush --module views/user
-ng g c shared/components/safe-list --export --changeDetection OnPush --module shared
+ng g c views/admin/container/safeList --changeDetection OnPush --module views/admin
+ng g c views/admin/container/safeListElement --export --changeDetection OnPush --module views/admin
+ng g c views/admin/components/safeRow --export --changeDetection OnPush --module views/admin
 ```
 
-1. Adjuste routing of user-routing.module.ts:
-
-```typescript
-const routes: Routes = [
-  {
-    path: "",
-    component: UserComponent,
-    redirectTo: "home"
-  },
-  {
-    path: "home",
-    component: UserHomeComponent
-  }
-];
-```
-
-2. In safe.component get safes in ngOnInit from safe.serviceof smart safe.component
-3. In safe-list.component get the safes from an @Input (Use @Input: https://angular.io/api/core/Input)
-4. Show the list of safe ids with ngFor and {{}}
-5. Give the safes to the safe.component with the innput directive (https://angular.io/api/core/Input)
+1. In safe-list.component get safes in ngOnInit from safe.service
+2. In safe-list-element.component get the safe from an @Input [Use @Input:](https://angular.io/api/core/Input)
+3. Show the list of safes with ngFor
+4. Give the safes to the safe-list-row.component with the innput directive [@Input](https://angular.io/api/core/Input)
+5. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
+6. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
 
 <details><summary>Solution</summary>
 
-userhome.component.html
+admin-landing-page.component.html
 
 ```html
-<cool-safe-list [safes]="safes$ | async"></cool-safe-list>
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active"
+        >Back to home</a
+      >
+    </mat-nav-list>
+  </ng-container>
+  <div body>
+    <cool-safe-list></cool-safe-list>
+  </div>
+</cool-header-with-sidenav>
 ```
 
-userhome.component.ts
-
-```typescript
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { Safe, SafeService } from "src/app/core";
-import { Observable } from "rxjs";
-
-@Component({
-  selector: "cool-userhome",
-  templateUrl: "./userhome.component.html",
-  styleUrls: ["./userhome.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class UserHomeComponent implements OnInit {
-  safes$: Observable<Safe[]>;
-
-  constructor(private service: SafeService) {}
-
-  ngOnInit() {
-    this.safes$ = this.service.getSafes();
-  }
-}
-```
-
-safe-list.component.html
+- safe-list.component.html
 
 ```html
-<ul>
-  <li *ngFor="let safe of safes">
-    <a [routerLink]="[{outlets: { secondary: ['safe', safe.id] }  }]">Go To Safe {{safe?.id}}</a>
-    {{safe?.value}}€ size: {{safe?.itemSize}}
-  </li>
-</ul>
+<mat-nav-list>
+  <h3 mat-subheader>Safes</h3>
+  <cool-safe-list-element
+    *ngFor="let safe of (safes$ | async)"
+    [matTooltip]="safe.id"
+    [safe]="safe"
+  ></cool-safe-list-element>
+</mat-nav-list>
 ```
 
-safe-list.component.ts
+- safe-list-element.component.html
 
-```typescript
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
-import { Safe } from "~core/*";
+```html
+<cool-safe-row [matTooltip]="safe.id" [safe]="safe"> </cool-safe-row>
+```
 
-@Component({
-  selector: "cool-safe-list",
-  templateUrl: "./safe-list.component.html",
-  styleUrls: ["./safe-list.component.css"],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class SafeListComponent implements OnInit {
-  @Input()
-  safes: Safe[];
+- safe-row.component.html
 
-  constructor() {}
-
-  ngOnInit() {}
-}
+```html
+<mat-list-item>
+  <mat-icon mat-list-icon *ngIf="safe?.itemSize > 0; else empty">
+    work
+  </mat-icon>
+  <ng-template #empty
+    ><mat-icon mat-list-icon>work_outline</mat-icon></ng-template
+  >
+  <p mat-line>{{ safe?.value }}€</p>
+  <p mat-line>size: {{ safe?.itemSize }}</p>
+</mat-list-item>
 ```
 
 </details>
@@ -368,7 +341,7 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
 
 <details><summary>Add routerLink to safe-list.component.html</summary>
   
-  ```html
+```html
 <mat-nav-list>
   <h3 mat-subheader>Safes</h3>
   <a [routerLink]="[safe?.id]" [matTooltip]="safe.id" mat-list-item *ngFor="let safe of safes">
@@ -378,8 +351,8 @@ ng g c shared/containers/safe --export --changeDetection OnPush --module shared
     <p mat-line>size: {{ safe?.itemSize }}</p>
   </a>
 </mat-nav-list>
+```
 
-````
 </details>
 
 ### Solution with secondary routing (named router-outlet & child routes)
@@ -394,7 +367,7 @@ component: SafeComponent,
 outlet: 'secondary',
 },
 ...
-````
+```
 
 </details>
 
@@ -545,8 +518,9 @@ ng g component shared/components/itemList --changeDetection OnPush
     <mat-nav-list>
       <a mat-list-item routerLink="/home" routerLinkActive="active">Home</a>
       <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/user" routerLinkActive="active">User Home</a>
-
+      <a mat-list-item routerLink="/user" routerLinkActive="active"
+        >User Home</a
+      >
     </mat-nav-list>
   </ng-container>
   <mat-list body *ngIf="!!items">
