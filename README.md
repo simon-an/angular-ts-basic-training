@@ -1,4 +1,11 @@
 # angular-ts-basic-training
+
+## Slides:
+
+[Typescript](slides/typescript)
+[Angular](slides/angular)
+ 
+## Excercises: 
  
 Typescript [Excercise](typescript-basics/Exercises.md)
 
