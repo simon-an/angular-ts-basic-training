@@ -2,77 +2,6 @@
 
 ## Preparation
 
-### Create auth service:
-
-```bash
-ng g service core/services/auth
-```
-
-```typescript
-import { Injectable } from "@angular/core";
-import { Observable, timer, of, BehaviorSubject } from "rxjs";
-import { LoginData, User } from "../model";
-import { map, tap } from "rxjs/operators";
-
-@Injectable({
-  providedIn: "root"
-})
-export class AuthService {
-  user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-
-  constructor() {}
-
-  login(loginData: LoginData): Observable<User | null> {
-    if (loginData) {
-      return timer(30).pipe(
-        map(time => {
-          if (loginData.email === "simon.potzernheim@metafinanz.de") {
-            return {
-              id: "1",
-              name: "simon.potzernheim@metafinanz.de",
-              role: loginData.role
-            } as User;
-          }
-          if (loginData.email.includes("@gmail.com")) {
-            return { id: "2", name: loginData.email, role: "user" } as User;
-          }
-          return null;
-        }),
-        tap((loginAsUser: User) => this.user.next(loginAsUser))
-      );
-    }
-    return of(null);
-  }
-
-  getUser() {
-    return this.user.asObservable();
-  }
-}
-```
-
-### Create auth guard and admin guard:
-
-```cli
-ng g guard core/guards/auth --lintFix
-ng g guard core/guards/admin --lintFix
-```
-
-### Create Login Dialog Component and Login Component
-
-```bash
-ng g component --entry-component --export shared/containers/loginDialog
-ng g component --export shared/containers/login
-```
-
-<details>
-<summary>login.component.html</summary>
-
-```html
-<button mat-button color="primary" (click)="openModal()">Login</button>
-```
-
-</details>
-
 ### Create LoginData model
 
 ```typescript
@@ -84,17 +13,407 @@ export interface LoginData {
 
 ### Create User model
 
+- user.ts
+- admin.ts
+- customer.ts
+
 ```typescript
-export interface User {
+export interface Customer {
   id: string;
   name: string;
-  role: string;
+  role: "Customer";
+  safeId: string;
 }
+export interface Administrator {
+  id: string;
+  name: string;
+  role: "Administrator";
+}
+
+import { Administrator } from "~core/model/admin";
+import { Customer } from "./customer";
+
+export type User = Administrator | Customer;
+
+export const UserTypeGuard = {
+  Customer: (user: User): user is Customer => {
+    return user.role === "Customer";
+  },
+  Administrator: (user: User): user is Administrator => {
+    return user.role === "Administrator";
+  }
+};
 ```
 
 Add both models to the barrel file.
 
+### Create auth service
+
+```bash
+ng g service core/services/auth
+```
+
+```typescript
+import { UserTypeGuard } from "./../model/user";
+import { filter, map, tap } from "rxjs/operators";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, timer, of } from "rxjs";
+import { Customer } from "~core/model/customer";
+import { User } from "~core/model/user";
+import { Administrator } from "~core/model/admin";
+import { LoginData } from "~core/model/login-data";
+
+@Injectable({
+  providedIn: "root"
+})
+export class AuthService {
+  currentUser$$: BehaviorSubject<User> = new BehaviorSubject(null);
+  currentUser$: Observable<User>;
+
+  constructor() {
+    this.currentUser$ = this.currentUser$$.asObservable();
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.currentUser$;
+  }
+
+  getCurrentCustomer(): Observable<Customer> {
+    return this.currentUser$.pipe(
+      filter(Boolean),
+      map(user => {
+        if (UserTypeGuard.Customer(user)) {
+          return user;
+        }
+        return null;
+      }),
+      filter(Boolean)
+    );
+  }
+
+  getCurrentAdministrator(): Observable<Administrator> {
+    return this.currentUser$.pipe(
+      filter(Boolean),
+      map(user => {
+        if (UserTypeGuard.Administrator(user)) {
+          return user;
+        }
+        return null;
+      }),
+      filter(Boolean)
+    );
+  }
+
+  login(loginData: LoginData): Observable<User | null> {
+    if (loginData) {
+      return timer(30).pipe(
+        map(time => {
+          return {
+            id: "1",
+            name: "max.mustermann@metafinanz.de",
+            role: loginData.role
+          } as User;
+        }),
+        tap((loginAsUser: User) => this.currentUser$$.next(loginAsUser))
+      );
+    }
+    return of(null);
+  }
+
+  logout() {
+    this.currentUser$$.next(null);
+  }
+}
+```
+
+### Create auth guard and admin guard
+
+```cli
+ng g guard core/guards/auth --lintFix
+ng g guard core/guards/admin --lintFix
+```
+
 ## Exercise: 9.1
+
+### Implement Guards
+
+When guard blocks, it should schedule a redirect.
+
+<details>
+<summary>Solution</summary>
+
+### Add guards to app-routing.module.ts
+
+```typescript
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { AuthGuard } from "~core/guards/auth.guard";
+import { AdminGuard } from "~core/guards/admin.guard";
+
+const routes: Routes = [
+  {
+    path: "admin",
+    loadChildren: "./views/admin/admin.module#AdminModule",
+    canLoad: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: "user",
+    loadChildren: "./views/user/user.module#UserModule",
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "home",
+    loadChildren: "./views/home/home.module#HomeModule"
+  },
+  {
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full"
+  },
+  { path: "**", component: PageNotFoundComponent }
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+```
+
+### admin.guard.ts
+
+```typescript
+import { Injectable } from "@angular/core";
+import {
+  CanActivate,
+  CanLoad,
+  Route,
+  UrlSegment,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { map, tap, take } from "rxjs/operators";
+import { AuthService } from "~core/services/auth.service";
+
+@Injectable({
+  providedIn: "root"
+})
+export class AdminGuard implements CanActivate, CanLoad {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.userIsAdmin();
+  }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.userIsAdmin();
+  }
+  userIsAdmin(): Observable<boolean> {
+    return this.auth.getCurrentUser().pipe(
+      map(user => user.role === "Administrator"),
+      tap(canload => {
+        if (!canload) {
+          console.log("error. goback to home.");
+          this.router.navigate(["/home"]);
+        }
+      }),
+      take(1)
+    );
+  }
+}
+```
+
+### auth.guard.ts
+
+```typescript
+import { Injectable } from "@angular/core";
+import {
+  CanActivate,
+  CanLoad,
+  Route,
+  UrlSegment,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+  Router
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { AuthService } from "~core/services/auth.service";
+import { map, tap, take } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root"
+})
+export class AuthGuard implements CanActivate, CanLoad {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.verifyUser();
+  }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.verifyUser();
+  }
+
+  verifyUser(): Observable<boolean> {
+    return this.auth.getCurrentUser().pipe(
+      map(Boolean),
+      tap(canload => {
+        if (!canload) {
+          console.log("error. goback to home.");
+          this.router.navigate(["/home"]);
+        }
+      }),
+      take(1)
+    );
+  }
+}
+```
+
+</details>
+
+### Add auth.service login call to home-landing-page.component
+
+```typescript
+import { Customer } from "~core/model/customer";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { AuthService } from "~core/services/auth.service";
+import { LoginData } from "~core/model/login-data";
+import { Router } from "@angular/router";
+
+@Component({
+  selector: "cool-home-landing-page",
+  templateUrl: "./home-landing-page.component.html",
+  styleUrls: ["./home-landing-page.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class HomeLandingPageComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {}
+
+  login(loginAsRole: "Administrator" | "Customer") {
+    this.authService
+      .login({ role: loginAsRole, email: "nomail@gmail.com" } as LoginData)
+      .subscribe(user => {
+        if (user.role === "Customer") {
+          this.router.navigate(["/user"]);
+        }
+        if (user.role === "Administrator") {
+          this.router.navigate(["admin"]);
+        }
+      });
+  }
+}
+```
+
+## Additional Exercise: 9.4.1
+
+### Create safe-resolver.service.ts for safe component routing
+
+```bash
+ng g service core/services/SafeResolver
+```
+
+<details><summary>Solution</summary>
+
+safe-resolver.service.ts
+
+```typescript
+import { Injectable } from "@angular/core";
+import {
+  Router,
+  Resolve,
+  RouterStateSnapshot,
+  ActivatedRouteSnapshot
+} from "@angular/router";
+import { Observable, of, EMPTY } from "rxjs";
+import { mergeMap, take } from "rxjs/operators";
+
+import { Safe } from "../model";
+import { SafeService } from "./safe.service";
+
+@Injectable({
+  providedIn: "root"
+})
+export class SafeResolverService implements Resolve<Safe> {
+  constructor(private safeService: SafeService, private router: Router) {}
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<Safe> | Observable<never> {
+    const id = route.paramMap.get("id");
+
+    return this.safeService.getSafe(id).pipe(
+      take(1),
+      mergeMap(safe => {
+        if (safe) {
+          return of(safe);
+        } else {
+          // id not found
+          this.router.navigate(["home"]);
+          return EMPTY;
+        }
+      })
+    );
+  }
+}
+```
+
+safe.component.ts
+
+```typescript
+this.safe$ = this.activatedRoute.data.pipe(
+  map((data: { safe: Safe }) => {
+    return data.safe;
+  })
+);
+```
+
+Question: Is safe.component now dumb?
+
+</details>
+
+## Additional Excercise: Create Login Dialog 9.4.2
+
+### Create Login Dialog Component and Login Component
+
+```bash
+ng g component --export shared/containers/login
+```
+
+<details>
+<summary>login.component.html</summary>
+
+```html
+<button mat-button color="primary" (click)="openModal()">Login</button>
+```
+
+</details>
 
 ### Create Login Component with routing
 
@@ -141,8 +460,12 @@ home.component.html
 <cool-header-with-sidenav>
   <ng-container navlist>
     <mat-nav-list>
-      <a mat-list-item routerLink="login/admin" routerLinkActive="active">Login as Admin</a>
-      <a mat-list-item routerLink="login/user" routerLinkActive="active">Login as User</a>
+      <a mat-list-item routerLink="login/admin" routerLinkActive="active"
+        >Login as Admin</a
+      >
+      <a mat-list-item routerLink="login/user" routerLinkActive="active"
+        >Login as User</a
+      >
     </mat-nav-list>
   </ng-container>
   <p body>
@@ -152,8 +475,6 @@ home.component.html
 ```
 
 </details>
-
-## Exercise: 9.2
 
 ### Create Login Dialog
 
@@ -213,7 +534,14 @@ export class LoginDialogComponent {
   </mat-form-field>
 
   <mat-form-field>
-    <input required name="email" [(ngModel)]="state.email" matInput placeholder="Email" #email="ngModel">
+    <input
+      required
+      name="email"
+      [(ngModel)]="state.email"
+      matInput
+      placeholder="Email"
+      #email="ngModel"
+    />
     <mat-error> {{ data.message }} </mat-error>
   </mat-form-field>
 
@@ -312,8 +640,6 @@ export class LoginComponent implements OnInit {
 
 </details>
 
-## Exercise: 9.2.1
-
 ### Add progress spinner to login.component
 
 Hint: Use mat-spinner from Angular Material.
@@ -324,7 +650,14 @@ Hint: Use mat-spinner from Angular Material.
 login.component.html
 
 ```html
-<button *ngIf="!loading; else spinner" mat-button color="primary" (click)="openModal()">Login</button>
+<button
+  *ngIf="!loading; else spinner"
+  mat-button
+  color="primary"
+  (click)="openModal()"
+>
+  Login
+</button>
 <ng-template #spinner>
   <mat-spinner></mat-spinner>
 </ng-template>
@@ -332,224 +665,7 @@ login.component.html
 
 </details>
 
-## Exercise: 9.3
-
-### Implement Guards
-
-When guard blocks, it should schedule a redirect.
-
-<details>
-<summary>Solution</summary>
-
-### Add guards to app-routing.module.ts
-
-```typescript
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AdminGuard } from "./core/guards/admin.guard";
-import { AuthGuard } from "./core/guards/auth.guard";
-
-const routes: Routes = [
-  {
-    path: "admin",
-    loadChildren: "./views/admin/admin.module#AdminModule",
-    canLoad: [AuthGuard, AdminGuard],
-    canActivate: [AuthGuard, AdminGuard]
-  },
-  {
-    path: "user",
-    loadChildren: "./views/user/user.module#UserModule",
-    canLoad: [AuthGuard],
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "home",
-    loadChildren: "./views/home/home.module#HomeModule"
-  },
-  {
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full"
-  }
-];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(
-      routes
-      // { enableTracing: true } // <-- debugging purposes only
-    )
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
-```
-
-### admin.guard.ts
-
-```typescript
-import { Injectable } from "@angular/core";
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  CanLoad,
-  Router,
-  Route
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { map, tap, take } from "rxjs/operators";
-
-@Injectable({
-  providedIn: "root"
-})
-export class AdminGuard implements CanActivate, CanLoad {
-  constructor(private auth: AuthService, private router: Router) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.userIsAdmin();
-  }
-
-  canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    return this.userIsAdmin();
-  }
-
-  userIsAdmin(): Observable<boolean> {
-    return this.auth.getUser().pipe(
-      map(user => user.role === "admin"),
-      tap(canload => {
-        if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
-        }
-      }),
-      take(1)
-    );
-  }
-}
-```
-
-### auth.guard.ts
-
-```typescript
-import { Injectable } from "@angular/core";
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-  CanLoad,
-  Route
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { map, tap, take } from "rxjs/operators";
-
-@Injectable({
-  providedIn: "root"
-})
-export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private auth: AuthService, private router: Router) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.verifyUser();
-  }
-
-  canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    return this.verifyUser();
-  }
-
-  verifyUser(): Observable<boolean> {
-    return this.auth.getUser().pipe(
-      map(Boolean),
-      tap(canload => {
-        if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
-        }
-      }),
-      take(1)
-    );
-  }
-}
-```
-
-</details>
-
-## Additional Exercise: 9.4.1
-
-### Create safe-resolver.service.ts for safe component routing
-
-```bash
-ng g service core/services/SafeResolver
-```
-
-<details><summary>Solution</summary>
-
-safe-resolver.service.ts
-
-```typescript
-import { Injectable } from "@angular/core";
-import {
-  Router,
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot
-} from "@angular/router";
-import { Observable, of, EMPTY } from "rxjs";
-import { mergeMap, take } from "rxjs/operators";
-
-import { Safe } from "../model";
-import { SafeService } from "./safe.service";
-
-@Injectable({
-  providedIn: "root"
-})
-export class SafeResolverService implements Resolve<Safe> {
-  constructor(private safeService: SafeService, private router: Router) {}
-
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Safe> | Observable<never> {
-    const id = route.paramMap.get("id");
-
-    return this.safeService.getSafe(id).pipe(
-      take(1),
-      mergeMap(safe => {
-        if (safe) {
-          return of(safe);
-        } else {
-          // id not found
-          this.router.navigate(["home"]);
-          return EMPTY;
-        }
-      })
-    );
-  }
-}
-```
-
-safe.component.ts
-
-```typescript
-this.safe$ = this.activatedRoute.data.pipe(
-  map((data: { safe: Safe }) => {
-    return data.safe;
-  })
-);
-```
-
-Question: Is safe.component now dumb?
-
-</details>
-
-## Additional Exercise: 9.4.2
+## Additional Exercise: 9.4.3
 
 ### Inject role to Dialog Component
 
