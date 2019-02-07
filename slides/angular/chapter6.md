@@ -334,35 +334,54 @@ admin-landing-page.component.html
 ![62](screenshots/62.PNG)
 
 ```bash
-ng g c shared/containers/safe --export --changeDetection OnPush --module shared
+ng g c safe/containers/safePage --export --changeDetection OnPush --module safe
 ```
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
-<details><summary>Add routerLink to safe-list.component.html</summary>
+<details><summary>Add routerLink to user-landing-page.component.html</summary>
   
 ```html
-<mat-nav-list>
-  <h3 mat-subheader>Safes</h3>
-  <a [routerLink]="[safe?.id]" [matTooltip]="safe.id" mat-list-item *ngFor="let safe of safes">
-    <mat-icon mat-list-icon *ngIf="safe?.itemSize > 0; else: empty"> work </mat-icon>
-    <ng-template #empty><mat-icon mat-list-icon>work_outline</mat-icon></ng-template>
-    <p mat-line>{{ safe?.value }}€</p>
-    <p mat-line>size: {{ safe?.itemSize }}</p>
-  </a>
-</mat-nav-list>
-```
+
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="active">Home</a>
+      <mat-divider></mat-divider>
+      <ng-container *ngIf="(safeId$ | async) as safeId">
+        <a [routerLink]="'safes/' + safeId" mat-list-item *ngIf="safeId">
+          <mat-icon mat-list-icon>work_outline</mat-icon>
+          <p mat-line>Your Safe</p>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </ng-container>
+  <!-- Content Start -->
+  <ng-container body>
+    <p>Welcome to Cool Safe App Mr Holmes.</p>
+  </ng-container>
+  <!-- Content End -->
+</cool-header-with-sidenav>
+
+````
+```typescript
+  safeId$: Observable<string>;
+
+  constructor() {
+    this.safeId$ = of('1');
+  }
+````
 
 </details>
 
-### Solution with secondary routing (named router-outlet & child routes)
+### Solution with secondary routing (named router-outlet & child routes) (TODO)
 
 <details><summary>user-routing.module.ts (short)</summary>
 
 ```typescript
 ...
 {
-path: 'safe/:id',
+path: 'safes/:id',
 component: SafeComponent,
 outlet: 'secondary',
 },
@@ -386,7 +405,7 @@ const routes: Routes = [
     component: UserComponent,
     children: [
       {
-        path: "safe/:id",
+        path: "safes/:id",
         component: SafeComponent,
         outlet: "secondary"
       },
@@ -433,15 +452,11 @@ export class UserRoutingModule {}
 const routes: Routes = [
   {
     path: "",
-    component: UserComponent
-  },
-  {
-    path: "safes",
-    component: UserSafesComponent
+    component: UserLandingPageComponent
   },
   {
     path: "safes/:id",
-    component: SafeComponent
+    component: SafePageComponent
   }
 ];
 ```
@@ -450,7 +465,7 @@ const routes: Routes = [
 
 ## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
 
-<details><summary>safe.component.ts</summary>
+<details><summary>safe-page.component.ts</summary>
 
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
@@ -459,13 +474,24 @@ import { switchMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Safe, SafeService, SafeItem } from "src/app/core";
 
+import { Observable } from "rxjs";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from "@angular/core";
+import { SafeService } from "~core/services";
+import { SafeItem, Safe } from "~core/model";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { switchMap } from "rxjs/operators";
+
 @Component({
-  selector: "cool-safe",
-  templateUrl: "./safe.component.html",
-  styleUrls: ["./safe.component.scss"],
+  templateUrl: "./safe-page.component.html",
+  styleUrls: ["./safe-page.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SafeComponent implements OnInit {
+export class SafePageComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
@@ -491,7 +517,7 @@ export class SafeComponent implements OnInit {
 
 Generate item-list component:
 
-1. Right click "src\app\shared\components"
+1. Right click "src\app\safe\components"
 2. Select "Angular: Generate a component"
 3. Enter name "itemList" and press Enter
 4. Select "Exported pure component" and select "Confirm"
@@ -499,13 +525,26 @@ Generate item-list component:
 Or in the terminal:
 
 ```bash
-ng g component shared/components/itemList --changeDetection OnPush
+ng g component safe/components/itemList --changeDetection OnPush
 ```
 
-<details><summary>safe.component.html</summary>
+<details><summary>safe-page.component.html</summary>
 
 ```html
-<cool-item-list [items]="items$ | async"></cool-item-list>
+<cool-header-with-sidenav>
+  <ng-container navlist>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Home</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/user">Back</a>
+    </mat-nav-list>
+  </ng-container>
+  <!-- Content Start -->
+  <ng-container body>
+    <cool-item-list [items]="items$ | async"></cool-item-list>
+  </ng-container>
+  <!-- Content End -->
+</cool-header-with-sidenav>
 ```
 
 </details>
@@ -513,21 +552,10 @@ ng g component shared/components/itemList --changeDetection OnPush
 <details><summary>item-list.component.html</summary>
 
 ```html
-<cool-header-with-sidenav>
-  <ng-container navlist>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/home" routerLinkActive="active">Home</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item routerLink="/user" routerLinkActive="active"
-        >User Home</a
-      >
-    </mat-nav-list>
-  </ng-container>
-  <mat-list body *ngIf="!!items">
-    <h3 mat-subheader>Items</h3>
-    <mat-list-item *ngFor="let item of items">{{ item?.name }}</mat-list-item>
-  </mat-list>
-</cool-header-with-sidenav>
+<h4 mat-subheader>Items</h4>
+<mat-list *ngIf="items">
+  <mat-list-item *ngFor="let item of items">{{ item?.name }}</mat-list-item>
+</mat-list>
 ```
 
 </details>
@@ -561,4 +589,4 @@ export class ItemListComponent implements OnInit {
 
 </details>
 
-[Next](chapter4.md)
+[Next](chapter7.md)
