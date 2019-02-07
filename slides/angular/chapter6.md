@@ -340,9 +340,8 @@ ng g c safe/containers/safePage --export --changeDetection OnPush --module safe
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
 
 <details><summary>Add routerLink to user-landing-page.component.html</summary>
-  
-```html
 
+```html
 <cool-header-with-sidenav>
   <ng-container navlist>
     <mat-nav-list>
@@ -362,15 +361,15 @@ ng g c safe/containers/safePage --export --changeDetection OnPush --module safe
   </ng-container>
   <!-- Content End -->
 </cool-header-with-sidenav>
+```
 
-````
 ```typescript
   safeId$: Observable<string>;
 
   constructor() {
     this.safeId$ = of('1');
   }
-````
+```
 
 </details>
 
