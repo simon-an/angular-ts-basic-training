@@ -23,51 +23,6 @@ Add a button with the 'add' icon to this toolbar.
 ...
 ```
 
-safe-page.component.ts
-
-```typescript
-import { Observable } from "rxjs";
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
-import { SafeService } from "~core/services";
-import { SafeItem, Safe } from "~core/model";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
-
-@Component({
-  templateUrl: "./safe-page.component.html",
-  styleUrls: ["./safe-page.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class SafePageComponent implements OnInit {
-  safe$: Observable<Safe>;
-  items$: Observable<SafeItem[]>;
-  isCustomer = true;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private service: SafeService
-  ) {}
-
-  ngOnInit() {
-    this.safe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getSafe(params.get("id")))
-    );
-    this.items$ = this.safe$.pipe(
-      switchMap((safe: Safe) => this.service.getItems(safe.id))
-    );
-  }
-
-  addSafeItem(clickEvent) {
-    console.log(clickEvent);
-  }
-}
-```
-
 </details>
 
 ## Exercise: 7.2
