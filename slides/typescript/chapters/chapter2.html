@@ -172,7 +172,7 @@
         let greeting = 'hello';
         greeting = 'bye';
     </code></pre>
-    <p>Rule of thumb: Use let instead of var.</p>
+    <p>Rule of thumb: Use <code>let</code> instead of <code>var</code>.</p>
     <aside class="notes">
         see example chapter2_constlet.ts
     </aside>
@@ -201,8 +201,8 @@
 <section>
     <h2>Variable Scoping</h2>
     <ul>
-        <li>var: function scope</li>
-        <li>const & let: block scope</li>
+        <li><code>var</code>: function scope</li>
+        <li><code>const</code> & <code>let</code>: block scope</li>
     </ul>
     <aside class="notes">
         see example chapter2_variable_scoping.ts<br>
@@ -223,7 +223,7 @@
             return sum;
         }
     </code></pre>
-    <p class="fragment">Use let instead var for i.</p>
+    <p class="fragment">Use <code>let</code> instead <code>var</code> for <code>i</code>.</p>
     <aside class="notes">
         see example chapter2_test_findtheerror.ts
     </aside>
@@ -295,9 +295,9 @@
 <section>
     <h2>Readonly</h2>
     <ul>
-        <li>Variables: const</li>
-        <li>Properties: readonly</li>
-        <li>For Arrays: ReadonlyArray</li>
+        <li>Variables: <code>const</code></li>
+        <li>Properties: <code>readonly</code></li>
+        <li>For Arrays: <code>ReadonlyArray</code></li>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
         interface LabelledValue {
@@ -392,8 +392,8 @@
 <section>
     <h2>this and arrow functions</h2>
     <ul>
-        <li>In JavaScript <i>this</i> is a variable that will be created if a function is executed.</li>
-        <li>Arrow functions will create <i>this</i> where the function will be created.</li>
+        <li>In JavaScript <code>this</code> is a variable that will be created if a function is executed.</li>
+        <li>Arrow functions will create <code>this</code> where the function will be created.</li>
     </ul>
 </section>
 <section>
@@ -522,10 +522,7 @@
 </section>
 <section>
     <h2>Iterables</h2>
-    <ul>
-        <li>iterator types: Array, Map, Set, String, Int32Array, Uint32Array</li>
-        <li>for..of -> used with iterator types; returns a list of keys on the object being iterated</li>
-        <li>for..in -> used with objects and iterator types; returns a list of values of the numeric properties of the object being iterated</li>
+    <p>iterator types: <code>Array</code>, <code>Map</code>, <code>Set</code>, <code>String</code>, <code>Int32Array</code>, <code>Uint32Array</code></p>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
     const list4to6 = [4, 5, 6];
@@ -537,13 +534,17 @@
     }
     </code></pre>
     <aside class="notes">
+        <ul>
+            <li><code>for..of</code> -> used with iterator types; returns a list of keys on the object being iterated</li>
+            <li><code>for..in</code> -> used with objects and iterator types; returns a list of values of the numeric properties of the object being iterated</li>
+        </ul>
         see example chapter2_forin_forof.ts<br>
         i is always of type string
     </aside>
 </section>
 <section>
     <h2>Namespaces</h2>
-    <p>internal modules</p>
+    <p>= internal modules</p>
     <pre><code class="typescript" data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {
