@@ -26,7 +26,9 @@
     <pre><code data-trim data-noescape class="typescript">
         function logIt() { console.log('bla'); }
         function callLogIt() { logIt(); }
-        function callSetTimeout() { setTimeout(func, 5000); callLogIt(); }
+        function callSetTimeout() {
+            setTimeout(func, 5000); callLogIt();
+        }
         function main() { callLogIt(); }
         main();
     </code></pre>
@@ -57,7 +59,7 @@
     <pre><code data-trim data-noescape class="typescript">
         function func() {
             console.log('alpha');
-            setTimeout(function() { console.log('beta'); }, 0);
+            setTimeout(function() { console.log('beta'); }, 2000);
             console.log('gamma')
         }
         func();
@@ -73,7 +75,7 @@
     <pre><code data-trim data-noescape class="typescript">
         function func() {
             console.log('alpha');
-            setTimeout(function() { console.log('beta'); }, 2000);
+            setTimeout(function() { console.log('beta'); }, 0);
             console.log('gamma')
         }
         func();
@@ -116,17 +118,17 @@
 </section>
 <section>
     <h2>Scenario</h2>
-    <p class="fragment">
+    <p>
         An application calls an API for data, processes it and presents it in a nicely formatted way.
     </p>
     <p class="fragment">
-        Problem: When will the API return the requested data?
+        <u>Problem</u><br>When will the API return the requested data?
     </p>
     <p class="fragment">
-        Answer: When the API returns the data. We don't know!
+        <u>Answer</u><br>When the API returns the data. We don't know!
     </p>
     <p class="fragment">
-        Solution: We wait for the data to be returned. -> Promises
+        <u>Solution</u><br>We wait for the data to be returned. -> Promises
     </p>
     <aside class="notes">
         If the application tries to process the data before it is returnes by the API there will be an error or an empty website.
@@ -134,12 +136,8 @@
     </aside>
 </section>
 <section>
-    <p>
-        Promise<br>
-        =
-        <br>
-        possible result of an asynchronous operation
-    </p>
+    <h2>Promise</h2>
+    <p>= possible result of an asynchronous operation</p>
     <aside class="notes">
         like a placeholder = object you can append callbacks to it<br>
         Through Promisies we are able to wait for a specific code part to be executed first before an other part gets executed.
@@ -152,7 +150,7 @@
     }
     
     function failure(error) {
-        console.log("Ops, there was an error: " + error);
+        console.log("Ooops, there was an error: " + error);
     }
     
     // Without promise
@@ -162,7 +160,7 @@
     getDataFromAPIWithPromise(apiSettings).then(success, failure);
     </code></pre>
     <p class="fragment">
-        <code>then()</code> will be executed as recently as the function <code>createAudioFileAsync</code> returns.
+        <code>then()</code> will be executed as recently as the function <code>getDataFromAPIWithPromise</code> returns.
     </p>
 </section>
 <section>
@@ -173,13 +171,13 @@
         .then(success2)
         .catch(failureCallback);
     </code></pre>
-    <p>
+    <span class="fragment">
         <h3>Important</h3>
         <ul>
             <li>Always return a result else the callback does not get the result of the previous Promise.</li>
-            <li>If a <code>then()</code> throws an error the promise chain stops and looks for a catch() further in the chain.</li>
+            <li>If a <code>then()</code> throws an error the promise chain stops and looks for a <code>catch()</code> further in the chain.</li>
         </ul>
-    </p>
+    </span>
     <aside class="notes">
         Execution order: 1. promiseFunction 2. success1() 3. success2(); failureCallback if there is an error in one of the previous functions<br>
         .catch(func) = .then(undefined, func)

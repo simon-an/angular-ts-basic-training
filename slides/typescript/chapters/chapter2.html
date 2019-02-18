@@ -6,10 +6,12 @@
     <h2>Exercise 1 & 2</h2>
     <p>Setup TypeScript and your first TypeScript project</p>
     <aside class="notes">
-        Show package.json<br>
-        package.json corresponds to pom.xml of maven<br>
-        node_modules corresponds to .m2 folder of maven<br>
-        Show tsconfig.json: show target says es5 and module says es2015 as result targets
+        <ul>
+            <li>Show package.json</li>
+            <li>package.json corresponds to pom.xml of maven</li>
+            <li>node_modules corresponds to .m2 folder of maven</li>
+            <li>Show tsconfig.json: show target says es5 and module says es2015 as result targets</li>
+        </ul>
     </aside>
 </section>
 </section>
@@ -170,7 +172,7 @@
         let greeting = 'hello';
         greeting = 'bye';
     </code></pre>
-    <p>Rule of thumb: Use let instead of var.</p>
+    <p>Rule of thumb: Use <code>let</code> instead of <code>var</code>.</p>
     <aside class="notes">
         see example chapter2_constlet.ts
     </aside>
@@ -184,11 +186,13 @@
     <p>Immutability for primitive data types.</p>
     <pre><code data-trim data-noescape>
         const greeting = { text: 'hello'} ;
-        greeting.text = 'bye'; // mutating sub properties is allowed (e.g. content of arrays and objects)
+        // mutating sub properties is allowed
+        greeting.text = 'bye'; 
         console.log(greeting); // { text: 'bye' }
     </code></pre>
     <aside class="notes">
         const is like final in JAVA.<br>
+        sub properties = arrays and objects
         see readonly for true immutability<br>
         see example chapter2_constlet.ts<br>
         see example chapter2_constmutablity.ts
@@ -197,8 +201,8 @@
 <section>
     <h2>Variable Scoping</h2>
     <ul>
-        <li>var: function scope</li>
-        <li>const & let: block scope</li>
+        <li><code>var</code>: function scope</li>
+        <li><code>const</code> & <code>let</code>: block scope</li>
     </ul>
     <aside class="notes">
         see example chapter2_variable_scoping.ts<br>
@@ -219,7 +223,7 @@
             return sum;
         }
     </code></pre>
-    <p class="fragment">Use let instead var for i.</p>
+    <p class="fragment">Use <code>let</code> instead <code>var</code> for <code>i</code>.</p>
     <aside class="notes">
         see example chapter2_test_findtheerror.ts
     </aside>
@@ -239,6 +243,9 @@
             c: "bar"
         };
         let { a, b } = o;
+        // new variables created
+        console.log(a); // "foo"
+        console.log(b); // 12
     </code></pre>
     <aside class="notes">
         see example chapter2_deconstructing.ts
@@ -288,9 +295,9 @@
 <section>
     <h2>Readonly</h2>
     <ul>
-        <li>Variables: const</li>
-        <li>Properties: readonly</li>
-        <li>For Arrays: ReadonlyArray</li>
+        <li>Variables: <code>const</code></li>
+        <li>Properties: <code>readonly</code></li>
+        <li>For Arrays: <code>ReadonlyArray</code></li>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
         interface LabelledValue {
@@ -365,15 +372,16 @@
     </aside>
 </section>
 <section>
-    <h2>Functions: Optional Parameter</h2>
+    <h2>Functions: Parameters</h2>
+    <h3>Optional Parameter</h3>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, lastName?: string) {}
     </code></pre>
-    <h2>Functions: Default Parameter:</h2>
+    <h3>Default Parameter</h3>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, lastName = 'Smith') {}
     </code></pre>
-    <h2>Functions: Rest Parameter:</h2>
+    <h3>Rest Parameter</h3>
     <pre><code class="typescript" data-trim data-noescape>
         function buildName(firstName: string, ...restOfName: string[]) {}
     </code></pre>
@@ -384,21 +392,21 @@
 <section>
     <h2>this and arrow functions</h2>
     <ul>
-        <li>In JavaScript <i>this</i> is a variable that will be created if a function is executed.</li>
-        <li>Arrow functions will create <i>this</i> where the function will be created.</li>
+        <li>In JavaScript <code>this</code> is a variable that will be created if a function is executed.</li>
+        <li>Arrow functions will create <code>this</code> where the function will be created.</li>
     </ul>
 </section>
 <section>
     <h2>Generics</h2>
-    <p>Function Signature</p>
+    <h3>Function Signature</h3>
     <pre><code class="typescript" data-trim data-noescape>
         function create&lt;T>(c: {new(): T; }): T {}
     </code></pre>
-    <p>Function Signature</p>
+    <h3>Function Signature</h3>
     <pre><code class="typescript" data-trim data-noescape>
         function getProperty&lt;T, K extends keyof T>(obj: T, key: K) {}
     </code></pre>
-    <p>Generic Classes</p>
+    <h3>Generic Classes</h3>
     <pre><code class="typescript" data-trim data-noescape>
         class GenericNumber&lt;T> {
             zeroValue: T;
@@ -412,7 +420,7 @@
 </section>
 <section>
     <h2>Enums</h2>
-    <p>Numeric Enums</p>
+    <h3>Numeric Enums</h3>
     <pre><code class="typescript" data-trim data-noescape>
     enum Direction {
         Up = 1,
@@ -421,7 +429,7 @@
         Right,
     }
     </code></pre>
-    <p>String Enums</p>
+    <h3>String Enums</h3>
     <pre><code class="typescript" data-trim data-noescape>
         enum Direction {
             Up = "UP",
@@ -431,25 +439,29 @@
         }
     </code></pre>
     <aside class="notes">
-        Numeric Enums: because of the 1 the other values will be automatically incremented -> Down = 2, Left = 3, Right = 4; without 1 -> Up = 0, Down = 1,...
+        Numeric Enums: because of the 1 the other values will be automatically incremented<br>
+        -> Down = 2, Left = 3, Right = 4<br>
+        without 1 -> Up = 0, Down = 1,...
     </aside>
 </section>
 <section>
     <h2>Type Inference</h2>
-    <p>Best common type</p>
+    <h3>Best common type</h3>
     <pre><code>let x = [0, 1, null]; // type of x is (number | null)</code></pre>
-    <p>Contextual Type</p>
+    <h3>Contextual Type</h3>
     <pre><code class="typescript" data-trim data-noescape>
         window.onmousedown = function(mouseEvent) {
-            console.log(mouseEvent.clickTime);  // error, because mouseEvent is of type MouseEvent
+            console.log(mouseEvent.clickTime);  // error
         };
         window.onmousedown = function(mouseEvent: any) {
-            console.log(mouseEvent.clickTime);  // no error, because mouseEvent is of type any
+            console.log(mouseEvent.clickTime);  // no error
         };
     </code></pre>
     <aside class="notes">
         best common type: will be calculated automatically<br>
-        contextual typing: the type of an expression is implied by its location
+        contextual typing: the type of an expression is implied by its location<br>
+        1. error, because mouseEvent is of type MouseEvent<br>
+        2. no error, because mouseEvent is of type any
     </aside>
 </section>
 <section>
@@ -510,27 +522,29 @@
 </section>
 <section>
     <h2>Iterables</h2>
-    <ul>
-        <li>iterator types: Array, Map, Set, String, Int32Array, Uint32Array</li>
-        <li>for..of -> used with iterator types; returns a list of keys on the object being iterated</li>
-        <li>for..in -> used with objects and iterator types; returns a list of values of the numeric properties of the object being iterated</li>
+    <p>iterator types: <code>Array</code>, <code>Map</code>, <code>Set</code>, <code>String</code>, <code>Int32Array</code>, <code>Uint32Array</code></p>
     </ul>
     <pre><code class="typescript" data-trim data-noescape>
     const list4to6 = [4, 5, 6];
     for (let i in list4to6) {
-        console.log(i); // "0", "1", "2" (index: always of type string)
+        console.log(i); // "0", "1", "2" (index)
     }
     for (let i of list4to6) {
-        console.log(i); // "4", "5", "6" (items: always of type string)
+        console.log(i); // "4", "5", "6" (items)
     }
     </code></pre>
     <aside class="notes">
-        see example chapter2_forin_forof.ts
+        <ul>
+            <li><code>for..of</code> -> used with iterator types; returns a list of keys on the object being iterated</li>
+            <li><code>for..in</code> -> used with objects and iterator types; returns a list of values of the numeric properties of the object being iterated</li>
+        </ul>
+        see example chapter2_forin_forof.ts<br>
+        i is always of type string
     </aside>
 </section>
 <section>
     <h2>Namespaces</h2>
-    <p>internal modules</p>
+    <p>= internal modules</p>
     <pre><code class="typescript" data-trim data-noescape>
         namespace Shapes {
             export namespace Polygons {
@@ -564,10 +578,10 @@
 <section>
     <h2>Map</h2>
     <pre><code data-trim data-noescape class="typescript">
-    const resultArray = [];
-    const initialArray = [1, 2, 3, 4];
-    for (let index = 0; index &lt; initialArray.length; index++) {
-        resultArray[index] = initialArray[index] * initialArray[index];
+    const resultArr = [];
+    const initialArr = [1, 2, 3, 4];
+    for (let index = 0; index &lt; initialArr.length; index++) {
+        resultArr[index] = initialArr[index] * initialArr[index];
     }
     </code></pre>
     <pre><code data-trim data-noescape class="typescript">
@@ -591,7 +605,10 @@
         }
     </code></pre>
     <pre><code data-trim data-noescape style="font-size: 20px" class="typescript">
-        console.log([1, 2, 3, 4].map(num => num * 100).filter(value => value > 200)); // [300, 400]
+        let result = [1, 2, 3, 4]
+            .map(num => num * 100)
+            .filter(value => value > 200);
+        console.log(result); // [300, 400]
     </code></pre>
     <aside class="notes">
         filter() method creates a new array with all elements that pass the test implemented by the provided function.<br>
