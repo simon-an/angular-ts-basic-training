@@ -23,7 +23,7 @@ result.subscribe(x => console.log(x));
 // b1
 // c1
 // *calculating*
-// a3
-// b3
-// c3
+// a2
+// b2
+// c2
 // continues to list a,b,c with respective ascending integers

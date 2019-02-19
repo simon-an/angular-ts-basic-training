@@ -561,18 +561,22 @@
         Turn multiple observables into a single observable.
     </p>
     <aside class="notes">
-        Use concat if order is important.
+        <ul>
+            <li>Use concat if order is important.</li>
+            <li>see example chapter_3_rxjs_operator_merge.ts</li>
+        </ul>
     </aside>
 </section>
 <section>
     <h2><code>flatMap()</code> / <code>mergeMap()</code> operators</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     flatMap(
         project: function: Observable,
         resultSelector: function: any,
         concurrent: number
     ): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_mergeMap.png" width="700px">
     <p>
         Flattens an inner observable.
     </p>
@@ -580,36 +584,45 @@
         <ul>
             <li>Use concatMap if oder is important.</li>
             <li>see example chapter_3_rxjs_operator_flatMap.ts</li>
+            <li>see example chapter_3_rxjs_operator_concatMap-mergeMap.ts</li>
         </ul>
     </aside>
 </section>
 <section>
     <h2><code>concatMap()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     concatMap(
         project: function,
         resultSelector: function
     ): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_concatMap.png" width="700px">
     <p>
         Map values to inner observable, subscribe and emit in order.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_concatMap-mergeMap.ts
+    </aside>
 </section>
 <section>
     <h2><code>switchMap()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     switchMap(
         project: function: Observable, 
         resultSelector: function(
             outerValue, innerValue, outerIndex, innerIndex
         ): any
     ): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_switchMap.png" width="700px">
     <p>
         Map to observable, complete previous inner observable, emit values.
     </p>
     <aside class="notes">
-        see example chapter_3_rxjs_observable_create_counter.ts
+        <ul>
+            <li>Returns an Observable that emits items based on applying a function that you supply to each item emitted by the source Observable, where that function returns an (so-called "inner") Observable. Each time it observes one of these inner Observables, the output Observable begins emitting the items emitted by that inner Observable. When a new inner Observable is emitted, switchMap stops emitting items from the earlier-emitted inner Observable and begins emitting items from the new one. It continues to behave like this for subsequent inner Observables.</li>
+            <li>see example chapter_3_rxjs_observable_create_counter.ts</li>
+        </ul>
     </aside>
 </section>
 <section>
@@ -634,8 +647,11 @@
     zip(observables: *): Observable
     </code></pre>
     <p>
-        After all observables emit, emit values as an array
+        Wait until all observables have emitted a value then emit all as an array.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_zip.ts
+    </aside>
 </section>
 <section>
     <h2><code>catch()</code> & <code>catchError()</code> operator</h2>
