@@ -1,69 +1,88 @@
 # Chapter 10 Pipes and Validators
 
-## Preparation
+## Chapter 10.1 Ceate a simple register form with one input for email address
 
-- add new model app/core/model/safeitem.ts
-
-```typescript
-export class SafeItem {
-  id: string;
-  name: string;
-  price: number;
-  invoiceId: string;
-}
+```bash
+ng g component views/home/components/registerForm --changeDetection OnPush
 ```
 
-- Replace the app/core/services/auth-service.ts
+<details><summary>register-form.component.html</summary>
 
-<details><summary>auth-service.ts</summary>
+```html
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+  <mat-form-field>
+    <mat-select placeholder="Role" #roleInput [(value)]="state.role" matInput name="role" [(ngModel)]="state.role">
+      <mat-option *ngFor="let role of roles" [value]="role">
+        {{ role }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-error *ngIf="!!registerForm.errors?.AdminEmail && (email.touched || email.dirty)">
+    Email address domain for admins are restricted.
+  </mat-error>
+
+  <mat-form-field>
+    <input
+      email
+      required
+      name="email"
+      [(ngModel)]="state.email"
+      matInput
+      placeholder="Email"
+      #email="ngModel"
+      autocomplete="section-register email"
+      [ngModelOptions]="{ updateOn: 'blur' }"
+    />
+    <mat-error *ngIf="email?.errors?.userExists">
+      user does not exists
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.email">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.required"> Email is <strong>required</strong> </mat-error>
+  </mat-form-field>
+
+  <button [disabled]="!registerForm.valid" mat-button color="primary">
+    Register
+  </button>
+</form>
+```
 
 ```typescript
-import { Injectable } from "@angular/core";
-import { Observable, timer, of, BehaviorSubject } from "rxjs";
-import { LoginData, User } from "../model";
-import { map, tap, take } from "rxjs/operators";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
-@Injectable({
-  providedIn: "root"
+@Component({
+  selector: "cool-register-form",
+  templateUrl: "./register-form.component.html",
+  styleUrls: ["./register-form.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthService {
-  user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+export class RegisterFormComponent implements OnInit {
+  model = { email: "" };
 
   constructor() {}
 
-  login(loginData: LoginData): Observable<User | null> {
-    if (loginData) {
-      return timer(30).pipe(
-        map(time => {
-          if (loginData.email === "simon.potzernheim@metafinanz.de") {
-            return {
-              id: "1",
-              name: "simon.potzernheim@metafinanz.de",
-              role: loginData.role
-            } as User;
-          }
-          if (loginData.email.includes("@gmail.com")) {
-            return { id: "2", name: loginData.email, role: "user" } as User;
-          }
-          return null;
-        }),
-        tap((loginAsUser: User) => this.user.next(loginAsUser))
-      );
-    }
-    return of(null);
-  }
+  ngOnInit() {}
 
-  getUser() {
-    return this.user.asObservable();
+  onSubmit() {
+    console.log("Register user with email: ", this.model.email);
   }
+}
+```
 
+</details>
+
+- Add a mock function to auth.service.ts which checks wheather email address exists in backend.
+
+<details><summary>emailExists</summary>
+
+```typescript
   emailExists(email: string): Promise<boolean> {
     return timer(300)
       .pipe(
         map(time => {
           if (
-            email === "simon.potzernheim@metafinanz.de" ||
-            email.includes("@gmail.com")
+            Math.random()*100 < 20
           ) {
             return true;
           } else {
@@ -73,83 +92,22 @@ export class AuthService {
       )
       .toPromise();
   }
-
-  emailExistsRxjs(email: string): Observable<boolean> {
-    return timer(300).pipe(
-      map(time => {
-        if (
-          email === "simon.potzernheim@metafinanz.de" ||
-          email.includes("@gmail.com")
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      }),
-      take(1)
-    );
-  }
-}
 ```
 
 </details>
 
-## Exercise: 10.1
+## Exercise: 10.2
 
 ### Create admin and email domain validator
 
-- Create a validator, which validates the email to be from a specific domain, when the role is admin.
+- Create a validator (admin-email-validator.directive.ts), which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.
-
-login-dialog.component.html
-
-```html
-<h2>Please Log in as {{state.role}}</h2>
-<form (ngSubmit)="dialogRef.close(state)" #loginForm="ngForm" coolSpecialAdminValidator>
-  <mat-form-field>
-    <mat-select placeholder="Role" #roleInput [(value)]="state.role" matInput name="role" [(ngModel)]="state.role">
-      <mat-option *ngFor="let role of roles" [value]="role">
-        {{role}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-error *ngIf="!!loginForm.errors?.specialAdmin &&  (loginForm.touched || loginForm.dirty)">
-    Email address domain for admins are restricted.
-  </mat-error>
-
-  <mat-form-field>
-    <input email coolUserExists required name="email" [(ngModel)]=state.email matInput placeholder="Email" #email="ngModel"
-      [ngModelOptions]="{updateOn: 'blur'}">
-    <mat-error> {{ data.message }} </mat-error>
-    <mat-error *ngIf="email?.errors?.userExists">
-      user does not exists
-    </mat-error>
-    <mat-error *ngIf="email?.errors?.email">
-      Please enter a valid email address
-    </mat-error>
-    <mat-error *ngIf="email?.errors?.required">
-      Email is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-
-  <button [disabled]="!loginForm.valid" mat-button color="primary">
-    Login
-  </button>
-  <!-- {{loginForm.valid}}
-  {{loginForm.touched}}
-  {{loginForm.dirty}}
-  {{loginForm.pristine}}
-  {{loginForm.errors | json }}
-  X:{{email.errors | json }} -->
-</form>
-```
-
-Create
-admin-email-validator.directive.ts
+- Hint: you need to get both, the role and the email value from the form.
+- Hint: You need to implement the Validator interface.
+- Hint: You need to add the Directive as a Provider to NG_VALIDATORS.
 
 ```bash
-ng generate directive shared/directives/admin-email-validator SpecialAdminValidatorDirective --module shared
+ng generate directive views/home/directives/admin-email-validator SpecialAdminValidatorDirective --module home
 ```
 
 ```typescript
@@ -162,6 +120,23 @@ import {
   Validator,
   NG_VALIDATORS
 } from "@angular/forms";
+
+@Directive({
+  selector: "[coolAdminEmailValidator]",
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: AdminEmailValidatorDirective,
+      multi: true
+    }
+  ]
+})
+export class AdminEmailValidatorDirective implements Validator {
+  constructor() {}
+  validate(control: AbstractControl): ValidationErrors | null {
+    return adminDomainValidator(control);
+  }
+}
 
 export const adminDomainValidator: ValidatorFn = (
   control: FormGroup
@@ -176,38 +151,30 @@ export const adminDomainValidator: ValidatorFn = (
     ? { specialAdmin: true }
     : null;
 };
+```
 
-@Directive({
-  selector: "[coolSpecialAdminValidator]",
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: SpecialAdminValidatorDirective,
-      multi: true
-    }
-  ]
-})
-export class SpecialAdminValidatorDirective implements Validator {
-  constructor() {}
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    return adminDomainValidator(control);
-  }
-}
+```html
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm" coolAdminEmailValidator>
+  <mat-error *ngIf="!!registerForm.errors?.AdminEmail">
+    Email address domain for admins are restricted to domains: {{ registerForm?.errors?.AdminEmail?.domains }}
+  </mat-error>
 ```
 
 </details>
 
-## Exercise 10.2 Create user exists async validator
+## Exercise 10.3 Create user exists async validator
 
 - Create an async validator, which calles the auth-service userExists method.
+- Attach the validator to the email input field.
+- Directive must implement AsyncValidator interface.
+- Directive must be a provider to NG_ASYNC_VALIDATORS.
 
 <details><summary>Solution</summary>
 
 Create user-exists-validator.directive.ts
 
 ```bash
-ng generate directive shared/directives/user-exists-validator UserExistsValidatorDirective --module shared
+ng generate directive views/home/directives/user-exists-validator UserExistsValidatorDirective --module home
 ```
 
 ```typescript
@@ -218,29 +185,29 @@ import {
   AbstractControl,
   NG_ASYNC_VALIDATORS
 } from "@angular/forms";
-import { Observable } from "rxjs";
-import { map, catchError } from "rxjs/operators";
-import { AuthService } from "src/app/core";
+import { Observable, from } from "rxjs";
+import { map, catchError, take } from "rxjs/operators";
+import { AuthService } from "~core/services/auth.service";
 
 @Directive({
-  selector: "[coolUserExists]",
+  selector: "[coolUserExistsValidator]",
   providers: [
     {
       provide: NG_ASYNC_VALIDATORS,
-      useExisting: UserExistsDirective,
+      useExisting: UserExistsValidatorDirective,
       multi: true
     }
   ]
 })
-export class UserExistsDirective implements AsyncValidator {
+export class UserExistsValidatorDirective implements AsyncValidator {
   constructor(private service: AuthService) {}
 
   validate(
     ctrl: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     console.log("UserExistsDirective", ctrl);
-    return this.service.emailExistsRxjs(ctrl.value).pipe(
-      map(isTaken => (isTaken ? null : { userExists: "user does not exist" })),
+    return from(this.service.emailExists(ctrl.value)).pipe(
+      map(isTaken => (isTaken ? { userExists: "user already exists" } : null)),
       catchError(() => null)
     );
   }
@@ -249,7 +216,7 @@ export class UserExistsDirective implements AsyncValidator {
 
 </details>
 
-## Exercise 10.3
+## Exercise 10.4
 
 ### Create a custom pipe which transform the file upload size to KB or MB
 
