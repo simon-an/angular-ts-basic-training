@@ -325,37 +325,10 @@
 </section>
 <section>
     <h2>Exercise: Promises</h2>
-    <p>Create the console output using Promise chaining.</p>
-    <pre><code data-trim data-noescape class="typescript">
-    // Console output
-    Initial
-    Do that
-    Do this, no matter what happened before
-    </code></pre>
-    <ul>
-        <li>Output "Initial" will be logged in the created Promise.</li>
-        <li>There is an error case as second chain element that normally logs "Do this" but because of the error is logs "Do that".</li>
-    </ul>
-</section>
-<section>
-    <h2>Solution for Exercise: Promises</h2>
-    <pre><code data-trim data-noescape class="typescript">
-    new Promise((resolve, reject) => {
-        console.log('Initial');
-        resolve();
-    })
-    .then(() => {
-        throw new Error('Something failed');
-            
-        console.log('Do this');
-    })
-    .catch(() => {
-        console.log('Do that');
-    })
-    .then(() => {
-        console.log('Do this, no matter what happened before');
-    });
-    </code></pre>
+    <p>-> typescript-basics/Exercises-Promises.md</p>
+    <aside class="notes">
+        solution: chapter_3_promise_exercise-solution.ts
+    </aside>
 </section>
 <section>
     <h3>Async / Await</h3>
