@@ -229,7 +229,7 @@
 </section>
 <section>
     <h2>Services</h2>
-    <pre><code data-trim class="typescript" style="font-size: 18px">
+    <pre><code data-trim class="typescript">
         @Injectable()
         class UsefulService {
         }
@@ -238,10 +238,6 @@
         class NeedsService {
             constructor(public service: UsefulService) {}
         }
-        
-        const injector =
-            ReflectiveInjector.resolveAndCreate([NeedsService, UsefulService]);
-        expect(injector.get(NeedsService).service instanceof UsefulService).toBe(true);
     </code></pre>
     <p><a href="https://angular.io/guide/architecture-services" target="_blank">Services Docs</a></p>
 </section>
