@@ -3,8 +3,8 @@
 </section>
 <section>
     <h2>Modules</h2>
-    <p>ngModule <br>= <br>cohesive block of code dedicated to an application domain, a workflow, or a closely related set of capabilities</p>
-    <p>Root Module bootstraps the application<br>(= AppModule)</p>
+    <p><code>ngModule</code><br>=<br>cohesive block of code dedicated to an application domain, a workflow, or a closely related set of capabilities</p>
+    <p>AppModule: root module bootstraps the application</p>
 </section>
 <section>
     <h2>Recommended Modules</h2>
@@ -14,10 +14,12 @@
         <li>Shared</li>
     </ul>
     <aside class="notes">
-        A feature module delivers a cohesive set of functionality focused on a specific application need such as a user workflow, routing, or forms.<br>
-        Feature modules partition the app into focused areas.<br>
-        A feature module collaborates with the root module and with other modules through the services it provides and the components, directives, and pipes that it shares.<br>
-        A shared module consists of commonly used directives, pipes, and components.
+        <ul>
+            <li>A feature module delivers a cohesive set of functionality focused on a specific application need such as a user workflow, routing, or forms.</li>
+            <li>Feature modules partition the app into focused areas.</li>
+            <li>A feature module collaborates with the root module and with other modules through the services it provides and the components, directives, and pipes that it shares.</li>
+            <li>A shared module consists of commonly used directives, pipes, and components.</li>
+        </ul>
     </aside>
 </section>
 <section data-background-image="images/Modules-SafeApp.png" data-background-size="700px">
@@ -36,9 +38,9 @@
 </section>
 <section>
     <h2>Set the base</h2>
-    <pre><code class="html" data-trim>
-    &lt;base href="/"></code>
-    </pre>
+    <pre><code class="html" data-trim data-noescape>
+        &lt;base href="/">
+    </code></pre>
     <p>Router configuration in app-routing.module.ts</p>
 </section>
 <section>
@@ -59,8 +61,10 @@
     <pre><code data-trim style="font-size: 17px">
         <cool-header-with-sidenav>
             &lt;ng-container navlist>
-              &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">Login as Admin&lt;/a>
-              &lt;a mat-list-item routerLink="/user" routerLinkActive="active">Login as User&lt;/a>
+              &lt;a mat-list-item routerLink="/admin" routerLinkActive="active">
+                Login as Admin&lt;/a>
+              &lt;a mat-list-item routerLink="/user" routerLinkActive="active">
+                Login as User&lt;/a>
             &lt;/ng-container>
             &lt;p body>home works</p>
         </cool-header-with-sidenav>
@@ -170,6 +174,12 @@
         <li>They work in combination with other routes.</li>
         <li>They are displayed in named outlets.</li>
     </ul>
+    <aside class="notes">
+        <ul>
+            <li>different to child routes (children: [])</li>
+            <li>Named outlets are the targets of secondary routes.</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h3>Secondary Routes</h3>
@@ -188,7 +198,7 @@
 <section>
     <pre><code class="typescript" data-trim style="font-size: 17px; line-height: 15px">
         /* user.routing.module.ts */
-            const routes: Routes = [
+        const routes: Routes = [
             {
                 path: 'home',
                 component: UserComponent,
@@ -209,7 +219,7 @@
                 path: '',
                 redirectTo: 'home'
             }
-            ];
+        ];
     </code></pre>
     <p class="fragment" data-code-focus="5,9">
         router module can use outlet to place components in multiple router-outlets
