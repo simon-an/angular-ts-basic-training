@@ -15,12 +15,12 @@ export class UsersService {
   constructor() {
     this.users.push({
       id: uuid(),
-      name: 'simon.potzernheim@metafinanz.de',
+      name: 'test@coolsafe.de',
       role: 'user',
     } as User);
     this.users.push({
       id: uuid(),
-      name: 'simon.potzernheim@metafinanz.de',
+      name: 'admin@coolsafe.de',
       role: 'admin',
     } as User);
   }
