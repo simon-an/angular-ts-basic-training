@@ -1,6 +1,9 @@
+# Exercise 12
+
 ## Exercise 12.1
 
 - Use the currency pipe in item-list.component.html
+- [Docs](https://angular.io/api/common/CurrencyPipe)
 
 <details><summary>Solution</summary>
 
