@@ -188,10 +188,12 @@
     <pre><code data-trim data-noescape class="typescript">
     new Promise( /* executor */ (resolve, reject) => {
         console.log('long lasting thing is in progress');
-        resolve(); // or reject() if there is an error case and directly jump to catch()
+        resolve();
+        // If there is an error. Jumps directly to catch().
+        // reject(); 
     })
-    .then(() => console.log('the long lasting thing has been resolved'))
-    .catch(() => console.log('the long lasting thing has been rejected'));
+    .then(() => console.log('resolved case'))
+    .catch(() => console.log('rejected case'));
     </code></pre>
     <aside class="notes">
         Create a Promise for example to wrap an old API<br>
@@ -206,7 +208,7 @@
     doSomething(function(result) {
         doSomethingElse(result, function(newResult) {
             doThirdThing(newResult, function(finalResult) {
-                console.log('Got the final result: ' + finalResult);
+                console.log('Final result: ' + finalResult);
             }, failureCallback);
         }, failureCallback);
     }, failureCallback);
@@ -224,7 +226,7 @@
         return doThirdThing(newResult);
     })
     .then(function(finalResult) {
-        console.log('Got the final result: ' + finalResult);
+        console.log('Final result: ' + finalResult);
     })
     .catch(failureCallback);
     </code></pre>
@@ -236,13 +238,13 @@
         .then(result => doSomethingElse(result))
         .then(newResult => doThirdThing(newResult))
         .then(finalResult => {
-            console.log(`Got the final result: ${finalResult}`);
+            console.log(`Final result: ${finalResult}`);
         })
         .catch(failureCallback);
     </code></pre>
 </section>
 <section>
-    <h2>Wait for us!</h2>
+    <h2>Wait for us all!</h2>
     <pre><code data-trim data-noescape class="typescript">
     let p1 = Promise.resolve(3);
     let p2 = 1337;
@@ -262,6 +264,7 @@
         <ul>
             <li>Promises will be processed in parallel.</li>
             <li>Returns a Promise that will be resolved when all arguments have been resolved or rejected or if any argument contains no Promise. It will be rejected with the first rejection return value.</li>
+            <li>see example chapter_3_promise_all.ts</li>
         </ul>
     </aside>
 </section>
@@ -287,6 +290,7 @@
     <aside class="notes">
         <ul>
             <li>Promises will be processed in parallel.</li>
+            <li>see example chapter_3_promise_race.ts</li>
         </ul>
     </aside>
 </section>
@@ -305,11 +309,12 @@
     console.log(1);
     </code></pre>
     <pre class="fragment"><code data-trim data-noescape class="typescript">
-    // expected output:  1, 2
+    // 1, 2
+    // because of the JavaScript event loop
     </code></pre>
-    <p class="fragment">
+    <aside class="notes">
         The forwarded function will be layed on the events queue -> the function will be executed later, because the queue will be executed at the end of the current execution of the JavaScript Event Loop.
-    </p>
+    </aside>
 </section>
 <section>
     <h2>Sources for Promises</h2>
@@ -320,43 +325,17 @@
 </section>
 <section>
     <h2>Exercise: Promises</h2>
-    <p>Create the console output using Promise chaining.</p>
-    <pre><code data-trim data-noescape class="typescript">
-    // Console output
-    Initial
-    Do that
-    Do this, no matter what happened before
-    </code></pre>
-    <ul>
-        <li>Output "Initial" will be logged in the created Promise.</li>
-        <li>There is a error case as second chain element that normally logs "Do this" but because of the error is logs "Do that".</li>
-    </ul>
-</section>
-<section>
-    <h2>Solution for Exercise: Promises</h2>
-    <pre><code data-trim data-noescape class="typescript">
-    new Promise((resolve, reject) => {
-        console.log('Initial');
-        resolve();
-    })
-    .then(() => {
-        throw new Error('Something failed');
-            
-        console.log('Do this');
-    })
-    .catch(() => {
-        console.log('Do that');
-    })
-    .then(() => {
-        console.log('Do this, no matter what happened before');
-    });
-    </code></pre>
+    <p>-> typescript-basics/Exercises-Promises.md</p>
+    <aside class="notes">
+        solution: chapter_3_promise_exercise-solution.ts
+    </aside>
 </section>
 <section>
     <h3>Async / Await</h3>
     <ul>
         <li>Introduction with ES2017</li>
-        <li>An <code>async</code> function declaration defines an asynchronous function. It can contain an <code>await</code> expression that interrups the execution of the <code>async</code> function and waits for the resolution of the Promise and the continues the execution of the <code>async</code> function.</li>
+        <li><code>async</code> function defines an asynchronous function</li>
+        <li><code>await</code> interrupts the execution of the <code>async</code> function, waits for the resolution of the Promise, then continues the execution of the <code>async</code> function.</li>
         <li>Through <code>async</code>/<code>await</code> we can use Promises synchronously.</li>
     </ul>
 </section>
@@ -368,7 +347,7 @@
             const result = await doSomething();
             const newResult = await doSomeThingElse(result);
             const finalResult = await doThirdThing(newResult);
-            console.log(`Got the final result: ${finalResult}`);
+            console.log(`Final result: ${finalResult}`);
         } catch(error) {
             failureCallback(error);
         }
@@ -453,6 +432,14 @@
     
     of(1, 2, 3, 4).subscribe(next, error, completed);
     </code></pre>
+    <aside class="notes">
+        <ul>
+            <li>see example chapter_3_rxjs_observable_create_ajax.ts</li>
+            <li>see example chapter_3_rxjs_observable_create_counter.ts</li>
+            <li>see example chapter_3_rxjs_observable_create_event.ts</li>
+            <li>see example chapter_3_rxjs_observable_create_promise.ts</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h2>Hot & Cold Obervables (1)</h2>
@@ -485,90 +472,147 @@
 <section>
     <h2><code>pipe()</code> operator</h2>
     <pre><code data-trim data-noescape>
-    pipe(functions: ...*): Observable
+    pipe(operations: ...*): Observable
     </code></pre>
     <p>
         Operator chaining<br>
         Like a recipe (Set of instructions that produce values). The recipe will be executed only if subcribe() will be called on it.
     </p>
+    <aside class="notes">
+        <ul>
+            <li>see example chapter_3_rxjs_observable_create_of.ts</li>
+            <li>see example chapter_3_rxjs_operator_pipe.ts</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h2><code>map()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     map(project: Function, thisArg?: any): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_map.png" width="700px">
     <p>
         Apply projection with each value from source.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_map.ts
+    </aside>
 </section>
 <section>
     <h2><code>filter()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     filter(condition: Function, thisArg?: any): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_filter.png" width="700px">
     <p>
         Emit values that pass the provided condition.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_filter.ts
+    </aside>
 </section>
 <section>
     <h2><code>concat()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <img src="images/rxjs_concat.png" width="700px">
+    <!-- <pre><code data-trim data-noescape>
     concat(observables: ...*): Observable
-    </code></pre>
+    </code></pre> -->
     <p>
         Subscribe to observables in order as previous completes, emit values.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_concat.ts
+    </aside>
 </section>
 <section>
     <h2><code>merge()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <!-- <pre><code data-trim data-noescape>
     merge(input: Observable): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_merge.png" width="700px">
     <p>
         Turn multiple observables into a single observable.
     </p>
     <aside class="notes">
-        Use concat if order is important.
+        <ul>
+            <li>Use concat if order is important.</li>
+            <li>see example chapter_3_rxjs_operator_merge.ts</li>
+        </ul>
     </aside>
 </section>
 <section>
     <h2><code>flatMap()</code> / <code>mergeMap()</code> operators</h2>
-    <pre><code data-trim data-noescape>
-    mergeMap(project: function: Observable, resultSelector: function: any, concurrent: number): Observable
-    </code></pre>
+    <!-- <pre><code data-trim data-noescape>
+    flatMap(
+        project: function: Observable,
+        resultSelector: function: any,
+        concurrent: number
+    ): Observable
+    </code></pre> -->
+    <img src="images/rxjs_mergeMap.png" width="700px">
     <p>
         Flattens an inner observable.
     </p>
     <aside class="notes">
-        Use concatMap if oder is important.
+        <ul>
+            <li>Use concatMap if oder is important.</li>
+            <li>see example chapter_3_rxjs_operator_flatMap.ts</li>
+            <li>see example chapter_3_rxjs_operator_concatMap-mergeMap.ts</li>
+        </ul>
     </aside>
 </section>
 <section>
     <h2><code>concatMap()</code> operator</h2>
-    <pre><code data-trim data-noescape>
-    concatMap(project: function, resultSelector: function): Observable
-    </code></pre>
+    <!-- <pre><code data-trim data-noescape>
+    concatMap(
+        project: function,
+        resultSelector: function
+    ): Observable
+    </code></pre> -->
+    <img src="images/rxjs_concatMap.png" width="700px">
     <p>
         Map values to inner observable, subscribe and emit in order.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_concatMap-mergeMap.ts
+    </aside>
 </section>
 <section>
     <h2><code>switchMap()</code> operator</h2>
-    <pre><code data-trim data-noescape>
-    switchMap(project: function: Observable, resultSelector: function(outerValue, innerValue, outerIndex, innerIndex): any): Observable
-    </code></pre>
+    <!-- <pre><code data-trim data-noescape>
+    switchMap(
+        project: function: Observable, 
+        resultSelector: function(
+            outerValue, innerValue, outerIndex, innerIndex
+        ): any
+    ): Observable
+    </code></pre> -->
+    <img src="images/rxjs_switchMap.png" width="700px">
     <p>
         Map to observable, complete previous inner observable, emit values.
     </p>
+    <aside class="notes">
+        <ul>
+            <li>Returns an Observable that emits items based on applying a function that you supply to each item emitted by the source Observable, where that function returns an (so-called "inner") Observable. Each time it observes one of these inner Observables, the output Observable begins emitting the items emitted by that inner Observable. When a new inner Observable is emitted, switchMap stops emitting items from the earlier-emitted inner Observable and begins emitting items from the new one. It continues to behave like this for subsequent inner Observables.</li>
+            <li>see example chapter_3_rxjs_observable_create_counter.ts</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h2><code>combineLatest()</code> operator</h2>
-    <pre><code data-trim data-noescape>
-    combineLatest(observables: ...Observable, project: function): Observable
-    </code></pre>
+    <!-- <pre><code data-trim data-noescape>
+    combineLatest(
+        observables: ...Observable,
+        project: function
+    ): Observable
+    </code></pre> -->
+    <img src="images/rxjs_combineLatest.png" width="700px">
     <p>
         When any observable emits a value, emit the latest value from each.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_combineLatest.ts
+    </aside>
 </section>
 <section>
     <h2><code>zip()</code> operator</h2>
@@ -576,49 +620,62 @@
     zip(observables: *): Observable
     </code></pre>
     <p>
-        After all observables emit, emit values as an array
+        Wait until all observables have emitted a value then emit all as an array.
     </p>
+    <aside class="notes">
+        see example chapter_3_rxjs_operator_zip.ts
+    </aside>
 </section>
 <section>
-    <h2><code>catchError()</code> operator</h2>
-    <pre><code data-trim data-noescape>
+    <h2><code>catch()</code> & <code>catchError()</code> operator</h2>
+    <!-- <pre><code data-trim data-noescape>
     catchError(project: function): Observable
-    </code></pre>
+    </code></pre> -->
+    <img src="images/rxjs_catch.png" width="700px">
     <p>
-        Gracefully handle errors in an observable sequence.<br>
-        <br>
-        Important: Always return an Observable!
+        Gracefully handle errors in an observable sequence.
     </p>
+    <aside class="notes">
+        <ul>
+            <li>Important: Always return an Observable!</li>
+            <li>see example chapter_3_rxjs_operator_catchError.ts</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h2><code>retry()</code> & <code>retryWhen()</code> operator</h2>
-    <pre><code class="typescript" data-trim data-noescape style="font-size: 20px">
+    <!-- <pre><code class="typescript" data-trim data-noescape style="font-size: 20px">
     retry(count: number): Observable
-    retryWhen(receives: (errors: Observable) => Observable, the: scheduler): Observable
-    </code></pre>
+    retryWhen(
+        receives: (errors: Observable) => Observable, the: scheduler
+    ): Observable
+    </code></pre> -->
+    <img src="images/rxjs_retry.png" width="700px">
     <p>
-        If origin observable throws an error -> retry count times after throwing error or retryWhen(custom criteria)<br>
-        <br>
-        Caution: Do not use retry for authentication requests or risk blocking user account
+        retry count times or retryWhen(custom criteria) after the observale threw an error
     </p>
     <aside class="notes">
-        Do not retry authentication requests, since these should only be initiated by user action.
-        We don't want to lock out user accounts with repeated login requests that the user has not initiated.
+        <ul>
+            <li>Do not retry authentication requests else risk blocking user accounts, since these should only be initiated by user action.</li>
+            <li>We don't want to lock out user accounts with repeated login requests that the user has not initiated.</li>
+            <li>see chapter chapter_3_rxjs_operator_retry.ts</li>
+            <li>see chapter chapter_3_rxjs_operator_retryWhen.ts</li>
+        </ul>
     </aside>
 </section>
 <section>
     <h2>Exercise: RxJS</h2>
-    <p>
-        An API returns natural numbers in ascending order.<br>
-        Add up the powers of the first 3 even numbers and return the values.<br>
-        See additional operators <code>reduce()</code> und <code>take()</code>
-    </p>
+    <p>-> typescript-basics/Exercises-RxJS.md</p>
+    <aside class="notes">
+        solution: chapter_3_rxjs_exercise-solution.ts
+    </aside>
 </section>
 <section>
     <h2>Sources</h2>
     <ul>
-        <li>https://rxjs-dev.firebaseapp.com/</li>
-        <li>https://angular.io/guide/rx-library</li>
-        <li>https://www.learnrxjs.io/</li>
+        <li><a href="https://rxjs-dev.firebaseapp.com/">RxJS</a></li>
+        <li><a href="https://angular.io/guide/rx-library">Angular RxJS library</a></li>
+        <li><a href="https://www.learnrxjs.io/">Learn RxJS</a></li>
+        <li><a href="https://rxmarbles.com/">RxJS Marbles - Interactive diagrams of Rx Observables</a></li>
     </ul>
 </section>

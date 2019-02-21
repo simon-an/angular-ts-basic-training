@@ -22,20 +22,14 @@
 <section>
   <h2>VS Code: Important Extensions</h2>
   <ul>
-    <li>Material Icon Theme</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme -->
-    <li>Prettier - Code formatter</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode -->
-    <li>Angular Language Service</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=Angular.ng-template -->
-    <li>Angular Schematics</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics -->
-    <li>NG.42 TS HELPERS</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=NG-42.ng-fortytwo-vscode-extension -->
-    <li>mikael.angular-beastcode</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode -->
-    <li>Angular Extension Pack (optional)</li>
-    <!-- https://marketplace.visualstudio.com/items?itemName=loiane.angular-extension-pack loiane.angular-extension-pack-->
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme">Material Icon Theme</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier - Code formatter</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=Angular.ng-template">Angular Language Service</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics">Angular Schematics</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=NG-42.ng-fortytwo-vscode-extension">NG.42 TS HELPERS</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=Mikael.Angular-BeastCode">mikael.angular-beastcode</a></li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=loiane.angular-extension-pack">Angular Extension Pack (optional)</a></li>
+    <!-- loiane.angular-extension-pack -->
   </ul>
 </section>
 <section>
@@ -131,22 +125,26 @@
   <h2>Webpack</h2>
   <p>Static module bundler for modern JavaScript applications</p>
   <aside class="notes">
-    it internally builds a dependency graph which maps every module your project
-    needs and generates one or more bundles.<br />
-    all different kind of assets like images, fonts and stylesheets<br />
-    async chunk loading and prefetching to help you deliver the best possible
-    version of your project to the user, always caring about loading times and
-    performance.<br />
-    built in tree shaking to remove not used fragments and so can create smaller
-    bundles
+    <ul>
+      <li>it internally builds a dependency graph which maps every module your project
+          needs and generates one or more bundles.</li>
+      <li>all different kind of assets like images, fonts and stylesheets</li>
+      <li>async chunk loading and prefetching to help you deliver the best possible
+          version of your project to the user, always caring about loading times and
+          performance.</li>
+      <li>built in tree shaking to remove not used fragments and so can create smaller
+          bundles</li>
+    </ul>
   </aside>
 </section>
 <section>
   <h2>Schematics</h2>
-  <pre><code class="bash" data-trim style="font-size: 12px;">
+  <pre><code data-trim data-noescape class="bash">
     ng add @angular/material
     ng generate module shared --module app
-    ng g @angular/material:nav shared/components/sidenav --changeDetection OnPush --export --module shared --selector cool-sidenav
+    ng g @angular/material:nav shared/components/sidenav
+      --changeDetection OnPush --export --module shared
+      --selector cool-sidenav
     </code></pre>
 </section>
 <section>

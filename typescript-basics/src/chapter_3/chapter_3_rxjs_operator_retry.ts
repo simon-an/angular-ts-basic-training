@@ -18,7 +18,7 @@ const example = source.pipe(
 
 example.subscribe({
   next: val => console.log(val),
-  error: val => console.log(`${val}: Retried 2 times then quit!`)
+  error: val => console.log(`${val}: Retried twice then quit!`)
 });
 
 /*

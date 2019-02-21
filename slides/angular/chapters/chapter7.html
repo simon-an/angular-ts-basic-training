@@ -1,5 +1,5 @@
 <section>
-    <h2>Lets add some content..</h2>
+    <h2>Lets add some content...</h2>
     <ul>
         <li>Simple template driven form</li>
         <li>Component Output</li>
@@ -20,6 +20,12 @@
         <li>object?.property</li>
         <li>object!.property</li>
     </ul>
+    <aside class="notes">
+        <ul>
+            <li>The Angular safe navigation operator (?.) is a fluent and convenient way to guard against null and undefined values in property paths. Here it is, protecting against a view render failure if the currentHero is null.</li>
+            <li>The Angular non-null assertion operator (!): typed variables disallow null and undefined by default. The type checker throws an error if you leave a variable unassigned or try to assign null or undefined to a variable whose type disallows null and undefined.</li>
+        </ul>
+    </aside>
 </section>
 <section>
     <h2>Exercise 7.2</h2>
@@ -27,25 +33,51 @@
 </section>
 <section>
     <h2>Form Directives</h2>
-    <ul>
-        <li>
-            ngModel
-            <pre><code>#name="ngModel"</code></pre>
-            <pre><code>[(ngModel)]="model.name"</code></pre>
-        </li>
-        <li>
-            ngForm
-            <pre><code>#safeitemForm="ngForm"</code></pre>
-        </li>
-        <li>required</li>
-        <li>
-            pattern
-            <pre><code>pattern="[0-9]*"</code></pre>
-        </li>
-        <li>'#var','ref-var' template reference variable</li>
-        <li>mat-raised-button</li>
-        <li>color="primary"</li>
+    <p>ngModel</p>
+    <pre><code data-trim class="html">
+        <input type="text" 
+            [(ngModel)]="model.name" name="name">
+    </code></pre>
+    <p>ngForm</p>
+    <pre><code data-trim class="html">
+        <form #safeitemForm="ngForm">...</form>
+    </code></pre>
+    <p>#var</p>
+    <pre><code data-trim class="html">
+        &lt;input #phone placeholder="phone number">
+        <button (click)="callPhone(phone.value)">Call</button>
+    </code></pre>
+    <aside class="notes">
+        <dl>
+            <dt>ngModel</dt>
+            <dd>two-way-binding: display in, listen to changes and extract from the input field<br>
+                Each input element has a name property that is required by Angular forms to register the control with the form.</dd>
+            <dt>ngForm</dt>
+            <dd>The variable <code>safeitemForm</code> is now a reference to the NgForm directive that governs the form as a whole.</dd>
+            <dt>ref-var: #var</dt>
+            <dd>template reference variable: reference to a DOM element within a template</dd>
+        </dl>
+    </aside>
+</section>
+<section>
+    <h2>Form Validation</h2>
+    <p>required</p>
+    <p>pattern</p>
+        <!-- <li>mat-raised-button</li>
+        <li>color="primary"</li> -->
     </ul>
+    <pre><code data-trim data-noescape class="html">
+        &lt;input type="text" [(ngModel)]="model.name"
+            name="name" #name="ngModel"
+            required pattern="[0-9]*">
+        &lt;div [hidden]="name.valid || name.pristine"
+            class="alert alert-danger">
+            Name is required or pattern does not match
+        &lt;/div>  
+    </code></pre>
+    <aside class="notes">
+        Here you created a variable called name and gave it the value "ngModel".
+    </aside>
 </section>
 <section>
     <h2>Form Selectors</h2>
