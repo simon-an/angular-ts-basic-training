@@ -186,7 +186,7 @@
 <section>
     <h2>Create a Promise</h2>
     <pre><code data-trim data-noescape class="typescript">
-    const promise = () => new Promise( /* executor */ (resolve, reject) => {
+    const promise = () => new Promise((resolve, reject) => {
         console.log('long lasting thing is in progress');
         resolve();
         // If there is an error. Jumps directly to catch().
