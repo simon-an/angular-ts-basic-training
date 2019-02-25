@@ -17,14 +17,14 @@ import {
 export class SafesService {
   private readonly safesMock: Safe[] = [
     {
-      id: uuid(),
+      id: '1',
       value: 999,
       itemSize: 2,
       active: true,
       activeSince: new Date(),
     },
     {
-      id: uuid(),
+      id: '2',
       value: 123,
       itemSize: 3,
       active: true,
@@ -38,13 +38,13 @@ export class SafesService {
         id: uuid(),
         price: 134,
         invoiceId: uuid(),
-        name: 'Fahhrad',
+        name: 'Fahrad',
       },
       {
         id: uuid(),
         price: 234,
         invoiceId: uuid(),
-        name: 'Fahhrad',
+        name: 'Festplatte',
       },
     ],
     [
@@ -52,7 +52,7 @@ export class SafesService {
         id: uuid(),
         price: 12,
         invoiceId: uuid(),
-        name: 'Fahhrad',
+        name: 'Fahrad',
       },
       {
         id: uuid(),

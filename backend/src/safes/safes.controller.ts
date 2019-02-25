@@ -25,13 +25,13 @@ export class SafesController {
   }
 
   @Get()
-  @UseGuards(AuthGuard('bearer'))
+  // @UseGuards(AuthGuard('bearer'))
   async findAll(): Promise<Safe[]> {
     return this.safesService.findAll().toPromise();
   }
 
   @Get(':id')
-  @UseGuards(AuthGuard('bearer'))
+  // @UseGuards(AuthGuard('bearer'))
   async findOne(@Param('id') id): Promise<Safe | HttpException> {
     const foundSafe = this.safesService.findOne(id);
     if (!foundSafe) {
@@ -41,7 +41,7 @@ export class SafesController {
   }
 
   @Get(':id/items')
-  @UseGuards(AuthGuard('bearer'))
+  // @UseGuards(AuthGuard('bearer'))
   async getAll(@Param('id') id): Promise<SafeItem[] | HttpException> {
     const items = this.safesService.getItems(id);
     if (!items) {
@@ -51,7 +51,7 @@ export class SafesController {
   }
 
   @Post(':id/items')
-  @UseGuards(AuthGuard('bearer'))
+  // @UseGuards(AuthGuard('bearer'))
   async newItem(
     @Param('id') id,
     @Body() dto: SafeItem,

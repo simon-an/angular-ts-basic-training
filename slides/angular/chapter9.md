@@ -110,7 +110,7 @@ export class AuthService {
         map(time => {
           return {
             id: "1",
-            name: "max.mustermann@metafinanz.de",
+            name: "test@coolsafe.de",
             role: loginData.role
           } as User;
         }),
