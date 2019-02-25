@@ -11,7 +11,7 @@ namespace unkown {
   console.log(strLength);
 
   if (typeof someValue === "string") {
-    let strLength: number = (<string>someValue).length;
+    let strLength: number = someValue.length;
     console.log(strLength);
   } else {
     console.log("wrong type");

@@ -8,7 +8,8 @@
     "test": "nyc mocha mocha/test/test.js",
     "nyc": "nyc mocha",
     "watch": "mocha-typescript-watch",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "lint": "tslint --project ."
   },
   "author": "",
   "license": "ISC",
@@ -19,10 +20,11 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "mocha-typescript": "^1.1.17",
-    "nyc": "^13.0.1",
+    "nyc": "^13.3.0",
     "rxjs": "^6.3.3",
     "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
+    "tslint": "^5.13.0",
     "typescript": "^3.0.3"
   },
   "nyc": {
