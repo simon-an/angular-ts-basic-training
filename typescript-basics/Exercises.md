@@ -14,6 +14,8 @@ npm init
 # install TypeScript locally: npm i --save-dev typescript
 # install TypeScript globally
 npm install -g typescript
+# install node types
+npm i @types/node -d
 ```
 
 Hint: `npm i -g` installs dependencies globally so they can be used everywhere in the terminal and are added to the Windows path variable.
