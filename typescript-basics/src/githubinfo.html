@@ -1,7 +1,9 @@
 <html>
 
 <head>
-    <script>
+    <script src="https://unpkg.com/@reactivex/rxjs@6.4.0/dist/global/rxjs.umd.js"></script>
+    <script >
+
         function makeAjaxCall(url, methodType) {
             var promiseObj = new Promise(function (resolve, reject) {
                 var xhr = new XMLHttpRequest();
@@ -28,20 +30,32 @@
             return promiseObj;
         }
 
-        function doStuff(){
+        function makeAjaxCallRxJS(url, methodType) {
+            var userId = document.getElementById("userId").value;
+            var uri = "https://api.github.com/users/" + userId;
+            // console.log('', rxjs.ajax, uri);
+            const obs$ = rxjs.ajax.ajax.getJSON(uri).pipe(
+                rxjs.operators.tap(userResponse => console.log('users: ', userResponse)),
+                rxjs.operators.catchError(error => console.log('error: ', error))
+            );
+
+            return obs$;
+        }
+
+        function doStuff() {
 
             document.getElementById("userDetails").addEventListener("click", function () {
                 // git hub url to get btford details
                 var userId = document.getElementById("userId").value;
                 var URL = "https://api.github.com/users/" + userId;
-                makeAjaxCall(URL, "GET").then(processUserDetailsResponse, errorHandler);
+                makeAjaxCallRxJS(URL, "GET").subscribe(processUserDetailsResponse);
             });
 
             document.getElementById("repoList").addEventListener("click", function () {
                 // git hub url to get btford details
                 var userId = document.getElementById("userId").value;
                 var URL = "https://api.github.com/users/" + userId + "/repos";
-                 makeAjaxCall(URL, "GET").then(processRepoListResponse, errorHandler);
+                makeAjaxCall(URL, "GET").then(processRepoListResponse, errorHandler);
             });
         }
 
@@ -62,8 +76,8 @@
         }
 
         setTimeout(doStuff, 200);
-        
-        </script>
+
+    </script>
 </head>
 
 <body>
