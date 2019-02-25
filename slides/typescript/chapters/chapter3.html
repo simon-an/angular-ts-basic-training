@@ -186,14 +186,14 @@
 <section>
     <h2>Create a Promise</h2>
     <pre><code data-trim data-noescape class="typescript">
-    new Promise( /* executor */ (resolve, reject) => {
+    const promise = () => new Promise( /* executor */ (resolve, reject) => {
         console.log('long lasting thing is in progress');
         resolve();
         // If there is an error. Jumps directly to catch().
         // reject(); 
-    })
-    .then(() => console.log('resolved case'))
-    .catch(() => console.log('rejected case'));
+    });
+    promise.then(() => console.log('resolved case'))
+           .catch(() => console.log('rejected case'));
     </code></pre>
     <aside class="notes">
         Create a Promise for example to wrap an old API<br>
