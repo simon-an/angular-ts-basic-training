@@ -218,7 +218,7 @@ Unit Tests:
   }
 ```
 
-### Exercise 7.3.4 Call the add Item Method from the safe-page.component.ts
+### Exercise 7.2.4 Call the add Item Method from the safe-page.component.ts
 
 Hint: subscribe to the afterClosed Observable of the dialogRef.
 
@@ -246,7 +246,7 @@ safe.component.ts
 
 </details>
 
-### Exercise 7.3.5 Bind the form result to the dialog component
+### Exercise 7.2.5 Bind the form result to the dialog component
 
 <details><summary>Show Solution</summary>
 
