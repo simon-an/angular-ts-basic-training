@@ -34,11 +34,17 @@ export interface SafeItem {
 
 ## Exercise 6.1.2 Create Barrel files for core module
 
-<details><summary>Create barrel file for the core module models</summary>
+Add safe.service.ts (implementation will be done in the next exercise).
+
+```bash
+ng g s core/services/safe
+```
+
+### Create barrel file for the core module models
 
 Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/model/index.ts
+Result: src/app/core/model/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -47,13 +53,11 @@ export * from "./safeitem";
 // end:ng42.barrel
 ```
 
-</details>
-
 <details><summary>Create barrel file for the core module</summary>
 
 Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/index.ts
+Result: src/app/core/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -68,7 +72,7 @@ export * from "./services";
 
 Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/services/index.ts
+Result: src/app/core/services/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -78,11 +82,7 @@ export * from "./safe.service";
 
 </details>
 
-## Exercise 6.1.3 Create global service: SafeService (this is a temporary mock service)
-
-```bash
-ng g s core/services/safe
-```
+## Exercise 6.1.3 Implement global service: SafeService (this is a temporary mock service)
 
 - safe.service should provide data to pass the following test:
 
