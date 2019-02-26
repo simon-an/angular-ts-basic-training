@@ -49,14 +49,16 @@ Adjust app prefixes
   "useTabs": false,
   "tabWidth": 2,
   "semi": true,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "trailingComma": "all"
 }
 ```
 
 tsconfig.json
 
 ```json
-{
+"compilerOptions": {
+  ...
   "baseUrl": "./src",
   "paths": {
     "~core/*": ["app/core/*"],
@@ -64,6 +66,7 @@ tsconfig.json
     "~layout/*": ["app/layout/*"],
     "~store/*": ["app/store/*"]
   }
+  ...
 }
 ```
 
