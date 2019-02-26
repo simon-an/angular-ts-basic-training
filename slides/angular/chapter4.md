@@ -18,7 +18,7 @@ ng g module views/user --routing
 ng g module views/admin --routing
 ```
 
-- import shared module in view modules.
+- import the shared modules in view modules.
 
 ### Generate root components for modules
 
