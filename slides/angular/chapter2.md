@@ -49,7 +49,8 @@ Adjust app prefixes
   "useTabs": false,
   "tabWidth": 2,
   "semi": true,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "trailingComma": "all"
 }
 ```
 
