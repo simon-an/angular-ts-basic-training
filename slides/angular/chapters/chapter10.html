@@ -50,21 +50,6 @@
     </aside>
 </section>
 <section>
-    <h2>Default Validators</h2>
-    <ul>
-        <li>min (numbers)</li>
-        <li>max (numbers)</li>
-        <li>required </li>
-        <li>requiredTrue (checkboxes)</li>
-        <li>email </li>
-        <li>pattern</li>
-        <li>minLength </li>
-        <li>maxLength </li>
-        <li>nullValidator</li>
-    </ul>
-    <p>Compose validators with <code>compose</code> and <code>composeAsync</code></p>
-</section>
-<section>
     <h2>Custom Pipes</h2>
     <p>They are Directives</p>
     <pre><code data-trim class="typescript">
@@ -94,21 +79,95 @@
         -> pipe is invoked on each change-detection cycle, even if the arguments have not changed.</p>
 </section>
 <section>
-    <h2>Custom Validators</h2>
-    <p>They are Directives</p>
-    <p>ValidatorFn</p>
-    <p>Validator and Async Validator</p>
-    <p>Add to validator injector</p>
-    <pre><code data-trim>
-        providers: [
-            {
-              provide: NG_VALIDATORS,
-              useExisting: SpecialAdminValidatorDirective,
-              multi: true
-            }
-        ]
+    <h2>Validators</h2>
+    <pre><code data-trim class="html">
+        &lt;input customValidator>
+    </code></pre>
+</section>
+<section>
+    <h2>Default Validators</h2>
+    <ul>
+        <li>min (numbers)</li>
+        <li>max (numbers)</li>
+        <li>required </li>
+        <li>requiredTrue (checkboxes)</li>
+        <li>email </li>
+        <li>pattern</li>
+        <li>minLength </li>
+        <li>maxLength </li>
+        <li>nullValidator</li>
+    </ul>
+    <p>Compose validators with <code>compose</code> and <code>composeAsync</code></p>
+</section>
+<section>
+    <h2>Validator</h2>
+    <pre><code data-trim class="typescript">
+    @Directive({
+      selector: '[customValidator]',
+      providers: [{
+        provide: NG_VALIDATORS, 
+        useExisting: CustomValidatorDirective, 
+        multi: true}]
+    })
+    class CustomValidatorDirective implements Validator {
+      validate(ctrl: AbstractControl): ValidationErrors | null {
+        return {'custom': true};
+      }
+    }
+    </code></pre>
+</section>
+<section>
+    <h2>AsyncValidator</h2>
+    <pre><code data-trim data-noescape class="typescript" style="font-size: 19px">
+    import { of } from 'rxjs';
+
+    @Directive({
+      selector: '[customAsyncValidator]',
+      providers: [{
+        provide: NG_ASYNC_VALIDATORS,
+        useExisting: CustomAsyncValidatorDirective,
+        multi: true
+      }]
+    })
+    class CustomAsyncValidatorDirective implements AsyncValidator {
+      validate(ctrl: AbstractControl): Observable&lt;ValidationErrors|null> {
+        return of({'custom': true});
+      }
+    }
     </code></pre>
     <aside class="notes">
-        Multiple providers can be associated with a single token in other areas as well. For example, you can register a custom form validator using the built-in NG_VALIDATORS token, and provide multiple instances of a given validator provider by using the multi: true property in the provider object. Angular adds your custom validators to the existing collection.
+        Return a Promise or Observable that later emits null or a validation error object
     </aside>
+</section>
+<section>
+    <h2>ValidatorFn</h2>
+    <pre><code data-trim class="typescript">
+    export const specialEmailValidator: ValidatorFn = 
+      (control: FormGroup): ValidationErrors | null => {
+      
+        const email = control.get('email');
+        return email ? { email: true } : null;
+    };
+    </code></pre>
+    <aside class="notes">
+        function that receives a control and synchronously returns a map of validation errors if present, otherwise null.
+    </aside>
+</section>
+<section>
+    <h2>Provide Custom Validators</h2>
+    <pre><code data-trim class="typescript">
+    providers: [
+      {
+        provide: NG_VALIDATORS,
+        useExisting: SpecialAdminValidatorDirective,
+        multi: true
+      }
+    ]
+    </code></pre>
+    <aside class="notes">
+        Multiple providers can be associated with a single token. For example, you can register a custom form validator using the built-in NG_VALIDATORS token, and provide multiple instances of a given validator provider by using the multi: true property in the provider object. Angular adds your custom validators to the existing collection.
+    </aside>
+</section>
+<section>
+    <h2>Exercise 10</h2>
 </section>
