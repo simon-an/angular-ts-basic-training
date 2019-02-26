@@ -173,7 +173,7 @@ Hint: When loading user page, you can see that only the user module is loaded in
 - home-landing-page.component.spec.ts
 
 ```typescript
-imports: [CommonModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
+imports: [CommonModule, LayoutModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
 ```
 
 - app.component.spec.ts
