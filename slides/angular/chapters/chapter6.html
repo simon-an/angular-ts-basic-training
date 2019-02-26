@@ -218,14 +218,14 @@
 </section>
 <section>
     <h2>Additional Syntax on the Template</h2>
+    <p>Interpolation: <pre><code data-trim class="html"><p>{{ variableFromComponent }}</p></code></pre></p>
     <p>Loop Directive:
         <pre><code data-trim class="html">
             <ul>
-                <li *ngFor="let item of items">{{ item.name }}</li>
+                &lt;li *ngFor="let item of items">{{ item.name }}</li>
             </ul>
         </code></pre></p>
-    <p>Interpolation: <pre><code data-trim class="html">{{ variableFromComponent }}</code></pre></p>
-    <p>AsyncPipe: <pre><code data-trim class="html">observable | async</code></pre></p>
+    <p>AsyncPipe: <pre><code data-trim class="html"><p>{{ observable | async }}</p></code></pre></p>
 </section>
 <section>
     <h2>Services</h2>
