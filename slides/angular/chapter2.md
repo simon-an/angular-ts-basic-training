@@ -56,7 +56,8 @@ Adjust app prefixes
 tsconfig.json
 
 ```json
-{
+"compilerOptions": {
+  ...
   "baseUrl": "./src",
   "paths": {
     "~core/*": ["app/core/*"],
@@ -64,6 +65,7 @@ tsconfig.json
     "~layout/*": ["app/layout/*"],
     "~store/*": ["app/store/*"]
   }
+  ...
 }
 ```
 
