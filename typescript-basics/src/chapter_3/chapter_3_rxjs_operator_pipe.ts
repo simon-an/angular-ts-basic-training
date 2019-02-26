@@ -1,5 +1,5 @@
-import { filter, map } from "rxjs/operators";
-import { of } from "rxjs";
+import { of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 const nums = of(1, 2, 3, 4, 5);
 

@@ -1,4 +1,4 @@
-let passcode = "secret passcode";
+let passcode = 'secret passcode';
 
 class Employee {
   private _fullName!: string;
@@ -8,16 +8,16 @@ class Employee {
   }
 
   set fullName(newName: string) {
-    if (passcode && passcode == "secret passcode") {
+    if (passcode && passcode === 'secret passcode') {
       this._fullName = newName;
     } else {
-      console.log("Error: Unauthorized update of employee!");
+      console.log('Error: Unauthorized update of employee!');
     }
   }
 }
 
 let employee = new Employee();
-employee.fullName = "Bob Smith";
+employee.fullName = 'Bob Smith';
 if (employee.fullName) {
   console.log(employee.fullName);
 }

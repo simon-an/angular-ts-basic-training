@@ -1,6 +1,6 @@
 function doStuff(): void {
   // this cannot be of type never!
-  console.log("i did something");
+  console.log('i did something');
 }
 
 function blockthread(val: number): never {
@@ -21,9 +21,9 @@ function blockthread(val: number): never {
 blockthread(2);
 
 function smnFn(x: string | number): boolean {
-  if (typeof x === "string") {
+  if (typeof x === 'string') {
     return true;
-  } else if (typeof x === "number") {
+  } else if (typeof x === 'number') {
     return false;
   }
 
@@ -32,7 +32,7 @@ function smnFn(x: string | number): boolean {
   // - Or Unreachable code detected
   // But because TypeScript understands that `fail` function returns `never`
   // It can allow you to call it as you might be using it for runtime safety / exhaustive checks.
-  return fail("Unexhaustive!");
+  return fail('Unexhaustive!');
 }
 
 function fail(message: string): never {

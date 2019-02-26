@@ -8,8 +8,8 @@ for (let i of list28) {
   console.log(i); // "4", "5", "6"
 }
 
-let pets = new Set(["Cat", "Dog", "Hamster"]);
-(<any>pets)["species"] = "mammals";
+let pets = new Set(['Cat', 'Dog', 'Hamster']);
+(pets as any)['species'] = 'mammals';
 
 for (let pet in pets) {
   console.log(pet); // "species"

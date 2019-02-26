@@ -1,11 +1,11 @@
-import { fromEvent, Observable } from "rxjs";
+import { fromEvent, Observable } from 'rxjs';
 
-const el = document.getElementById("my-element");
+const el = document.getElementById('my-element');
 
 // Create an Observable that will publish mouse movements
 let mouseMoves;
 if (el) {
-  mouseMoves = fromEvent<MouseEvent>(el, "mousemove");
+  mouseMoves = fromEvent<MouseEvent>(el, 'mousemove');
 }
 
 // Subscribe to start listening for mouse-move events
