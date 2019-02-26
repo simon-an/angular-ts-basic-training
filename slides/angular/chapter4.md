@@ -186,7 +186,7 @@ Very easy to fix.
 ng g component components/PageNotFound --changeDetection OnPush
 ```
 
-- add to app.routing.module.ts
+- add to app-routing.module.ts
 
 ```typescript
  { path: '**', component: PageNotFoundComponent }
