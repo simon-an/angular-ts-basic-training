@@ -1,6 +1,6 @@
 # Chapter 10 Pipes and Validators
 
-## Chapter 10.1 Ceate a simple register form with one input for email address
+## Exercise 10.1 Ceate a simple register form with one input for email address
 
 ```bash
 ng g component views/home/components/registerForm --changeDetection OnPush
@@ -96,9 +96,7 @@ export class RegisterFormComponent implements OnInit {
 
 </details>
 
-## Exercise: 10.2
-
-### Create admin and email domain validator
+## Exercise 10.2 Create admin and email domain validator
 
 - Create a validator (admin-email-validator.directive.ts), which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.

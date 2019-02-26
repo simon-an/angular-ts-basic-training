@@ -1,6 +1,6 @@
 # Chapter 7
 
-## Exercise: 7.1
+## Exercise 7.1
 
 ### Add a button to item list
 
@@ -25,9 +25,9 @@ Add a button with the 'add' icon to this toolbar.
 
 </details>
 
-## Exercise: 7.2
+## Exercise 7.2
 
-### Exercise: 7.2.1 Create the dialog and add open dialog function
+### Exercise 7.2.1 Create the dialog and add open dialog function
 
 Generate dialog component
 
@@ -54,7 +54,7 @@ addSafeItem() {
 
 </details>
 
-### Exercise: 7.2.2 Create a template driven form inside a dialog
+### Exercise 7.2.2 Create a template driven form inside a dialog
 
 ![73](screenshots/73.PNG)
 
@@ -272,7 +272,7 @@ add-safe-item-dialog.component.html
 
 </details>
 
-## Additional Exercise: add Edit SafeItem
+## Additional Exercise: Add Edit SafeItem
 
 - Implement an EditSafeItem Dialog.
 - Pass a copy of safeitem to the dialog.

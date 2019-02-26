@@ -1,6 +1,6 @@
 # Chapter 2
 
-## Exercise: 2.1
+## Exercise 2.1
 
 Setup Angular CLI and create and start your Angular App
 
@@ -25,7 +25,7 @@ npm start -- --open
 
 Path to your Angular App: http://localhost:4200/
 
-## Exercise: 2.2
+## Exercise 2.2
 
 Configure your app
 
@@ -36,7 +36,7 @@ Adjust app prefixes
 - Change `<app-root></app-root>` to `<cool-root></cool-root>` in src/index.html and app.component.ts
 - Change title to Cool Safe in src/index.html
 
-## Exercise: 2.3
+## Exercise 2.3
 
 ### Add .prettierrc file
 

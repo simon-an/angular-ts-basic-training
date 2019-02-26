@@ -133,7 +133,7 @@ ng g guard core/guards/auth --lintFix
 ng g guard core/guards/admin --lintFix
 ```
 
-## Exercise: 9.1
+## Exercise 9.1
 
 ### Implement Guards
 
@@ -330,7 +330,7 @@ export class HomeLandingPageComponent implements OnInit {
 }
 ```
 
-## Additional Exercise: 9.4.1
+## Additional Exercise 9.4.1
 
 ### Create safe-resolver.service.ts for safe component routing
 
@@ -665,7 +665,7 @@ login.component.html
 
 </details>
 
-## Additional Exercise: 9.4.3
+## Additional Exercise 9.4.3
 
 ### Inject role to Dialog Component
 

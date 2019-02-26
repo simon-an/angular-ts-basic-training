@@ -293,7 +293,7 @@ export const selectItemsBySafeId = createSelector(
 );
 ```
 
-### State after this exercise:
+### State after this exercise
 
 - when going to the safe detail page, there are no safeitems yet, but you should see the following events:
 
