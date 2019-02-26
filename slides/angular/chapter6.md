@@ -84,7 +84,7 @@ export * from "./safe.service";
 ng g s core/services/safe
 ```
 
-- safe.service should provice data to pass the following test:
+- safe.service should provide data to pass the following test:
 
 <details>
 <summary>Karma Test</summary>
