@@ -28,19 +28,15 @@
     </aside>
 </section>
 <section>
-    <h2>Exercise 7.2</h2>
-    <p>Add Price to safe item</p>
-</section>
-<section>
     <h2>Form Directives</h2>
+    <p>ngForm</p>
+    <pre><code data-trim class="html">
+        <form #safeitemForm="ngForm">...</form>
+    </code></pre>
     <p>ngModel</p>
     <pre><code data-trim class="html">
         <input type="text" 
             [(ngModel)]="model.name" name="name">
-    </code></pre>
-    <p>ngForm</p>
-    <pre><code data-trim class="html">
-        <form #safeitemForm="ngForm">...</form>
     </code></pre>
     <p>#var</p>
     <pre><code data-trim class="html">
@@ -49,11 +45,11 @@
     </code></pre>
     <aside class="notes">
         <dl>
+            <dt>ngForm</dt>
+            <dd>The variable <code>safeitemForm</code> is now a reference to the NgForm directive that governs the form as a whole.</dd>
             <dt>ngModel</dt>
             <dd>two-way-binding: display in, listen to changes and extract from the input field<br>
                 Each input element has a name property that is required by Angular forms to register the control with the form.</dd>
-            <dt>ngForm</dt>
-            <dd>The variable <code>safeitemForm</code> is now a reference to the NgForm directive that governs the form as a whole.</dd>
             <dt>ref-var: #var</dt>
             <dd>template reference variable: reference to a DOM element within a template</dd>
         </dl>
@@ -80,15 +76,6 @@
     </aside>
 </section>
 <section>
-    <h2>Form Selectors</h2>
-    <ul>
-        <li>form</li>
-        <li>input</li>
-        <li>mat-form-field</li>
-        <li>mat-error</li>
-    </ul>
-</section>
-<section>
     <h2>Form Rest</h2>
     <ul>
         <li>@Output() ngSubmit</li>
@@ -96,13 +83,18 @@
         <li>FormControl</li>
     </ul>
     <aside class="notes">
-        @Output() ngSubmit: EventEmitter<br>
-        FormGroup: Tracks the value and validity state of a group of FormControl instances<br>
-        FormControl: Tracks the value and validation status of an individual form control.
+        <dl>
+            <dt>@Output() ngSubmit</dt>
+            <dd>EventEmitter</dd>
+            <dt>FormGroup</dt>
+            <dd>Tracks the value and validity state of a group of FormControl instances</dd>
+            <dt>FormControl</dt>
+            <dd>Tracks the value and validation status of an individual form control</dd>
+        </dl>
     </aside>
 </section>
 <section>
-    <h2>Exercise 7.3</h2>
+    <h2>Exercise 7.2</h2>
     <p>Create a template driven form inside a dialog</p>
 </section>
 <section>
