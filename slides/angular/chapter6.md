@@ -355,7 +355,7 @@ admin-landing-page.component.html
 ng g c views/user/containers/safePage --export --changeDetection OnPush --module user
 ```
 
-## Exercise 6.2.1 Routing to safe component 'safe/:id'
+## Exercise 6.2.1 Routing to safe component 'safes/:id'
 
 <details><summary>Add routerLink to user-landing-page.component.html</summary>
 
