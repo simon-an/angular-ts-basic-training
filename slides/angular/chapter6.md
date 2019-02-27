@@ -10,7 +10,7 @@ ng generate module core --module app
 
 ![61](screenshots/61.PNG)
 
-## Exercise 6.1.1 Create models: Safe, SafeItem
+### Exercise 6.1.1 Create models: Safe, SafeItem
 
 ```typescript
 // app\core\model\safe.ts
@@ -32,7 +32,7 @@ export interface SafeItem {
 }
 ```
 
-## Exercise 6.1.2 Create Barrel files for core module
+### Exercise 6.1.2 Create Barrel files for core module
 
 Add safe.service.ts (implementation will be done in the next exercise).
 
@@ -82,7 +82,7 @@ export * from "./safe.service";
 
 </details>
 
-## Exercise 6.1.3 Implement global service: SafeService (this is a temporary mock service)
+### Exercise 6.1.3 Implement global service: SafeService (this is a temporary mock service)
 
 - safe.service should provide data to pass the following test:
 
@@ -274,7 +274,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 </details>
 
-## Exercise 6.1.4 admin-landing-page.component should show list of safes
+### Exercise 6.1.4 admin-landing-page.component should show list of safes
 
 ```bash
 ng g c views/admin/container/safeList --changeDetection OnPush --module views/admin
@@ -347,15 +347,15 @@ admin-landing-page.component.html
 
 ## Exercise 6.2 Show Safe List on User Page
 
-### Create item list in safe.component
-
 ![62](screenshots/62.PNG)
+
+### Create safe-page.component
 
 ```bash
 ng g c views/user/containers/safePage --export --changeDetection OnPush --module user
 ```
 
-## Exercise 6.2.1 Routing to safe component 'safes/:id'
+### Exercise 6.2.1 Routing to safe component 'safes/:id'
 
 <details><summary>Add routerLink to user-landing-page.component.html</summary>
 
@@ -480,7 +480,7 @@ const routes: Routes = [
 
 </details>
 
-## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
+### Exercise 6.2.2 safe-page.component subscribe to service and routeparam and get safe and its items
 
 <details><summary>safe-page.component.ts</summary>
 
@@ -515,7 +515,7 @@ export class SafePageComponent implements OnInit {
 
 </details>
 
-## Exercise 6.2.3 Itemlist component show list of safe items
+### Exercise 6.2.3 item-list.component should #show list of safe items
 
 Generate item-list component:
 
