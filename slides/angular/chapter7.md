@@ -8,22 +8,18 @@ Add a mat-toolbar element to the safe-page.component.
 Add a button with the 'add' icon to this toolbar.
 
 ![71](screenshots/71.PNG)
-
-<details><summary>Show Solution</summary>
   
 - safe-page.component.html
 
 ```html
 ...
 <mat-toolbar>
-  <button *ngIf="isCustomer" mat-mini-fab color="primary">
+  <button mat-mini-fab color="primary">
     <mat-icon aria-label="add new Safe Items">add</mat-icon>
   </button>
 </mat-toolbar>
 ...
 ```
-
-</details>
 
 ## Exercise 7.2
 
