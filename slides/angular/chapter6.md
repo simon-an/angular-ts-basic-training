@@ -485,47 +485,32 @@ const routes: Routes = [
 <details><summary>safe-page.component.ts</summary>
 
 ```typescript
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
-import { Observable } from "rxjs";
-import { Safe, SafeService, SafeItem } from "src/app/core";
-
-import { Observable } from "rxjs";
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
-import { SafeService } from "~core/services";
-import { SafeItem, Safe } from "~core/model";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Safe, SafeItem } from '~core/model';
+import { SafeService } from '~core/services';
 
 @Component({
-  templateUrl: "./safe-page.component.html",
-  styleUrls: ["./safe-page.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './safe-page.component.html',
+  styleUrls: ['./safe-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SafePageComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private service: SafeService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private service: SafeService) {}
 
   ngOnInit() {
     this.safe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getSafe(params.get("id")))
+      switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))),
     );
-    this.items$ = this.safe$.pipe(
-      switchMap((safe: Safe) => this.service.getItems(safe.id))
-    );
+    this.items$ = this.safe$.pipe(switchMap((safe: Safe) => this.service.getItems(safe.id)));
   }
 }
+
 ```
 
 </details>
