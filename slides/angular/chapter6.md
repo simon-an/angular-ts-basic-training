@@ -281,13 +281,14 @@ ng g c views/admin/container/safeList --changeDetection OnPush --module views/ad
 ng g c views/admin/container/safeListElement --export --changeDetection OnPush --module views/admin
 ng g c views/admin/components/safeRow --export --changeDetection OnPush --module views/admin
 ```
+
 1. Add cool-safe-list to admin-landingpage.component.html
 2. In safe-list.component get safes in ngOnInit from safe.service
 3. In safe-list-element.component get the safe from an @Input [Use @Input:](https://angular.io/api/core/Input)
 4. Show the list of safes with ngFor
 5. Give the safes to the safe-list-row.component with the input directive [@Input](https://angular.io/api/core/Input)
-7. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
-8. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
+6. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
+7. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
 
 <details><summary>Solution</summary>
 
