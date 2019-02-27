@@ -285,7 +285,7 @@ ng g c views/admin/components/safeRow --export --changeDetection OnPush --module
 2. In safe-list.component get safes in ngOnInit from safe.service
 3. In safe-list-element.component get the safe from an @Input [Use @Input:](https://angular.io/api/core/Input)
 4. Show the list of safes with ngFor
-5. Give the safes to the safe-list-row.component with the innput directive [@Input](https://angular.io/api/core/Input)
+5. Give the safes to the safe-list-row.component with the input directive [@Input](https://angular.io/api/core/Input)
 7. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
 8. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
 
