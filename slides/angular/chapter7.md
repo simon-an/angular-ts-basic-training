@@ -31,7 +31,7 @@ Generate dialog component
 ng g component views/user/containers/addSafeItemDialog --export --changeDetection OnPush --entryComponent
 ```
 
-- Import MatDialogModule to shared module
+- Import MatDialogModule to user module
 - Add AddSafeItemDialogComponent to entryComponents in the user module
 - Implement the addSafeItem method in safe-page.component.ts
 
