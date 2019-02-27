@@ -527,7 +527,7 @@ Generate item-list component:
 Or in the terminal:
 
 ```bash
-ng g component safe/components/itemList --changeDetection OnPush
+ng g component safe/components/itemList --export --changeDetection OnPush
 ```
 
 <details><summary>safe-page.component.html</summary>
