@@ -32,8 +32,7 @@ ng g component views/user/containers/addSafeItemDialog --export --changeDetectio
 ```
 
 - Import MatDialogModule to user module
-- Add AddSafeItemDialogComponent to entryComponents in the user module
-- Implement the addSafeItem method in safe-page.component.ts
+- Implement the addSafeItem method in safe-page.component.ts, which shall open the Dialog
 
 <details><summary>safe-page.component.ts Solution</summary>
 
