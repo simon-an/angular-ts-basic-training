@@ -352,7 +352,7 @@ admin-landing-page.component.html
 ![62](screenshots/62.PNG)
 
 ```bash
-ng g c views/user/containers/safePage --export --changeDetection OnPush --module safe
+ng g c views/user/containers/safePage --export --changeDetection OnPush --module user
 ```
 
 ## Exercise 6.2.1 Routing to safe component 'safe/:id'
