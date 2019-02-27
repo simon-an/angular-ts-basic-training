@@ -344,7 +344,9 @@ admin-landing-page.component.html
 
 </details>
 
-## Exercise 6.2 Create item list in safe.component
+## Exercise 6.2 Show Safe List on User Page
+
+### Create item list in safe.component
 
 ![62](screenshots/62.PNG)
 
