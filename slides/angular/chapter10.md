@@ -112,7 +112,7 @@ export class HomeModule {}
 
 </details>
 
-- Add the Register from to the UserLandingPage
+- Add the RegisterFrom to the HomeLandingPage
 
 ```html
   <div body><cool-register-form></cool-register-form></div>
