@@ -219,6 +219,8 @@ Unit Tests:
   }
 ```
 
+- Hint: make sure you don't complete the getItems() Observable.
+
 ### Exercise 7.2.4 Call the add Item Method from the safe-page.component.ts
 
 Hint: subscribe to the afterClosed Observable of the dialogRef.
