@@ -52,25 +52,27 @@ ng g component views/home/components/registerForm --changeDetection OnPush
 - register-form.component.ts
 
 ```typescript
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: "cool-register-form",
-  templateUrl: "./register-form.component.html",
-  styleUrls: ["./register-form.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'cool-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent implements OnInit {
-  model = { email: "" };
+  state = { email: '', role: 'Customer' };
 
   constructor() {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log("Register user with email: ", this.model.email);
+    console.log('Register user with email: ', this.state.email);
   }
 }
+
 ```
 
 - home-module.ts
