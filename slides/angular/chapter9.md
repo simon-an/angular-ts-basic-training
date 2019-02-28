@@ -14,7 +14,7 @@ export interface LoginData {
 ### Create User model
 
 - user.ts
-- admin.ts
+- administrator.ts
 - customer.ts
 
 ```typescript
@@ -298,10 +298,9 @@ export class AuthGuard implements CanActivate, CanLoad {
 ### Add auth.service login call to home-landing-page.component
 
 ```typescript
-import { Customer } from "~core/model/customer";
+import { Customer, LoginData } from "~core/model";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { AuthService } from "~core/services/auth.service";
-import { LoginData } from "~core/model/login-data";
 import { Router } from "@angular/router";
 
 @Component({
