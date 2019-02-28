@@ -158,13 +158,13 @@ const routes: Routes = [
   {
     path: "admin",
     loadChildren: "./views/admin/admin.module#AdminModule",
-    canLoad: [AuthGuard, AdminGuard],
+    canLoad: [AdminGuard],
     canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: "user",
     loadChildren: "./views/user/user.module#UserModule",
-    canLoad: [AuthGuard],
+    canLoad: [],
     canActivate: [AuthGuard]
   },
   {
@@ -188,7 +188,8 @@ export class AppRoutingModule {}
 ### admin.guard.ts
 
 ```typescript
-import { Injectable } from "@angular/core";
+
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   CanLoad,
@@ -197,53 +198,48 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { map, tap, take } from "rxjs/operators";
-import { AuthService } from "~core/services/auth.service";
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap, take, filter } from 'rxjs/operators';
+import { AuthService } from '~core/services/auth.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class AdminGuard implements CanActivate, CanLoad {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.userIsAdmin();
   }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.userIsAdmin();
   }
   userIsAdmin(): Observable<boolean> {
     return this.auth.getCurrentUser().pipe(
-      map(user => user.role === "Administrator"),
+      map(user => user && user.role === 'Administrator'),
+      // 
       tap(canload => {
         if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
+          console.log('error. goback to home.');
+          this.router.navigate(['/home']);
         }
       }),
-      take(1)
+      take(1),
     );
   }
 }
+
 ```
 
 ### auth.guard.ts
 
 ```typescript
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   CanLoad,
@@ -252,48 +248,38 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "~core/services/auth.service";
-import { map, tap, take } from "rxjs/operators";
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '~core/services';
+import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private auth: AuthService, private router: Router) {}
-
+export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.verifyUser();
-  }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.verifyUser();
-  }
-
-  verifyUser(): Observable<boolean> {
-    return this.auth.getCurrentUser().pipe(
-      map(Boolean),
-      tap(canload => {
-        if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.authService.getCurrentUser().pipe(
+      tap(console.log),
+      map(user => {
+        if (user) {
+          return true;
+        } else {
+          const url = '/home';
+          const tree: UrlTree = this.router.parseUrl(url);
+          return tree;
         }
       }),
-      take(1)
+      take(1),
     );
   }
+
+  constructor(private authService: AuthService, private router: Router) {}
 }
+
 ```
 
 </details>
