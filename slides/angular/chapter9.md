@@ -318,7 +318,7 @@ export class HomeLandingPageComponent implements OnInit {
 }
 ```
 
-## Additional Exercise 9.4.1
+## Additional Exercise 9.2
 
 ### Create safe-resolver.service.ts for safe component routing
 
@@ -386,7 +386,7 @@ Question: Is safe.component now dumb?
 
 </details>
 
-## Additional Excercise: Create Login Dialog 9.4.2
+## Additional Excercise: Create Login Dialog 9.3
 
 ### Create Login Dialog Component and Login Component
 
