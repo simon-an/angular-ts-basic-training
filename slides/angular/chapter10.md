@@ -62,6 +62,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent implements OnInit {
+  roles = ['Customer', 'Administrator'];
   state = { email: '', role: 'Customer' };
 
   constructor() {}
@@ -72,6 +73,7 @@ export class RegisterFormComponent implements OnInit {
     console.log('Register user with email: ', this.state.email);
   }
 }
+
 
 ```
 
@@ -104,7 +106,6 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class HomeModule {}
-
 
 ```
 
