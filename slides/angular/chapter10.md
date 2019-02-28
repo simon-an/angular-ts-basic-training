@@ -112,6 +112,11 @@ export class HomeModule {}
 </details>
 
 - Add a mock function to auth.service.ts which checks wheather email address exists in backend.
+- Add the Register from to the UserLandingPage
+
+```html
+  <div body><cool-register-form></cool-register-form></div>
+```
 
 <details><summary>emailExists</summary>
 
