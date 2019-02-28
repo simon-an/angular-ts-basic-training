@@ -142,10 +142,16 @@ add-safe-item-dialog.component.html
 ```
 
 ```scss
-div {
+
+form {
   display: flex;
   flex-direction: column;
 }
+
+mat-form-field {
+  margin-bottom: 10px;
+}
+
 ```
 
 </p>
