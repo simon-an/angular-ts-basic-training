@@ -67,7 +67,7 @@ npm run start:with:backend
 ### Variant In Memory Mock
 
 ```bash
-npm install in-memory-web-api
+npm install -S in-memory-web-api
 ```
 
 - create core/services/in-memory-safe.service.ts
