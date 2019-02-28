@@ -19,9 +19,6 @@ ng g component views/home/components/registerForm --changeDetection OnPush
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-error *ngIf="!!registerForm.errors?.AdminEmail && (email.touched || email.dirty)">
-    Email address domain for admins are restricted.
-  </mat-error>
 
   <mat-form-field>
     <input
@@ -47,7 +44,11 @@ ng g component views/home/components/registerForm --changeDetection OnPush
   <button [disabled]="!registerForm.valid" mat-button color="primary">
     Register
   </button>
+  <mat-error *ngIf="!!registerForm.errors?.specialAdmin && (email.touched || email.dirty)">
+    Email address domain for admins are restricted.
+  </mat-error>
 </form>
+
 ```
 - register-form.component.ts
 
@@ -158,7 +159,37 @@ import { Directive } from "@angular/core";
 import {
   AbstractControl,
   ValidationErrors,
-  ValidatorFn,
+  ValidatorFn,import { Directive } from '@angular/core';
+import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup, Validator, NG_VALIDATORS } from '@angular/forms';
+
+export const adminDomainValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  const role = control.get('role');
+  const email = control.get('email');
+
+  console.log(role, email);
+
+  return role && email && role.value === 'Administrator' && !email.value.includes('@metafinanz.de')
+    ? { specialAdmin: true }
+    : null;
+};
+
+@Directive({
+  selector: '[coolAdminEmailValidator]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: AdminEmailValidatorDirective,
+      multi: true,
+    },
+  ],
+})
+export class AdminEmailValidatorDirective implements Validator {
+  constructor() {}
+  validate(control: AbstractControl): ValidationErrors | null {
+    return adminDomainValidator(control);
+  }
+}
+
   FormGroup,
   Validator,
   NG_VALIDATORS
@@ -194,13 +225,6 @@ export const adminDomainValidator: ValidatorFn = (
     ? { specialAdmin: true }
     : null;
 };
-```
-
-```html
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm" coolAdminEmailValidator>
-  <mat-error *ngIf="!!registerForm.errors?.AdminEmail">
-    Email address domain for admins are restricted to domains: {{ registerForm?.errors?.AdminEmail?.domains }}
-  </mat-error>
 ```
 
 </details>
