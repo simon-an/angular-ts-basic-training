@@ -316,7 +316,7 @@ export class HomeLandingPageComponent implements OnInit {
 
   login(loginAsRole: "Administrator" | "Customer") {
     this.authService
-      .login({ role: loginAsRole, email: "nomail@gmail.com" } as LoginData)
+      .login({ role: loginAsRole, email: "test@coolsafe.de" } as LoginData)
       .subscribe(user => {
         if (user.role === "Customer") {
           this.router.navigate(["/user"]);
