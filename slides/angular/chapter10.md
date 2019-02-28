@@ -1,6 +1,6 @@
 # Chapter 10 Pipes and Validators
 
-## Exercise 10.1 Ceate a simple register form with one input for email address
+## Preparation: Ceate a simple register form with one input for email address
 
 ```bash
 ng g component views/home/components/registerForm --changeDetection OnPush
@@ -70,6 +70,36 @@ export class RegisterFormComponent implements OnInit {
 }
 ```
 
+```typescript
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { HomeRoutingModule } from './home-routing.module';
+import { LayoutModule } from '~layout/layout.module';
+import { SafeModule } from '~safe/safe.module';
+import { HomeLandingPageComponent } from './home-landing-page/home-landing-page.component';
+import { MatListModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [HomeLandingPageComponent, RegisterFormComponent],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    LayoutModule,
+    MatListModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
+})
+export class HomeModule {}
+
+
+```
+
 </details>
 
 - Add a mock function to auth.service.ts which checks wheather email address exists in backend.
@@ -96,7 +126,7 @@ export class RegisterFormComponent implements OnInit {
 
 </details>
 
-## Exercise 10.2 Create admin and email domain validator
+## Exercise 10.1 Create admin and email domain validator
 
 - Create a validator (admin-email-validator.directive.ts), which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.
@@ -160,7 +190,7 @@ export const adminDomainValidator: ValidatorFn = (
 
 </details>
 
-## Exercise 10.3 Create user exists async validator
+## Exercise 10.2 Create user exists async validator
 
 - Create an async validator, which calles the auth-service userExists method.
 - Attach the validator to the email input field.
@@ -214,7 +244,7 @@ export class UserExistsValidatorDirective implements AsyncValidator {
 
 </details>
 
-## Exercise 10.4 Material Elevation: [Docs](https://material.io/design/environment/elevation.html)
+## Exercise 10.3 Material Elevation: [Docs](https://material.io/design/environment/elevation.html)
 
 - add body css class to home-landing-page.component
 
