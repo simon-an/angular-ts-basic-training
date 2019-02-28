@@ -6,7 +6,9 @@
 ng g component views/home/components/registerForm --changeDetection OnPush
 ```
 
-<details><summary>register-form.component.html</summary>
+<details><summary>Code</summary>
+
+- register-form.component.html
 
 ```html
 <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
@@ -47,6 +49,7 @@ ng g component views/home/components/registerForm --changeDetection OnPush
   </button>
 </form>
 ```
+- register-form.component.ts
 
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
@@ -69,6 +72,8 @@ export class RegisterFormComponent implements OnInit {
   }
 }
 ```
+
+- home-module.ts
 
 ```typescript
 
@@ -93,6 +98,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
   ],
 })
 export class HomeModule {}
