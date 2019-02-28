@@ -137,7 +137,10 @@ ng g guard core/guards/admin --lintFix
 
 ### Implement Guards
 
-When guard blocks, it should schedule a redirect.
+- When guard blocks, it should schedule a redirect to home
+- Home Landing Page need to trigger the AuthService login
+- App Routing Module must use the Guards
+ 
 
 <details>
 <summary>Solution</summary>
