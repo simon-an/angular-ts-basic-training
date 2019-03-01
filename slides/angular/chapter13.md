@@ -308,6 +308,8 @@ export class SafePageComponent implements OnInit {
 
 </details>
 
+- Remove Resolver service.
+
 ## 13.7 Create Spinner
 
 No Safes are loaded yet. So lets add a Spinner.
@@ -318,7 +320,7 @@ Add to safe-list.component.html
 <mat-spinner *ngIf="pending$| async"></mat-spinner>
 ```
 
-## 13.9 Add Router-State to root-store
+## 13.8 Add Router-State to root-store
 
 - add @ngrx/router-store
 
@@ -397,12 +399,4 @@ export const reducers: ActionReducerMap<State> = {
 ...
 export const getRouterState = createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
 ...
-```
-
-### 13.10 Resolver should use selector to get SafeById from Store
-
-- replace call of getSafe() in core/services/safe-resolver.service.ts with
-
-```typescript
-select(selectSafe);
 ```
