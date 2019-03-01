@@ -257,8 +257,6 @@ import { UserLoadSafe } from 'app/root-store/actions/safe.actions';
 export class SafePageComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
-  trigger$: Subject<any> = new Subject<any>();
-  // loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   loading$: Observable<boolean>;
   userId: '111';
   isCustomer = true; // TODO provide through dependency injection
@@ -272,19 +270,12 @@ export class SafePageComponent implements OnInit {
 
   ngOnInit() {
     this.loading$ = this.store.pipe(select(selectSafesLoading));
+
     this.safe$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.store.dispatch(new UserLoadSafe({ safeId: params.get('id'), userId: this.userId }));
         return this.store.pipe(select(selectSafe, { safeId: params.get('id') }));
       }),
-    );
-    // this.safe$ = this.activatedRoute.paramMap.pipe(
-    //   switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))),
-    // );
-
-    this.items$ = this.trigger$.pipe(
-      withLatestFrom(this.safe$),
-      switchMap(([trigger, safe]: [any, Safe]) => this.service.getItems(safe.id)),
     );
   }
 
@@ -303,13 +294,16 @@ export class SafePageComponent implements OnInit {
           const result$ = this.service.addItem(safe.id, result);
           result$.subscribe(item => {
             // console.log('new item id: ', item.id);
-            this.trigger$.next(item.id);
           });
         }
       });
   }
 }
 
+```
+
+```html
+ <p>{{ (safe$ | async)?.value }}</p>
 ```
 
 </details>
