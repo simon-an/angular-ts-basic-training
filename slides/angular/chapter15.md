@@ -13,7 +13,7 @@ EffectsModule.forFeature([SafeItemEffects, SafeEffects]),
 - create an Effect, which calls safe.service getItems() when the LoadSafeItems event occurs.
 
 ```bash
-ng g @ngrx/schematics:effect root-state/effects/safeitem
+ng g @ngrx/schematics:effect root-state/effects/SafeItem
 ```
 
 - hint: use exhaustMap rxjs operator to call safe service
