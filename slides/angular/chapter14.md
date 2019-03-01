@@ -66,7 +66,7 @@ export class SafeService {
     return this.http.get(this.safesUrl).pipe(map((safes: SafeApi[]) => safes));
   }
 
-  addItem(item: SafeItemApi, safeId: string): Observable<SafeItemApi> {
+  addItem(safeId: string, item: SafeItemApi): Observable<SafeItemApi> {
     console.log(item, safeId, this.http);
     return this.http.post(this.safesUrl + `/${safeId}/items`, item).pipe(
       map((response: SafeItemApi) => response),
