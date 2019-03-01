@@ -31,10 +31,10 @@ ng generate @ngrx/schematics:store State --statePath root-store --root --module 
 
 Add RootStoreModule to app.module.ts.
 
-## 13.3 Add feature SafeItems
+## 13.3 Add feature Safe
 
 ```bash
-ng g @ngrx/schematics:feature root-store/SafeItem --flat --group --reducers index.ts
+ng g @ngrx/schematics:feature root-store/Safe --flat --group --reducers index.ts
 ```
 
 Result:
@@ -42,13 +42,13 @@ Result:
 ```bash
 src\app\root-store\
 ├── actions
-│   └── safe-item.actions.ts
+│   └── safe.actions.ts
 ├── effects
-│   ├── safe-item.effects.spec.ts
-│   └── safe-item.effects.ts
+│   ├── safe.effects.spec.ts
+│   └── safe.effects.ts
 ├── reducers
-│   ├── safe-item.reducer.spec.ts
-│   └── safe-item.reducer.ts
+│   ├── safe.reducer.spec.ts
+│   └── safe.reducer.ts
 ├── root-store.module.ts
 └── index.ts
 ```
@@ -71,14 +71,7 @@ export const metaReducers: MetaReducer<State>[] = !environment.production ? [sto
 
 ## 13.5 Create Safes state in shared module
 
-- Generate Store Module in Shared Module
-
-```bash
-ng generate @ngrx/schematics:store Safe --statePath shared/store/safe/state --module shared/shared.module.ts
-ng g @ngrx/schematics:feature shared/store/safe/SafeList --flat --group --reducers state/index.ts
-```
-
-- State for safe-list.reducer will look like this.
+- State for safe.reducer will look like this.
 
 ```typescript
 export interface State {
@@ -89,54 +82,54 @@ export interface State {
 
 Add action events to shared/store/safe/actions/safe-list.actions.ts:
 
-- Add action event "Load SafeLists On Items Change" from Source "User".
-- Add action event "Load SafeLists" from Source "Admin".
-- Add action event "Load SafeLists Success" from Source "Safe API".
-- Add action event "Load SafeLists Failure" from "Safe API"
+- Add action event "Load Safes On Items Change" from Source "User".
+- Add action event "Load Safes" from Source "Admin".
+- Add action event "Load Safes Success" from Source "Safe API".
+- Add action event "Load Safes Failure" from "Safe API"
 
-<details><summary>Solution shared/store/safe/actions/safe-list.actions.ts</summary>
+<details><summary>Solution root-store/actions/safe.actions.ts</summary>
 
 ```typescript
 import { Action } from "@ngrx/store";
 import { Safe } from "~core/model";
 
 export enum SafeListActionTypes {
-  LoadUserSafes = "[User] Load SafeLists",
-  LoadSafeAfterUserAddItem = "[User] Load SafeLists On Items Change",
-  LoadAdminSafes = "[Admin] Load SafeLists",
-  LoadSafeListsSuccess = "[Safe API] Load SafeLists Success",
-  LoadSafeListsFailure = "[Safe API] Load SafeLists Failure"
+  LoadUserSafes = "[User] Load Safe",
+  LoadSafeAfterUserAddItem = "[User] Load Safes On Items Change",
+  LoadAdminSafes = "[Admin] Load Safes",
+  LoadSafeListsSuccess = "[Safe API] Load Safes Success",
+  LoadSafeListsFailure = "[Safe API] Load Safes Failure"
 }
 
 export class LoadUserSafes implements Action {
-  readonly type = SafeListActionTypes.LoadUserSafes;
+  readonly type = SafeActionTypes.LoadUserSafes;
 }
 export class LoadSafeAfterUserAddItem implements Action {
-  readonly type = SafeListActionTypes.LoadSafeAfterUserAddItem;
+  readonly type = SafeActionTypes.LoadSafeAfterUserAddItem;
 }
 export class LoadAdminSafes implements Action {
-  readonly type = SafeListActionTypes.LoadAdminSafes;
+  readonly type = SafeActionTypes.LoadAdminSafes;
 }
 export class LoadSafeListsSuccess implements Action {
-  readonly type = SafeListActionTypes.LoadSafeListsSuccess;
+  readonly type = SafeActionTypes.LoadSafeSuccess;
   constructor(public payload: { safes: Safe[] }) {}
 }
 export class LoadSafeListsFailure implements Action {
-  readonly type = SafeListActionTypes.LoadSafeListsFailure;
+  readonly type = SafeActionTypes.LoadSafeFailure;
 }
 
 export type SafeListActions =
   | LoadUserSafes
   | LoadAdminSafes
-  | LoadSafeListsSuccess
-  | LoadSafeListsFailure;
+  | LoadSafeSuccess
+  | LoadSafeFailure;
 ```
 
 </details>
 
-Add action types to reducer shared/store/safe/reducers/safe-list.reducer.ts
+Add action types to reducer root-store/reducers/safe.reducer.ts
 
-<details><summary>Solution shared/store/safe/reducers/safe-list.reducer.ts</summary>
+<details><summary>Solution root-store/reducers/safe.reducer.ts</summary>
 
 ```typescript
 import { Action } from "@ngrx/store";
@@ -156,12 +149,12 @@ export const initialState: State = {
   pending: false
 };
 
-export function reducer(state = initialState, action: SafeListActions): State {
+export function reducer(state = initialState, action: SafeActions): State {
   switch (action.type) {
-    case SafeListActionTypes.LoadUserSafes:
-    case SafeListActionTypes.LoadAdminSafes:
+    case SafeActionTypes.LoadUserSafes:
+    case SafeActionTypes.LoadAdminSafes:
       return { ...state, pending: true };
-    case "[SafeList] Load SafeLists Success":
+    case "[XXX] Load Safes Success":
       return { safes: [...action.payload.safes], pending: false };
     case SafeListActionTypes.LoadSafeListsFailure:
       return { ...state, pending: false };
