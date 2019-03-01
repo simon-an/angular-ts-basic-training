@@ -90,39 +90,59 @@ Add action events to root-store/actions/safe.actions.ts:
 <details><summary>Solution root-store/actions/safe.actions.ts</summary>
 
 ```typescript
-import { Action } from "@ngrx/store";
-import { Safe } from "~core/model";
+import { Action } from '@ngrx/store';
+import { Safe } from '../model/safe';
 
-export enum SafeListActionTypes {
-  LoadUserSafes = "[User] Load Safe",
-  LoadSafeAfterUserAddItem = "[User] Load Safes On Items Change",
-  LoadAdminSafes = "[Admin] Load Safes",
-  LoadSafeListsSuccess = "[Safe API] Load Safes Success",
-  LoadSafeListsFailure = "[Safe API] Load Safes Failure"
+export enum SafeActionTypes {
+  UserLoadSafeOnItemsChange = '[User Safe Page] Load Safe On Items Change',
+  AdminLoadSafes = '[Admin Landing Page] Load Safes',
+  UserLoadSafe = '[User Landing Page] Load Safe',
+  LoadSafesSuccess = '[Safe API] Load Safes Success',
+  LoadSafesFailure = '[Safe API] Load Safes Failure',
+  LoadSafeSuccess = '[Safe API] Load Safe Success',
+  LoadSafeFailure = '[Safe API] Load Safe Failure',
 }
 
-export class LoadUserSafes implements Action {
-  readonly type = SafeActionTypes.LoadUserSafes;
+export class LoadSafeOnItemsChange implements Action {
+  readonly type = SafeActionTypes.UserLoadSafeOnItemsChange;
+
+  constructor(public payload: { safeId: string; userId: string }) {}
 }
-export class LoadSafeAfterUserAddItem implements Action {
-  readonly type = SafeActionTypes.LoadSafeAfterUserAddItem;
+export class AdminLoadSafes implements Action {
+  readonly type = SafeActionTypes.AdminLoadSafes;
 }
-export class LoadAdminSafes implements Action {
-  readonly type = SafeActionTypes.LoadAdminSafes;
+export class UserLoadSafe implements Action {
+  readonly type = SafeActionTypes.UserLoadSafe;
+
+  constructor(public payload: { safeId: string; userId: string }) {}
 }
-export class LoadSafeListsSuccess implements Action {
+export class LoadSafeSuccess implements Action {
   readonly type = SafeActionTypes.LoadSafeSuccess;
-  constructor(public payload: { safes: Safe[] }) {}
+
+  constructor(public payload: { safe: Safe }) {}
 }
-export class LoadSafeListsFailure implements Action {
+export class LoadSafeFailure implements Action {
   readonly type = SafeActionTypes.LoadSafeFailure;
 }
+export class LoadSafesSuccess implements Action {
+  readonly type = SafeActionTypes.LoadSafesSuccess;
 
-export type SafeListActions =
-  | LoadUserSafes
-  | LoadAdminSafes
+  constructor(public payload: { safes: Safe[] }) {}
+}
+export class LoadSafesFailure implements Action {
+  readonly type = SafeActionTypes.LoadSafesFailure;
+}
+
+export type SafeActions =
+  | LoadSafeOnItemsChange
+  | AdminLoadSafes
+  | UserLoadSafe
+  | LoadSafesSuccess
   | LoadSafeSuccess
+  | LoadSafesFailure
   | LoadSafeFailure;
+
+
 ```
 
 </details>
@@ -132,12 +152,9 @@ Add action types to reducer root-store/reducers/safe.reducer.ts
 <details><summary>Solution root-store/reducers/safe.reducer.ts</summary>
 
 ```typescript
-import { Action } from "@ngrx/store";
-import {
-  SafeListActions,
-  SafeListActionTypes
-} from "../actions/safe-list.actions";
-import { Safe } from "~core/model";
+import { Action } from '@ngrx/store';
+import { SafeActions, SafeActionTypes } from '../actions/safe.actions';
+import { Safe } from '../model/safe';
 
 export interface State {
   safes: Safe[];
@@ -146,22 +163,27 @@ export interface State {
 
 export const initialState: State = {
   safes: [],
-  pending: false
+  pending: false,
 };
 
 export function reducer(state = initialState, action: SafeActions): State {
   switch (action.type) {
-    case SafeActionTypes.LoadUserSafes:
-    case SafeActionTypes.LoadAdminSafes:
+    case SafeActionTypes.UserLoadSafe:
+    case SafeActionTypes.AdminLoadSafes:
+    case SafeActionTypes.UserLoadSafeOnItemsChange:
       return { ...state, pending: true };
-    case "[XXX] Load Safes Success":
+    case SafeActionTypes.LoadSafesSuccess:
       return { safes: [...action.payload.safes], pending: false };
-    case SafeListActionTypes.LoadSafeListsFailure:
+    case SafeActionTypes.LoadSafeSuccess:
+      return { safes: [...state.safes, action.payload.safe], pending: false };
+    case SafeActionTypes.LoadSafeFailure:
+    case SafeActionTypes.LoadSafesFailure:
       return { ...state, pending: false };
     default:
       return state;
   }
 }
+
 ```
 
 </details>
