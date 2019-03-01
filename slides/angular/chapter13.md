@@ -80,7 +80,7 @@ export interface State {
 }
 ```
 
-Add action events to shared/store/safe/actions/safe-list.actions.ts:
+Add action events to root-store/actions/safe.actions.ts:
 
 - Add action event "Load Safes On Items Change" from Source "User".
 - Add action event "Load Safes" from Source "Admin".
