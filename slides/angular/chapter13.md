@@ -26,7 +26,7 @@ npm install @ngrx/store @ngrx/effects @ngrx/entity @ngrx/store-devtools -S
 
 ```bash
 ng g module root-store —-flat false —-module app.module.ts
-ng generate @ngrx/schematics:store State --statePath root-store/state --root --module root-store/root-store.module.ts
+ng generate @ngrx/schematics:store State --statePath root-store --root --module root-store/root-store.module.ts
 ```
 
 Add RootStoreModule to app.module.ts.
@@ -50,8 +50,7 @@ src\app\root-store\
 │   ├── safe-item.reducer.spec.ts
 │   └── safe-item.reducer.ts
 ├── root-store.module.ts
-└── state
-    └── index.ts
+└── index.ts
 ```
 
 ## 13.4 Add Metareducer Store Freeze, to detect shared state errors during development
