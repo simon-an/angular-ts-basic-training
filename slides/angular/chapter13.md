@@ -190,7 +190,7 @@ export function reducer(state = initialState, action: SafeActions): State {
 
 ## 13.6 Subscribe to State
 
-- create selector in shared/store/safe/selectors/safe-list.selector.ts
+- create selector in root-store/selectors/safe.selector.ts
 
 ```typescript
 import { createFeatureSelector, createSelector } from "@ngrx/store";
@@ -206,7 +206,7 @@ export const selectSafeList = createSelector(
 
 Add selectors "selectSafes" and "selectSafesLoading".
 
-<details><summary>Solution shared/store/safe/selectors/safe-list.selector.ts</summary>
+<details><summary>Solution root-store/selectors/safe.selector.ts</summary>
 
 ```typescript
 import { createFeatureSelector, createSelector } from "@ngrx/store";
@@ -236,7 +236,7 @@ export const selectSafesLoading = createSelector(
 
 Hint: dont remove safe service from constructor, to make sure it is provided.
 
-<details><summary>Solution user/container/userhome/userhome.component.ts</summary>
+<details><summary>Solution user/container/user-landing-page/user-landing-page.component.ts</summary>
 
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
