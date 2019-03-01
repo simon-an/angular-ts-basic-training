@@ -17,17 +17,9 @@ tap((items: SafeItem[]) => this.store.dispatch(new LoadSafeItemsSuccess({ safeIt
 <details><summary>SafeService Solution</summary>
 
 ```typescript
-import { Injectable } from "@angular/core";
-import { Safe, SafeItem } from "../model";
-import {
-  Observable,
-  Subject,
-  BehaviorSubject,
-  timer,
-  interval,
-  ReplaySubject,
-  of
-} from "rxjs";
+import { Injectable } from '@angular/core';
+import { SafeApi, SafeItemApi } from '../model';
+import { Observable, Subject, BehaviorSubject, timer, interval, ReplaySubject, of } from 'rxjs';
 import {
   map,
   switchMap,
@@ -39,27 +31,20 @@ import {
   shareReplay,
   filter,
   catchError,
-  delay
-} from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
-import { Store, select } from "@ngrx/store";
-import {
-  selectSafes,
-  selectSafesLoading
-} from "~shared/store/safe/selectors/safe-list.selector";
-import {
-  LoadSafeListsSuccess,
-  LoadSafeAfterUserAddItem,
-  LoadSafeListsFailure
-} from "~shared/store/safe/actions/safe-list.actions";
-import { State } from "app/root-store/state";
-import { LoadSafeItems } from "~shared/store/safe/actions/safe-item.actions";
+  delay,
+} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Store, select } from '@ngrx/store';
+import { selectSafesLoading } from 'app/root-store/selectors/safe.selector';
+import { LoadSafesFailure, LoadSafesSuccess } from 'app/root-store/actions/safe.actions';
+import { State } from 'app/root-store';
+import { LoadSafeItems, AddSafeItem } from 'app/root-store/actions/safe-item.actions';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class SafeService {
-  private readonly safesUrl = "/api/safes";
+  private readonly safesUrl = '/api/safes';
 
   constructor(private http: HttpClient, private store: Store<State>) {
     store
@@ -68,40 +53,37 @@ export class SafeService {
         filter(Boolean),
         switchMapTo(this.loadSafes()),
         catchError(err => {
-          this.store.dispatch(new LoadSafeListsFailure());
+          this.store.dispatch(new LoadSafesFailure());
           return of(null);
         }),
         filter(Boolean),
-        delay(2000)
+        delay(2000),
       )
-      .subscribe(safes =>
-        this.store.dispatch(new LoadSafeListsSuccess({ safes: safes }))
-      );
+      .subscribe(safes => this.store.dispatch(new LoadSafesSuccess({ safes: safes })));
   }
 
-  loadSafes(): Observable<Safe[]> {
-    return this.http.get(this.safesUrl).pipe(map((safes: Safe[]) => safes));
+  loadSafes(): Observable<SafeApi[]> {
+    return this.http.get(this.safesUrl).pipe(map((safes: SafeApi[]) => safes));
   }
 
-  addItem(item: SafeItem, safeId: string): Observable<SafeItem> {
+  addItem(item: SafeItemApi, safeId: string): Observable<SafeItemApi> {
     console.log(item, safeId, this.http);
     return this.http.post(this.safesUrl + `/${safeId}/items`, item).pipe(
-      map((response: SafeItem) => response),
-      tap(x => this.store.dispatch(new LoadSafeAfterUserAddItem()))
+      map((response: SafeItemApi) => response),
+      tap(safeItem => this.store.dispatch(new AddSafeItem({ safeItem }))),
     );
   }
 
-  getItems(safeId: string): Observable<SafeItem[]> {
+  getItems(safeId: string): Observable<SafeItemApi[]> {
     const result$ = this.http.get(this.safesUrl + `/${safeId}/items`).pipe(
-      map((items: SafeItem[]) => items),
-      tap((items: SafeItem[]) =>
-        this.store.dispatch(new LoadSafeItems({ safeItems: items }))
-      ),
-      shareReplay(1)
+      map((items: SafeItemApi[]) => items),
+      tap((items: SafeItemApi[]) => this.store.dispatch(new LoadSafeItems({ safeItems: items }))),
+      shareReplay(1),
     );
     return result$;
   }
 }
+
 ```
 
 </details>
