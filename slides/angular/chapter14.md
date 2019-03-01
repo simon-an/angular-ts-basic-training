@@ -3,21 +3,15 @@
 ## 14.1 Add SafeItem Entity
 
 ```bash
-ng g @ngrx/schematics:entity shared/store/safe/SafeItem --group --reducers state/index.ts
+ng g @ngrx/schematics:entity root-store/SafeItem --group
 ```
 
-- remove src/app/shared/store/safe/models/safe-item.model.ts
-- import existing model in generated files.
+- rename the SafeItem in core/model to SafeItemApi
+- use SafeItemApi in the InMemoryService and SafeService, elsewhere use SafeItem from root-store
+- add LoadSafeItemsSuccess action to getItems() of safe.service.ts
 
 ```typescript
-import { SafeItem } from "~core/model";
-```
-
-- remove items state from safe.service.ts
-- add LoadSafeItems action to getItems() of safe.service.ts
-
-```typescript
-tap((items: SafeItem[]) => this.store.dispatch(new LoadSafeItems({ safeItems: items }))),
+tap((items: SafeItem[]) => this.store.dispatch(new LoadSafeItemsSuccess({ safeItems: items }))),
 ```
 
 <details><summary>SafeService Solution</summary>
