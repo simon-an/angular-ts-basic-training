@@ -5,7 +5,7 @@
 ```typescript
 EffectsModule.forRoot([])
 ...
-EffectsModule.forFeature([SafeitemEffects, SafeListEffects]),
+EffectsModule.forFeature([SafeItemEffects, SafeEffects]),
 ```
 
 ## 15.1 Add Effects to load SafeItems
