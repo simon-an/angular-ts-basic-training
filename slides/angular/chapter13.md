@@ -34,7 +34,7 @@ Add RootStoreModule to app.module.ts.
 ## 13.3 Add feature SafeItems
 
 ```bash
-ng g @ngrx/schematics:feature root-store/SafeItem --flat --group --reducers state/index.ts
+ng g @ngrx/schematics:feature root-store/SafeItem --flat --group --reducers index.ts
 ```
 
 Result:
