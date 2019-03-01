@@ -193,41 +193,37 @@ export function reducer(state = initialState, action: SafeActions): State {
 - create selector in root-store/selectors/safe.selector.ts
 
 ```typescript
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromSafeList from "../reducers/safe-list.reducer";
-import * as fromSafe from "../state";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { State } from '..';
 
-export const selectSafeFeature = createFeatureSelector("safe");
-export const selectSafeList = createSelector(
-  selectSafeFeature,
-  (state: fromSafe.State) => state.safeList
-);
+const selectSlice = (state: State) => state.safe;
 ```
 
-Add selectors "selectSafes" and "selectSafesLoading".
+Add selectors "selectSafe", "selectSafes" and "selectSafesLoading".
 
 <details><summary>Solution root-store/selectors/safe.selector.ts</summary>
 
 ```typescript
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromSafeList from "../reducers/safe-list.reducer";
-import * as fromSafe from "../state";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { State } from '..';
 
-export const selectSafeFeature = createFeatureSelector("safe");
-export const selectSafeList = createSelector(
-  selectSafeFeature,
-  (state: fromSafe.State) => state.safeList
-);
+const selectSlice = (state: State) => state.safe;
 
 export const selectSafes = createSelector(
-  selectSafeList,
-  (state: fromSafeList.State) => state.safes
+  selectSlice,
+  (state) => state.safes,
+);
+
+export const selectSafe = createSelector(
+  selectSlice,
+  (state, params: { safeId: string }) => state.safes.find(s => s.id === params.safeId),
 );
 
 export const selectSafesLoading = createSelector(
-  selectSafeList,
-  (state: fromSafeList.State) => state.pending
+  selectSlice,
+  (state) => state.pending,
 );
+
 ```
 
 </details>
