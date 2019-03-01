@@ -272,12 +272,11 @@ export class SafePageComponent implements OnInit {
 
   ngOnInit() {
     this.loading$ = this.store.pipe(select(selectSafesLoading));
-    this.safe$ = this.store.pipe(select(selectSafe));
-
-    this.activatedRoute.paramMap.pipe(
-      tap((params: ParamMap) =>
-        this.store.dispatch(new UserLoadSafe({ safeId: params.get('id'), userId: this.userId })),
-      ),
+    this.safe$ = this.activatedRoute.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        this.store.dispatch(new UserLoadSafe({ safeId: params.get('id'), userId: this.userId }));
+        return this.store.pipe(select(selectSafe, { safeId: params.get('id') }));
+      }),
     );
     // this.safe$ = this.activatedRoute.paramMap.pipe(
     //   switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))),
