@@ -14,7 +14,7 @@ export interface LoginData {
 ### Create User model
 
 - user.ts
-- admin.ts
+- administrator.ts
 - customer.ts
 
 ```typescript
@@ -133,11 +133,14 @@ ng g guard core/guards/auth --lintFix
 ng g guard core/guards/admin --lintFix
 ```
 
-## Exercise: 9.1
+## Exercise 9.1
 
 ### Implement Guards
 
-When guard blocks, it should schedule a redirect.
+- When guard blocks, it should schedule a redirect to home
+- Home Landing Page need to trigger the AuthService login
+- App Routing Module must use the Guards
+ 
 
 <details>
 <summary>Solution</summary>
@@ -155,13 +158,13 @@ const routes: Routes = [
   {
     path: "admin",
     loadChildren: "./views/admin/admin.module#AdminModule",
-    canLoad: [AuthGuard, AdminGuard],
+    canLoad: [AdminGuard],
     canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: "user",
     loadChildren: "./views/user/user.module#UserModule",
-    canLoad: [AuthGuard],
+    canLoad: [],
     canActivate: [AuthGuard]
   },
   {
@@ -185,7 +188,8 @@ export class AppRoutingModule {}
 ### admin.guard.ts
 
 ```typescript
-import { Injectable } from "@angular/core";
+
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   CanLoad,
@@ -194,53 +198,48 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { map, tap, take } from "rxjs/operators";
-import { AuthService } from "~core/services/auth.service";
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap, take, filter } from 'rxjs/operators';
+import { AuthService } from '~core/services/auth.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class AdminGuard implements CanActivate, CanLoad {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.userIsAdmin();
   }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.userIsAdmin();
   }
   userIsAdmin(): Observable<boolean> {
     return this.auth.getCurrentUser().pipe(
-      map(user => user.role === "Administrator"),
+      map(user => user && user.role === 'Administrator'),
+      // 
       tap(canload => {
         if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
+          console.log('error. goback to home.');
+          this.router.navigate(['/home']);
         }
       }),
-      take(1)
+      take(1),
     );
   }
 }
+
 ```
 
 ### auth.guard.ts
 
 ```typescript
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   CanLoad,
@@ -249,48 +248,38 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
-  Router
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "~core/services/auth.service";
-import { map, tap, take } from "rxjs/operators";
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '~core/services';
+import { map, tap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private auth: AuthService, private router: Router) {}
-
+export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.verifyUser();
-  }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.verifyUser();
-  }
-
-  verifyUser(): Observable<boolean> {
-    return this.auth.getCurrentUser().pipe(
-      map(Boolean),
-      tap(canload => {
-        if (!canload) {
-          console.log("error. goback to home.");
-          this.router.navigate(["/home"]);
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.authService.getCurrentUser().pipe(
+      tap(console.log),
+      map(user => {
+        if (user) {
+          return true;
+        } else {
+          const url = '/home';
+          const tree: UrlTree = this.router.parseUrl(url);
+          return tree;
         }
       }),
-      take(1)
+      take(1),
     );
   }
+
+  constructor(private authService: AuthService, private router: Router) {}
 }
+
 ```
 
 </details>
@@ -298,10 +287,9 @@ export class AuthGuard implements CanActivate, CanLoad {
 ### Add auth.service login call to home-landing-page.component
 
 ```typescript
-import { Customer } from "~core/model/customer";
+import { Customer, LoginData } from "~core/model";
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { AuthService } from "~core/services/auth.service";
-import { LoginData } from "~core/model/login-data";
 import { Router } from "@angular/router";
 
 @Component({
@@ -317,7 +305,7 @@ export class HomeLandingPageComponent implements OnInit {
 
   login(loginAsRole: "Administrator" | "Customer") {
     this.authService
-      .login({ role: loginAsRole, email: "nomail@gmail.com" } as LoginData)
+      .login({ role: loginAsRole, email: "test@coolsafe.de" } as LoginData)
       .subscribe(user => {
         if (user.role === "Customer") {
           this.router.navigate(["/user"]);
@@ -330,7 +318,7 @@ export class HomeLandingPageComponent implements OnInit {
 }
 ```
 
-## Additional Exercise: 9.4.1
+## Additional Exercise 9.2
 
 ### Create safe-resolver.service.ts for safe component routing
 
@@ -398,7 +386,7 @@ Question: Is safe.component now dumb?
 
 </details>
 
-## Additional Excercise: Create Login Dialog 9.4.2
+## Additional Excercise: Create Login Dialog 9.3
 
 ### Create Login Dialog Component and Login Component
 
@@ -665,7 +653,7 @@ login.component.html
 
 </details>
 
-## Additional Exercise: 9.4.3
+## Additional Exercise 9.4.3
 
 ### Inject role to Dialog Component
 

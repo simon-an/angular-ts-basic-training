@@ -1,12 +1,14 @@
 # Chapter 10 Pipes and Validators
 
-## Chapter 10.1 Ceate a simple register form with one input for email address
+## Preparation: Ceate a simple register form with one input for email address
 
 ```bash
 ng g component views/home/components/registerForm --changeDetection OnPush
 ```
 
-<details><summary>register-form.component.html</summary>
+<details><summary>Code</summary>
+
+- register-form.component.html
 
 ```html
 <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
@@ -17,9 +19,6 @@ ng g component views/home/components/registerForm --changeDetection OnPush
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-error *ngIf="!!registerForm.errors?.AdminEmail && (email.touched || email.dirty)">
-    Email address domain for admins are restricted.
-  </mat-error>
 
   <mat-form-field>
     <input
@@ -45,32 +44,79 @@ ng g component views/home/components/registerForm --changeDetection OnPush
   <button [disabled]="!registerForm.valid" mat-button color="primary">
     Register
   </button>
+  <mat-error *ngIf="!!registerForm.errors?.specialAdmin && (email.touched || email.dirty)">
+    Email address domain for admins are restricted.
+  </mat-error>
 </form>
+
 ```
+- register-form.component.ts
 
 ```typescript
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: "cool-register-form",
-  templateUrl: "./register-form.component.html",
-  styleUrls: ["./register-form.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'cool-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormComponent implements OnInit {
-  model = { email: "" };
+  roles = ['Customer', 'Administrator'];
+  state = { email: '', role: 'Customer' };
 
   constructor() {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log("Register user with email: ", this.model.email);
+    console.log('Register user with email: ', this.state.email);
   }
 }
+
+
+```
+
+- home-module.ts
+
+```typescript
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { HomeRoutingModule } from './home-routing.module';
+import { LayoutModule } from '~layout/layout.module';
+import { SafeModule } from '~safe/safe.module';
+import { HomeLandingPageComponent } from './home-landing-page/home-landing-page.component';
+import { MatListModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [HomeLandingPageComponent, RegisterFormComponent],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    LayoutModule,
+    MatListModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
+})
+export class HomeModule {}
+
 ```
 
 </details>
+
+- Add the RegisterFrom to the HomeLandingPage
+
+```html
+  <div body><cool-register-form></cool-register-form></div>
+```
 
 - Add a mock function to auth.service.ts which checks wheather email address exists in backend.
 
@@ -96,9 +142,7 @@ export class RegisterFormComponent implements OnInit {
 
 </details>
 
-## Exercise: 10.2
-
-### Create admin and email domain validator
+## Exercise 10.1 Create admin and email domain validator
 
 - Create a validator (admin-email-validator.directive.ts), which validates the email to be from a specific domain, when the role is admin.
 - Hint: Validator must be attached to the form tag.
@@ -115,21 +159,29 @@ import { Directive } from "@angular/core";
 import {
   AbstractControl,
   ValidationErrors,
-  ValidatorFn,
-  FormGroup,
-  Validator,
-  NG_VALIDATORS
-} from "@angular/forms";
+  ValidatorFn,import { Directive } from '@angular/core';
+import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup, Validator, NG_VALIDATORS } from '@angular/forms';
+
+export const adminDomainValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  const role = control.get('role');
+  const email = control.get('email');
+
+  console.log(role, email);
+
+  return role && email && role.value === 'Administrator' && !email.value.includes('@metafinanz.de')
+    ? { specialAdmin: true }
+    : null;
+};
 
 @Directive({
-  selector: "[coolAdminEmailValidator]",
+  selector: '[coolAdminEmailValidator]',
   providers: [
     {
       provide: NG_VALIDATORS,
       useExisting: AdminEmailValidatorDirective,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class AdminEmailValidatorDirective implements Validator {
   constructor() {}
@@ -138,31 +190,11 @@ export class AdminEmailValidatorDirective implements Validator {
   }
 }
 
-export const adminDomainValidator: ValidatorFn = (
-  control: FormGroup
-): ValidationErrors | null => {
-  const role = control.get("role");
-  const email = control.get("email");
-
-  return role &&
-    email &&
-    role.value === "admin" &&
-    !email.value.includes("@metafinanz.de")
-    ? { specialAdmin: true }
-    : null;
-};
-```
-
-```html
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm" coolAdminEmailValidator>
-  <mat-error *ngIf="!!registerForm.errors?.AdminEmail">
-    Email address domain for admins are restricted to domains: {{ registerForm?.errors?.AdminEmail?.domains }}
-  </mat-error>
 ```
 
 </details>
 
-## Exercise 10.3 Create user exists async validator
+## Exercise 10.2 Create user exists async validator
 
 - Create an async validator, which calles the auth-service userExists method.
 - Attach the validator to the email input field.
@@ -216,7 +248,7 @@ export class UserExistsValidatorDirective implements AsyncValidator {
 
 </details>
 
-## Exercise 10.4 Material Elevation: [Docs](https://material.io/design/environment/elevation.html)
+## Exercise 10.3 Material Elevation: [Docs](https://material.io/design/environment/elevation.html)
 
 - add body css class to home-landing-page.component
 

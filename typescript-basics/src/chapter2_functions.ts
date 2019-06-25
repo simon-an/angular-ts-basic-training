@@ -16,8 +16,11 @@ let myAdd3: (x: number, y: number) => number = (x, y) => {
 
 // optional parameter
 function buildName(firstName: string, lastName?: string): string {
-  if (lastName) return firstName + ' ' + lastName;
-  else return firstName;
+  if (lastName) {
+    return firstName + ' ' + lastName;
+  } else {
+    return firstName;
+  }
 }
 let result1 = buildName('Bob'); // works correctly now
 // let result2 = buildName("Bob", "Adams", "Sr.");  // error, too many parameters

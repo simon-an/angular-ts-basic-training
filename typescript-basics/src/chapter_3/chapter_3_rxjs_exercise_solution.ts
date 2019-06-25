@@ -1,6 +1,5 @@
+import { from, Observable, of } from 'rxjs';
 import { catchError, filter, map, reduce, take, toArray } from 'rxjs/operators';
-import { from, of, Observable } from 'rxjs';
-
 
 // Exercise 1
 
@@ -34,24 +33,28 @@ const makeAllCaps = (item: Observable<any>): Observable<string> => {
   return item.pipe(
     map((item: any) => {
       if (typeof item !== 'string') {
-        throw Error('Not all items in the array are strings!')
+        throw Error('Not all items in the array are strings!');
       } else {
-      return item.toUpperCase();
+        return item.toUpperCase();
       }
     })
   );
 };
 
-from(arrayOfWords).pipe(
-  makeAllCaps,
-  toArray(),
-  map(array => array.sort()),
-  catchError(error => of(error))
-).subscribe(result => console.log(`Result3a: ${result}`))
+from(arrayOfWords)
+  .pipe(
+    makeAllCaps,
+    toArray(),
+    map(array => array.sort()),
+    catchError(error => of(error))
+  )
+  .subscribe(result => console.log(`Result3a: ${result}`));
 
-of(complicatedArray).pipe(
-  makeAllCaps,
-  toArray(),
-  map(array => array.sort()),
-  catchError(error => of(error))
-).subscribe(result => console.log(`Result3b: ${result}`))
+of(complicatedArray)
+  .pipe(
+    makeAllCaps,
+    toArray(),
+    map(array => array.sort()),
+    catchError(error => of(error))
+  )
+  .subscribe(result => console.log(`Result3b: ${result}`));

@@ -1,6 +1,6 @@
-# Call the backend
+# Chapter 11
 
-## Preparation
+## Preparation for calling the backend
 
 ### Create a LoggerService in core/services/logger.service.ts
 
@@ -67,7 +67,7 @@ npm run start:with:backend
 ### Variant In Memory Mock
 
 ```bash
-npm install in-memory-web-api
+npm install -S angular-in-memory-web-api
 ```
 
 - create core/services/in-memory-safe.service.ts
@@ -247,7 +247,7 @@ import { SafeInMemDataService } from './services/in-memory-safe.service';
      { provide: SafeInMemDataService, useExisting: InMemoryDbService }],
 ```
 
-## Exercise 11.1 http interceptors
+## Exercise 11.1 HTTP Interceptors
 
 ### Implement an intercepter which logs the duration of every http request
 
@@ -296,7 +296,7 @@ export class TimingInterceptor implements HttpInterceptor {
 
 </details>
 
-## Exercise 11.2 safe.service
+## Exercise 11.2 Call the backend in safe.service
 
 ### safe.service should now call the endpoints
 

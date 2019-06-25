@@ -1,5 +1,5 @@
-import { take, switchMap } from "rxjs/operators";
-import { interval, of, timer } from "rxjs";
+import { interval, of, timer } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 
 // Create an Observable that will publish a value on an interval
 const secondsCounter = interval(1000);

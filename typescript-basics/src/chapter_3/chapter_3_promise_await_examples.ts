@@ -3,7 +3,7 @@ function doSomeThing(value: number): Promise<number> {
     // throw new Error('Something failed')
     setTimeout(() => {
       // Dont throw errors here.
-      console.log("doSomeThing", value + 1);
+      console.log('doSomeThing', value + 1);
       // reject(new Error('Something failed'));
       resolve(value + 1);
     }, 1000);
@@ -12,7 +12,7 @@ function doSomeThing(value: number): Promise<number> {
 function doSomeThingElse(value: number): Promise<number> {
   return new Promise(resolve =>
     setTimeout(() => {
-      console.log("doSomeThingElse", value + 1);
+      console.log('doSomeThingElse', value + 1);
       resolve(value + 1);
     }, 1000)
   );
@@ -20,13 +20,13 @@ function doSomeThingElse(value: number): Promise<number> {
 function doThirdThing(value: number): Promise<number> {
   return new Promise(resolve =>
     setTimeout(() => {
-      console.log("doThirdThing", value + 1);
+      console.log('doThirdThing', value + 1);
       resolve(value + 1);
     }, 1000)
   );
 }
 function failureCallback(error: any): any {
-  console.log("errorxyz:", error);
+  console.log('errorxyz:', error);
   return error;
 }
 
@@ -54,14 +54,14 @@ function gogogo(value: number) {
   doSomeThing(value)
     .then(result => doSomeThingElse(result))
     .then(result => {
-      console.log("dazwischen");
+      console.log('dazwischen');
       return result;
     })
     .then(newResult => doThirdThing(newResult))
-    .then(finalResult => console.log("Got the final result: " + finalResult))
+    .then(finalResult => console.log('Got the final result: ' + finalResult))
     .catch(failureCallback)
     .finally(() => {
-      console.log("This will be shown always!");
+      console.log('This will be shown always!');
     });
 }
 

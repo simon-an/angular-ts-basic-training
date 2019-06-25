@@ -1,19 +1,18 @@
-namespace typesIntersection {
-  interface Student {
-    id: string;
-    age: number;
-  }
 
-  interface Worker {
-    companyId: string;
-  }
-
-  type WorkingStudent = Student & Worker;
-
-  let person: WorkingStudent;
-  person = {
-    id: 'PID123',
-    age: 5,
-    companyId: 'CID01'
-  };
+interface IStudent {
+  id: string;
+  age: number;
 }
+
+interface IWorker {
+  companyId: string;
+}
+
+type WorkingStudent = IStudent & IWorker;
+
+let person: WorkingStudent;
+person = {
+  age: 5,
+  companyId: 'CID01',
+  id: 'PID123',
+};

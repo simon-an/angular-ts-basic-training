@@ -10,7 +10,7 @@ ng generate module core --module app
 
 ![61](screenshots/61.PNG)
 
-## Exercise 6.1.1 Create models: Safe, SafeItem
+### Exercise 6.1.1 Create models: Safe, SafeItem
 
 ```typescript
 // app\core\model\safe.ts
@@ -32,13 +32,19 @@ export interface SafeItem {
 }
 ```
 
-## Exercise 6.1.2 Create Barrel files for core module
+### Exercise 6.1.2 Create Barrel files for core module
 
-<details><summary>Create barrel file for the core module models</summary>
+Add safe.service.ts (implementation will be done in the next exercise).
+
+```bash
+ng g s core/services/safe
+```
+
+### Create barrel file for the core module models
 
 Right click folder src/app/core/model -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/model/index.ts
+Result: src/app/core/model/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -47,13 +53,11 @@ export * from "./safeitem";
 // end:ng42.barrel
 ```
 
-</details>
-
 <details><summary>Create barrel file for the core module</summary>
 
 Right click folder src/app/core -> Create Barrel (Directories) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/index.ts
+Result: src/app/core/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -68,7 +72,7 @@ export * from "./services";
 
 Right click folder src/app/core -> Create Barrel (Files) (Extension: NG42 TypeScript Helpers)
 
-src/app/core/services/index.ts
+Result: src/app/core/services/index.ts
 
 ```typescript
 // start:ng42.barrel
@@ -78,13 +82,9 @@ export * from "./safe.service";
 
 </details>
 
-## Exercise 6.1.3 Create global service: SafeService (this is a temporary mock service)
+### Exercise 6.1.3 Implement global service: SafeService (this is a temporary mock service)
 
-```bash
-ng g s core/services/safe
-```
-
-- safe.service should provice data to pass the following test:
+- safe.service should provide data to pass the following test:
 
 <details>
 <summary>Karma Test</summary>
@@ -274,7 +274,7 @@ There is a tslint quotemark error. Format your code with Shift+Alt+F and Prettie
 
 </details>
 
-## Exercise 6.1.4 admin-landing-page.component should show list of safes
+### Exercise 6.1.4 admin-landing-page.component should show list of safes
 
 ```bash
 ng g c views/admin/container/safeList --changeDetection OnPush --module views/admin
@@ -282,12 +282,13 @@ ng g c views/admin/container/safeListElement --export --changeDetection OnPush -
 ng g c views/admin/components/safeRow --export --changeDetection OnPush --module views/admin
 ```
 
-1. In safe-list.component get safes in ngOnInit from safe.service
-2. In safe-list-element.component get the safe from an @Input [Use @Input:](https://angular.io/api/core/Input)
-3. Show the list of safes with ngFor
-4. Give the safes to the safe-list-row.component with the innput directive [@Input](https://angular.io/api/core/Input)
-5. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
-6. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
+1. Add cool-safe-list to admin-landingpage.component.html
+2. In safe-list.component get safes in ngOnInit from safe.service
+3. In safe-list-element.component get the safe from an @Input [Use @Input:](https://angular.io/api/core/Input)
+4. Show the list of safes with ngFor
+5. Give the safes to the safe-list-row.component with the input directive [@Input](https://angular.io/api/core/Input)
+6. Use Mat-Nav-List for styling. [docs](https://material.angular.io/components/list/overview)
+7. Find out, what's the best place to place a matToolTip.[docs](https://material.angular.io/components/tooltip/overview)
 
 <details><summary>Solution</summary>
 
@@ -344,15 +345,17 @@ admin-landing-page.component.html
 
 </details>
 
-## Exercise 6.2 Create item list in safe.component
+## Exercise 6.2 Show Safe List on User Page
 
 ![62](screenshots/62.PNG)
 
+### Create safe-page.component
+
 ```bash
-ng g c views/user/containers/safePage --export --changeDetection OnPush --module safe
+ng g c views/user/containers/safePage --export --changeDetection OnPush --module user
 ```
 
-## Exercise 6.2.1 Routing to safe component 'safe/:id'
+### Exercise 6.2.1 Routing to safe component 'safes/:id'
 
 <details><summary>Add routerLink to user-landing-page.component.html</summary>
 
@@ -477,57 +480,42 @@ const routes: Routes = [
 
 </details>
 
-## Exercise 6.2.2 safe.component subscribe to service and routeparam and get safe and its items
+### Exercise 6.2.2 safe-page.component subscribe to service and routeparam and get safe and its items
 
 <details><summary>safe-page.component.ts</summary>
 
 ```typescript
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
-import { Observable } from "rxjs";
-import { Safe, SafeService, SafeItem } from "src/app/core";
-
-import { Observable } from "rxjs";
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from "@angular/core";
-import { SafeService } from "~core/services";
-import { SafeItem, Safe } from "~core/model";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Safe, SafeItem } from '~core/model';
+import { SafeService } from '~core/services';
 
 @Component({
-  templateUrl: "./safe-page.component.html",
-  styleUrls: ["./safe-page.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './safe-page.component.html',
+  styleUrls: ['./safe-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SafePageComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private service: SafeService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute, private service: SafeService) {}
 
   ngOnInit() {
     this.safe$ = this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getSafe(params.get("id")))
+      switchMap((params: ParamMap) => this.service.getSafe(params.get('id'))),
     );
-    this.items$ = this.safe$.pipe(
-      switchMap((safe: Safe) => this.service.getItems(safe.id))
-    );
+    this.items$ = this.safe$.pipe(switchMap((safe: Safe) => this.service.getItems(safe.id)));
   }
 }
+
 ```
 
 </details>
 
-## Exercise 6.2.3 Itemlist component show list of safe items
+### Exercise 6.2.3 item-list.component should #show list of safe items
 
 Generate item-list component:
 
@@ -539,7 +527,7 @@ Generate item-list component:
 Or in the terminal:
 
 ```bash
-ng g component safe/components/itemList --changeDetection OnPush
+ng g component safe/components/itemList --export --changeDetection OnPush
 ```
 
 <details><summary>safe-page.component.html</summary>

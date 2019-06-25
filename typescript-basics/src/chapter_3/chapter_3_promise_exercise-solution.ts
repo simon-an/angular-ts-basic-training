@@ -25,7 +25,7 @@ const complicatedArray: any[] = ['salsa', 44, true];
 
 const makeAllCaps = (array: any[]): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    let capsArray: string[] = array.map((item: any) => {
+    const capsArray: string[] = array.map((item: any) => {
       if (typeof item !== 'string') {
         reject('Error: Not all items in the array are strings!');
       }

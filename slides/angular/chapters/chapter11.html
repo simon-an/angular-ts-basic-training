@@ -3,17 +3,20 @@
 </section>
 <section>
     <h2>HttpClient</h2>
-    <p>Perform HTTP requests.</p>
-    <p>HttpClient is available as an injectable class, with methods to perform HTTP requests. Each request method has
-        multiple signatures, and the return type varies according to which signature is called (mainly the values of
-        observe and responseType).</p>
+    <ul>
+        <li>injectable class</li>
+        <li>contains methods to perform HTTP requests</li>
+        <li>return type varies according to which signature is called (mainly the values of observe and responseType)</li>
+    </ul>
 </section>
 <section>
     <h2>HttpInterceptor</h2>
     <p>Intercepts HttpRequest and handles them.</p>
-    <p>Most interceptors will transform the outgoing request before passing it to the next interceptor in the chain, by calling next.handle(transformedReq).</p>
     <aside class="notes">
-        Use for header manipulation
+        <ul>
+            <li>Use for header manipulation.</li>
+            <li>Most interceptors will transform the outgoing request before passing it to the next interceptor in the chain, by calling next.handle(transformedReq).</li>
+        </ul>
     </aside>
 </section>
 <section>

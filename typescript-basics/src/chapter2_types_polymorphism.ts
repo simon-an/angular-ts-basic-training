@@ -16,13 +16,13 @@ function createClock(
 class DigitalClock implements ClockInterface {
   constructor(public h: number, public m: number) {}
   tick() {
-    console.log("beep beep");
+    console.log('beep beep');
   }
 }
 class AnalogClock implements ClockInterface {
   constructor(h: number, m: number) {}
   tick() {
-    console.log("tick tock");
+    console.log('tick tock');
   }
 }
 let digital: ClockInterface = createClock(DigitalClock, 12, 17);

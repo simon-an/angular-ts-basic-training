@@ -1,6 +1,6 @@
 # Chapter 7
 
-## Exercise: 7.1
+## Exercise 7.1
 
 ### Add a button to item list
 
@@ -8,26 +8,22 @@ Add a mat-toolbar element to the safe-page.component.
 Add a button with the 'add' icon to this toolbar.
 
 ![71](screenshots/71.PNG)
-
-<details><summary>Show Solution</summary>
   
 - safe-page.component.html
 
 ```html
 ...
 <mat-toolbar>
-  <button *ngIf="isCustomer" mat-mini-fab color="primary">
+  <button mat-mini-fab color="primary">
     <mat-icon aria-label="add new Safe Items">add</mat-icon>
   </button>
 </mat-toolbar>
 ...
 ```
 
-</details>
+## Exercise 7.2
 
-## Exercise: 7.2
-
-### Exercise: 7.2.1 Create the dialog and add open dialog function
+### Exercise 7.2.1 Create the dialog and add open dialog function
 
 Generate dialog component
 
@@ -35,9 +31,8 @@ Generate dialog component
 ng g component views/user/containers/addSafeItemDialog --export --changeDetection OnPush --entryComponent
 ```
 
-- Import MatDialogModule to shared module
-- Add AddSafeItemDialogComponent to entryComponents in the user module
-- Implement the addSafeItem method in safe-page.component.ts
+- Import MatDialogModule to user module
+- Implement the addSafeItem method in safe-page.component.ts, which shall open the Dialog
 
 <details><summary>safe-page.component.ts Solution</summary>
 
@@ -54,7 +49,7 @@ addSafeItem() {
 
 </details>
 
-### Exercise: 7.2.2 Create a template driven form inside a dialog
+### Exercise 7.2.2 Create a template driven form inside a dialog
 
 ![73](screenshots/73.PNG)
 
@@ -147,10 +142,16 @@ add-safe-item-dialog.component.html
 ```
 
 ```scss
-div {
+
+form {
   display: flex;
   flex-direction: column;
 }
+
+mat-form-field {
+  margin-bottom: 10px;
+}
+
 ```
 
 </p>
@@ -218,7 +219,9 @@ Unit Tests:
   }
 ```
 
-### Exercise 7.3.4 Call the add Item Method from the safe-page.component.ts
+- Hint: make sure you don't complete the getItems() Observable.
+
+### Exercise 7.2.4 Call the add Item Method from the safe-page.component.ts
 
 Hint: subscribe to the afterClosed Observable of the dialogRef.
 
@@ -246,7 +249,7 @@ safe.component.ts
 
 </details>
 
-### Exercise 7.3.5 Bind the form result to the dialog component
+### Exercise 7.2.5 Bind the form result to the dialog component
 
 <details><summary>Show Solution</summary>
 
@@ -272,7 +275,7 @@ add-safe-item-dialog.component.html
 
 </details>
 
-## Additional Exercise: add Edit SafeItem
+## Additional Exercise: Add Edit SafeItem
 
 - Implement an EditSafeItem Dialog.
 - Pass a copy of safeitem to the dialog.

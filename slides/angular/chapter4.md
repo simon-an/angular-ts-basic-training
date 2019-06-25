@@ -18,7 +18,7 @@ ng g module views/user --routing
 ng g module views/admin --routing
 ```
 
-- import shared module in view modules.
+- import the shared modules in view modules.
 
 ### Generate root components for modules
 
@@ -37,7 +37,7 @@ ng g c views/admin/pages/adminLandingPage --changeDetection OnPush --module view
 ng g c views/user/userLandingPage --changeDetection OnPush --module views/user
 ```
 
-## Exercise: 4.2
+## Exercise 4.2
 
 Replace code in app/app.component.html
 
@@ -114,7 +114,7 @@ const routes: Routes = [
 
 </details>
 
-## Exercise: 4.3 Add navigation to the home component
+##  4.3 Add navigation to the home component
 
 ### Add Angular Material and your first module
 
@@ -173,7 +173,7 @@ Hint: When loading user page, you can see that only the user module is loaded in
 - home-landing-page.component.spec.ts
 
 ```typescript
-imports: [CommonModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
+imports: [CommonModule, LayoutModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
 ```
 
 - app.component.spec.ts
@@ -186,13 +186,13 @@ Very easy to fix.
 ng g component components/PageNotFound --changeDetection OnPush
 ```
 
-- add to app.routing.module.ts
+- add to app-routing.module.ts
 
 ```typescript
  { path: '**', component: PageNotFoundComponent }
 ```
 
-## Addional Exercise: 4.6 Secondary Routing
+## Addional Exercise 4.6 Secondary Routing
 
 <details><summary>Task</summary>
 

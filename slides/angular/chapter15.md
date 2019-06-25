@@ -5,7 +5,7 @@
 ```typescript
 EffectsModule.forRoot([])
 ...
-EffectsModule.forFeature([SafeitemEffects, SafeListEffects]),
+EffectsModule.forFeature([SafeItemEffects, SafeEffects]),
 ```
 
 ## 15.1 Add Effects to load SafeItems
@@ -13,7 +13,7 @@ EffectsModule.forFeature([SafeitemEffects, SafeListEffects]),
 - create an Effect, which calls safe.service getItems() when the LoadSafeItems event occurs.
 
 ```bash
-ng g @ngrx/schematics:effect shared/store/safe/effects/safeitem
+ng g @ngrx/schematics:effect root-state/effects/SafeItem
 ```
 
 - hint: use exhaustMap rxjs operator to call safe service

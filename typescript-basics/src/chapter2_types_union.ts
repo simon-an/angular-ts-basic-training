@@ -1,29 +1,28 @@
-interface Square {
-  kind: "square";
+interface ISquare {
+  kind: 'square';
   size: number;
 }
-interface Rectangle {
-  kind: "rectangle";
+interface IRectangle {
+  kind: 'rectangle';
   width: number;
   height: number;
 }
-interface Circle {
-  kind: "circle";
+interface ICircle {
+  kind: 'circle';
   radius: number;
 }
 
-type Shape = Square | Rectangle | Circle; // union type
+type Shape = ISquare | IRectangle | ICircle; // union type
 
 function area(s: Shape) {
   switch (s.kind) {
-    case "square":
+    case 'square':
       return s.size * s.size;
-    case "rectangle":
+    case 'rectangle':
       return s.height * s.width;
-    case "circle":
+    case 'circle':
       return Math.PI * s.radius ** 2;
   }
 }
-console.log(area({ kind: "square", size: 5 }));
-console.log(area({ kind: "rectangle", width: 1, height: 5 }));
-
+console.log(area({ kind: 'square', size: 5 }));
+console.log(area({ kind: 'rectangle', width: 1, height: 5 }));

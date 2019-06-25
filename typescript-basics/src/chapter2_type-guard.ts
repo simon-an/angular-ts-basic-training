@@ -1,42 +1,42 @@
-interface Bird {
+interface IBird {
   fly(): void;
   layEggs(): void;
 }
 
-interface Fish {
+interface IFish {
   swim(): void;
   layEggs(): void;
 }
 
-function getSmallPet(): Fish | Bird {
+function getSmallPet(): IFish | IBird {
   if (Math.random() * 10 > 5) {
     return {
       fly: () => {
-        console.log("flying");
+        console.log('flying');
       },
       layEggs: () => {
-        console.log("lay eggs");
+        console.log('lay eggs');
       }
-    } as Bird;
+    } as IBird;
   } else {
     return {
       swim: () => {
-        console.log("swimming");
+        console.log('swimming');
       },
       layEggs: () => {
-        console.log("lay eggs");
+        console.log('lay eggs');
       }
-    } as Fish;
+    } as IFish;
   }
 }
 
-let pet: Fish | Bird = getSmallPet();
+let pet: IFish | IBird = getSmallPet();
 pet.layEggs(); // okay
 // pet.swim(); // errors
 // pet.fly(); // errors
 
-function isFish(pet: Fish | Bird): pet is Fish {
-  return (<Fish>pet).swim !== undefined;
+function isFish(pet: IFish | IBird): pet is IFish {
+  return (pet as IFish).swim !== undefined;
 }
 
 // if(pet){
@@ -46,4 +46,4 @@ if (isFish(pet)) {
   pet.fly();
 }
 
-console.log("isFish", isFish(pet));
+console.log('isFish', isFish(pet));

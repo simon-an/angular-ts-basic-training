@@ -10,7 +10,9 @@ function createValue(): null | { value: number } {
 }
 
 function checkNull(obj: any): boolean {
-  if (obj) return true;
+  if (obj) {
+    return true;
+  }
   return false;
 }
 
