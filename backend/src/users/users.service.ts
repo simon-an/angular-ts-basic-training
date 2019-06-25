@@ -38,6 +38,7 @@ export class UsersService {
   }
 
   findByEmailAndRole(data: LoginData) {
+    console.log('findByEmailAndRole', data);
     return this.users
       .filter(user => user.role === data.role)
       .find(user => user.name === data.email);

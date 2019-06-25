@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (user: User | null) => {
           this.loading = false;
-          // console.log('user', user);
+          console.log('user', user);
           this.dialogRef = null;
           if (user) {
             if (user.role) {

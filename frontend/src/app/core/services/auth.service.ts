@@ -3,6 +3,7 @@ import { Observable, timer, of, BehaviorSubject } from 'rxjs';
 import { LoginData, User } from '../model';
 import { map, tap, take, catchError, concatMap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,30 +17,40 @@ export class AuthService {
 
   login(loginData: LoginData): Observable<User | never | null> {
     if (loginData) {
-      return this.http.post(this.authUrl, loginData).pipe(
-        map((res: any) => res.token),
-        tap((token: string) => localStorage.setItem('TOKEN', 'Bearer ' + token)),
-        tap((token: string) => console.log(token)),
-        concatMap(token =>
-          this.http.get(this.authUrl /*{ headers: new HttpHeaders().set('Authorization', 'Bearer ' + token) }*/)
-        ),
-        tap((user: User) => this.user.next(user)),
-        catchError(err => {
-          if (err.status === 401) {
-            return of(null);
-          }
-          throw err;
-        })
-      );
+      if (environment.production) {
+        return this.http.post(this.authUrl, loginData).pipe(
+          map((res: any) => res.token),
+          tap((token: string) => localStorage.setItem('TOKEN', 'Bearer ' + token)),
+          tap((token: string) => console.log(token)),
+          concatMap(token =>
+            this.http.get(this.authUrl /*{ headers: new HttpHeaders().set('Authorization', 'Bearer ' + token) }*/)
+          ),
+          tap((user: User) => this.user.next(user)),
+          catchError(err => {
+            if (err.status === 401) {
+              return of(null);
+            }
+            throw err;
+          })
+        );
+      } else {
+        this.user.next({ id: '123', name: loginData.email, role: loginData.role } as User);
+        return of(this.user.getValue());
+      }
     }
     return of(null);
   }
 
   validateToken(): Observable<User> {
-    return this.http.get(this.authUrl /*{ headers: new HttpHeaders().set('Authorization', 'Bearer ' + token) }*/).pipe(
-      map((res: User) => res),
-      tap((user: User) => this.user.next(user))
-    );
+    if (environment.production) {
+      return this.http
+        .get(this.authUrl /*{ headers: new HttpHeaders().set('Authorization', 'Bearer ' + token) }*/)
+        .pipe(
+          map((res: User) => res),
+          tap((user: User) => this.user.next(user))
+        );
+    }
+    return this.user;
   }
 
   getUser() {
@@ -50,7 +61,14 @@ export class AuthService {
     return timer(300)
       .pipe(
         map(time => {
-          if (email === 'simon.potzernheim@metafinanz.de' || email.includes('@gmail.com')) {
+          if (!environment.production) {
+            return true;
+          } else if (
+            email === 'test@coolsafe.de' ||
+            email === 'admin@coolsafe.de' ||
+            email === 'simon.potzernheim@metafinanz.de' ||
+            email.includes('@gmail.com')
+          ) {
             return true;
           } else {
             return false;
@@ -63,7 +81,14 @@ export class AuthService {
   emailExistsRxjs(email: string): Observable<boolean> {
     return timer(300).pipe(
       map(time => {
-        if (email === 'simon.potzernheim@metafinanz.de' || email.includes('@gmail.com')) {
+        if (!environment.production) {
+          return true;
+        } else if (
+          email === 'test@coolsafe.de' ||
+          email === 'admin@coolsafe.de' ||
+          email === 'simon.potzernheim@metafinanz.de' ||
+          email.includes('@gmail.com')
+        ) {
           return true;
         } else {
           return false;
