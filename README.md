@@ -8,11 +8,11 @@
  
 ## Excercises: 
  
-Typescript [Excercise](typescript-basics/Exercises.md)
+Typescript [Exercises](typescript-basics/Exercises.md)
 
 Backend [Guide](backend/Instructions.md)
 
-Angular [Excercise](slides/angular/chapter2.md)
+Angular [Exercises](slides/angular/chapter2.md)
 
 ## Known Issues: 
 - Node Sass install issue on windows.
