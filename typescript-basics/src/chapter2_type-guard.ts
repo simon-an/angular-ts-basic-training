@@ -3,28 +3,28 @@ interface IBird {
   layEggs(): void;
 }
 
-interface IFish {
-  swim(): void;
-  layEggs(): void;
+class IFish {
+  swim(): void {}
+  layEggs(): void {}
 }
 
 function getSmallPet(): IFish | IBird {
   if (Math.random() * 10 > 5) {
     return {
       fly: () => {
-        console.log('flying');
+        console.log("flying");
       },
       layEggs: () => {
-        console.log('lay eggs');
+        console.log("lay eggs");
       }
     } as IBird;
   } else {
     return {
       swim: () => {
-        console.log('swimming');
+        console.log("swimming");
       },
       layEggs: () => {
-        console.log('lay eggs');
+        console.log("lay eggs");
       }
     } as IFish;
   }
@@ -40,10 +40,10 @@ function isFish(pet: IFish | IBird): pet is IFish {
 }
 
 // if(pet){
-if (isFish(pet)) {
+if (pet instanceof IFish) {
   pet.swim();
 } else {
   pet.fly();
 }
 
-console.log('isFish', isFish(pet));
+console.log("isFish", isFish(pet));

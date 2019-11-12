@@ -1,13 +1,13 @@
-import { of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-import { catchError, map } from 'rxjs/operators';
+import { of, Observable } from "rxjs";
+import { ajax } from "rxjs/ajax";
+import { catchError, map } from "rxjs/operators";
 
 // Return "response" from the API. If an error happens,
 // return an empty array.
-const apiData = ajax('/api/data').pipe(
+const apiData: Observable<string[]> = ajax("/api/data").pipe(
   map(res => {
     if (!res.response) {
-      throw new Error('Value expected!');
+      throw new Error("Value expected!");
     }
     return res.response;
   }),
@@ -16,10 +16,10 @@ const apiData = ajax('/api/data').pipe(
 
 apiData.subscribe({
   next(x) {
-    console.log('data: ', x);
+    console.log("data: ", x);
   },
   error(err) {
-    console.log('errors already caught... will not run');
+    console.log("errors already caught... will not run");
   }
 });
 

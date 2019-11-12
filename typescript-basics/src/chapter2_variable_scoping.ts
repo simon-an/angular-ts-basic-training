@@ -1,10 +1,11 @@
 // var has function scope
-var foo = 123;
-function test() {
-  var foo = 456;
+var scoopingfoo = 123;
+function test222() {
+  var scoopingfoo = 456;
+  console.log("inside test", scoopingfoo); // 456
 }
-test();
-console.log(foo); // 123
+test222();
+console.log("outside test", scoopingfoo); // 123
 
 function showVarFunctionScope() {
   var foo = 123;
@@ -24,14 +25,14 @@ function showLetBlockScope() {
 }
 showLetBlockScope();
 
-// Example reuse variable names in switch statement with let because of {} in case bodies
+// // Example reuse variable names in switch statement with let because of {} in case bodies
 switch (name) {
-  case 'x': {
+  case "x": {
     let x = 5;
     // ...
     break;
   }
-  case 'y': {
+  case "y": {
     let x = 10;
     // ...
     break;
