@@ -204,20 +204,20 @@ constructor(translateService: TranslateService) {
 
 - header-with-sidenav.component.html
 
-```html
+``` html
     <span>{{ 'AppName' | translate }}</span>
 ```
 
 - home-landing-page.component.html
 
-```html
+``` html
     <h2>{{ 'WelcomeMessage' | translate }}</h2>
     <p>{{ 'RegisterMessage' | translate }}</p>
 ```
 
 - user-landing-page.component.html
 
-```html
+``` html
      <p mat-line>{{ 'SafeLink' | translate }}</p>
 ```
 

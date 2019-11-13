@@ -50,7 +50,6 @@ Set rootDir and outDir in tsconfig.json:
 "rootDir": "./src",
 "outDir": "./out",
 ...
-
 ```
 
 Run command `tsc` to generate helloworld.js

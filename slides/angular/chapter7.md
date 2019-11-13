@@ -8,7 +8,7 @@ Add a mat-toolbar element to the safe-page.component.
 Add a button with the 'add' icon to this toolbar.
 
 ![71](screenshots/71.PNG)
-  
+
 - safe-page.component.html
 
 ```html
@@ -142,7 +142,6 @@ add-safe-item-dialog.component.html
 ```
 
 ```scss
-
 form {
   display: flex;
   flex-direction: column;
@@ -151,7 +150,6 @@ form {
 mat-form-field {
   margin-bottom: 10px;
 }
-
 ```
 
 </p>

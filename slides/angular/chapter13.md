@@ -90,17 +90,17 @@ Add action events to root-store/actions/safe.actions.ts:
 <details><summary>Solution root-store/actions/safe.actions.ts</summary>
 
 ```typescript
-import { Action } from '@ngrx/store';
-import { Safe } from '../model/safe';
+import { Action } from "@ngrx/store";
+import { Safe } from "../model/safe";
 
 export enum SafeActionTypes {
-  UserLoadSafeOnItemsChange = '[User Safe Page] Load Safe On Items Change',
-  AdminLoadSafes = '[Admin Landing Page] Load Safes',
-  UserLoadSafe = '[User Landing Page] Load Safe',
-  LoadSafesSuccess = '[Safe API] Load Safes Success',
-  LoadSafesFailure = '[Safe API] Load Safes Failure',
-  LoadSafeSuccess = '[Safe API] Load Safe Success',
-  LoadSafeFailure = '[Safe API] Load Safe Failure',
+  UserLoadSafeOnItemsChange = "[User Safe Page] Load Safe On Items Change",
+  AdminLoadSafes = "[Admin Landing Page] Load Safes",
+  UserLoadSafe = "[User Landing Page] Load Safe",
+  LoadSafesSuccess = "[Safe API] Load Safes Success",
+  LoadSafesFailure = "[Safe API] Load Safes Failure",
+  LoadSafeSuccess = "[Safe API] Load Safe Success",
+  LoadSafeFailure = "[Safe API] Load Safe Failure"
 }
 
 export class LoadSafeOnItemsChange implements Action {
@@ -141,8 +141,6 @@ export type SafeActions =
   | LoadSafeSuccess
   | LoadSafesFailure
   | LoadSafeFailure;
-
-
 ```
 
 </details>
@@ -152,9 +150,9 @@ Add action types to reducer root-store/reducers/safe.reducer.ts
 <details><summary>Solution root-store/reducers/safe.reducer.ts</summary>
 
 ```typescript
-import { Action } from '@ngrx/store';
-import { SafeActions, SafeActionTypes } from '../actions/safe.actions';
-import { Safe } from '../model/safe';
+import { Action } from "@ngrx/store";
+import { SafeActions, SafeActionTypes } from "../actions/safe.actions";
+import { Safe } from "../model/safe";
 
 export interface State {
   safes: Safe[];
@@ -163,7 +161,7 @@ export interface State {
 
 export const initialState: State = {
   safes: [],
-  pending: false,
+  pending: false
 };
 
 export function reducer(state = initialState, action: SafeActions): State {
@@ -183,7 +181,6 @@ export function reducer(state = initialState, action: SafeActions): State {
       return state;
   }
 }
-
 ```
 
 </details>
@@ -193,8 +190,8 @@ export function reducer(state = initialState, action: SafeActions): State {
 - create selector in root-store/selectors/safe.selector.ts
 
 ```typescript
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from '..';
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { State } from "..";
 
 const selectSlice = (state: State) => state.safe;
 ```
@@ -204,26 +201,23 @@ Add selectors "selectSafe", "selectSafes" and "selectSafesLoading".
 <details><summary>Solution root-store/selectors/safe.selector.ts</summary>
 
 ```typescript
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from '..';
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { State } from "..";
 
 const selectSlice = (state: State) => state.safe;
 
-export const selectSafes = createSelector(
-  selectSlice,
-  (state) => state.safes,
-);
+export const selectSafes = createSelector(selectSlice, state => state.safes);
 
 export const selectSafe = createSelector(
   selectSlice,
-  (state, params: { safeId: string }) => state.safes.find(s => s.id === params.safeId),
+  (state, params: { safeId: string }) =>
+    state.safes.find(s => s.id === params.safeId)
 );
 
 export const selectSafesLoading = createSelector(
   selectSlice,
-  (state) => state.pending,
+  state => state.pending
 );
-
 ```
 
 </details>
@@ -235,37 +229,53 @@ Hint: dont remove safe service from constructor, to make sure it is provided.
  <details><summary>Solution user/container/safe-page/safe-page.component.ts</summary>
 
 ```typescript
-import { Observable, merge, Subject, BehaviorSubject } from 'rxjs';
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { SafeService } from '~core/services';
-import { SafeItem } from '~core/model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, withLatestFrom, filter, exhaustMap, concatMap, mergeMap, tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
-import { AddSafeItemDialogComponent } from '../add-safe-item-dialog/add-safe-item-dialog.component';
-import { State } from 'app/root-store';
-import { Store, select } from '@ngrx/store';
-import { Safe } from 'app/root-store/model/safe';
-import { selectSafesLoading, selectSafe } from 'app/root-store/selectors/safe.selector';
-import { UserLoadSafe } from 'app/root-store/actions/safe.actions';
+import { Observable, merge, Subject, BehaviorSubject } from "rxjs";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input
+} from "@angular/core";
+import { SafeService } from "~core/services";
+import { SafeItem } from "~core/model";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import {
+  switchMap,
+  withLatestFrom,
+  filter,
+  exhaustMap,
+  concatMap,
+  mergeMap,
+  tap
+} from "rxjs/operators";
+import { MatDialog } from "@angular/material";
+import { AddSafeItemDialogComponent } from "../add-safe-item-dialog/add-safe-item-dialog.component";
+import { State } from "app/root-store";
+import { Store, select } from "@ngrx/store";
+import { Safe } from "app/root-store/model/safe";
+import {
+  selectSafesLoading,
+  selectSafe
+} from "app/root-store/selectors/safe.selector";
+import { UserLoadSafe } from "app/root-store/actions/safe.actions";
 
 @Component({
-  templateUrl: './safe-page.component.html',
-  styleUrls: ['./safe-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: "./safe-page.component.html",
+  styleUrls: ["./safe-page.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SafePageComponent implements OnInit {
   safe$: Observable<Safe>;
   items$: Observable<SafeItem[]>;
   loading$: Observable<boolean>;
-  userId: '111';
+  userId: "111";
   isCustomer = true; // TODO provide through dependency injection
 
   constructor(
     private store: Store<State>,
     private activatedRoute: ActivatedRoute,
     private service: SafeService,
-    private dialogService: MatDialog,
+    private dialogService: MatDialog
   ) {}
 
   ngOnInit() {
@@ -273,16 +283,20 @@ export class SafePageComponent implements OnInit {
 
     this.safe$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        this.store.dispatch(new UserLoadSafe({ safeId: params.get('id'), userId: this.userId }));
-        return this.store.pipe(select(selectSafe, { safeId: params.get('id') }));
-      }),
+        this.store.dispatch(
+          new UserLoadSafe({ safeId: params.get("id"), userId: this.userId })
+        );
+        return this.store.pipe(
+          select(selectSafe, { safeId: params.get("id") })
+        );
+      })
     );
   }
 
   addSafeItem() {
     const dialogRef = this.dialogService.open(AddSafeItemDialogComponent, {
-      height: '400px',
-      width: '600px',
+      height: "400px",
+      width: "600px"
     });
     dialogRef
       .afterClosed()
@@ -299,7 +313,6 @@ export class SafePageComponent implements OnInit {
       });
   }
 }
-
 ```
 
 ```html

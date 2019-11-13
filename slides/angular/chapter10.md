@@ -48,50 +48,51 @@ ng g component views/home/components/registerForm --changeDetection OnPush
     Email address domain for admins are restricted.
   </mat-error>
 </form>
-
 ```
+
 - register-form.component.ts
 
 ```typescript
-
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-  selector: 'cool-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: "cool-register-form",
+  templateUrl: "./register-form.component.html",
+  styleUrls: ["./register-form.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterFormComponent implements OnInit {
-  roles = ['Customer', 'Administrator'];
-  state = { email: '', role: 'Customer' };
+  roles = ["Customer", "Administrator"];
+  state = { email: "", role: "Customer" };
 
   constructor() {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log('Register user with email: ', this.state.email);
+    console.log("Register user with email: ", this.state.email);
   }
 }
-
-
 ```
 
 - home-module.ts
 
 ```typescript
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { HomeRoutingModule } from './home-routing.module';
-import { LayoutModule } from '~layout/layout.module';
-import { SafeModule } from '~safe/safe.module';
-import { HomeLandingPageComponent } from './home-landing-page/home-landing-page.component';
-import { MatListModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { FormsModule } from '@angular/forms';
+import { HomeRoutingModule } from "./home-routing.module";
+import { LayoutModule } from "~layout/layout.module";
+import { SafeModule } from "~safe/safe.module";
+import { HomeLandingPageComponent } from "./home-landing-page/home-landing-page.component";
+import {
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
+} from "@angular/material";
+import { RegisterFormComponent } from "./components/register-form/register-form.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [HomeLandingPageComponent, RegisterFormComponent],
@@ -103,11 +104,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
-  ],
+    MatSelectModule
+  ]
 })
 export class HomeModule {}
-
 ```
 
 </details>
@@ -189,7 +189,6 @@ export class AdminEmailValidatorDirective implements Validator {
     return adminDomainValidator(control);
   }
 }
-
 ```
 
 </details>
