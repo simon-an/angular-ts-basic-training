@@ -47,19 +47,19 @@ Replace code in app/app.component.html
 
 Configure routing of the whole app in app/app-routing.module.ts
 
-```TypeScript
+``` typescript
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: './views/admin/admin.module#AdminModule'
+    loadChildren: () => import('./views/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: 'user',
-    loadChildren: './views/user/user.module#UserModule'
+    loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)
   },
   {
     path: 'home',
-    loadChildren: './views/home/home.module#HomeModule'
+    loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
   },
   {
     path: '',
