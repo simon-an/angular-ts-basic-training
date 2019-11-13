@@ -4,7 +4,7 @@
 
 ### Generate all needed modules
 
-```bash
+``` bash
 # make sure you are in the angular project folder
 cd ngx-safe
 
@@ -22,17 +22,17 @@ ng g module views/admin --routing
 
 ### Generate root components for modules
 
-```bash
+``` bash
 # Generate home view
 ng g c views/home/homeLandingPage --changeDetection OnPush --module views/home
 ```
 
-```bash
+``` bash
 # Generate admin view
 ng g c views/admin/pages/adminLandingPage --changeDetection OnPush --module views/admin
 ```
 
-```bash
+``` bash
 # Generate user view
 ng g c views/user/userLandingPage --changeDetection OnPush --module views/user
 ```
@@ -71,7 +71,7 @@ const routes: Routes = [
 
 Add routing configuration to app/views/home/home-routing.module.ts
 
-```TypeScript
+``` typescript
 const routes: Routes = [
   {
     path: '',
@@ -86,7 +86,7 @@ Add routing configuration to app/views/admin-routing.module.ts
 
 <details><summary>Show Solution</summary>
 
-```TypeScript
+``` typescript
 const routes: Routes = [
   {
     path: '',
@@ -103,7 +103,7 @@ Add routing configuration to app/views/user/user-routing.module.ts
 
 <details><summary>Show Solution</summary>
 
-```TypeScript
+``` typescript
 const routes: Routes = [
   {
     path: '',
@@ -118,27 +118,27 @@ const routes: Routes = [
 
 ### Add Angular Material and your first module
 
-```bash
+``` bash
 # Add Angular Material
 ng add @angular/material
 ```
 
 ### Add content to src\app\shared\components\header-with-sidenav\header-with-sidenav.component.html
 
-```bash
+``` bash
 # Generate header with sidenav
 ng g @angular/material:nav --name layout/header-with-sidenav --changeDetection OnPush --export --module layout --selector cool-header-with-sidenav
 ```
 
 Replace mat-nav-list html tag with
 
-```html
+``` html
 <ng-content select="[navlist]"></ng-content>
 ```
 
 Replace "Add Content Here" comment
 
-```html
+``` html
 <ng-content select="[body]"></ng-content>
 ```
 
@@ -146,7 +146,7 @@ Replace "Add Content Here" comment
 
 Add content to src\app\views\home\home-landing-page\home-landing-page.component.html
 
-```html
+``` html
 <cool-header-with-sidenav>
   <ng-container navlist>
     <mat-nav-list>
@@ -172,7 +172,7 @@ Hint: When loading user page, you can see that only the user module is loaded in
 
 - home-landing-page.component.spec.ts
 
-```typescript
+``` typescript
 imports: [CommonModule, LayoutModule, NoopAnimationsModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
 ```
 
@@ -182,13 +182,13 @@ Very easy to fix.
 
 ## Add Error Page to App Module: 4.5
 
-```bash
+``` bash
 ng g component components/PageNotFound --changeDetection OnPush
 ```
 
 - add to app-routing.module.ts
 
-```typescript
+``` typescript
  { path: '**', component: PageNotFoundComponent }
 ```
 
@@ -196,7 +196,7 @@ ng g component components/PageNotFound --changeDetection OnPush
 
 <details><summary>Task</summary>
 
-```bash
+``` bash
 ng g c views/user/containers/userHome  --changeDetection OnPush --module views/user
 ng g c views/shared/containers/safe  --export --changeDetection OnPush --module shared
 ```
@@ -205,7 +205,7 @@ To see the user and admin page included into the header and navigation you need 
 
 Replace codein app/views/user/user.component.html
 
-```html
+``` html
 <cool-header-with-sidenav>
   <ng-container navlist>
     <mat-nav-list>
@@ -218,19 +218,20 @@ Replace codein app/views/user/user.component.html
     <a [routerLink]="[{outlets: { secondary: ['safe'] } }]">Safe</a>
   </div>
 </cool-header-with-sidenav>
+
 ```
 
-Add SharedModule to user.module.ts
+- Add SharedModule to user.module.ts
 
-Add router outlet to app/app.component.html
+- Add router outlet to app/app.component.html
 
-```html
+``` html
 <router-outlet></router-outlet>
 ```
 
 Add routes to app/views/user/user.routing.module.ts
 
-```typescript
+``` typescript
 const routes: Routes = [
   {
     path: "home",
