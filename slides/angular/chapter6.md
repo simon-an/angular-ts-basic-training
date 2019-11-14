@@ -146,7 +146,7 @@ describe("SafeService", () => {
     service
       .getItems("1")
       .pipe(filter(Boolean))
-      .subscribe(items => {
+      .subscribe((items: SafeItem[]) => {
         expect(items.length).toBe(2);
         done();
       });
@@ -156,7 +156,7 @@ describe("SafeService", () => {
     service
       .getItems("2")
       .pipe(filter(Boolean))
-      .subscribe(items => {
+      .subscribe((items: SafeItem[]) => {
         expect(items.length).toBe(3);
         done();
       });
